@@ -12,7 +12,7 @@
 mCC = true;							// Makes the Mission Control Center available for Players or Groups defined in mccAccess as well as Zeus.
 									// Needed if you want these players to control the features listed below
 
-mccAccess[] = {TOC,s0_1};			// Here you can give Groups or Player-Slots (identified by Variable Name set in 3DEN) access to the Mission Control Center 
+mccAccess[] = {TOC,s0_1};				// Here you can give Groups or Player-Slots (identified by Variable Name set in 3DEN) access to the Mission Control Center 
 									// in Self Interaction. Zeus Menu is not changed by that.
 
 mccStart = true;					// Mission-Start available in MCC - doesn't change Zeus access for Debug
