@@ -9,7 +9,8 @@
 // Is useful for ZEUS controlled Missions to start or end a mission
 //------------------------------------------------------------------
 //------------------------------------------------------------------
-mCC = true;							// Makes the Mission Control Center available for Players or Groups defined in mccAccess. Needed if you want these players to control the features listed below
+mCC = true;							// Makes the Mission Control Center available for Players or Groups defined in mccAccess as well as Zeus.
+									// Needed if you want these players to control the features listed below
 
 mccAccess[] = {TOC,s0_1};			// Here you can give Groups or Player-Slots (identified by Variable Name set in 3DEN) access to the Mission Control Center 
 									// in Self Interaction. Zeus Menu is not changed by that.
@@ -20,7 +21,7 @@ mccEnd = true;						// Mission-End available in MCC - doesn't change Zeus access
 
 mccContinue = true;					// Mission Continue End available in MCC - doesn't change Zeus access for Debug
 
-mccHeal = true;						// Access to Full Heal function in MCC
+mccHeal = true;						// Players with Access can FUll HEAL another Player via ACE Self-Interact
 
 
 //------------------------------------------------------------------
@@ -30,13 +31,11 @@ mccHeal = true;						// Access to Full Heal function in MCC
 //
 //------------------------------------------------------------------
 //------------------------------------------------------------------
-
-baseRadius = 100;					// Radius around the object "base" where the base menu is available after missionStarted was set to true.
 									
 missionstartedfeat	= true; 		// Sets if the "Mission Started"-Feature is available. When the Feature is "true", all Players have the Base Menu everywhere available 
 									// until the Mission is started and missionStarted == true;
-									// After the Mission was started, every JIP Player will be spawned in the Base, defined in initPlayerLocal.sqf. 
-									// This is used for Missions that start in field where spawning would be normally dangerous or the Base Menu is not available. 
+									// After the Mission was started, every JIP Player will be spawned on the Object "base" (Therefor its best if its a flat object, like invisible Helipads).
+									// This is used for Missions that start "in field" where spawning would be normally dangerous or the Base Menu is not available. 
 									// Needs the Variable "missionStarted". It is automatically set when you use the Mission Start function in the MCC as Zeus or when
 									// you start an Intro sequence via: "scripts\UAMT-Scripts\MissionControlCenter\MCC_chapter_missionstart.sqf" remoteExec ["execVM",2];
 									// Look into the script to learn more about functions how you can call it.
@@ -191,8 +190,9 @@ civMessageSender = "TOC"; // Name of the Source who sends the Kill Messages
 //------------------------------------------------------------------
 //					Overall Config
 //------------------------------------------------------------------
+supportMessages = true;			// Activate/Deactivate audio messages for all UAMT support functions. Not recommended as important informations for players will be lost.
 supportControlName = "TOC";			//The Name that is shown in Radio Messages from all Support Functions from UAMT. Something like TOC, Oberkommando, CO or whatever you come up with.
-supportCustomAudioMsg = true;		//Plays Custom Audio messages. If you don't like them, set it to false. It will still send Status Reports,
+supportCustomAudio = true;		//Plays Custom Audio messages. If you don't like them, set it to false. It will still send Status Reports,
 									//but just with generic radio chatter sound. And no, there will be no translations to other languages. English was hard enough XD.
 
 
@@ -267,43 +267,21 @@ supplyDropDelay 		= 10;			// Defines the delay until a new Supply Drop is availa
 supplyDropDelayPenalty 	= 10;			// Defines how much time is added as penalty when the Supply Drop Helicopter was destroyed on its mission. Balancing and "realism".
 
 
-//------------------------------------------------------------------
-//------------------------------------------------------------------
+//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
 //
-//					Transport Feature
+//				Helicopter Transport
 //
-// Makes a Transport via Helicopter available 
-// Only one Transport ist available at all times, so make
-// the helicopter large enough for all Players.
 //
-// To activate this mid Mission see "trpOnStart" comment!
-// 
-// 
-//------------------------------------------------------------------
-//------------------------------------------------------------------
-trpFeature 			= true;				// Enables the Transport Feature.
-
-trpRoles[] 			= {TOC,Groupleader,JTAC,s0_1};		// Defines who has access to call in a Transport. Can be a GroupID, a PlayerVariable or a role.
-										// When using roles, keep in mind that when "Loadouts" are available, this role can change. 
-										// If this feature is mission critical, it is always best practice to also give the player variable of, for example the Groupleader
-										// When using GroupID, every Player in the specific group can call it in.
-
-trpOnStart			= true;		// Sets if the Transport Call is always available from the get go. If you want to enable the Transport by yourself use:
-								//  transportAvailable = true;
-								//  publicVariable "transportAvailable";
-								// in a Trigger or a script to enable the transport call in the MCC
-								
-trpVehicleClass 	= "B_Heli_Transport_03_unarmed_F"; // Vehicle Class Name of Transport Helicopter
-
-trpSpawnPos[] 		= {5322.66,6460.94,0}; //Spawn location, where the Helo will spawn and also despawn. 
-
-trpAllowDamage		= false;	// With true, you can make the Transport Helicopter vulnerable. Even though there is a function in the background
-								//  that searches a safe area for the Transporter to land, things in Arma can happen. Also AA can take out all Players easily
-								//  Be careful with that. To avoid Player frustration, I would recommend letting this on false even though its less reAliSTiC.
-
-trpDelay			= 10;		// Delay in seconds until the Transport Call is available again after the Helicopter despawned. Balancing and "realism".
-
-trpDelayPenalty		= 10;		// Time in seconds that is added onto the trpDelay when Transporter gets destroyed on its Mission. Balancing and "realism".
+//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
+chtFeature = true;				// Activates the Heli Fire Support Feature
+chtAvailable = true;			// Makes Helicopter Transport available from the start. If you want to activate it during the mission progress, use 'chtAvailable = true; publicVariable "chtAvailable";'
+chtMultiple = true;				// When true, players can call multiple Transport Helicopters even another transport is just on the way
+chtClasses[] = {"B_Heli_Light_01_F","B_Heli_Transport_01_F"};	// Helicopter Classes available for Transport
+chtRoles[] = {JTAC,Groupleader};	// Roles that can call in Heli Transport
+chtSpawn = "chtSpawnMrk";		// Location the Helicopter will spawn. Place a map marker and configure the name here.
+chtDespawn = "chtDespawnMrk";	// Location the Helicopter will despawn. Place a map marker and configure the name here.
 
 
 //------------------------------------------------------------------
@@ -369,7 +347,7 @@ artillery[] = {
 				}
 };
 
-artiCooldown = 10; 	// Cooldown for when the Artillery is available again. Balancing gameplay element. 
+artiCooldown = 10; 	// Cooldown for Artillery after strike. Balancing gameplay element. 
 					// I would recommend 120 to 300 at least so they don't just bomb a place to the ground
 
 artiNoFireZones[] = {noFire_1,noFire_2}; 	// No Fire Zones. Artillery can not be fired in these Areas. 
@@ -377,83 +355,116 @@ artiNoFireZones[] = {noFire_1,noFire_2}; 	// No Fire Zones. Artillery can not be
 											// Doesn't make a difference if the Area is Visible or not.
 
 
-//------------------------------------------------------------------
-//------------------------------------------------------------------
+//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
 //
-//					CAS Feature
+//				VLS Fire-Support
 //
-// Has a Helicopter and a Plane version.
-// Plane strikes one time with a chosen weapon on a location marked
-// by user on the map.
-// Helicopter sends chosen Helicopters to a location marked by user
-// on the map and lets them stay there for the configured time
+// Lets the defined roles order a strike with VLS Missiles. 
+//
+// Roles in vlsRoles can call the Strike via Equipment defined in vls 
+// equipment (Laserdesignator prefered). This limits their calls to
+// only what they can see.
+//
+// Roles in vlsRolesCMDR have access to a terminal where they can 
+// choose a position on a map to strike. Very powerful with unlimited
+// range. 
 // 
-//------------------------------------------------------------------
-//------------------------------------------------------------------
+// vlsAiDisabled should be true, if you want the VLS Turret only react
+// on strikes ordered via this function.
+// This will deactivate any AI capabilities for the VLS to automatically
+// fire. 
+// This will also disable the Turret in all UAV Terminals in the 
+// Mission, see the players cannot take control of it. 
+// This is the recommended setting, as the Turrets AI has sometimes
+// unforseen behaviour.
+//
+// vlsDelay is meant to be used if you want to simulate the vls platform to
+// not be 'on the map'. If you have a specified compound/ship for the vls
+// launchplatform on the map, this can be 0.
+//
+// Has two options to be called. All players in vlsRoles can call a Strike
+// when looking through a Laserdesignator (or other equipment you defined).
+// This means, they need to have a view onto the target.
+//
+// All players in vlsRolesCMDR can order a strike via graphic interface
+// and call it on any position on the map.
+//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
 
-casPlaneFeature = true; // Activates the CAS Plane Feature
+vlsFeature = true;				// Activates the vls Function
+vlsName = "vls_1";				// Variable name of the vls turret you placed on the map
+vlsAvailable = true;			// Makes vls available from the start. If you want to activate it during the mission progress, use 'vlsAvailable = true; publicVariable "vlsAvailable";'
+vlsAIDisabled = true;			// Disables all function besides the needed ones for the vls turret so it cannot act autonomously
+vlsPlayerControl = false;		// Disables the function for players with UAV Terminal to connect to the vls turret. Should be false for immersion.
+vlsHERounds = 1;				// Count of Cruise Missiles that can be fired
+vlsClusterRounds = 0;			// Count of Cluster Missiles that can be fired
+vlsDelay = 0;					// Delay of rocketlaunch after strike is ordered
+vlsCooldown = 0;				// Cooldown time until another vls Strike is available again
+vlsRoles[] = {JTAC,Groupleader};	// Roles that can call a vls strike via Equipment on sight.
+vlsRolesCMDR[] = {TOC,JTAC};		// Roles that can call in a VLS strike via Interface
+vlsEquipment[] = {laserDesignator};  // Equipment with which role defined players can call a vls strike.
+vlsNeedsLaser = true;			// Target can only be marked if Equipment has a laser. If you want that players can call the strike with binocs or rangefinder, set to false.
+vlsAllowDrones = false;			// Target can be marked and called when in drones. Drones need to have laser.
+vlsNoFireZones[] = {noFireZone_1}; // Areas where no vls Strike is allowed. Place an area on the map and give it a variable name. Enter the variable name here. It doesn't matter if area is visible or not
 
-casPlaneClass = "B_Plane_Fighter_01_Stealth_F";	// Class of the Plane you want to give Airsupport. Currently only one Plane configurable
+//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
+//
+//				CAS Strike
+//
+// Call in a fixed Wing CAS Strike on a Position marked with a Laserdesignator
+// 
+// Has two options to be called. All players in casRoles can call a Strike
+// when looking through a Laserdesignator (or other equipment you defined).
+// This means, they need to have a view onto the target.
+//
+// All players in casRolesCMDR can order a strike via graphic interface
+// and call it on any position on the map.
+//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
+casFeature = true;				// Activates the CAS Feature
+casAvailable = true;			// Makes CAS available from the start. If you want to activate it during the mission progress, use 'casAvailable = true; publicVariable "casAvailable";'
+casClass = "B_Plane_CAS_01_dynamicLoadout_F";	// Plane that flies the CAS (musst be one of the vanilla CAS vehicle Types
+casMGruns = 0;					// How Many MG runs the CAS can do
+casMisRuns = 3;					// How many missile runs the CAS can do
+casBombRuns = 0;				// How many bomb runs the CAS can do
+casDelay = 0;					// How much time goes by between call and the spawn of the CAS plane
+casCooldown = 0;				// Cooldown time until CAS is available again
+casPenalty = 5;					// How long it takes until CAS is available again after the plane was shot down. If 0 the CAS won't be available once it was lost!
+casRoles[] = {JTAC,Groupleader};	// Roles that can call in a CAS strike in the field via Laser Designator (defined in casEquipment).
+casRolesCMDR[] = {TOC,JTAC};			// Roles that can call in a CAS strike from and to everywhere via Interface and map marker. Very powerful, meant for high ranking officers not at the front lines.
+casEquipment[] = {laserdesignator};	// Equipment with which you can call in a CAS strike.
+casNeedsLaser = true;			// Target can only be marked if Equipment has a laser. If you want that players can call the strike with binocs or rangefinder, set to false.
+casAllowDrones = true;			// Target can be marked and called when in drones. Drones need to have laser.
+casNoFireZones[] = {noFireZone_1}; // Areas where CAS strikes are prohibited. Place an area on the map and give it a variable name. Enter the variable name here. It doesn't matter if area is visible or not
 
-casPlaneWeapons[] = {0,1,2,3}; 	// Array to select which Weapontypes for the strike are available. 
-								// 0 : Machinegun
-								// 1 : Missile
-								// 2 : Machinegun and Missile
-								// 3 : Bomb
-								// You can choose different kind of Bombs by giving a different Vehicle Class
-
-casPlaneRoles[] = {TOC,JTAC,s0_1};	// Roles that can call a CAS Plane Strike
-									// Can be a Group Variable (set in Init of the Playerslot, not the Group Variable), a Role or a Player Variable
-									// When using roles, keep in mind that when "Loadouts" are available, this role can change. 
-									// If this feature is mission critical, it is always best practice to also give the player variable of, for example the Groupleader
-									// When using GroupID, every Player in the specific group can call it in.
-
-casPlaneAvailableFromStart = true; 	// Makes the Option available from the Start. 
-									// Set this to false if you want to activate the feature later in the Mission, for example when a Mission objective was fulfilled.
-									// For this use: 
-									// casPlaneAvailable = true;
-									// publicVariable "casPlaneAvailable";
-
-casPlaneCooldown = 10; // Cooldown time before the next Airstrike is available
-
-casPlaneCooldownPenalty = 10; // Penalty that gets added to cooldown if the Plane was destroyed on its Mission
-
-casPlaneMaxCount = 10; 	// Max Amount of available Strikes
-						// Can be changed later in the Mission with:
-						// casPlaneMaxCount = 5;
-						// publicVariable "casPlaneMaxCount";
-
-casPlaneDelay = 10; // Delay between calling the Airstrik and actually spawning the Vehicle
-
-casPlaneNoCASZones[] = {marker_1}; 	// No Fire Zones are Areas on the Map where no CAS is allowed.
-									// Usea "Areas" in Eden Editor and enter their variable Name here.
-									// Works with Circular and Rectangular Area. Doesn't matter of the Area is visible or not
-
-//------------------------------------------------------------------
-//			Helicopter CAS
-//------------------------------------------------------------------
-
-casHeloFeature = true; // Activates the CAS Helicopter Feature
-
-casHeloArr[] = {{"B_Heli_Attack_01_dynamicLoadout_F",1},{"B_Heli_Light_01_dynamicLoadout_F",2},{"B_Heli_Light_01_dynamicLoadout_F",4}}; // Multidimensional Array. Gives Helicopter Class and Amount of Helicopter spawned
-
-casHeloRoles[] = {TOC,JTAC,s1}; // Roles that can call the Helicopter CAS
-
-casHeloAvailableFromStart = true; // Makes the Feature available from the Start
-
-casHeloDuration = 60; // Duration how long the Helicopters wills tay on target before they retunr
-
-casHeloCooldown = 10; // Cooldown after Helicopter left the ARea
-
-casHeloCooldownPenalty = 10; // Cooldown Penalty when all Helicopters are destroyed
-
-casHeloMaxCount = 10; // Max Amount of available Striks
-
-casHeloDelay = 10; // Delay between calling the Helicopters and actually spawning the Vehicles
-
-casHeloNoCASZones[] = {marker_1}; 	// No Fire Zones are Areas on the Map where no CAS is allowed. 
-									// Usea "Areas" in Eden Editor and enter their variable Name here.
-									// Works with Circular and Rectangular Area. Doesn't matter of the Area is visible or not
+//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
+//
+//				Helicopter Fire Support
+//
+// Calls in rotary fire support for an allowed time
+// 
+// Has two options to be called. All players in hfsRoles can call the
+// Helicopters to their position.
+//
+// All players in casRolesCMDR can order send the helis via graphic interface
+// everywhere on the map.
+//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
+hfsFeature = true;				// Activates the Heli Fire Support Feature
+hfsAvailable = true;			// Makes Heli Fire Support available from the start. If you want to activate it during the mission progress, use 'hfsAvailable = true; publicVariable "hfsAvailable";'
+hfsArray[] = {{"B_Heli_Light_01_dynamicLoadout_F",2,3},{"B_Heli_Attack_01_dynamicLoadout_F",1,5}};	// Array of Helicopters. Multidimensional Array {{"Heli Class",Number spawned Helis,Number Support can be called},{more Elements}}
+hfsDuration = 30;				// How long the helicopters will stay on Target
+hfsDistance = 2000;				// How far away the Helicopters are spawned
+hfsDelay = 0;					// Delay until helicopters are spawned
+hfsCooldown = 0;				// How long until Heli Fire Support is available again
+hfsPenalty = 0;					// Penalty if at least one heli gets shot.
+hfsRespawn = false;				// Enable respawn for lost helicopters. If false, the fire support is not available anymore for this element.
+hfsRoles[] = {JTAC,Groupleader};	// Roles that can call in Heli Fire Support
+hfsRolesCMDR[] = {TOC,JTAC};			// Roles that can call in a Heli Fire Support from and to everywhere via Interface and map marker. Very powerful, meant for high ranking officers not at the front lines.
+hfsNoFireZones[] = {noFireZone_1};	// Areas where Heli Fire Support is prohibited. Place an area on the map and give it a variable name. Enter the variable name here. It doesn't matter if area is visible or not.
 
 
 //------------------------------------------------------------------
@@ -530,7 +541,7 @@ radio10M			= "Code 10 - Groupleader Down";
 // The AFB will always be close to at least one Player. Consider this when setting the spawn time so it doesn't happen to often
 //------------------------------------------------------------------
 AFBActivated = true;	// Activate AFB for Planes
-AFBPHeight = 300;			// Height for Planes. This is for some of the larger planes like C-130, which are likely to crash at heights under 300.
+AFBPHeight = 300;			// Height for Planes. Needed for some of the larger planes like C-130, which are likely to crash at heights under 300.
 AFBmaxTime = 1800;			// Max Time between AFB, std. 30 min = 1800
 AFBmidTime = 1200;			// Mid Time between AFB, std. 20 min = 1200
 AFBminTime = 600;			// Min Time between AFB, std. 10 min = 600

@@ -28,6 +28,10 @@
 // Keep in mind that all these patterns and their accuracy depend on reach and the accuracy of the 
 // artillery firing.
 //
+//
+// Call:
+// [[artilleryArray],_targetPos,_ammunition,_dispersionPattern,_radius,_innerRadius,_delay,_condition] call UAMT_fnc_artilleryFire;
+//
 // Parameters:
 // _artis : ARRAY of Objects / Artillery units you want to fire.
 // _target : Position [] or Markername "String" / The Target that is the center of the firepattern
@@ -36,18 +40,19 @@
 // _dispPattern : NUMBER 1 - 6 / Dispersion Pattern
 // _radius : NUMBER / The radius the artillery will distribute shots around the target
 // _innerRadius : NUMBER / the inner radius needed for distribution Pattern 6
+// _delay : NUMBER / Maximum of random delay between shots.
 // _condition : CODE or NUMBER / If code, the artillery will fire as long as the code return true. 
 //								 If Number, ALL artilleries will fire this amount of shots
 //
 // EXAMPLE:
-// [[mortar_1,mortar_2],"target_1","8Rnd_82mm_Mo_shells",6,1000,950,{true}] call UAMT_fnc_artilleryFire;
+// [[mortar_1,mortar_2],"target_1","8Rnd_82mm_Mo_shells",6,1000,950,10,{true}] call UAMT_fnc_artilleryFire;
 //
 // Lets the mortars 1 and 2 fire onto the Marker with Name "Target_1" with 82mm Shells in a Ring with 
 // a outer radius of 1000m and a inner radius of 950m. Will never stop firing!
 //
 // -----------------------
 //
-// [[mortar_1],"target_1","8Rnd_82mm_Mo_shells",1,100,0,{alive mortar_1}] call UAMT_fnc_artilleryFire;
+// [[mortar_1],"target_1","8Rnd_82mm_Mo_shells",1,100,0,5,{alive mortar_1}] call UAMT_fnc_artilleryFire;
 //
 // Will only let Mortar_1 fire on Target_1 with 82mm Shells in distribution pattern 1 and will stop 
 // firing when mortar_1 is dead
@@ -56,7 +61,7 @@
 // Script by Jan & Spiderman from The Old Boys
 //-----------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------
-params ["_artis","_target","_ammo","_dispPattern","_radius","_innerRadius","_condition"];
+params ["_artis","_target","_ammo","_dispPattern","_radius","_innerRadius","_delay","_condition"];
 
 _center = [0,0,0];
 _firemode = {};
@@ -79,15 +84,15 @@ switch _dispPattern do {
 
 if (typeName _condition == "CODE") then {
 	{
-		[_x,_center,_ammo,_fireMode,_condition,_radius,_innerRadius] spawn {
-			params ["_arti","_center","_ammo","_fireMode","_condition","_radius","_innerRadius"];
+		[_x,_center,_ammo,_fireMode,_condition,_radius,_innerRadius,_delay] spawn {
+			params ["_arti","_center","_ammo","_fireMode","_condition","_radius","_innerRadius","_delay"];
 			_pos = [0,0,0];
 			
 			while _condition do {
 				
 				[_center,_radius,_innerRadius] call _fireMode;
 				
-				sleep (2 + (random 2));
+				sleep (2 + (random 2) + (random _delay));
 				
 				[_arti, [_pos, _ammo, 1]] remoteExec ["doArtilleryFire", _arti];
 					
@@ -100,15 +105,15 @@ if (typeName _condition == "CODE") then {
 }
 else {
 	{
-		[_x,_center,_ammo,_fireMode,_condition,_radius,_innerRadius] spawn {
-			params ["_arti","_center","_ammo","_fireMode","_condition","_radius","_innerRadius"];
+		[_x,_center,_ammo,_fireMode,_condition,_radius,_innerRadius,_delay] spawn {
+			params ["_arti","_center","_ammo","_fireMode","_condition","_radius","_innerRadius","_delay"];
 			_pos = [0,0,0];
 			
 			for "_i" from 1 to _condition do {
 				
 				[_center,_radius,_innerRadius] call _fireMode;
 				
-				sleep (2 + (random 2));
+				sleep (2 + (random 2) + (random _delay));
 				
 				[_arti, [_pos, _ammo, 1]] remoteExec ["doArtilleryFire", _arti];
 					

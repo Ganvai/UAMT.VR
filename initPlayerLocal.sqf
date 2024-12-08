@@ -5,7 +5,9 @@
 //
 //------------------------------------------------------------------
 //------------------------------------------------------------------
-titleText ["Preparing Mission...", "BLACK FADED", 1];
+if (!devMode) then {
+	titleText ["Preparing Mission...", "BLACK FADED", 1];
+};
 
 // Generating Briefing Section
 [] execVM "scripts\UAMTScripts\briefing.sqf";
@@ -34,26 +36,28 @@ if (getMissionConfigValue "modcheck" == "true") then {
 //
 //------------------------------------------------------------------
 //------------------------------------------------------------------
-if (getMissionConfigValue "iJName" != "") then {
-	
-	[] spawn {
-		//Needed for fadeMusic to work
-		ace_hearing_disableVolumeUpdate = true;
-
-		//set Music to zero for FadeIn
-		0 fadeMusic 0;
-
-		// Debug Play, needed because sometimes Arme has problems starting a Track
-		// that is not defined in the Missions CfGMusic.
-		playMusic iJName;
-		sleep 0.1;
-
-		//Playing the OT Track with music
-		playMusic [iJName,iJStart];
-		iJFade fadeMusic 1;
+if (!devMode) then {
+	if (getMissionConfigValue "iJName" != "") then {
 		
-		sleep (IJFade + 1);
-		ace_hearing_disableVolumeUpdate = false;
+		[] spawn {
+			//Needed for fadeMusic to work
+			ace_hearing_disableVolumeUpdate = true;
+
+			//set Music to zero for FadeIn
+			0 fadeMusic 0;
+
+			// Debug Play, needed because sometimes Arme has problems starting a Track
+			// that is not defined in the Missions CfGMusic.
+			playMusic iJName;
+			sleep 0.1;
+
+			//Playing the OT Track with music
+			playMusic [iJName,iJStart];
+			iJFade fadeMusic 1;
+			
+			sleep (IJFade + 1);
+			ace_hearing_disableVolumeUpdate = false;
+		};
 	};
 };
 //------------------------------------------------------------------
@@ -265,28 +269,14 @@ if (supplyDropFeature) then {
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 	
-if (trpFeature) then {
+if (chtFeature) then {
 
-	_transportMenuCon = {
-		(trpRoles findIf {_x == vehicleVarName player;} > -1) || (trpRoles findIf {_x == groupID group player;} > -1) || (trpRoles findIf {_x == player getVariable "loadout";} > -1)
-	};
-
-	_transportCallCon = {
-		transportAvailable
-	};
-
-	_transportLiftOffCon = {
-		transportStartOrders
-	};
+	// CAS Terminal
+	_condition = { (chtAvailable || chtMultiple ) && ((chtRoles findIf {_x == vehicleVarName player;} > -1) || (chtRoles findIf {_x == groupID group player;} > -1) || (chtRoles findIf {_x == player getVariable "loadout";} > -1)) };
 	
-	_transportMenu = ["Transport","Transport","\a3\ui_f\data\igui\cfg\simpletasks\types\Heli_ca.paa",{}, _transportMenuCon] call ace_interact_menu_fnc_createAction;
-	[(typeOf player), 1, ["ACE_SelfActions"], _transportMenu] call ace_interact_menu_fnc_addActionToClass;
+	_chtTerminal = ["Heli Transport","Heli Transport","a3\ui_f\data\igui\cfg\simpletasks\types\Heli_ca.paa",{[] spawn chtDialog_fnc_chtCreateDialog;},_condition] call ace_interact_menu_fnc_createAction;
+	[(typeOf player), 1, ["ACE_SelfActions"], _chtTerminal] call ace_interact_menu_fnc_addActionToClass;
 	
-	_transportCall1 = ["Call Transport","Call Transport","\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_connect_ca.paa",{ execVM "scripts\UAMTScripts\transport\transportRequest.sqf"; },_transportCallCon] call ace_interact_menu_fnc_createAction;
-	[(typeOf player), 1, ["ACE_SelfActions","Transport"], _transportCall1] call ace_interact_menu_fnc_addActionToClass;
-	
-	_transportCall2 = ["Order Transport Take Off","Order Transport Take Off","\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_takeOff2_ca.paa",{ execVM "scripts\UAMTScripts\transport\transportTakeOff.sqf"; },_transportLiftOffCon] call ace_interact_menu_fnc_createAction;
-	[(typeOf player), 1, ["ACE_SelfActions","Transport"], _transportCall2] call ace_interact_menu_fnc_addActionToClass;
 };
 
 //------------------------------------------------------------------
@@ -305,10 +295,107 @@ if (artiFeature) then {
 
 
 	// Creating a Sub Menu Category Base with Logo
-	_artiMenuItem = ["Artillery","Artillery","\a3\ui_f\data\igui\cfg\simpletasks\types\destroy_ca.paa",{call artDialog_fnc_startArtillery;},_artiCondition] call ace_interact_menu_fnc_createAction;
+	_artiMenuItem = ["Artillery","Artillery","\a3\ui_f\data\igui\cfg\simpletasks\types\destroy_ca.paa",{[] spawn artDialog_fnc_artCreateDialog;},_artiCondition] call ace_interact_menu_fnc_createAction;
 	[(typeOf player), 1, ["ACE_SelfActions"], _artiMenuItem] call ace_interact_menu_fnc_addActionToClass;
 };
 
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+//
+//						VLS Feature
+//
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+if (vlsFeature) then {
+
+	// VLS Terminal
+	_condition = { vlsAvailable && ((vlsRolesCMDR findIf {_x == vehicleVarName player;} > -1) || (vlsRolesCMDR findIf {_x == groupID group player;} > -1) || (vlsRolesCMDR findIf {_x == player getVariable "loadout";} > -1)) };
+	
+	_vlsTerminal = ["VLS Terminal","VLS Terminal","A3\ui_f\data\map\mapcontrol\Stack_CA.paa",{[] spawn vlsDialog_fnc_vlsCreateDialog;},_condition] call ace_interact_menu_fnc_createAction;
+	[(typeOf player), 1, ["ACE_SelfActions"], _vlsTerminal] call ace_interact_menu_fnc_addActionToClass;
+	
+	// Cruise Missile Menu
+	_condition = {};
+	if (vlsNeedsLaser) then {
+		if (vlsAllowDrones) then {
+			_condition = {
+							vlsAvailable && ((vlsHERounds > 0) || (vlsClusterRounds > 0)) &&
+								(( vlsEquipment findIf {currentWeapon player ==  _x } > -1 && isLaserOn player ) || ( [player,"GUNNER"] isEqualTo UAVControl getConnectedUAV player && isLaserOn getConnectedUAV player ) )  && 
+							((vlsRoles findIf {_x == vehicleVarName player;} > -1) || (vlsRoles findIf {_x == groupID group player;} > -1) || (vlsRoles findIf {_x == player getVariable "loadout";} > -1))
+			};		
+		}
+		else {
+			_condition = {
+							vlsAvailable && ((vlsHERounds > 0) || (vlsClusterRounds > 0)) &&
+								( vlsEquipment findIf {currentWeapon player ==  _x } > -1 && isLaserOn player ) && 
+							((vlsRoles findIf {_x == vehicleVarName player;} > -1) || (vlsRoles findIf {_x == groupID group player;} > -1) || (vlsRoles findIf {_x == player getVariable "loadout";} > -1))
+			};		
+		};
+	}
+	else {
+		if (vlsAllowDrones) then {
+			_condition = {
+							vlsAvailable && ((vlsHERounds > 0) || (vlsClusterRounds > 0)) &&
+								(( vlsEquipment findIf {currentWeapon player ==  _x } > -1) || ( [player,"GUNNER"] isEqualTo UAVControl getConnectedUAV player && isLaserOn getConnectedUAV player ) )  && 
+							((vlsRoles findIf {_x == vehicleVarName player;} > -1) || (vlsRoles findIf {_x == groupID group player;} > -1) || (vlsRoles findIf {_x == player getVariable "loadout";} > -1))
+			};		
+		}
+		else {
+			_condition = {
+							vlsAvailable && ((vlsHERounds > 0) || (vlsClusterRounds > 0)) &&
+								( vlsEquipment findIf {currentWeapon player ==  _x } > -1) && 
+							((vlsRoles findIf {_x == vehicleVarName player;} > -1) || (vlsRoles findIf {_x == groupID group player;} > -1) || (vlsRoles findIf {_x == player getVariable "loadout";} > -1))
+			};		
+		};
+	};
+				
+	_vls = ["Order Cruise Missile","Order Cruise Missile","A3\ui_f\data\map\mapcontrol\Stack_CA.paa",{},_condition] call ace_interact_menu_fnc_createAction;
+	[(typeOf player), 1, ["ACE_SelfActions"], _vls] call ace_interact_menu_fnc_addActionToClass;
+
+	
+	// He Missile Entry
+	_condition = {vlsHERounds > 0};
+	
+	_modifierFunc = {
+		params ["_target", "_player", "_params", "_actionData"];
+			
+		// Modify the action - index 1 is the display name, 2 is the icon...
+		_actionData set [1, format ["HE Missile (%1 left)",vlsHERounds]];
+	};
+	
+	_vlsHE = ["HE Missile","HE Missile","A3\ui_f\data\map\markers\military\dot_CA.paa",{[0] spawn UAMTvls_fnc_vlsCall;},_condition,{},[],"",0,[false, false, false, false, false],_modifierFunc] call ace_interact_menu_fnc_createAction;
+	[(typeOf player), 1, ["ACE_SelfActions","Order Cruise Missile"], _vlsHE] call ace_interact_menu_fnc_addActionToClass;
+	
+	
+	// Cluster Missile Entry
+	_condition = {vlsClusterRounds > 0};
+	
+	_modifierFunc = {
+		params ["_target", "_player", "_params", "_actionData"];
+			
+		// Modify the action - index 1 is the display name, 2 is the icon...
+		_actionData set [1, format ["Cluster Missile (%1 left)",vlsClusterRounds]];
+	};
+	
+	_vlsCluster = ["Cluster Missile","Cluster Missile","A3\ui_f\data\map\markers\military\dot_CA.paa",{[1] spawn UAMTvls_fnc_vlsCall;},_condition,{},[],"",0,[false, false, false, false, false],_modifierFunc] call ace_interact_menu_fnc_createAction;
+	[(typeOf player), 1, ["ACE_SelfActions","Order Cruise Missile"], _vlsCluster] call ace_interact_menu_fnc_addActionToClass;
+	
+	
+	// Checking if vls Turret should be still available in UAV Terminal
+	if ( getMissionConfigValue "vlsPlayerControl" == "false" ) then {
+		
+		//Deactivate current UAV Terminals to connect to the vls Turret
+		player disableUAVConnectability [vlsName, true];
+		
+		//Add an Eventhandler that disables the connect ability every time the terminal changes (needed for new picked up terminals)
+		player addEventHandler ["SlotItemChanged", {
+			params ["_unit", "_name", "_slot", "_assigned", "_weapon"];
+				if (_slot == 612) then {
+					player disableUAVConnectability [vlsName, true];
+				};
+		}];
+	};
+};
 
 //------------------------------------------------------------------
 //------------------------------------------------------------------
@@ -317,87 +404,174 @@ if (artiFeature) then {
 //
 //------------------------------------------------------------------
 //------------------------------------------------------------------
-
-if (casPlaneFeature || casHeloFeature) then {
-	_casMenu = ["CAS","CAS","\a3\Modules_F_Curator\Data\portraitCASGunMissile_ca.paa",{},{casPlaneFeature || casHeloFeature}] call ace_interact_menu_fnc_createAction;
-	[(typeOf player), 1, ["ACE_SelfActions"], _casMenu] call ace_interact_menu_fnc_addActionToClass;
-};
-
-if (casPlaneFeature) then {
+if (casFeature) then {
 	
-	_casPlaneCondition = {
-		casPlaneAvailable && (casPlaneStrikeCount < casPlaneMaxCount) && ((casPlaneRoles findIf {_x == vehicleVarName player;} > -1) || (casPlaneRoles findIf {_x == groupID group player;} > -1) || (casPlaneRoles findIf {_x == player getVariable "loadout"} > -1))
-	};
-
-	_casPlaneName = getText (configFile >> "CfgVehicles" >> casPlaneClass >> "displayName");
+	// CAS Terminal
+	_condition = { casAvailable && ((casRolesCMDR findIf {_x == vehicleVarName player;} > -1) || (casRolesCMDR findIf {_x == groupID group player;} > -1) || (casRolesCMDR findIf {_x == player getVariable "loadout";} > -1)) };
 	
-	_modifierFunc = {
-		params ["_target", "_player", "_params", "_actionData"];
-		
-		_params params ["_casPlaneName"];
-		//_casPlaneName = getText (configFile >> "CfgVehicles" >> casPlaneClass >> "displayName");
-		
-		// Modify the action - index 1 is the display name, 2 is the icon...
-		_actionData set [1, format ["%1 (%2 left)",_casPlaneName,casPlaneMaxCount - casPlaneStrikeCount]];
-	};
-
-	_casPlaneMenu = [_casPlaneName,_casPlaneName,"\a3\ui_f\data\igui\cfg\simpletasks\types\Plane_ca.paa",{},_casPlaneCondition,{},[_casPlaneName],"",0,[false, false, false, false, false],_modifierFunc] call ace_interact_menu_fnc_createAction;
-	[(typeOf player), 1, ["ACE_SelfActions","CAS"], _casPlaneMenu] call ace_interact_menu_fnc_addActionToClass;
+	_casTerminal = ["CAS Terminal","CAS Terminal","a3\Modules_F_Curator\Data\portraitCASGunMissile_ca.paa",{[] spawn casDialog_fnc_casCreateDialog;},_condition] call ace_interact_menu_fnc_createAction;
+	[(typeOf player), 1, ["ACE_SelfActions"], _casTerminal] call ace_interact_menu_fnc_addActionToClass;	
 	
-	{
-		_weaponName = switch _x do {
-			case 0: {"Machinegun"};
-			case 1: {"Missilelauncher"};
-			case 2: {"Machinegun + Missilelauncher"};
-			case 3: {"Bomb"};
+	// CAS Menu  entry
+	_condition = {};
+	if (casNeedsLaser) then {
+		if (casAllowDrones) then {
+			_condition = {
+							casAvailable &&
+							(( casEquipment findIf {currentWeapon player ==  _x } > -1 && isLaserOn player ) || ( [player,"GUNNER"] isEqualTo UAVControl getConnectedUAV player && isLaserOn getConnectedUAV player ) )  &&
+							((casRoles findIf {_x == vehicleVarName player;} > -1) || (casRoles findIf {_x == groupID group player;} > -1) || (casRoles findIf {_x == player getVariable "loadout";} > -1))
+			};		
+		}
+		else {
+			_condition = {
+							casAvailable &&
+							( casEquipment findIf {currentWeapon player ==  _x } > -1 && isLaserOn player ) &&
+							((casRoles findIf {_x == vehicleVarName player;} > -1) || (casRoles findIf {_x == groupID group player;} > -1) || (casRoles findIf {_x == player getVariable "loadout";} > -1))
+			};		
 		};
-
-		_casPlaneAction = {
-			params ["_target", "_player", "_actionParams"];
-			_actionParams params ["_weaponType"];
-			[_weaponType] execVM "scripts\UAMTScripts\CAS\casPlaneRequest.sqf";
+	}
+	else {
+		if (casAllowDrones) then {
+			_condition = {
+							casAvailable &&
+							(( casEquipment findIf {currentWeapon player ==  _x } > -1) || ( [player,"GUNNER"] isEqualTo UAVControl getConnectedUAV player && isLaserOn getConnectedUAV player ) )  &&
+							((casRoles findIf {_x == vehicleVarName player;} > -1) || (casRoles findIf {_x == groupID group player;} > -1) || (casRoles findIf {_x == player getVariable "loadout";} > -1))
+			};	
+		}
+		else {
+			_condition = {
+							casAvailable &&
+							( casEquipment findIf {currentWeapon player ==  _x } > -1)  &&
+							((casRoles findIf {_x == vehicleVarName player;} > -1) || (casRoles findIf {_x == groupID group player;} > -1) || (casRoles findIf {_x == player getVariable "loadout";} > -1))
+			};		
 		};
-		
-		_casPlaneWeaponMenu = [_weaponName,_weaponName,"\a3\UI_F_Enoch\Data\CfgMarkers\dot1_ca.paa",_casPlaneAction,_casPlaneCondition,{},[_x]] call ace_interact_menu_fnc_createAction;
-		[(typeOf player), 1, ["ACE_SelfActions","CAS",_casPlaneName], _casPlaneWeaponMenu] call ace_interact_menu_fnc_addActionToClass;
-			
-	} forEach casPlaneWeapons;
-};
-
-if (casHeloFeature) then {
-
-	_casHeloCondition = {
-		casHeloAvailable && (casHeloStrikeCount < casHeloMaxCount) && ((casHeloRoles findIf {_x == vehicleVarName player;} > -1) || (casHeloRoles findIf {_x == groupID group player;} > -1) || (casHeloRoles findIf {_x == player getVariable "loadout"} > -1))
 	};
+	
+	_casStrikeMenu = ["CAS Strike","CAS Strike","a3\Modules_F_Curator\Data\portraitCASGunMissile_ca.paa",{},_condition] call ace_interact_menu_fnc_createAction;
+	[(typeOf player), 1, ["ACE_SelfActions"], _casStrikeMenu] call ace_interact_menu_fnc_addActionToClass;
+	
+	
+	// CAS MG runs
+	_condition = {casMGRuns > 0};
 
 	_modifierFunc = {
 		params ["_target", "_player", "_params", "_actionData"];
-				
+			
 		// Modify the action - index 1 is the display name, 2 is the icon...
-		_actionData set [1, format ["Helo CAS (%1 left)",casHeloMaxCount - casHeloStrikeCount]];
+		_actionData set [1, format ["Machine Gun (%1 left)",casMGruns]];
 	};
 	
-	_casHeliMenu = ["Helicopter","Helicopter","\a3\ui_f\data\igui\cfg\simpletasks\types\Heli_ca.paa",{},_casHeloCondition,{},[],"",0,[false, false, false, false, false],_modifierFunc] call ace_interact_menu_fnc_createAction;
-	[(typeOf player), 1, ["ACE_SelfActions","CAS"], _casHeliMenu] call ace_interact_menu_fnc_addActionToClass;
+	_casMG = ["Machine Gun","Machine Gun","A3\ui_f\data\map\markers\military\dot_CA.paa",{[0] spawn UAMTcas_fnc_casCall;},_condition,{},[],"",0,[false, false, false, false, false],_modifierFunc] call ace_interact_menu_fnc_createAction;
+	[(typeOf player), 1, ["ACE_SelfActions","CAS Strike"], _casMG] call ace_interact_menu_fnc_addActionToClass;
 	
-	{
-		_casHeloClassName = _x select 0;
-		_casHeloCount = _x select 1;
+	
+	// CAS missile runs
+	_condition = {casMisRuns > 0};
 
-		_casHeloName = getText (configFile >> "CfgVehicles" >> _casHeloClassName >> "displayName");
-		
-		_casHeloMenuName = (str _casHeloCount) + " " + _casHeloName;
+	_modifierFunc = {
+		params ["_target", "_player", "_params", "_actionData"];
+			
+		// Modify the action - index 1 is the display name, 2 is the icon...
+		_actionData set [1, format ["Missiles (%1 left)",casMisRuns]];
+	};
+	
+	_casMis = ["Missiles","Missiles","A3\ui_f\data\map\markers\military\dot_CA.paa",{[1] spawn UAMTcas_fnc_casCall;},_condition,{},[],"",0,[false, false, false, false, false],_modifierFunc] call ace_interact_menu_fnc_createAction;
+	[(typeOf player), 1, ["ACE_SelfActions","CAS Strike"], _casMis] call ace_interact_menu_fnc_addActionToClass;
 
-		_casHeloAction = {
-			params ["_target", "_player", "_actionParams"];
-			_actionParams params ["_casHeloClassName","_casHeloCount"];
-			[_casHeloClassName,_casHeloCount] execVM "scripts\UAMTScripts\CAS\casHeloRequest.sqf";
+	
+	// CAS Missile + MG runs
+	_condition = {casMisRuns > 0 && casMGRuns > 0};
+
+	_modifierFunc = {
+		params ["_target", "_player", "_params", "_actionData"];
+			
+		// Modify the action - index 1 is the display name, 2 is the icon...
+		_count = 0;
+		if (casMGRuns > casMisRuns) then {
+			_count = casMisRuns;
+		}
+		else {
+			_count = casMGRuns;
 		};
 		
-		_casHeloMenu = [_casHeloMenuName,_casHeloMenuName,"\a3\ui_f\data\igui\cfg\simpletasks\types\Heli_ca.paa",_casHeloAction,_casHeloCondition,{},[_casHeloClassName,_casHeloCount]] call ace_interact_menu_fnc_createAction;
-		[(typeOf player), 1, ["ACE_SelfActions","CAS","Helicopter"], _casHeloMenu] call ace_interact_menu_fnc_addActionToClass;
+		_actionData set [1, format ["MG + Missiles (%1 left)",_count]];
+	};
+	
+	_casMMG = ["MG + Missiles","MG + Missiles","A3\ui_f\data\map\markers\military\dot_CA.paa",{[3] spawn UAMTcas_fnc_casCall;},_condition,{},[],"",0,[false, false, false, false, false],_modifierFunc] call ace_interact_menu_fnc_createAction;
+	[(typeOf player), 1, ["ACE_SelfActions","CAS Strike"], _casMMG] call ace_interact_menu_fnc_addActionToClass;	
+
+	
+	// Bomb drops
+	_condition = {casBombRuns > 0};
+
+	_modifierFunc = {
+		params ["_target", "_player", "_params", "_actionData"];
 			
-	} forEach casHeloArr;
+		// Modify the action - index 1 is the display name, 2 is the icon...
+		_actionData set [1, format ["Bomb (%1 left)",casBombRuns]];
+	};
+	
+	_casBomb = ["Bomb","Bomb","A3\ui_f\data\map\markers\military\dot_CA.paa",{[3] spawn UAMTcas_fnc_casCall;},_condition,{},[],"",0,[false, false, false, false, false],_modifierFunc] call ace_interact_menu_fnc_createAction;
+	[(typeOf player), 1, ["ACE_SelfActions","CAS Strike"], _casBomb] call ace_interact_menu_fnc_addActionToClass;
+};
+
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+//
+//					Helicopter Fire Support Feature
+//
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+
+if (hfsFeature) then {
+
+	// CAS Terminal
+	_condition = { hfsAvailable && ((hfsRolesCMDR findIf {_x == vehicleVarName player;} > -1) || (hfsRolesCMDR findIf {_x == groupID group player;} > -1) || (hfsRolesCMDR findIf {_x == player getVariable "loadout";} > -1)) };
+	
+	_hfsTerminal = ["Heli Fire Support Terminal","Heli Fire Support Terminal","a3\ui_f\data\igui\cfg\simpletasks\types\Heli_ca.paa",{[] spawn hfsDialog_fnc_hfsCreateDialog;},_condition] call ace_interact_menu_fnc_createAction;
+	[(typeOf player), 1, ["ACE_SelfActions"], _hfsTerminal] call ace_interact_menu_fnc_addActionToClass;
+	
+	//Heli Fire Support Menu
+	_condition = {
+		hfsAvailable &&
+		((hfsRoles findIf {_x == vehicleVarName player;} > -1) || (hfsRoles findIf {_x == groupID group player;} > -1) || (hfsRoles findIf {_x == player getVariable "loadout";} > -1))
+	};
+	
+	_hfsMenu = ["Heli Fire Support","Heli Fire Support","a3\ui_f\data\igui\cfg\simpletasks\types\Heli_ca.paa",{},_condition] call ace_interact_menu_fnc_createAction;
+	[(typeOf player), 1, ["ACE_SelfActions"], _hfsMenu] call ace_interact_menu_fnc_addActionToClass;
+
+	{
+		_hfsIndex = _forEachindex;
+		_hfsClassName = _x select 0;
+		_hfsCount = _x select 1;
+		_hfsCalls = _x select 2;
+
+		_hfsName = getText (configFile >> "CfgVehicles" >> _hfsClassName >> "displayName");
+		
+		_hfsMenuName = (str _hfsCount) + " " + _hfsName;
+
+		_condition = {true};
+
+		_modifierFunc = {
+			params ["_target", "_player", "_params", "_actionData"];
+			_params params ["_hfsIndex","_hfsName"];
+			
+			// Modify the action - index 1 is the display name, 2 is the icon...
+			_actionData set [1, format ["%1 %2 (%3 left)",((hfsArray select _hfsIndex) select 1),_hfsName,((hfsArray select _hfsIndex) select 2)]];
+		};
+		
+		_function = {
+			params ["_target", "_player", "_params", "_actionData"];
+			_params params ["_hfsIndex"];
+			
+			[_hfsIndex] spawn UAMThfs_fnc_hfsCall;
+		};
+		
+		_hfsMenuEntry = [_hfsMenuName,_hfsMenuName,"\a3\ui_f\data\igui\cfg\simpletasks\types\Heli_ca.paa",_function,_condition,{},[_hfsIndex,_hfsName],"",0,[false, false, false, false, false],_modifierFunc] call ace_interact_menu_fnc_createAction;
+		[(typeOf player), 1, ["ACE_SelfActions","Heli Fire Support"], _hfsMenuEntry] call ace_interact_menu_fnc_addActionToClass;
+		
+		
+	}forEach hfsArray;
 };
 
 
@@ -627,31 +801,33 @@ execVM "MissionSpecifics\MSInitPlayerLocal.sqf";
 //------------------------------------------------------------------
 //						Welcome Messages
 //------------------------------------------------------------------
-titleText ["Preparing Mission...", "BLACK IN", 0.2];
+if (!devMode) then {
+	titleText ["Preparing Mission...", "BLACK IN", 0.2];
 
 
-//Blurry Back to Visuals
-"dynamicBlur" ppEffectEnable true;
-"dynamicBlur" ppEffectAdjust [6];
-"dynamicBlur" ppEffectCommit 0;
-"dynamicBlur" ppEffectAdjust [0.0];
-"dynamicBlur" ppEffectCommit 3;
+	//Blurry Back to Visuals
+	"dynamicBlur" ppEffectEnable true;
+	"dynamicBlur" ppEffectAdjust [6];
+	"dynamicBlur" ppEffectCommit 0;
+	"dynamicBlur" ppEffectAdjust [0.0];
+	"dynamicBlur" ppEffectCommit 3;
 
-//You can of course take this out but we would appreciate if you give us a little credit for all the work
-["images\Logo.paa",[0.16,0.1,0.6,0.8],10,5,2] spawn BIS_fnc_textTiles;
+	//You can of course take this out but we would appreciate if you give us a little credit for all the work
+	["images\Logo.paa",[0.16,0.1,0.6,0.8],10,5,2] spawn BIS_fnc_textTiles;
 
-sleep 10;
+	sleep 10;
 
-if (_welcomemessage != "") then {
-	titleText [_welcomemessage, "PLAIN",1,true,true ];
-	sleep 10.5;
-};
+	if (_welcomemessage != "") then {
+		titleText [_welcomemessage, "PLAIN",1,true,true ];
+		sleep 10.5;
+	};
 
-if (mcc) then {
-	if ((mCCAccess findIf {_x == _playerVar} > -1) || (mCCAccess findIf {_x == _playerGroupID} > -1)) then {
-		if (_MissionControlCenterMessage != "") then {
-			titleText [_MissionControlCenterMessage, "PLAIN DOWN",0.8,true,true ];
-			sleep 8.5;
+	if (mcc) then {
+		if ((mCCAccess findIf {_x == _playerVar} > -1) || (mCCAccess findIf {_x == _playerGroupID} > -1)) then {
+			if (_MissionControlCenterMessage != "") then {
+				titleText [_MissionControlCenterMessage, "PLAIN DOWN",0.8,true,true ];
+				sleep 8.5;
+			};
 		};
 	};
 };

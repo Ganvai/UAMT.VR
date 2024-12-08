@@ -6,6 +6,9 @@
 // Lets any vehicle shoot its main weapon in angle and height you define.
 // With _salvo, it is able to shoot multiple rounds (for AAs or even flame tanks).
 //
+// Call:
+// [[vehicles],_angleH,_angleV,_salvo,_firepause,_cond] call UAMT_fnc_ambientVehicleFire;
+//
 // PARAMETERS
 // _vehicles : OBJECT or ARRAY of OBJECTS / the vehicles you want to let fire
 //
@@ -84,3 +87,5 @@ else {
 		};
 	};
 }forEach _vehicleArr;
+
+//reloadTime = 0.x (eg. configfile >> "CfgWeapons" >> "arifle_Katiba_F" >> "Single" >> "reloadTime": 0.075) 

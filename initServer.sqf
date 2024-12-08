@@ -362,38 +362,37 @@ publicVariable "insFeature";
 //
 //------------------------------------------------------------------
 //------------------------------------------------------------------
+
+//------------------------------------------------------------------
+//			Audio Config
+//------------------------------------------------------------------
+
+if ( getMissionConfigValue "supportMessages" == "true" ) then {
+	supportMessages = true;
+}
+else {
+	supportMessages = false;
+};
+publicVariable "supportMessages";
+
+if ( getMissionConfigValue "supportCustomAudio" == "true" ) then {
+	supportCustomAudio = true;
+}
+else {
+	supportCustomAudio = false;
+};
+publicVariable "supportCustomAudio";
+
+supportControlName = getMissionConfigValue "supportControlName";;
+publicVariable "supportControlName";
+
+//------------------------------------------------------------------
+// 			Supply Points
+//------------------------------------------------------------------
+
 if (getMissionConfigValue "supplyPointFeature" == "true") then {
 	supplyPointFeature = true;
-}
-else {
-	supplyPointFeature = false;
-};
-publicVariable "supplyPointFeature";
 
-
-if (getMissionConfigValue "supplyDropFeature" == "true") then {
-	supplyDropFeature = true;
-}
-else {
-	supplyDropFeature = false;
-};
-publicVariable "supplyDropFeature";
-
-
-if (getMissionConfigValue "trpFeature" == "true") then {
-	trpFeature = true;
-}
-else {
-	trpFeature = false;
-};
-publicVariable "trpFeature";
-
-
-
-//------------------------------------------------------------------
-//						Supply Point
-//------------------------------------------------------------------
-if (supplyPointFeature) then {
 	supplyPoints = getMissionConfigValue "supplyPoints";
 	
 	{
@@ -403,12 +402,18 @@ if (supplyPointFeature) then {
 	
 	
 	publicVariable "supplyPoints";
+
+}
+else {
+	supplyPointFeature = false;
 };
+publicVariable "supplyPointFeature";
 
 //------------------------------------------------------------------
-//						Supply Drop
+// 			Supply Drops
 //------------------------------------------------------------------
-if (supplyDropFeature) then {
+if (getMissionConfigValue "supplyDropFeature" == "true") then {
+	supplyDropFeature = true;
 
 	if (getMissionConfigValue "supplyDropOnStart" == "true") then {
 		supplyDropAvailable = true;
@@ -441,58 +446,57 @@ if (supplyDropFeature) then {
 	
 	supplyDropCount = 0;
 	publicVariable "supplyDropCount";
-};
 
+}
+else {
+	supplyDropFeature = false;
+};
+publicVariable "supplyDropFeature";
 
 //------------------------------------------------------------------
-//						Transport
+//				Helicopter Transport Feature
 //------------------------------------------------------------------
+if ( getMissionConfigValue "chtFeature" == "true" ) then {
+	chtFeature = true;
+	publicVariable "chtFeature";
 
-if (trpFeature) then {
-	
-	if (getMissionConfigValue "trpAllowDamage" == "true") then {
-		trpAllowDamage = true;
+	if ( getMissionConfigValue "chtAvailable" == "true" ) then {
+		chtAvailable = true;
 	}
 	else {
-		trpAllowDamage = false;
+		chtAvailable = false;
 	};
-	publicVariable "trpAllowDamage";
+	publicVariable "chtAvailable";
 
-	if (getMissionConfigValue "trpOnStart" == "true") then {
-		transportAvailable = true;
+	if ( getMissionConfigValue "chtMultiple" == "true" ) then {
+		chtMultiple = true;
 	}
 	else {
-		transportAvailable = false;
+		chtMultiple = false;
 	};
-	publicVariable "transportAvailable";
-
-	trpVehicleClass = getMissionConfigValue "trpVehicleClass";
-	publicVariable "trpVehicleClass";
-
-	trpSpawnPos = getMissionConfigValue "trpSpawnPos";
-	publicVariable "trpSpawnPos";
-
-	trpPickupPos = [0,0,0];
-	publicVariable "trpPickupPos";
-
-	trpTargetPos = [0,0,0];
-	publicVariable "trpTargetPos";
-
-	transportStartOrders = false;
-	publicVariable "transportStartOrders";
+	publicVariable "chtMultiple";
 	
-	orderHeliStart = false;
-	publicVariable "orderHeliStart";
-	
-	trpDelay = getMissionConfigValue "trpDelay";
-	publicVariable "trpDelay";
+	chtClasses = getMissionConfigValue "chtClasses";
+	publicVariable "chtClasses";
 
-	trpDelayPenalty = getMissionConfigValue "trpDelayPenalty";
-	publicVariable "trpDelayPenalty";
+	chtRoles = getMissionConfigValue "chtRoles";
+	publicVariable "chtRoles";
 
-	trpRoles = getMissionConfigValue "trpRoles";
-	publicVariable "trpRoles";
+	chtCount = 0;
+	publicVariable "chtCount";
+}
+else {
+	chtFeature = false;
+	publicVariable "chtFeature";
 };
+
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+//
+//					Fire Support Features
+//
+//------------------------------------------------------------------
+//------------------------------------------------------------------
 
 //------------------------------------------------------------------
 //					Artillery Feature
@@ -515,7 +519,7 @@ if (getMissionConfigValue "artiFeature" == "true") then {
 	artiNoFireZones = getMissionConfigValue "artiNoFireZones";
 	publicVariable "artiNoFireZones";
 	
-	// Availability Artillery - 0 = Available, 1 = In Use, 2 = In Firemission
+	// Availability Artillery - 0 = Available, 1 = In Use, 2 = In Firemission, 3 = in Cooldown
 	artiStatus = 0;
 	publicVariable "artiStatus";
 	
@@ -529,119 +533,245 @@ if (getMissionConfigValue "artiFeature" == "true") then {
 	publicVariable "artiTempPos";
 };
 
+
+//------------------------------------------------------------------
+//					VSL Feature
+//------------------------------------------------------------------
+
+if ( getMissionConfigValue "vlsFeature" == "true" ) then {
+	vlsFeature = true;
+	publicVariable "vlsFeature";
+
+	vlsName = missionNamespace getVariable [(getMissionConfigValue "vlsName"), objNull];
+	publicVariable "vlsName";
+	
+	if ( getMissionConfigValue "vlsAvailable" == "true" ) then {
+		vlsAvailable = true;
+	}
+	else {
+		vlsAvailable = false;
+	};
+	publicVariable "vlsAvailable";
+
+	// Availability VLS - 0 = Available, 1 = In Use, 2 = In Firemission, 3 = in Cooldown
+	vlsStatus = 0;
+	publicVariable "vlsStatus";
+	
+	if ( getMissionConfigValue "vlsAIDisabled" == "true" ) then {
+		vlsAIDisabled = true;
+		
+		// vls Turret Modification
+		
+		vlsName disableAI "AUTOTARGET";
+		vlsNAME disableAI "AUTOCOMBAT";
+		
+		["Item_B_UavTerminal", "init", {},true,[],true] call CBA_fnc_addClassEventHandler;
+		
+	}
+	else {
+		vlsAIDisabled = false;
+	};
+	publicVariable "vlsAIDisabled";
+
+	if ( getMissionConfigValue "vlsPlayerControl" == "true" ) then {
+		vlsPlayerControl = true;
+	}
+	else {
+		vlsPlayerControl = false;
+		
+		vlsName lockDriver true;
+		vlsName lockTurret [[0],true];
+	};
+	publicVariable "vlsPlayerControl";
+	
+	
+	vlsHERounds = getMissionConfigValue "vlsHERounds";
+	publicVariable "vlsHERounds";
+
+	vlsClusterRounds = getMissionConfigValue "vlsClusterRounds";
+	publicVariable "vlsClusterRounds";
+
+	vlsDelay = getMissionConfigValue "vlsDelay";
+	publicVariable "vlsDelay";
+
+	vlsCooldown = getMissionConfigValue "vlsCooldown";
+	publicVariable "vlsCooldown";
+	
+	vlsRoles = getMissionConfigValue "vlsRoles";
+	publicVariable "vlsRoles";
+
+	vlsRolesCMDR = getMissionConfigValue "vlsRolesCMDR";
+	publicVariable "vlsRolesCMDR";
+	
+	vlsEquipment = getMissionConfigValue "vlsEquipment";
+	publicVariable "vlsEquipment";
+
+	if ( getMissionConfigValue "vlsNeedsLaser" == "true" ) then {
+		vlsNeedsLaser = true;
+	}
+	else {
+		vlsNeedsLaser = false;
+	};
+	publicVariable "vlsNeedsLaser";
+	
+	if ( getMissionConfigValue "vlsAllowDrones" == "true" ) then {
+		vlsAllowDrones = true;
+	}
+	else {
+		vlsAllowDrones = false;
+	};
+	publicVariable "vlsAllowDrones";
+	
+	vlsNoFireZones = getMissionConfigValue "vlsNoFireZones";
+	publicVariable "vlsNoFireZones";
+
+
+}
+else {
+	vlsFeature = false;
+	publicVariable "vlsFeature";
+};
+
+
 //------------------------------------------------------------------
 //					CAS Feature
 //------------------------------------------------------------------
 
-if (getMissionConfigValue "casPlaneFeature" == "true") then {
-	casPlaneFeature = true;
-}
-else {
-	casPlaneFeature = false;
-};
-publicVariable "casPlaneFeature";
-
-if (getMissionConfigValue "casHeloFeature" == "true") then {
-	casHeloFeature = true;
-}
-else {
-	casHeloFeature = false;
-};
-
-publicVariable "casHeloFeature";
-
-if (casPlaneFeature) then {
+if ( getMissionConfigValue "casFeature" == "true" ) then {
+	casFeature = true;
+	publicVariable "casFeature";
 	
-	casPlaneClass = getMissionConfigValue "casPlaneClass";
-	publicVariable "casPlaneClass";
-	
-	casPlaneWeapons = getMissionConfigValue "casPlaneWeapons";
-	publicVariable "casPlaneWeapons";
-
-	casPlaneRoles = getMissionConfigValue "casPlaneRoles";
-	publicVariable "casPlaneRoles";
-	
-	if (getMissionConfigValue "casPlaneAvailableFromStart" == "true") then {
-		casPlaneAvailable = true;
+	if ( getMissionConfigValue "casAvailable" == "true" ) then {
+		casAvailable = true;
 	}
 	else {
-		casPlaneAvailable = false;
+		casAvailable = false;
 	};
-	publicVariable "casPlaneAvailable";
+	publicVariable "casAvailable";
 
-	casPlaneCooldown = getMissionConfigValue "casPlaneCooldown";
-	publicVariable "casPlaneCooldown";
-
-	casPlaneCooldownPenalty = getMissionConfigValue "casPlaneCooldownPenalty";
-	publicVariable "casPlaneCooldownPenalty";
+	// Availability CAS - 0 = Available, 1 = In Use, 2 = In Firemission, 3 = in Cooldown
+	casStatus = 0;
+	publicVariable "casStatus";
 	
-	casPlaneMaxCount = getMissionConfigValue "casPlaneMaxCount";
-	publicVariable "casPlaneMaxCount";
-
-	casPlaneStrikeCount = 0;
-	publicVariable "casPlaneStrikeCount";
+	casClass = getMissionConfigValue "casClass";
+	publicVariable "casClass";
 	
-	casPlaneDelay = getMissionConfigValue "casPlaneDelay";
-	publicVariable "casPlaneDelay";
+	casMGruns = getMissionConfigValue "casMGruns";
+	publicVariable "casMGruns";
+
+	casMisMGruns = getMissionConfigValue "casMisMGruns";
+	publicVariable "casMisMGruns";
+
+	casMisRuns = getMissionConfigValue "casMisRuns";
+	publicVariable "casMisRuns";
+
+	casBombRuns = getMissionConfigValue "casBombRuns";
+	publicVariable "casBombRuns";
+
+	casDelay = getMissionConfigValue "casDelay";
+	publicVariable "casDelay";
+
+	casCooldown = getMissionConfigValue "casCooldown";
+	publicVariable "casCooldown";
+
+	casPenalty = getMissionConfigValue "casPenalty";
+	publicVariable "casPenalty";
+
+	casRoles = getMissionConfigValue "casRoles";
+	publicVariable "casRoles";
+
+	casRolesCMDR = getMissionConfigValue "casRolesCMDR";
+	publicVariable "casRolesCMDR";
 	
-	casPlaneNoCASZones = getMissionConfigValue "casPlaneNoCASZones";
-	publicVariable "casPlaneNoCASZones";
+	casEquipment = getMissionConfigValue "casEquipment";
+	publicVariable "casEquipment";
 
-	casPlaneCommandID = getMissionConfigValue "casPlaneCommandID";
-	publicVariable "casPlaneCommandID";
-};
-
-if (casHeloFeature) then {
-
-	casHeloArr = getMissionConfigValue "casHeloArr";
-	publicVariable "casHeloArr";
-	
-	casHeloRoles = getMissionConfigValue "casHeloRoles";
-	publicVariable "casHeloRoles";
-
-	if (getMissionConfigValue "casHeloAvailableFromStart" == "true") then {
-		casHeloAvailable = true;
+	if ( getMissionConfigValue "casNeedsLaser" == "true" ) then {
+		casNeedsLaser = true;
 	}
 	else {
-		casHeloAvailable = false;
+		casNeedsLaser = false;
 	};
-	publicVariable "casHeloAvailable";
-
-	casHeloDuration = getMissionConfigValue "casHeloDuration";
-	publicVariable "casHeloDuration";
+	publicVariable "casNeedsLaser";
 	
-	casHeloCooldown = getMissionConfigValue "casHeloCooldown";
-	publicVariable "casHeloCooldown";
-
-	casHeloCooldownPenalty = getMissionConfigValue "casHeloCooldownPenalty";
-	publicVariable "casHeloCooldownPenalty";
+	if ( getMissionConfigValue "casAllowDrones" == "true" ) then {
+		casAllowDrones = true;
+	}
+	else {
+		casAllowDrones = false;
+	};
+	publicVariable "casAllowDrones";
 	
-	casHeloMaxCount = getMissionConfigValue "casHeloMaxCount";
-	publicVariable "casHeloMaxCount";
-
-	casHeloStrikeCount = 0;
-	publicVariable "casHeloStrikeCount";
-	
-	casHeloDelay = getMissionConfigValue "casHeloDelay";
-	publicVariable "casHeloDelay";
-	
-	casHeloNoCASZones = getMissionConfigValue "casHeloNoCASZones";
-	publicVariable "casHeloNoCASZones";	
-
-	casHeloCommandID = getMissionConfigValue "casHeloCommandID";
-	publicVariable "casHeloCommandID";	
-};
-
-supportControlName = getMissionConfigValue "supportControlName";
-publicVariable "supportControlName";
-
-if (getMissionConfigValue "supportCustomAudioMsg" == "true") then {
-	supportCustomAudioMsg = true;
+	casNoFireZones = getMissionConfigValue "casNoFireZones";
+	publicVariable "casNoFireZones";
 }
 else {
-	supportCustomAudioMsg = false;
+	casFeature = false;
+	publicVariable "casFeature";
 };
-publicVariable "supportCustomAudioMsg";
+
+
+//------------------------------------------------------------------
+//				Helicopter Fire Support Feature
+//------------------------------------------------------------------
+
+if ( getMissionConfigValue "hfsFeature" == "true" ) then {
+	hfsFeature = true;
+	publicVariable "hfsFeature";
+	
+	if ( getMissionConfigValue "hfsAvailable" == "true" ) then {
+		hfsAvailable = true;
+	}
+	else {
+		hfsAvailable = false;
+	};
+	publicVariable "hfsAvailable";
+
+	// Availability HFS - 0 = Available, 1 = In Use, 2 = In Firemission, 3 = in Cooldown
+	hfsStatus = 0;
+	publicVariable "hfsStatus";
+	
+	hfsArray = getMissionConfigValue "hfsArray";
+	publicVariable "hfsArray";
+
+	hfsDuration = getMissionConfigValue "hfsDuration";
+	publicVariable "hfsDuration";
+
+	hfsDistance = getMissionConfigValue "hfsDistance";
+	publicVariable "hfsDistance";
+
+	hfsDelay = getMissionConfigValue "hfsDelay";
+	publicVariable "hfsDelay";
+
+	hfsCooldown = getMissionConfigValue "hfsCooldown";
+	publicVariable "hfsCooldown";
+
+	hfsPenalty = getMissionConfigValue "hfsPenalty";
+	publicVariable "hfsPenalty";
+
+	if ( getMissionConfigValue "hfsRespawn" == "true" ) then {
+		hfsRespawn = true;
+	}
+	else {
+		hfsRespawn = false;
+	};
+	publicVariable "hfsRespawn";
+	
+	hfsRoles = getMissionConfigValue "hfsRoles";
+	publicVariable "hfsRoles";
+
+	hfsRolesCMDR = getMissionConfigValue "hfsRolesCMDR";
+	publicVariable "hfsRolesCMDR";
+	
+	hfsNoFireZones = getMissionConfigValue "hfsNoFireZones";
+	publicVariable "hfsNoFireZones";	
+}
+else {
+	hfsFeature = false;
+	publicVariable "hfsFeature";
+};
+
+
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 //

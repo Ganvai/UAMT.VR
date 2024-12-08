@@ -183,103 +183,147 @@ class CfgSounds
 
 	class msg_CASAvailable {
 		name = "msg_CASAvailable";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_CASAvailable.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		sound[] = {"sounds\UAMTSounds\cas\msg_CASAvailable.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
 		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
 	};
 	
 	class msg_CASDone {
 		name = "msg_CASDone";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_CASDone.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
-		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
-	};
-	
-	class msg_CASHeloArrive {
-		name = "msg_CASHeloArrive";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_CASHeloArrive.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
-		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
-	};
-	
-	class msg_CASHeloAvailable {
-		name = "msg_CASHeloAvailable";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_CASHeloAvailable.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
-		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
-	};
-	
-	class msg_CASHeloLast {
-		name = "msg_CASHeloLast";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_CASHeloLast.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
-		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
-	};
-	
-	class msg_CASHeloPrepare {
-		name = "msg_CASHeloPrepare";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_CASHeloPrepare.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
-		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
-	};
-	
-	class msg_CASHeloReturn {
-		name = "msg_CASHeloReturn";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_CASHeloReturn.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
-		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
-	};
-	
-	class msg_CASHeloRTB {
-		name = "msg_CASHeloRTB";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_CASHeloRTB.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		sound[] = {"sounds\UAMTSounds\cas\msg_CASDone.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
 		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
 	};
 	
 	class msg_CASInbound {
 		name = "msg_CASInbound";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_CASInbound.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		sound[] = {"sounds\UAMTSounds\cas\msg_CASInbound.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
 		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
 	};
 	
 	class msg_CASLastCAS {
 		name = "msg_CASLastCAS";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_CASLastCAS.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		sound[] = {"sounds\UAMTSounds\cas\msg_CASLastCAS.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
 		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
 	};
 	
 	class msg_CASLostApproach {
 		name = "msg_CASLostApproach";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_CASLostApproach.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		sound[] = {"sounds\UAMTSounds\cas\msg_CASLostApproach.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
 		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
 	};
 	
 	class msg_CASLostExtract {
 		name = "msg_CASLostExtract";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_CASLostExtract.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		sound[] = {"sounds\UAMTSounds\cas\msg_CASLostExtract.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
 		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
 	};
 	
 	class msg_CASLostFire {
 		name = "msg_CASLostFire";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_CASLostFire.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		sound[] = {"sounds\UAMTSounds\cas\msg_CASLostFire.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
 		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
 	};
 	
 	class msg_CASNoCAS {
 		name = "msg_CASNoCAS";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_CASNoCAS.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		sound[] = {"sounds\UAMTSounds\cas\msg_CASNoCAS.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
 		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
 	};
 	
 	class msg_CASPrepare {
 		name = "msg_CASPrepare";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_CASPrepare.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		sound[] = {"sounds\UAMTSounds\cas\msg_CASPrepare.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
 		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
 	};
 	
 	class msg_CASReroute {
 		name = "msg_CASReroute";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_CASReroute.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		sound[] = {"sounds\UAMTSounds\cas\msg_CASReroute.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
+	};
+	
+	//--------------------------------------------------------------------------
+	// HFS Messages
+	//--------------------------------------------------------------------------
+
+	class msg_hfsEnRoute {
+		name = "msg_hfsEnRoute";										// how the sound is referred to in the editor
+		sound[] = {"sounds\UAMTSounds\hfs\msg_hfsEnRoute.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
 		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
 	};
 
-	class msg_CASHeloNewPrepare {
-		name = "msg_CASHeloNewPrepare";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_CASHeloNewPrepare.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+	class msg_hfsArrive {
+		name = "msg_hfsArrive";										// how the sound is referred to in the editor
+		sound[] = {"sounds\UAMTSounds\hfs\msg_hfsArrive.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
+	};
+
+	class msg_hfsBingo {
+		name = "msg_hfsBingo";										// how the sound is referred to in the editor
+		sound[] = {"sounds\UAMTSounds\hfs\msg_hfsBingo.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
+	};
+
+	class msg_hfsAvailable {
+		name = "msg_hfsAvailable";										// how the sound is referred to in the editor
+		sound[] = {"sounds\UAMTSounds\hfs\msg_hfsAvailable.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
+	};
+
+	class msg_hfsDestroyed {
+		name = "msg_hfsDestroyed";										// how the sound is referred to in the editor
+		sound[] = {"sounds\UAMTSounds\hfs\msg_hfsDestroyed.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
+	};
+
+	class msg_hfsPrepareNew {
+		name = "msg_hfsPrepareNew";										// how the sound is referred to in the editor
+		sound[] = {"sounds\UAMTSounds\hfs\msg_hfsPrepareNew.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
+	};
+
+	class msg_hfsRemainingStandBy {
+		name = "msg_hfsRemainingStandBy";										// how the sound is referred to in the editor
+		sound[] = {"sounds\UAMTSounds\hfs\msg_hfsRemainingStandBy.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
+	};
+
+	class msg_hfsEnd {
+		name = "msg_hfsEnd";										// how the sound is referred to in the editor
+		sound[] = {"sounds\UAMTSounds\hfs\msg_hfsEnd.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
+	};
+
+	//--------------------------------------------------------------------------
+	// VLS Messages
+	//--------------------------------------------------------------------------
+
+	class msg_vlsPrepare {
+		name = "msg_vlsPrepare";										// how the sound is referred to in the editor
+		sound[] = {"sounds\UAMTSounds\vls\msg_vlsPrepare.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
+	};
+
+	class msg_vlsReload {
+		name = "msg_vlsReload";										// how the sound is referred to in the editor
+		sound[] = {"sounds\UAMTSounds\vls\msg_vlsReload.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
+	};
+
+	class msg_vlsAway {
+		name = "msg_vlsAway";										// how the sound is referred to in the editor
+		sound[] = {"sounds\UAMTSounds\vls\msg_vlsAway.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
+	};
+
+	class msg_vlsAvailable {
+		name = "msg_vlsAvailable";										// how the sound is referred to in the editor
+		sound[] = {"sounds\UAMTSounds\vls\msg_vlsAvailable.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
+	};
+
+	class msg_vlsEnd {
+		name = "msg_vlsEnd";										// how the sound is referred to in the editor
+		sound[] = {"sounds\UAMTSounds\vls\msg_vlsEnd.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
 		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
 	};
 
@@ -439,9 +483,14 @@ class CfgFunctions
 {
 	#include "Dialogs\loadoutDialog\class_loadouts_config.hpp" 
 	#include "Dialogs\teleportDialog\teleportconfig.hpp"
-	#include "Dialogs\artilleryDialog\artilleryDialogConfig.hpp"
+	#include "Dialogs\artDialog\artDialogConfig.hpp"
 	#include "MissionSpecifics\missionCFGFunctions.hpp"
 	#include "Dialogs\doorkeypad\doorkeypad_config.hpp"
+
+	#include "Dialogs\casDialog\casDialogConfig.hpp"
+	#include "Dialogs\hfsDialog\hfsDialogConfig.hpp"
+	#include "Dialogs\vlsDialog\vlsDialogConfig.hpp"
+	#include "Dialogs\chtDialog\chtDialogConfig.hpp"
 	
 	class UAMT
 	{
@@ -465,17 +514,58 @@ class CfgFunctions
 			class artilleryFire{};
 			
 			class createKeypad{};
+
+			class heliTaxiCall{};			
+			class heliTaxiFly{};
+		
+			class heliTaxiHopCall{};
+			class heliTaxiHopFly{};
 			
-			class transportHeliFly{};
-			class transportHeliSpawnCall{};
-			
-			class transportHeliSimple{};
-			class transportHeliSimpleFly{};
-			
-			class spawnParadrop{};
-			class heliReinforcements{};
+			class heliReInfLand{};
+			class heliReInfPara{};
 			
 			class noVisSafePos{};
+		};
+	};
+	
+	class UAMTvls
+	{
+	
+		tag="UAMTvls";
+		class UAMTvlsFunctions
+		{
+			file = "scripts\UAMTScripts\vls";
+			
+			class vlsCall {};
+			class vlsExecute {};
+			class vlsScripted {};
+		};
+	};
+	
+	class UAMTcas
+	{
+		tag="UAMTcas";
+		class UAMTcasFunctions
+		{
+			file = "scripts\UAMTScripts\cas";
+			
+			class casCall {};
+			class casExecute {};
+			class casScripted {};
+		};
+	};
+	
+	class UAMThfs
+	{
+		tag="UAMThfs";
+		class UAMThfsFunctions
+		{
+			file = "scripts\UAMTScripts\heliFireSupport";
+			
+			class hfsCall {};
+			class hfsExecute {};
+			class hfsDestroyed {};
+			class hfsScripted {};
 		};
 	};
 };
