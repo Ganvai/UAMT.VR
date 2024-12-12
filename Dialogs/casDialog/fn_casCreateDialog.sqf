@@ -1,10 +1,18 @@
+if (casStatus > 0) exitWith {
+	switch casStatus do {
+		case 1 : {["CAS not available. Another Element is currently requesting a CAS Strike", "Error"] call BIS_fnc_guiMessage;};
+		case 2 : {["CAS not available. CAS strike in progress", "Error"] call BIS_fnc_guiMessage;};
+		case 3 : {["CAS not available. Rerouting plane for new strike.", "Error"] call BIS_fnc_guiMessage;};
+	};
+};
+
+casStatus = 1;
+publicVariable "casStatus";
+
 createDialog "casStrikeDialog";
 
 _map = findDisplay 99003 ctrlCreate ["RscMapControl", -1];
 _map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.316,safeZoneY + safeZoneH * 0.333,safeZoneW * 0.369,safeZoneH * 0.368];
-
-casAvailable = false;
-publicVariable "casAvailable";
 
 createMarker ["casStrikeMrk",[0,0,0]];
 "casStrikeMrk" setMarkerAlpha 0;
@@ -14,7 +22,7 @@ createMarker ["casStrikeMrk",[0,0,0]];
 createMarker ["casDirMrk",[0,0,0]];
 "casDirMrk" setMarkerAlpha 0;
 "casDirMrk" setMarkerType "mil_arrow_noShadow";
-"casDirMrk" setMarkerText "Heli Approach Vector";
+"casDirMrk" setMarkerText "CAS Approach Vector";
 
 _line = format ["Machine Gun (%1 left)",casMGruns];
 lbAdd [9900301,_line];
@@ -43,6 +51,17 @@ lbAdd [9900301,_line];
 lbSetData [9900301,4,"3"];
 
 [] onMapSingleClick {
+
+	_firezoneCheck = false;
+
+	{	
+		_fireZoneCheck = _pos inArea _x;
+	}forEach casNoFireZones;
+
+	if (_fireZoneCheck) exitWith {
+		["Target is in No Fire Zone!", "Error"] call BIS_fnc_guiMessage;
+	};
+	
 	"casStrikeMrk" setMarkerPos _pos;
 	"casStrikeMrk" setMarkerAlpha 1;
 	"casDirMrk" setMarkerAlpha 1;
@@ -52,13 +71,13 @@ lbSetData [9900301,4,"3"];
 	"casDirMrk" setMarkerDir (_dir + 180);
 };
 
-sleep 1;
+sleep 2;
 
 if (findDisplay 99003 == displayNull) exitWith {
 	hint "Error when calling Terminal"; 
 	deleteMarker "casStrikeMrk";
 	deleteMarker "casDirMrk";
 	onMapSingleClick "";
-	casAvailable = true;
-	publicVariable "casAvailable";
+	casStatus = 0;
+	publicVariable "casStatus";
 };

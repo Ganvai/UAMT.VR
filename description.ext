@@ -79,55 +79,55 @@ class CfgSounds
 
 	class msg_transportConfirm {
 		name = "msg_transportConfirm";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_transportConfirm.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		sound[] = {"sounds\UAMTSounds\cht\msg_transportConfirm.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
 		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
 	};	
 
 	class msg_transportPickup {
 		name = "msg_transportPickup";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_transportPickup.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		sound[] = {"sounds\UAMTSounds\cht\msg_transportPickup.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
 		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
 	};	
 
 	class msg_transportLiftOff {
 		name = "msg_transportLiftOff";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_transportLiftOff.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		sound[] = {"sounds\UAMTSounds\cht\msg_transportLiftOff.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
 		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
 	};	
 
 	class msg_transportArrival {
 		name = "msg_transportArrival";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_transportArrival.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		sound[] = {"sounds\UAMTSounds\cht\msg_transportArrival.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
 		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
 	};	
 
 	class msg_transportAvailable {
 		name = "msg_transportAvailable";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_transportAvailable.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		sound[] = {"sounds\UAMTSounds\cht\msg_transportAvailable.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
 		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
 	};
 
 	class msg_transportBack {
 		name = "msg_transportBack";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_transportBack.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		sound[] = {"sounds\UAMTSounds\cht\msg_transportBack.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
 		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
 	};
 
 	class msg_transportBase {
 		name = "msg_transportBase";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_transportBase.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		sound[] = {"sounds\UAMTSounds\cht\msg_transportBase.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
 		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
 	};
 
 	class msg_transportDestroyed {
 		name = "msg_transportDestroyed";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_transportDestroyed.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		sound[] = {"sounds\UAMTSounds\cht\msg_transportDestroyed.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
 		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
 	};
 	
 	class msg_transportRefuel {
 		name = "msg_transportRefuel";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_transportRefuel.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		sound[] = {"sounds\UAMTSounds\cht\msg_transportRefuel.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
 		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
 	};
 	
@@ -491,6 +491,7 @@ class CfgFunctions
 	#include "Dialogs\hfsDialog\hfsDialogConfig.hpp"
 	#include "Dialogs\vlsDialog\vlsDialogConfig.hpp"
 	#include "Dialogs\chtDialog\chtDialogConfig.hpp"
+	#include "Dialogs\sdpDialog\sdpDialogConfig.hpp"
 	
 	class UAMT
 	{
@@ -525,6 +526,8 @@ class CfgFunctions
 			class heliReInfPara{};
 			
 			class noVisSafePos{};
+			
+			class supplyDrop{};
 		};
 	};
 	

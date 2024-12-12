@@ -2,11 +2,16 @@ params ["_heliVeh", "_heliGrp", "_pickupPos", "_destPos", ["_despawnPos",[]], ["
 
 _crew = count (crew _heliVeh);
 
+//Spawn invisible helipads
+_pad1 = "Land_HelipadEmpty_F" createVehicle _pickupPos;
+_pad2 = "Land_HelipadEmpty_F" createVehicle _destPos;
+
 _wp1 = _heliGrp addWaypoint [_pickupPos, 0];
 _wp1 setWaypointType "LOAD";
 _wp1 setWaypointStatements ["true", "vehicle this land ""GET IN"";"];
 _wp1 setWaypointBehaviour "CARELESS";
 
+	
 waitUntil {sleep  1;(velocity  _heliVeh select 2) > -0.2 &&	(getPosATL _heliVeh select 2) <  0.5};
 
 if (_voiceLines) then {
@@ -19,7 +24,7 @@ _heliVeh setVariable ["_startOrders",false];
 
 [_heliVeh, [
 	"<img image='\A3\ui_f\data\map\markers\handdrawn\pickup_CA.paa'/><br/><t>Start Heli</t>",
-	"_result = false;private _result = ['Everybody on board? Do you want the Helicopter to start?', 'Give starting order to Helicopter', true, true] call BIS_fnc_guiMessage;(_this select 0) setVariable ['_startOrders',true];if (!_result) exitWith {};[_this select 0, _this select 2] remoteExec ['removeAction']",
+	"_result = false;private _result = ['Everybody on board? Do you want the Helicopter to start?', 'Give starting order to Helicopter', true, true] call BIS_fnc_guiMessage;if (!_result) exitWith {};(_this select 0) setVariable ['_startOrders',true,true];[_this select 0, _this select 2] remoteExec ['removeAction']",
 	"",
 	1000,
 	true,
@@ -69,7 +74,9 @@ waitUntil {sleep 1; (count (crew _heliVeh) <= _crew)};
 
 _wp1 = _heliGrp addWaypoint [_despawnPos, 0];
 _wp1 setWaypointType "MOVE";
-_wp1 setWaypointStatements ["true", "vehicle this land ""GET IN"";"];
+
+deleteVehicle _pad1;
+deleteVehicle _pad2;
 
 WaitUntil {sleep 1; (_despawnPos distance2D _heliVeh < 50) || !canMove _heliVeh};
 

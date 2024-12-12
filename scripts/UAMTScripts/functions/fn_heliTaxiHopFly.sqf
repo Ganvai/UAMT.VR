@@ -3,10 +3,20 @@ params ["_heli","_destination",["_startMode",0],["_engineOn",true],["_voicelines
 _heliGrp = group _heli;
 _heli allowDamage false;
 _heli setCaptive true;
+_crew = crew _heli;
 
-"Land_HelipadEmpty_F" createVehicle _destination;
+{
+	_x disableAI "AUTOCOMBAT";
+	_x disableAI "COMBAT";
+	_x disableAI "AUTOTARGET";
+	_x disableAI "TARGET";
+	_x disableAI "COVER";
+	_x disableAI "SUPPRESSION";	
+}forEach _crew;
 
-if (_engineOn) then {
+_pad = "Land_HelipadEmpty_F" createVehicle _destination;
+
+if (_engineOn && isEngineOn _heli == false) then {
 	[_heli,1]remoteExec ["setFuel",_heli];
 	_heli engineOn true;
 };
@@ -16,7 +26,7 @@ if (_startMode == 1) then {
 
 	[_heli, [
 		"<img image='\A3\ui_f\data\map\markers\handdrawn\pickup_CA.paa'/><br/><t>Start Heli</t>",
-		"_result = false;private _result = ['Everybody on board? Do you want the Helicopter to start?', 'Give starting order to Helicopter', true, true] call BIS_fnc_guiMessage;(_this select 0) setVariable ['_startOrders',true];if (!_result) exitWith {};[_this select 0, _this select 2] remoteExec ['removeAction']",
+		"_result = false;private _result = ['Everybody on board? Do you want the Helicopter to start?', 'Give starting order to Helicopter', true, true] call BIS_fnc_guiMessage;if (!_result) exitWith {};(_this select 0) setVariable ['_startOrders',true,true];[_this select 0, _this select 2] remoteExec ['removeAction']",
 		"",
 		1000,
 		true,
@@ -34,7 +44,7 @@ if (_startmode == 2) then {
 
 if (_voiceLines) then {
 	playSound3D ["a3\dubbing_f_aow\showcase_future\038_cut_in_helicopter\showcase_future_038_cut_in_helicopter_PILOT_0.ogg",_heli,false,getPos _heli, 5, 1, 50];
-	sleep 2;
+	sleep 3.5;
 	playSound3D ["a3\dubbing_f_aow\showcase_future\038_cut_in_helicopter\showcase_future_038_cut_in_helicopter_PILOT_2.ogg",_heli,false,getPos _heli, 5, 1, 50];
 };
 
@@ -85,7 +95,4 @@ if (_destMapMarker != "") then {
 
 [_heli,0]remoteExec ["setFuel",_heli];
 
-{
-	_x enableAI "MOVE";
-	_x enableAI "PATH";
-} forEach units _heliGrp;
+deleteVehicle _pad;

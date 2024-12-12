@@ -62,7 +62,7 @@ endAllDead = false;					// When activated ends the Mission when every player is 
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 // Faction
-faction 			= "Nato-2035_v2"; 	// Sets the Faction for the Mission start. You can find available Factions under Missionfolder\loadouts
+faction 			= "Nato-2035"; 	// Sets the Faction for the Mission start. You can find available Factions under Missionfolder\loadouts
 FortifyToolCamo		= "wood";			// Selects the Camo of the Items created with the Fortify Tool. Available are "wood" and "arid"
 
 // Loadout Customisation
@@ -238,19 +238,25 @@ supplyPoints[]		= {						//Defines Objects that offer Supply Crate Spawn. Is a m
 // Supply Point.
 //------------------------------------------------------------------
 //------------------------------------------------------------------
-supplyDropFeature		= true;			//Enables the Supply Drop Function. Needs the Supply Feature enabled. Needs Mission Control Center enabled.
+supplyDropFeature		= true;			//Enables the Supply Drop Function. Needs the Supply Crates Configured in Loadout. This permanently deactivates this feature for the mission and it won't be accessible even if you set it to true later.
 
 supplyDropRoles[] 		= {TOC,s0_1, Groupleader, JTAC};	//Defines who has access to call in a Supply Drop. Can be a GroupID, a PlayerVariable or a role. 
 										// When using roles, keep in mind that when "Loadouts" are available, this role can change. 
 										// If this feature is mission critical, it is always best practice to also give the player variable of, for example the Groupleader
 										// When using GroupID, every Player in the specific group can call it in.
 
-supplyDropOnStart 		= true;			// Gives the Player the possibility to call a Supply Drop right from the Start.
-										// This Option can also be used to activate the Supply Drop later in the mission, for example when a Mission objective was fulfilled.
-										// For this use: 
-										// supplyDropAvailable = true;
-										// publicVariable "supplyDropAvailable";
-
+supplyDropStatus 		= 0;			// The supplyStatus manages the accessebility of the function.
+										// While 0 to 3 are Ingame Status, 4 is to manage by the Missionmaker
+										// 0 : Available -> Use this if you want it to be accessibel from the very beginning of the Mission
+										// 1 : Call -> Another player is calling the function and it is therefor not available for any other Player
+										// 2 : Progress  -> The Supply Drop was called and is now being executed and it is therefor not available for any other player
+										// 3 : Cooldown -> The supply drop  was executed and is now in Cooldown before it is avialable again
+										// 4 : Not available -> The supply drop is not available until the Missionmaker sets the Status manually to 0
+										//						-> The function will not be shown in the players ace selfinteract menu until its under 4
+										//					supplyDropStatus = 0;
+										//					publicVariable "supplyDropStatus";
+										//		IF YOU DON'T WANT ANY SUPPLY DROP use supplyDropFeature instead!
+										
 supplyDropMax			= 99;			// Limits the Supply Drops. As the Supply Drop is pretty powerful, you need to be careful how to balance the amount of available Drops for your Mission.
 										// Even if you want supplies to be scarce, it's best practice to never use only one Drop. because Arma being Arma and the crate can get lost on Buildings or trees.
 
@@ -258,9 +264,11 @@ supplyDropVehicle		= "B_Heli_Transport_03_unarmed_F"; 	// Vehicle Class of Suppl
 
 supplyDropPilot			= "B_Helipilot_F";	// Class of the Pilot sitting in the Helo... leave it as it is, nobody will see this guy anyway.
 
-SupplyDropMinDistSpawn 	= 2000;			// Gives the Minimum Distance from the delivery Position to where the Vehicle will spawn. 
+supplyDropDist 			= 2000;			// Gives the Minimum Distance from the delivery Position to where the Vehicle will spawn. 
 										// Adapt this depending in how large your Mission area is and how many people will be spread over the map. 
 										// 2000 to 5000m should be fine normally.
+										
+supplyDropDamage 		= false;		// Configure if the Supply Drop Helicopter can be damaged.
 
 supplyDropDelay 		= 10;			// Defines the delay until a new Supply Drop is available again. Balancing and "realism".
 
@@ -275,13 +283,12 @@ supplyDropDelayPenalty 	= 10;			// Defines how much time is added as penalty whe
 //
 //-----------------------------------------------------------------------
 //-----------------------------------------------------------------------
-chtFeature = true;				// Activates the Heli Fire Support Feature
+chtFeature = true;				// Activates the Heli Fire Support Feature. This permanently deactivates this feature for the mission and it won't be accessible even if you set it to true later.
 chtAvailable = true;			// Makes Helicopter Transport available from the start. If you want to activate it during the mission progress, use 'chtAvailable = true; publicVariable "chtAvailable";'
-chtMultiple = true;				// When true, players can call multiple Transport Helicopters even another transport is just on the way
 chtClasses[] = {"B_Heli_Light_01_F","B_Heli_Transport_01_F"};	// Helicopter Classes available for Transport
 chtRoles[] = {JTAC,Groupleader};	// Roles that can call in Heli Transport
-chtSpawn = "chtSpawnMrk";		// Location the Helicopter will spawn. Place a map marker and configure the name here.
-chtDespawn = "chtDespawnMrk";	// Location the Helicopter will despawn. Place a map marker and configure the name here.
+chtSpawn = "chtSpawnMrk";		// Location the Helicopter will spawn. Place a marker and configure the name here.
+chtDespawn = "chtDespawnMrk";	// Location the Helicopter will despawn. Place a marker and configure the name here.
 
 
 //------------------------------------------------------------------
@@ -295,13 +302,25 @@ chtDespawn = "chtDespawnMrk";	// Location the Helicopter will despawn. Place a m
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 
-artiFeature = true; //Activates the Artillery Support Feature
+artiFeature = true; //Activates the Artillery Support Feature. This permanently deactivates this feature for the mission and it won't be accessible even if you set it to true later.
 
 artiRoles[] = {TOC, Groupleader, JTAC, s1}; // Defines the Roles that have Access to the Artillery Menu. 
 											// Can be a Group Variable (set in Init of the Playerslot, not the Group Variable), a Role or a Player Variable
 											// When using roles, keep in mind that when "Loadouts" are available, this role can change. 
 											// If this feature is mission critical, it is always best practice to also give the player variable of, for example the Groupleader
 											// When using GroupID, every Player in the specific group can call it in.
+
+artiStatus 	= 0;			// The Status manages the accessebility of the function.
+							// While 0 to 3 are Ingame Status, 4 is to manage by the Missionmaker
+							// 0 : Available -> Use this if you want it to be accessibel from the very beginning of the Mission
+							// 1 : Call -> Another player is calling this Support and it is therefor not available for any other Player
+							// 2 : Progress  -> The Support was called and is now being executed and it is therefor not available for any other player
+							// 3 : Cooldown -> The Support was executed and is now in Cooldown before it is avialable again
+							// 4 : Not available -> The support is not available until the Missionmaker sets the Status manually to 0
+							//						-> The function will not be shown in the players ace selfinteract menu until its under 4
+							//					artiStatus = 0;
+							//					publicVariable "artiStatus";
+							//		IF YOU DON'T WANT ANY Artillery use artiFeature instead!
 
 //------------------------------------------------------------------
 // Here you define which Artillery Supports are available
@@ -316,7 +335,7 @@ artillery[] = {
 						{					//Ammo Type Array
 								"12Rnd_230mm_rockets",		// Ammo Type Classname
 								"230mm Rockets",			// Ammy Type Display Name
-								80,							// Available Rounds of Ammo
+								300,							// Available Rounds of Ammo
 								true						// No Fire Zone (true means can not fire in no fire zone)
 						} 
 					},
@@ -327,10 +346,10 @@ artillery[] = {
 					"3x Sholef",
 					{sho_1,sho_2,sho_3},
 					{
-						{"32Rnd_155mm_Mo_shells","155mm Shells",10,true},
-						{"2Rnd_155mm_Mo_Cluster","155mm Cluster",5,true},
-						{"6Rnd_155mm_Mo_smoke","155mm Smoke",10,false},
-						{"2Rnd_155mm_Mo_LG","155mm Laser Guided",10,true}
+						{"32Rnd_155mm_Mo_shells","155mm Shells",100,true},
+						{"2Rnd_155mm_Mo_Cluster","155mm Cluster",50,true},
+						{"6Rnd_155mm_Mo_smoke","155mm Smoke",100,false},
+						{"2Rnd_155mm_Mo_LG","155mm Laser Guided",100,true}
 					},
 					true
 				},
@@ -339,9 +358,9 @@ artillery[] = {
 					"3x Mortars",
 					{mort_1,mort_2,mort_3},
 					{
-						{"8Rnd_82mm_Mo_shells","82mm Shells",80,true},
-						{"8Rnd_82mm_Mo_Flare_white","82mm Flare",80,false},
-						{"8Rnd_82mm_Mo_Smoke_white","82mm Smoke",80,false}
+						{"8Rnd_82mm_Mo_shells","82mm Shells",800,true},
+						{"8Rnd_82mm_Mo_Flare_white","82mm Flare",800,false},
+						{"8Rnd_82mm_Mo_Smoke_white","82mm Smoke",800,false}
 					},
 					true
 				}
@@ -350,7 +369,7 @@ artillery[] = {
 artiCooldown = 10; 	// Cooldown for Artillery after strike. Balancing gameplay element. 
 					// I would recommend 120 to 300 at least so they don't just bomb a place to the ground
 
-artiNoFireZones[] = {noFire_1,noFire_2}; 	// No Fire Zones. Artillery can not be fired in these Areas. 
+artiNoFireZones[] = {noFireZone_1,noFire_2}; 	// No Fire Zones. Artillery can not be fired in these Areas. 
 											// Place an Elipse or Rectangle Area on the map and give its Variable Name here.
 											// Doesn't make a difference if the Area is Visible or not.
 
@@ -392,15 +411,25 @@ artiNoFireZones[] = {noFire_1,noFire_2}; 	// No Fire Zones. Artillery can not be
 //-----------------------------------------------------------------------
 //-----------------------------------------------------------------------
 
-vlsFeature = true;				// Activates the vls Function
-vlsName = "vls_1";				// Variable name of the vls turret you placed on the map
-vlsAvailable = true;			// Makes vls available from the start. If you want to activate it during the mission progress, use 'vlsAvailable = true; publicVariable "vlsAvailable";'
-vlsAIDisabled = true;			// Disables all function besides the needed ones for the vls turret so it cannot act autonomously
-vlsPlayerControl = false;		// Disables the function for players with UAV Terminal to connect to the vls turret. Should be false for immersion.
-vlsHERounds = 1;				// Count of Cruise Missiles that can be fired
-vlsClusterRounds = 0;			// Count of Cluster Missiles that can be fired
-vlsDelay = 0;					// Delay of rocketlaunch after strike is ordered
-vlsCooldown = 0;				// Cooldown time until another vls Strike is available again
+vlsFeature = true;				// Activates the vls Function. This permanently deactivates this feature for the mission and it won't be accessible even if you set it to true later.
+vlsName = "vls_1";				// Variable name of the vls turret you placed on the map.
+
+vlsStatus = 0;					// The Status manages the accessebility of the function.
+								// While 0 to 3 are Ingame Status, 4 is to manage by the Missionmaker
+								// 0 : Available -> Use this if you want it to be accessibel from the very beginning of the Mission
+								// 1 : Call -> Another player is calling this Support and it is therefor not available for any other Player
+								// 2 : Progress  -> The Support was called and is now being executed and it is therefor not available for any other player
+								// 3 : Cooldown -> The Support was executed and is now in Cooldown before it is avialable again
+								// 4 : Not available -> The support is not available until the Missionmaker sets the Status manually to 0
+								//						-> The function will not be shown in the players ace selfinteract menu until its under 4
+								//					vlsStatus = 0;
+								//					publicVariable "vlsStatus";
+								//		IF YOU DON'T WANT ANY VLS use vlsFeature instead!
+
+vlsHERounds = 100;				// Count of Cruise Missiles that can be fired.
+vlsClusterRounds = 100;			// Count of Cluster Missiles that can be fired.
+vlsDelay = 10;					// Delay of rocketlaunch after strike is ordered in seconds.
+vlsCooldown = 10;				// Cooldown time in seconds until another vls Strike is available again.
 vlsRoles[] = {JTAC,Groupleader};	// Roles that can call a vls strike via Equipment on sight.
 vlsRolesCMDR[] = {TOC,JTAC};		// Roles that can call in a VLS strike via Interface
 vlsEquipment[] = {laserDesignator};  // Equipment with which role defined players can call a vls strike.
@@ -423,15 +452,27 @@ vlsNoFireZones[] = {noFireZone_1}; // Areas where no vls Strike is allowed. Plac
 // and call it on any position on the map.
 //-----------------------------------------------------------------------
 //-----------------------------------------------------------------------
-casFeature = true;				// Activates the CAS Feature
-casAvailable = true;			// Makes CAS available from the start. If you want to activate it during the mission progress, use 'casAvailable = true; publicVariable "casAvailable";'
+casFeature = true;				// Activates the CAS Feature. This permanently deactivates this feature for the mission and it won't be accessible even if you set it to true later. 
+
+casStatus = 0;					// The Status manages the accessebility of the function.
+								// While 0 to 3 are Ingame Status, 4 is to manage by the Missionmaker
+								// 0 : Available -> Use this if you want it to be accessibel from the very beginning of the Mission
+								// 1 : Call -> Another player is calling this Support and it is therefor not available for any other Player
+								// 2 : Progress  -> The Support was called and is now being executed and it is therefor not available for any other player
+								// 3 : Cooldown -> The Support was executed and is now in Cooldown before it is avialable again
+								// 4 : Not available -> The support is not available until the Missionmaker sets the Status manually to 0
+								//						-> The function will not be shown in the players ace selfinteract menu until its under 4
+								//					vlsStatus = 0;
+								//					publicVariable "vlsStatus";
+								//		IF YOU DON'T WANT ANY CAS use casFeature instead!
+								
 casClass = "B_Plane_CAS_01_dynamicLoadout_F";	// Plane that flies the CAS (musst be one of the vanilla CAS vehicle Types
-casMGruns = 0;					// How Many MG runs the CAS can do
-casMisRuns = 3;					// How many missile runs the CAS can do
-casBombRuns = 0;				// How many bomb runs the CAS can do
-casDelay = 0;					// How much time goes by between call and the spawn of the CAS plane
-casCooldown = 0;				// Cooldown time until CAS is available again
-casPenalty = 5;					// How long it takes until CAS is available again after the plane was shot down. If 0 the CAS won't be available once it was lost!
+casMGruns = 100;					// How Many MG runs the CAS can do
+casMisRuns = 100;					// How many missile runs the CAS can do
+casBombRuns = 100;				// How many bomb runs the CAS can do
+casDelay = 10;					// How much time goes by between call and the spawn of the CAS plane
+casCooldown = 30;				// Cooldown time until CAS is available again
+casPenalty = 30;					// How long it takes until CAS is available again after the plane was shot down. If 0 the CAS won't be available once it was lost!
 casRoles[] = {JTAC,Groupleader};	// Roles that can call in a CAS strike in the field via Laser Designator (defined in casEquipment).
 casRolesCMDR[] = {TOC,JTAC};			// Roles that can call in a CAS strike from and to everywhere via Interface and map marker. Very powerful, meant for high ranking officers not at the front lines.
 casEquipment[] = {laserdesignator};	// Equipment with which you can call in a CAS strike.
@@ -453,14 +494,26 @@ casNoFireZones[] = {noFireZone_1}; // Areas where CAS strikes are prohibited. Pl
 // everywhere on the map.
 //-----------------------------------------------------------------------
 //-----------------------------------------------------------------------
-hfsFeature = true;				// Activates the Heli Fire Support Feature
-hfsAvailable = true;			// Makes Heli Fire Support available from the start. If you want to activate it during the mission progress, use 'hfsAvailable = true; publicVariable "hfsAvailable";'
+hfsFeature = true;				// Activates the Heli Fire Support Feature. This permanently deactivates this feature for the mission and it won't be accessible even if you set it to true later.
+
+hfsStatus = 0;					// The Status manages the accessebility of the function.
+								// While 0 to 3 are Ingame Status, 4 is to manage by the Missionmaker
+								// 0 : Available -> Use this if you want it to be accessibel from the very beginning of the Mission
+								// 1 : Call -> Another player is calling this Support and it is therefor not available for any other Player
+								// 2 : Progress  -> The Support was called and is now being executed and it is therefor not available for any other player
+								// 3 : Cooldown -> The Support was executed and is now in Cooldown before it is avialable again
+								// 4 : Not available -> The support is not available until the Missionmaker sets the Status manually to 0
+								//						-> The function will not be shown in the players ace selfinteract menu until its under 4
+								//					vlsStatus = 0;
+								//					publicVariable "vlsStatus";
+								//		IF YOU DON'T WANT ANY HFS use hfsFeature instead!
+								
 hfsArray[] = {{"B_Heli_Light_01_dynamicLoadout_F",2,3},{"B_Heli_Attack_01_dynamicLoadout_F",1,5}};	// Array of Helicopters. Multidimensional Array {{"Heli Class",Number spawned Helis,Number Support can be called},{more Elements}}
-hfsDuration = 30;				// How long the helicopters will stay on Target
+hfsDuration = 60;				// How long the helicopters will stay on Target
 hfsDistance = 2000;				// How far away the Helicopters are spawned
-hfsDelay = 0;					// Delay until helicopters are spawned
-hfsCooldown = 0;				// How long until Heli Fire Support is available again
-hfsPenalty = 0;					// Penalty if at least one heli gets shot.
+hfsDelay = 10;					// Delay until helicopters are spawned
+hfsCooldown = 30;				// How long until Heli Fire Support is available again
+hfsPenalty = 30;				// Penalty if one or more helis get shot.
 hfsRespawn = false;				// Enable respawn for lost helicopters. If false, the fire support is not available anymore for this element.
 hfsRoles[] = {JTAC,Groupleader};	// Roles that can call in Heli Fire Support
 hfsRolesCMDR[] = {TOC,JTAC};			// Roles that can call in a Heli Fire Support from and to everywhere via Interface and map marker. Very powerful, meant for high ranking officers not at the front lines.

@@ -10,6 +10,16 @@ if (_casTargetPos isEqualTo [0,0,0]) exitWith{
 	["No Target position set!", "Error"] call BIS_fnc_guiMessage;
 };
 
+_firezoneCheck = false;
+
+{	
+	_fireZoneCheck = _casTargetPos inArea _x;
+}forEach casNoFireZones;
+
+if (_fireZoneCheck) exitWith {
+	["Target is in No Fire Zone!", "Error"] call BIS_fnc_guiMessage;
+};
+	
 _runName = "Machine Gun";
 _ammo = 1;
 

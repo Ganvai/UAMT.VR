@@ -119,10 +119,6 @@ for "_i" from 0 to _amount do {
 		_despawnPos = _despawnPosArr select _i;
 	};
 
-	//Spawn invisible helipads
-	"Land_HelipadEmpty_F" createVehicle _pickupPos;
-	"Land_HelipadEmpty_F" createVehicle _destPos;
-
 	// Create map marker
 	if (_marker) then {
 		_pickUpMapMarker = format ["Pickup LZ %1",(_i + 1)];

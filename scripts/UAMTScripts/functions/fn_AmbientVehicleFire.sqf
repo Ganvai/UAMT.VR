@@ -76,14 +76,14 @@ else {
 			if (_salvo > 1) then {
 				_shots = ceil random [(_salvo * 0.7),_salvo,(_salvo * 1.3)];
 			};
-			
-			_sleepy = random [(_firePause * 0.7),_firePause,(_firePause * 1.3)];
-			sleep _sleepy;
-			
+		
 			for "_i" from 1 to _shots do {
 				_vehicle fire (weapons _vehicle select 0);
 				sleep 0.1;
 			};
+			
+			_sleepy = random [(_firePause * 0.7),_firePause,(_firePause * 1.3)];
+			sleep _sleepy;
 		};
 	};
 }forEach _vehicleArr;

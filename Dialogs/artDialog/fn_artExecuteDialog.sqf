@@ -16,6 +16,7 @@ _artiAmmo = (((fullArti select _artIndex) select 2) select _ammoIndex) select 0;
 _artiAmmoRemaining = (((fullArti select _artIndex) select 2) select _ammoIndex) select 2;
 _artiNewAmmoCount = _artiAmmoRemaining - _rounds;
 (((fullArti select _artIndex) select 2) select _ammoIndex) set [2,_artiNewAmmoCount];
+publicVariable "FullArti";
 
 // Set ArtiStatus for Interface Control
 artiStatus = 2;
@@ -89,8 +90,10 @@ if (_pattern == 0) then {
 		}forEach _artiArr;
 		
 	};
-
-	waitUntil {sleep 2; unitReady (_artiArr select ((count _artiArr) - 1))};
+	
+	sleep 10;
+	
+	waitUntil {sleep 2; unitReady (_artiArr select -1)};
 }
 else {
 	//All other Fire Modes

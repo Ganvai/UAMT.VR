@@ -95,7 +95,7 @@ if (typeName _dropPos == "STRING") then {
 	};
 
 	//Create Parachute Group
-	_grpParatroopers = [[0,0,0], EAST,_unitsArr] call BIS_fnc_spawnGroup;
+	_grpParatroopers = [[0,0,0], _side,_unitsArr] call BIS_fnc_spawnGroup;
 
 	//Move all units into the Helicopter
 	{

@@ -2,8 +2,8 @@ if (!isServer) exitWith {};
 
 params ["_targetPos","_side","_ammoID",["_createMarker",true]];
 
-vlsAvailable = false;
-publicVariable "vlsAvailable";
+vlsStatus = 2;
+publicVariable "vlsStatus";
 
 _audioMessages = supportMessages;
 _customAudio = supportCustomAudio;
@@ -78,10 +78,52 @@ sleep vlsDelay;
 _target = createVehicle ["Land_HelipadEmpty_F",_targetPos];
 
 sleep  5;
-
+vlsName setVehicleReceiveRemoteTargets  true;
 _side reportRemoteTarget [_target,1000];
 vlsName doWatch _target;
 vlsName fireAtTarget [_target];
+vlsName setVehicleReceiveRemoteTargets  false;
+
+waitUntil {sleep 0.5; vlsMissile != objNull};
+
+waitUntil {sleep 0.5; vlsMissile distance2D _target < 1000};
+
+if (_audioMessages) then {
+	if (_customAudio) then {
+		["Missile distance to target: 1000 meter",_supportControlName,"msg_vls1000",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+	}
+	else {
+		["Missile distance to target: 1000 meter",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+	};
+};
+
+waitUntil {sleep 0.5; !alive vlsMissile || vlsMissile distance2D _target > 2000};
+
+if (!alive vlsMissile) then {
+	if (_audioMessages) then {
+		if (_customAudio) then {
+			["Missile Impact",_supportControlName,"msg_vlsimpact",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		}
+		else {
+			["Missile Impact",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		};
+	};
+}
+else {
+	if (_audioMessages) then {
+		if (_customAudio) then {
+			["Missile Target Error. Executing Selfdestruct.",_supportControlName,"msg_vlsSelfDestruct",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		}
+		else {
+			["Missile Target Error. Executing Selfdestruct.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		};
+	};
+
+	vlsMissile setDamage 1;
+};
+
+vlsStatus = 3;
+publicVariable "vlsStatus";
 
 sleep 5;
 
@@ -98,9 +140,6 @@ if ( vlsHERounds > 0 || vlsClusterRounds > 0 ) then {
 			[_msg,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 		};
 	};
-
-	vlsAvailable = true;
-	publicVariable "vlsAvailable";
 }
 else {
 	if (_audioMessages) then {
@@ -117,6 +156,11 @@ else {
 
 deleteVehicle _target;
 deleteMarker "vlsMrk";
+missile = objNull;
+publicVariable "missile";
+
+vlsStatus = 0;
+publicVariable "vlsStatus";
 
 /*
 ammo_Missile_Cruise_01_Cluster

@@ -30,6 +30,19 @@ else {
 publicVariable "debugOn";
 
 //------------------------------------------------------------------
+//						Mission Started Feature
+//------------------------------------------------------------------
+
+if (getMissionConfigValue "missionstartedfeat" == "true") then {
+	missionstarted = false;
+}
+else {
+	missionstarted = true;
+};
+
+publicVariable "missionstarted";
+
+//------------------------------------------------------------------
 //						Mission Control Center
 //------------------------------------------------------------------
 if (getMissionConfigValue "mCC" == "true") then {
@@ -415,25 +428,20 @@ publicVariable "supplyPointFeature";
 if (getMissionConfigValue "supplyDropFeature" == "true") then {
 	supplyDropFeature = true;
 
-	if (getMissionConfigValue "supplyDropOnStart" == "true") then {
-		supplyDropAvailable = true;
-	}
-	else {
-		supplyDropAvailable = false;
-	};
-	publicVariable "supplyDropAvailable";
+	supplyDropStatus = getMissionConfigValue "supplyDropStatus";
+	publicVariable "supplyDropStatus";
 	
 	supplyDropRoles = getMissionConfigValue "supplyDropRoles";
 	publicVariable "supplyDropRoles";
 
-	supplyDropVehicleConfig = getMissionConfigValue "supplyDropVehicle";
-	publicVariable "supplyDropVehicleConfig";
+	supplyDropVehicle = getMissionConfigValue "supplyDropVehicle";
+	publicVariable "supplyDropVehicle";
 
-	supplyDropPilotConfig = getMissionConfigValue "supplyDropPilot";
-	publicVariable "supplyDropPilotConfig";
+	supplyDropPilot = getMissionConfigValue "supplyDropPilot";
+	publicVariable "supplyDropPilot";
 
-	SupplyDropMinDistSpawnConfig = getMissionConfigValue "SupplyDropMinDistSpawn";
-	publicVariable "SupplyDropMinDistSpawnConfig";
+	supplyDropDist = getMissionConfigValue "supplyDropDist";
+	publicVariable "supplyDropDist";
 
 	supplyDropMax = getMissionConfigValue "supplyDropMax";
 	publicVariable "supplyDropMax";
@@ -446,6 +454,14 @@ if (getMissionConfigValue "supplyDropFeature" == "true") then {
 	
 	supplyDropCount = 0;
 	publicVariable "supplyDropCount";
+	
+	if ( getMissionConfigValue "supplyDropDamage" == "true" ) then {
+		supplyDropDamage = true;
+	}
+	else {
+		supplyDropDamage = false;
+	};
+	publicVariable "supplyDropDamage";
 
 }
 else {
@@ -467,14 +483,6 @@ if ( getMissionConfigValue "chtFeature" == "true" ) then {
 		chtAvailable = false;
 	};
 	publicVariable "chtAvailable";
-
-	if ( getMissionConfigValue "chtMultiple" == "true" ) then {
-		chtMultiple = true;
-	}
-	else {
-		chtMultiple = false;
-	};
-	publicVariable "chtMultiple";
 	
 	chtClasses = getMissionConfigValue "chtClasses";
 	publicVariable "chtClasses";
@@ -482,6 +490,12 @@ if ( getMissionConfigValue "chtFeature" == "true" ) then {
 	chtRoles = getMissionConfigValue "chtRoles";
 	publicVariable "chtRoles";
 
+	chtSpawn = getMissionConfigValue "chtSpawn";
+	publicVariable "chtSpawn";
+
+	chtDespawn = getMissionConfigValue "chtDespawn";
+	publicVariable "chtDespawn";
+	
 	chtCount = 0;
 	publicVariable "chtCount";
 }
@@ -525,12 +539,6 @@ if (getMissionConfigValue "artiFeature" == "true") then {
 	
 	artiStrikeCount = 0;
 	publicVariable "artiStrikeCount";
-	
-	artiMarker = "";
-	publicVariable "artiMarker";
-	
-	artiTempPos = [0,0,0];
-	publicVariable "artiTempPos";
 };
 
 
@@ -544,46 +552,10 @@ if ( getMissionConfigValue "vlsFeature" == "true" ) then {
 
 	vlsName = missionNamespace getVariable [(getMissionConfigValue "vlsName"), objNull];
 	publicVariable "vlsName";
-	
-	if ( getMissionConfigValue "vlsAvailable" == "true" ) then {
-		vlsAvailable = true;
-	}
-	else {
-		vlsAvailable = false;
-	};
-	publicVariable "vlsAvailable";
 
 	// Availability VLS - 0 = Available, 1 = In Use, 2 = In Firemission, 3 = in Cooldown
 	vlsStatus = 0;
-	publicVariable "vlsStatus";
-	
-	if ( getMissionConfigValue "vlsAIDisabled" == "true" ) then {
-		vlsAIDisabled = true;
-		
-		// vls Turret Modification
-		
-		vlsName disableAI "AUTOTARGET";
-		vlsNAME disableAI "AUTOCOMBAT";
-		
-		["Item_B_UavTerminal", "init", {},true,[],true] call CBA_fnc_addClassEventHandler;
-		
-	}
-	else {
-		vlsAIDisabled = false;
-	};
-	publicVariable "vlsAIDisabled";
-
-	if ( getMissionConfigValue "vlsPlayerControl" == "true" ) then {
-		vlsPlayerControl = true;
-	}
-	else {
-		vlsPlayerControl = false;
-		
-		vlsName lockDriver true;
-		vlsName lockTurret [[0],true];
-	};
-	publicVariable "vlsPlayerControl";
-	
+	publicVariable "vlsStatus";	
 	
 	vlsHERounds = getMissionConfigValue "vlsHERounds";
 	publicVariable "vlsHERounds";
@@ -625,7 +597,36 @@ if ( getMissionConfigValue "vlsFeature" == "true" ) then {
 	vlsNoFireZones = getMissionConfigValue "vlsNoFireZones";
 	publicVariable "vlsNoFireZones";
 
-
+	vlsMissile = objNull;
+	publicVariable "vlsMissile";
+	
+	//Preparing the VLS Turret
+	vlsName setVehicleReceiveRemoteTargets  false;
+	vlsName setVehicleRadar 2;
+	vlsName disableAI "AUTOTARGET";
+	vlsName disableAI "AUTOCOMBAT";
+	
+	["Item_B_UavTerminal", "init", {},true,[],true] call CBA_fnc_addClassEventHandler;
+	
+	vlsName lockDriver true;
+	vlsName lockTurret [[0],true];
+	
+	vlsName addEventHandler ["Fired", {
+		params [
+			"_unit", 
+			"_weapon", 
+			"_muzzle", 
+			"_mode", 
+			"_ammo", 
+			"_magazine", 
+			"_projectile"
+		];
+		if (isNull _projectile) then {
+			_projectile = nearestObject [_unit, _ammo];
+		};
+		vlsMissile = _projectile;
+		publicVariable "vlsMissile";
+	}];
 }
 else {
 	vlsFeature = false;
@@ -640,16 +641,8 @@ else {
 if ( getMissionConfigValue "casFeature" == "true" ) then {
 	casFeature = true;
 	publicVariable "casFeature";
-	
-	if ( getMissionConfigValue "casAvailable" == "true" ) then {
-		casAvailable = true;
-	}
-	else {
-		casAvailable = false;
-	};
-	publicVariable "casAvailable";
 
-	// Availability CAS - 0 = Available, 1 = In Use, 2 = In Firemission, 3 = in Cooldown
+	// Availability CAS - 0 = Available, 1 = In Use, 2 = In Firemission, 3 = in Cooldown, 4 = Not available, will not show in Menu
 	casStatus = 0;
 	publicVariable "casStatus";
 	
@@ -718,17 +711,9 @@ else {
 if ( getMissionConfigValue "hfsFeature" == "true" ) then {
 	hfsFeature = true;
 	publicVariable "hfsFeature";
-	
-	if ( getMissionConfigValue "hfsAvailable" == "true" ) then {
-		hfsAvailable = true;
-	}
-	else {
-		hfsAvailable = false;
-	};
-	publicVariable "hfsAvailable";
 
 	// Availability HFS - 0 = Available, 1 = In Use, 2 = In Firemission, 3 = in Cooldown
-	hfsStatus = 0;
+	hfsStatus = getMissionConfigValue "hfsStatus";
 	publicVariable "hfsStatus";
 	
 	hfsArray = getMissionConfigValue "hfsArray";
@@ -905,8 +890,7 @@ if (getMissionConfigValue "loadCargoFeature" == "true") then {
 
 	["ReammoBox_F", "init", {
 
-	(_this select 0 )addAction
-	[
+	[(_this select 0 ),	[
 		"Load into Vehicle",
 		{
 			params ["_target", "_caller", "_actionId", "_arguments"];
@@ -942,7 +926,7 @@ if (getMissionConfigValue "loadCargoFeature" == "true") then {
 		false,
 		"",
 		""
-	];
+	]] remoteExec ["addAction",0,true];
 
 
 	}, true, [], true] call CBA_fnc_addClassEventHandler;

@@ -8,5 +8,6 @@ class chtDialog
 		class chtCloseDialog {};
 		class chtInitDialog {};
 		class chtCallDialog {};
+		class chtExecute {};
 	}; 
 };

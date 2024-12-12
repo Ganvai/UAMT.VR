@@ -1,5 +1,15 @@
-supplyDropAvailable = false;
-publicVariable "supplyDropAvailable";
+if (supplyDropStatus > 0) exitWith {
+	switch supplyDropStatus do {
+		case 1: {["Supply Drop NOT available. Another Player is currently ordering a supply Drop.", "Error"] call BIS_fnc_guiMessage;};
+		case 2: {["Supply Drop NOT available. Supply Drop is currently being executed.", "Error"] call BIS_fnc_guiMessage;};
+		case 3: {["Supply Drop NOT available. A new Supply Drop is currently being prepared.", "Error"] call BIS_fnc_guiMessage;};
+		case 4: {["No Supply Drops available.", "Error"] call BIS_fnc_guiMessage;};
+	};
+};
+
+if (supplyDropCount >= supplyDropMax) exitWith {
+	["Supply Drop not available. All Supply Drops used.", "Error"] call BIS_fnc_guiMessage;
+};
 
 _side = side Player;
 
@@ -12,7 +22,7 @@ publicVariable "supplyDropPosTarget";
 supplyDropReturn = 0;
 publicVariable "supplyDropReturn";
 
-_customAudio = supportCustomAudioMsg;
+_customAudio = supportCustomAudio;
 
 _supportControlName = supportControlName;
 

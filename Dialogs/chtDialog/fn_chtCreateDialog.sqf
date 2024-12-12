@@ -1,6 +1,6 @@
-createDialog "chtDialog";
+_display = createDialog ["chtDialog"];
 
-_map = findDisplay 99006 ctrlCreate ["RscMapControl", -1];
+_map = _display ctrlCreate ["RscMapControl", -1];
 _map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.316,safeZoneY + safeZoneH * 0.333,safeZoneW * 0.369,safeZoneH * 0.368];
 
 {
@@ -9,9 +9,6 @@ _map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.316,safeZoneY + safeZoneH * 0
 } forEach chtClasses;
 
 lbSetCurSel [9900601,0];
-
-chtAvailable = false;
-publicVariable "chtAvailable";
 
 chtCount = chtCount + 1;
 publicVariable "chtCount";
@@ -33,6 +30,9 @@ _chtDropOffMrkName setMarkerAlpha 0;
 _chtDropOffMrkName setMarkerType "hd_end_noShadow";
 _dropoffmrkText = format ["Transport Drop-Off %1",_chtNumber];
 _chtDropOffMrkName setMarkerText _dropoffmrkText;
+
+_display setVariable ["chtCallPUMrk",_chtPickUpMrkName];
+_display setVariable ["chtCallDOMrk",_chtDropOffMrkName];
 
 lbSetData [9900602,1,_chtDropOffMrkName];
 

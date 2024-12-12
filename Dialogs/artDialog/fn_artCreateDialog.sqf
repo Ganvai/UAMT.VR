@@ -1,7 +1,7 @@
 if (artiStatus > 0) exitWith {
 	switch artiStatus do {
-		case 1 : {["No Artillery Strike available. Another Player is currently ordering an artillery strike", "Error"] call BIS_fnc_guiMessage;};
-		case 2 : {["No Artillery Strike available. Artillery is currently executing a strike", "Error"] call BIS_fnc_guiMessage;};
+		case 1 : {["No Artillery Strike available. Someone else is currently ordering a strike.", "Error"] call BIS_fnc_guiMessage;};
+		case 2 : {["No Artillery Strike available. Artillery is executing a strike", "Error"] call BIS_fnc_guiMessage;};
 		case 3 : {["No Artillery Strike available. Artillery is reloading and will be available shortly", "Error"] call BIS_fnc_guiMessage;};
 	};
 };
@@ -104,7 +104,7 @@ createMarker ["artMrkRadius",[0,0,0]];
 
 	//If not in Range exit function
 	if (!_isInRange) exitWith {
-		["Target Position is not in Range", "Error"] spawn BIS_fnc_guiMessage;
+		["Target Position is not in Range. Keep in mind that this could also mean the target is to close to the artillery.", "Error"] spawn BIS_fnc_guiMessage;
 	};	
 	
 	"artMrk" setMarkerPos _pos;
@@ -116,7 +116,7 @@ createMarker ["artMrkRadius",[0,0,0]];
 	"artMrkRadius" setMarkersize [(sliderPosition 9900107),(sliderPosition 9900107)];
 };
 
-sleep 1;
+sleep 2;
 
 if (findDisplay 99001 == displayNull) then {
 	onMapSingleClick "";

@@ -2,8 +2,8 @@ if (!isServer) exitWith {};
 
 params ["_targetPos","_dir","_side","_weaponTypesID",["_createMarker",true]];
 
-casAvailable = false;
-publicVariable "casAvailable";
+casStatus = 2;
+publicVariable "casStatus";
 
 if (_createMarker) then {
 	createMarker ["casStrikeMrk",_targetPos];
@@ -40,10 +40,10 @@ if (_audioMessages) then {
 };
 
 switch _weaponTypesID do {
-	case 0: {casMGruns = casMGruns - 1; };
-	case 1: {casMisRuns = casMisRuns - 1; };
-	case 2: {casMGruns = casMGruns - 1; casMisRuns = casMisRuns - 1;};
-	case 3: {casBombRuns = casBombRuns - 1;};
+	case 0 : {casMGruns = casMGruns - 1; publicVariable "casMGruns";};
+	case 1 : {casMisRuns = casMisRuns - 1; publicVariable "casMisRuns";};
+	case 2 : {casMGruns = casMGruns - 1; publicVariable "casMGruns"; casMisRuns = casMisRuns - 1; publicVariable "casMisRuns";};
+	case 3 : {casBombRuns = casBombRuns - 1; publicVariable "casBombRuns";};
 };
 
 _planeCfg = configfile >> "cfgvehicles" >> _planeClass;
@@ -214,11 +214,15 @@ if (!canMove _plane) exitWith {
 	
 	if (casPenalty > 0 ) then {
 		_cooldown = casCooldown + casPenalty;
+
+		casStatus = 3;
+		publicVariable "casStatus";
+
 		
 		sleep _cooldown;
 		
-		casAvailable = true;
-		publicVariable "casAvailable";
+		casStatus = 0;
+		publicVariable "casStatus";
 		
 		if (_audioMessages) then {
 			if (_customAudio) then {
@@ -230,6 +234,9 @@ if (!canMove _plane) exitWith {
 		};
 	}
 	else {
+		casStatus = 0;
+		publicVariable "casStatus";
+
 		if (_audioMessages) then {
 			if (_customAudio) then {
 				["No other CAS Aircrafts available. You are on your own now.",_supportControlName,"msg_CASNoCAS",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
@@ -276,6 +283,10 @@ if (canMove _plane) then {
 	deletegroup _group;
 
 	if (casMGruns > 0 || casMisRuns > 0 || casBombRuns > 0) then {
+
+		casStatus = 3;
+		publicVariable "casStatus";
+
 		_cooldownMike = ceil (casCooldown / 60);
 		
 		if (_audioMessages) then {
@@ -293,8 +304,8 @@ if (canMove _plane) then {
 		
 		sleep casCooldown;
 		
-		casAvailable = true;
-		publicVariable "casAvailable";
+		casStatus = 0;
+		publicVariable "casStatus";
 
 		if (_audioMessages) then {
 			if (_customAudio) then {
@@ -306,6 +317,10 @@ if (canMove _plane) then {
 		};
 	}
 	else {
+	
+		casStatus = 0;
+		publicVariable "casStatus";
+
 		if (_audioMessages) then {
 			if (_customAudio) then {
 				["Be advised: Aircraft is bingo ammo and RTB. No more CAS Strikes available.",_supportControlName,"msg_CASLastCAS",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
@@ -330,11 +345,12 @@ else {
 	
 	if (casPenalty > 0 ) then {
 		_cooldown = casCooldown + casPenalty;
+
+		casStatus = 3;
+		publicVariable "casStatus";
 		
 		sleep _cooldown;
 		
-		casAvailable = true;
-		publicVariable "casAvailable";
 		
 		if (_audioMessages) then {
 			if (_customAudio) then {
@@ -346,6 +362,11 @@ else {
 		};
 	}
 	else {
+
+		casStatus = 0;
+		publicVariable "casStatus";
+
+
 		if (_audioMessages) then {
 			if (_customAudio) then {
 				["No other CAS Aircrafts available. You are on your own now.",_supportControlName,"msg_CASNoCAS",_side] remoteExec ["UAMT_fnc_quickMsg",_side];

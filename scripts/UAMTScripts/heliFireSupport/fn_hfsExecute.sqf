@@ -2,8 +2,8 @@ if (!isServer) exitWith {};
 
 params ["_pos","_dir","_side","_hfsIndex",["_createMarker",true]];
 
-hfsAvailable = false;
-publicVariable "hfsAvailable";
+hfsStatus = 2;
+publicVariable "hfsStatus";
 
 _heloClass = (hfsArray select _hfsIndex) select 0;
 _heloCount = (hfsArray select _hfsIndex) select 1;
@@ -67,6 +67,8 @@ waitUntil {sleep 0.5; {_x distance2D _pos < 1000} count _heloVehArr > 0  || {can
 			if (((hfsArray select _hfsIndex) select 1) == 0) then {
 				(hfsArray select _hfsIndex) set [2,0];
 			};
+			
+			publicVariable  "hfsArray";
 		};
 		
 		_penalty = true;
@@ -103,6 +105,8 @@ waitUntil {sleep 1; time - _timer > _duration || {canMove _x} count _heloVehArr 
 			if (((hfsArray select _hfsIndex) select 1) == 0) then {
 				(hfsArray select _hfsIndex) set [2,0];
 			};
+			
+			publicVariable  "hfsArray";
 		};
 		
 		_penalty = true;
@@ -114,6 +118,9 @@ waitUntil {sleep 1; time - _timer > _duration || {canMove _x} count _heloVehArr 
 if ({alive _x} count _heloVehArr == 0) exitWith {
 	[_hfsIndex,_side] spawn UAMThfs_fnc_hfsDestroyed;
 };
+
+hfsStatus = 3;
+publicVariable "hfsStatus";
 
 if (_audioMessages) then {
 	if (_customAudio) then {
@@ -166,6 +173,8 @@ waituntil {sleep 1; {_x distance2D _heloPos < 100} count _heloVehArr > 0 || {can
 			if (((hfsArray select _hfsIndex) select 1) == 0) then {
 				(hfsArray select _hfsIndex) set [2,0];
 			};
+			
+			publicVariable  "hfsArray";
 		};
 		
 		_penalty = true;
@@ -191,8 +200,8 @@ if (_penalty) then {
 
 sleep _cooldown;
 
-hfsAvailable = true;
-publicVariable "hfsAvailable";
+hfsStatus = 0;
+publicVariable "hfsStatus";
 
 if (_audioMessages) then {
 	if (_customAudio) then {

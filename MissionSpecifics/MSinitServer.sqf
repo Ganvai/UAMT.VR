@@ -23,10 +23,10 @@ publicVariable "avfCondition";
 		publicVariable "avfCondition";
 		
 		// Call Function for the AAs, that have a wide horizontal and vertical angles and a large salvo
-		[[avfAA_1,avfAA_2],360,150,20,5,{avfCondition}] call UAMT_fnc_ambientVehicleFire;
+		[[[avfAA_1,avfAA_2],360,150,20,5,{avfCondition}],UAMT_fnc_ambientVehicleFire] remoteExec ["call",2];
 
 		// Call Function for the tanks that have narrow angles and only single shot
-		[[avftank_1,avftank_2],50,50,1,10,{avfCondition}] call UAMT_fnc_ambientVehicleFire;
+		[[[avftank_1,avftank_2],50,50,1,10,{avfCondition}],UAMT_fnc_ambientVehicleFire] remoteExec ["call",2];
 	},
 	{},
 	[],
@@ -34,7 +34,7 @@ publicVariable "avfCondition";
 	0,
 	false,
 	false
-] remoteExec ["BIS_fnc_holdActionAdd", 0, avfTerminal];
+] remoteExec ["BIS_fnc_holdActionAdd", 0, true];
 
 [
 	avfTerminal,
@@ -55,7 +55,7 @@ publicVariable "avfCondition";
 	0,
 	false,
 	false
-] remoteExec ["BIS_fnc_holdActionAdd", 0, avfTerminal];
+] remoteExec ["BIS_fnc_holdActionAdd", 0, true];
 
 //-------------------------------------------------------
 // 		 Showcase Artillery Fire
@@ -86,7 +86,7 @@ publicVariable "afCondition";
 	0,
 	false,
 	false
-] remoteExec ["BIS_fnc_holdActionAdd", 0, afTerminal];
+] remoteExec ["BIS_fnc_holdActionAdd", 0, true];
 
 [
 	afTerminal,
@@ -107,7 +107,7 @@ publicVariable "afCondition";
 	0,
 	false,
 	false
-] remoteExec ["BIS_fnc_holdActionAdd", 0, afTerminal];
+] remoteExec ["BIS_fnc_holdActionAdd", 0, true];
 
 //-------------------------------------------------------
 // 		 Showcase Heli Taxi Hop
@@ -131,7 +131,7 @@ publicVariable "afCondition";
 	0,
 	false,
 	false
-] remoteExec ["BIS_fnc_holdActionAdd", 0, heliHopTerminal];
+] remoteExec ["BIS_fnc_holdActionAdd", 0, true];
 
 [
 	heliTaxiTerminal,
@@ -151,7 +151,7 @@ publicVariable "afCondition";
 	0,
 	false,
 	false
-] remoteExec ["BIS_fnc_holdActionAdd", 0, heliTaxiTerminal];
+] remoteExec ["BIS_fnc_holdActionAdd", 0, true];
 
 //-------------------------------------------------------
 // 		 Showcase Reinforcements
@@ -175,7 +175,7 @@ publicVariable "afCondition";
 	0,
 	false,
 	false
-] remoteExec ["BIS_fnc_holdActionAdd", 0, paradropTerminal];
+] remoteExec ["BIS_fnc_holdActionAdd", 0, true];
 
 [
 	reinfLandTerminal,
@@ -195,4 +195,4 @@ publicVariable "afCondition";
 	0,
 	false,
 	false
-] remoteExec ["BIS_fnc_holdActionAdd", 0, reinfLandTerminal];
+] remoteExec ["BIS_fnc_holdActionAdd", 0, true];

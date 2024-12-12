@@ -3,5 +3,5 @@ deleteMarker "hfsMrk";
 deleteMarker "hfsDirMrk";
 onMapSingleClick "";
 
-hfsAvailable = true;
-publicVariable "hfsAvailable";
+hfsStatus = 0;
+publicVariable "hfsStatus";

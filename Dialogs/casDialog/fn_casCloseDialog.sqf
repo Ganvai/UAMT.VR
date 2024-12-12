@@ -3,5 +3,5 @@ deleteMarker "casStrikeMrk";
 deleteMarker "casDirMrk";
 onMapSingleClick "";
 
-casAvailable = true;
-publicVariable "casAvailable";
+casStatus = 0;
+publicVariable "casStatus";

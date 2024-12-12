@@ -1,6 +1,7 @@
 class chtDialog
 {
 	idd = 99006;
+	onLoad = "[_this select 0]execVM 'Dialogs\chtDialog\fn_chtInitDialog.sqf';";
 	
 	class ControlsBackground
 	{
@@ -202,7 +203,7 @@ class chtDialog
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
 			soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush",0.09,1.0};
-			action = "[(lbCurSel 9900301),(sliderPosition 9900303)] spawn chtDialog_fnc_chtCallDialog;";
+			action = "[(lbCurSel 9900601)] spawn chtDialog_fnc_chtCallDialog;";
 		};
 
 		class BtnClose

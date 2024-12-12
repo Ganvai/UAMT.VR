@@ -12,3 +12,4 @@
 #include "hfsDialog\hfsDialog.hpp" 
 #include "vlsDialog\vlsDialog.hpp" 
 #include "chtDialog\chtDialog.hpp" 
+#include "sdpDialog\sdpDialog.hpp" 

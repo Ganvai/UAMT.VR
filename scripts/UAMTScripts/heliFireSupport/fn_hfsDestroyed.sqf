@@ -20,6 +20,9 @@ if (_audioMessages) then {
 
 if (hfsRespawn) then {
 
+	hfsStatus = 3;
+	publicVariable "hfsStatus";
+	
 	_cooldown = hfsCooldown + hfsPenalty;
 	
 	if (_audioMessages) then {
@@ -41,8 +44,8 @@ if (hfsRespawn) then {
 		
 	sleep _cooldown;
 
-	hfsAvailable = true;
-	publicVariable "hfsAvailable";
+	hfsStatus = 0;
+	publicVariable "hfsStatus";
 	
 	if (_audioMessages) then {
 		if (_customAudio) then {
@@ -54,6 +57,9 @@ if (hfsRespawn) then {
 	};
 }
 else {
+	hfsStatus = 0;
+	publicVariable "hfsStatus";
+	
 	_hfsStillAvailable = false;
 	{
 		if ((_x select 1) > 0) then {
@@ -70,9 +76,6 @@ else {
 				["Remaining Helicopters are on standby.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 			};
 		};
-
-		hfsAvailable = true;
-		publicVariable "hfsAvailable";
 	}
 	else {
 		if (_audioMessages) then {

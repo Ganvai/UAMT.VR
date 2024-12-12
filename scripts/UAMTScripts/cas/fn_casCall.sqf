@@ -1,5 +1,26 @@
 params ["_runID"];
 
+if (casStatus > 0) exitWith {
+	switch casStatus do {
+		case 1 : {["CAS not available. Another Element is currently requesting a CAS Strike", "Error"] call BIS_fnc_guiMessage;};
+		case 2 : {["CAS not available. CAS strike in progress", "Error"] call BIS_fnc_guiMessage;};
+		case 3 : {["CAS not available. Rerouting plane for new strike.", "Error"] call BIS_fnc_guiMessage;};
+	};
+};
+
+_exit = false;
+switch _runID do {
+	case 0 : {if (casMGruns <= 0) then {_exit = true;};};
+	case 1 : {if (casMisRuns <= 0) then {_exit = true;};};
+	case 2 : {if (casMGruns <= 0 || casMisRuns <= 0) then {_exit = true;};};
+	case 3 : {if (casBombRuns <= 0) then {_exit = true;};};
+};
+
+if (_exit) exitWith {
+	["CAS not possible. No ammo left for this strike.", "Error"] call BIS_fnc_guiMessage;
+};
+
+
 _casTargetPos = [];
 
 _target = "";
@@ -43,11 +64,15 @@ switch _runID do {
 };
 _resultText = format ["You are calling a CAS Strike on the designated coordinates with %1. Do you confirm?",_runName];
 
+casStatus = 1;
+publicVariable "casStatus";
+
 _result = false;
 private _result = [_resultText, "Confirm CAS Firemission?", true, true] call BIS_fnc_guiMessage;
 
 if (!_result) exitWith {
-	cutText ["<t color='#ff0000' size='2' shadow = '2'>CAS Strike was cancelled</t>", "PLAIN", 2, true, true];
+	casStatus = 0;
+	publicVariable "casStatus";
 };
 
 _dir = getDir player;
