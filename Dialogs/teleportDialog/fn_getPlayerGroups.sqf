@@ -4,11 +4,12 @@ _groups = [];
 	_groups pushBackUnique (group _x);
 }forEach allPlayers;
 
-displayCtrl 1000 setVariable ["groups", _groups];
+_ctrl = displayCtrl 1000;
+_ctrl setVariable ["groups", _groups];
 
 {
-	lbAdd [1000, (groupID _x)];
-	lbSetData [1000, _forEachIndex, str _x];
+	_ctrl lbAdd (groupID _x);
+	_ctrl lbSetData [_forEachIndex, str _x];
 } forEach _groups;
 
 /*
