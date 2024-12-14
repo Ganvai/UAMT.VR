@@ -156,7 +156,7 @@ class casStrikeDialog
 			sliderRange[] = {0, 360};
 			sliderPosition = 180;
 			thumb = "\A3\ui_f\data\GUI\Cfg\Slider\thumb_ca.paa";
-			onSliderPosChanged = "params ['_control', '_newValue'];	_insert = 0; switch _newValue do {case 0 : {_insert = 'NORTH';};case 360 : {_insert = 'NORTH';};case 90 : {_insert = 'EAST';};case 180 : {_insert = 'SOUTH';};case 270 : {_insert = 'WEST';};default {_insert = _newValue;};};_text = format ['Direction: %1',_insert];ctrlSetText [9900302, _text];if (markerAlpha 'casStrikeMrk' == 1) then {'casDirMrk' setMarkerPos ((getMarkerPos 'casStrikeMrk') getPos [500,_newValue]);'casDirMrk' setMarkerAlpha 1;'casDirMrk' setMarkerDir (_newValue + 180);};";
+			onSliderPosChanged = "params ['_control', '_newValue'];	_insert = 0; switch _newValue do {case 0 : {_insert = 'NORTH';};case 360 : {_insert = 'NORTH';};case 90 : {_insert = 'EAST';};case 180 : {_insert = 'SOUTH';};case 270 : {_insert = 'WEST';};default {_insert = _newValue;};};_text = format ['Direction: %1',_insert];ctrlSetText [9900302, _text];if (markerAlpha 'casStrikeMrk' == 1) then {'casDirMrk' setMarkerPosLocal ((getMarkerPos 'casStrikeMrk') getPos [500,_newValue]);'casDirMrk' setMarkerAlphaLocal 1;'casDirMrk' setMarkerDirLocal (_newValue + 180);};";
 		};
 		
 		class callStrike

@@ -1,4 +1,4 @@
-params ["_targetPos", "_artIndex", "_ammoIndex", "_rounds", "_pattern", "_radius","_side"];
+params ["_targetPos", "_artIndex", "_ammoIndex", "_rounds", "_pattern", "_radius","_side",["_createMarker",true]];
 
 _audioMessages = supportMessages;
 _customAudio = supportCustomAudio;
@@ -22,6 +22,24 @@ publicVariable "FullArti";
 artiStatus = 2;
 publicVariable "artiStatus";
 
+_artCount = (missionnamespace getVariable ["artCount",0]) + 1;
+missionnamespace setVariable ["artCount",_artCount,true];
+
+_mrkName = format ["artMrk%1",_artCount];
+_mrkRadName = format ["artRadMrk%1",_artCount];
+
+if (_createMarker) then {
+	createMarkerLocal [_mrkName,_targetPos];
+	_mrkName setMarkerAlphaLocal 1;
+	_mrkName setMarkerTypeLocal "hd_destroy_noShadow";
+	_mrkName setMarkerTextLocal "Artillery Target";
+
+	createMarkerLocal [_mrkRadName,_targetPos];
+	_mrkRadName setMarkerAlphaLocal 1;
+	_mrkRadName setMarkershapeLocal "ELLIPSE";
+	_mrkRadName setMarkerTextLocal "Artillery Target";
+	_mrkRadName setMarkersizeLocal [_radius,_radius];
+};
 // Make Objects from the String Array of Artillery Classnames
 _artiArr = [];
 {
@@ -151,8 +169,10 @@ if (_audioMessages) then {
 artiStatus = 3;
 publicVariable "artiStatus";
 
-deleteMarker "artMrk";
-deleteMarker "artMrkRadius";
+if (_createMarker) then {
+	deleteMarker _mrkName;
+	deleteMarker _mrkRadName;
+};
 
 _cooldown = artiCooldown;
 

@@ -43,5 +43,7 @@ if (!_result) exitWith {};
 
 onMapSingleClick "";
 closeDialog 0;
+deleteMarkerLocal "casStrikeMrk";
+deleteMarkerLocal "casDirMrk";
 
-[[_casTargetPos,_dir, side player,_weaponID,false],UAMTcas_fnc_casExecute] remoteExec ["spawn",2];
+[[_casTargetPos,_dir, side player,_weaponID,true],UAMTcas_fnc_casExecute] remoteExec ["spawn",2];

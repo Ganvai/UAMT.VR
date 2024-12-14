@@ -8,50 +8,58 @@ if (artiStatus > 0) exitWith {
 
 createDialog "artDialog";
 
-_map = findDisplay 99001 ctrlCreate ["RscMapControl", -1];
-_map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.297,safeZoneY + safeZoneH * 0.329,safeZoneW * 0.406,safeZoneH * 0.333];
-
 artiStatus = 1;
 publicVariable "artiStatus";
 
+_display = findDisplay 99001;
+_map = _display ctrlCreate ["RscMapControl", -1];
+_map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.297,safeZoneY + safeZoneH * 0.329,safeZoneW * 0.406,safeZoneH * 0.333];
+
+_lbControl = _display displayCtrl 9900101;
 {
-	lbAdd [9900101, _x select 0];
+	_lbControl lbAdd (_x select 0);
 } forEach fullArti;
 
-[] spawn {
-	lbSetPictureColor [9900105,0,[1,1,1,1]];
-	lbSetPictureColorSelected [9900105,0,[1,1,1,1]];
+_lbControl lbSetCurSel 0;
+
+_lbControl = _display displayCtrl 9900105;
+
+[_lbControl] spawn {
+	params ["_lbControl"];
 	
-	lbSetPicture [9900105,1,"Dialogs\artDialog\extended.paa"];
-	lbSetPictureColor [9900105,1,[1,1,1,1]];
-	lbSetPictureColorSelected [9900105,1,[1,1,1,1]];
+	_lbControl lbSetPictureColor [0,[1,1,1,1]];
+	_lbControl lbSetPictureColorSelected [0,[1,1,1,1]];
+	
+	_lbControl lbSetPicture [1,"Dialogs\artDialog\extended.paa"];
+	_lbControl lbSetPictureColor [1,[1,1,1,1]];
+	_lbControl lbSetPictureColorSelected [1,[1,1,1,1]];
 
-	lbSetPicture [9900105,2,"Dialogs\artDialog\area.paa"];
-	lbSetPictureColor [9900105,2,[1,1,1,1]];
-	lbSetPictureColorSelected [9900105,2,[1,1,1,1]];
+	_lbControl lbSetPicture [2,"Dialogs\artDialog\area.paa"];
+	_lbControl lbSetPictureColor [2,[1,1,1,1]];
+	_lbControl lbSetPictureColorSelected [2,[1,1,1,1]];
 
-	lbSetPicture [9900105,3,"Dialogs\artDialog\inverted.paa"];
-	lbSetPictureColor [9900105,3,[1,1,1,1]];
-	lbSetPictureColorSelected [9900105,3,[1,1,1,1]];
+	_lbControl lbSetPicture [3,"Dialogs\artDialog\inverted.paa"];
+	_lbControl lbSetPictureColor [3,[1,1,1,1]];
+	_lbControl lbSetPictureColorSelected [3,[1,1,1,1]];
 
-	lbSetPicture [9900105,4,"Dialogs\artDialog\ring.paa"];
-	lbSetPictureColor [9900105,4,[1,1,1,1]];
-	lbSetPictureColorSelected [9900105,4,[1,1,1,1]];
+	_lbControl lbSetPicture [4,"Dialogs\artDialog\ring.paa"];
+	_lbControl lbSetPictureColor [4,[1,1,1,1]];
+	_lbControl lbSetPictureColorSelected [4,[1,1,1,1]];
 };
 
-lbSetCurSel [9900101,0];
+_lbControl lbSetCurSel 0;
 
 [0]call artDialog_fnc_artGetAmmo;
 
-createMarker ["artMrk",[0,0,0]];
-"artMrk" setMarkerAlpha 0;
-"artMrk" setMarkerType "mil_destroy_noShadow";
-"artMrk" setMarkerText "Artillery Target";
+createMarkerLocal ["artMrk",[0,0,0]];
+"artMrk" setMarkerAlphaLocal 0;
+"artMrk" setMarkerTypeLocal "mil_destroy_noShadow";
+"artMrk" setMarkerTextLocal "Artillery Target";
 
-createMarker ["artMrkRadius",[0,0,0]];
-"artMrkRadius" setMarkerAlpha 0;
-"artMrkRadius" setMarkershape "ELLIPSE";
-"artMrkRadius" setMarkerText "Artillery Target";
+createMarkerLocal ["artMrkRadius",[0,0,0]];
+"artMrkRadius" setMarkerAlphaLocal 0;
+"artMrkRadius" setMarkershapeLocal "ELLIPSE";
+"artMrkRadius" setMarkerTextLocal "Artillery Target";
 
 [] onMapSingleClick {
 
@@ -62,7 +70,7 @@ createMarker ["artMrkRadius",[0,0,0]];
 	_mrkSize = 0;
 	
 	//If Ammo is viable for Fire Zone Check make Firezone Check
-	if ((((fullArti select lbCurSel 9900101) select 2) select lbCurSel 9900102) select 3 == "true") then {
+	if ((((fullArti select lbCurSel (findDisplay 99001 displayCtrl 9900101)) select 2) select lbCurSel (findDisplay 99001 displayCtrl 9900102)) select 3 == "true") then {
 		{	
 			if (_pos inArea _x) exitWith {_fireZoneCheck = 1;};
 			
@@ -73,7 +81,7 @@ createMarker ["artMrkRadius",[0,0,0]];
 				_mrkSize = (getMarkerSize _x) select 1;
 			};
 			
-			if (_pos distance2D (getMarkerPos _x) < ((sliderPosition 9900107) + _mrkSize)) exitWith {_fireZoneCheck = 2;};
+			if (_pos distance2D (getMarkerPos _x) < ((sliderPosition (findDisplay 99001 displayCtrl 9900107)) + _mrkSize)) exitWith {_fireZoneCheck = 2;};
 		}forEach artiNoFireZones;
 	};
 	
@@ -97,31 +105,31 @@ createMarker ["artMrkRadius",[0,0,0]];
 	{
 		_obj = missionNamespace getVariable [_x, objNull];
 		_artiArr pushback _obj;
-	} forEach ((fullArti select lbCurSel 9900101) select 1);
+	} forEach ((fullArti select lbCurSel (findDisplay 99001 displayCtrl 9900101)) select 1);
 	
 	//Check if position is in Range
-	_isInRange = _pos inRangeOfArtillery [_artiArr, (((fullArti select lbCurSel 9900101) select 2) select lbCurSel 9900102) select 0];
+	_isInRange = _pos inRangeOfArtillery [_artiArr, (((fullArti select lbCurSel (findDisplay 99001 displayCtrl 9900101)) select 2) select lbCurSel (findDisplay 99001 displayCtrl 9900102)) select 0];
 
 	//If not in Range exit function
 	if (!_isInRange) exitWith {
 		["Target Position is not in Range. Keep in mind that this could also mean the target is to close to the artillery.", "Error"] spawn BIS_fnc_guiMessage;
 	};	
 	
-	"artMrk" setMarkerPos _pos;
-	"artMrk" setMarkerAlpha 1;
-	"artMrkRadius" setMarkerPos _pos;
+	"artMrk" setMarkerPosLocal _pos;
+	"artMrk" setMarkerAlphaLocal 1;
+	"artMrkRadius" setMarkerPosLocal _pos;
 	
 	//"artMrkRadius" setMarkerAlpha 1;
-	"artMrkRadius" setMarkerPos _pos;
-	"artMrkRadius" setMarkersize [(sliderPosition 9900107),(sliderPosition 9900107)];
+	"artMrkRadius" setMarkerPosLocal _pos;
+	"artMrkRadius" setMarkersizeLocal [(sliderPosition (findDisplay 99001 displayCtrl 9900107)),(sliderPosition (findDisplay 99001 displayCtrl 9900107))];
 };
 
 sleep 2;
 
 if (findDisplay 99001 == displayNull) then {
 	onMapSingleClick "";
-	deleteMarker "artMrkRadius";
-	deleteMarker "artMrk";
+	deleteMarkerLocal "artMrkRadius";
+	deleteMarkerLocal "artMrk";
 	artiStatus = 0;
 	publicVariable "artiStatus";
 };

@@ -72,11 +72,13 @@ _resultText = format ["You are calling an Artillery Strike with %1 , %2 rounds o
 
 _result = false;
 
-private _result = [_resultText, "Confirm CAS Firemission?", true, true] call BIS_fnc_guiMessage;
+private _result = [_resultText, "Confirm Artillery Firemission?", true, true] call BIS_fnc_guiMessage;
 
 if (!_result) exitWith{};
 
 onMapSingleClick "";
 closeDialog 0;
+deleteMarkerLocal "artMrk";
+deleteMarkerLocal "artMrkRadius";
 
 [_targetPos,_artIndex,_ammoIndex,_rounds,_pattern,_radius,side player] spawn artDialog_fnc_artExecuteDialog;

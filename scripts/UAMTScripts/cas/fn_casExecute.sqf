@@ -5,17 +5,24 @@ params ["_targetPos","_dir","_side","_weaponTypesID",["_createMarker",true]];
 casStatus = 2;
 publicVariable "casStatus";
 
-if (_createMarker) then {
-	createMarker ["casStrikeMrk",_targetPos];
-	"casStrikeMrk" setMarkerAlpha 0;
-	"casStrikeMrk" setMarkerType "hd_destroy_noShadow";
-	"casStrikeMrk" setMarkerText "CAS Target";
+_casCount = (missionnamespace getVariable ["casCount",0]) + 1;
+missionnamespace setVariable ["casCount",_casCount,true];
 
-	createMarker ["casDirMrk",(_targetPos getPos [500,_dir])];
-	"casDirMrk" setMarkerAlpha 0;
-	"casDirMrk" setMarkerType "hd_arrow_noShadow";
-	"casDirMrk" setMarkerText "CAS Approach Vector";
-	"casDirMrk" setMarkerDir (_dir + 180);
+_mrkName = format ["casStrikeMrk%1",_casCount];
+_mrkDirName = format ["casStrikeDirMrk%1",_casCount];
+
+if (_createMarker) then {
+
+	createMarker [_mrkName,_targetPos];
+	_mrkName setMarkerAlpha 1;
+	_mrkName setMarkerType "hd_destroy_noShadow";
+	_mrkName setMarkerText "CAS Target";
+
+	createMarker [_mrkDirName,(_targetPos getPos [500,_dir])];
+	_mrkDirName setMarkerAlpha 1;
+	_mrkDirName setMarkerType "hd_arrow_noShadow";
+	_mrkDirName setMarkerText "CAS Approach Vector";
+	_mrkDirName setMarkerDir (_dir + 180);
 };
 
 // Getting the global variable config values
@@ -70,7 +77,7 @@ _weapons = [];
 	};
 } foreach (_planeClass call bis_fnc_weaponsEntityType);//getarray (_planeCfg >> "weapons");
 
-if (count _weapons == 0) exitwith {["No weapon of types %2 wound on '%1'",_planeClass,_weaponTypes] call bis_fnc_error; false};
+if (count _weapons == 0) exitwith {if (_createMarker) then {deleteMarker _mrkName;deleteMarker _mrkDirName;};["No weapon of types %2 wound on '%1'",_planeClass,_weaponTypes] call bis_fnc_error; false};
 
 //_posATL = getposatl _logic;
 _pos = +_targetPos;
@@ -200,6 +207,11 @@ waituntil {
 if (!canMove _plane) exitWith {
 
 	_plane setDamage 1;
+
+	if (_createMarker) then {
+		deleteMarker _mrkName;
+		deleteMarker _mrkDirName;
+	};
 	
 	if (_audioMessages) then {
 		if (_customAudio) then {
@@ -269,8 +281,10 @@ if (_audioMessages) then {
 	};
 };
 
-deleteMarker "casStrikeMrk";
-deleteMarker "casDirMrk";
+if (_createMarker) then {
+	deleteMarker _mrkName;
+	deleteMarker _mrkDirName;
+};
 
 waituntil {_plane distance _pos > _dis || !canMove _plane};
 

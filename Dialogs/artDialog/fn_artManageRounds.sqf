@@ -1,9 +1,11 @@
 params ['_lbCurSel'];
 
-_fullArtiIndex = lbCurSel 9900101;
+_sliderControl = findDisplay 99001 displayCtrl 9900103;
+
+_fullArtiIndex = lbCurSel _sliderControl;
 _ammoArtiIndex = _lbCurSel;
 
-_sliderOld = sliderPosition 9900103;
+_sliderOld = sliderPosition _sliderControl;
 
 _ammoCount = (((fullArti select _fullArtiIndex) select 2) select _ammoArtiIndex) select 2;
 _ammoClass = (((fullArti select _fullArtiIndex) select 2) select _ammoArtiIndex) select 0;
@@ -18,22 +20,22 @@ _maxRndSlider = 0;
 
 if (_ammoCount > 0 ) then {
 	if (_ammoCount> _magsShots) then {
-		sliderSetRange [9900103, 0, _magsShots];
+		_sliderControl sliderSetRange [0, _magsShots];
 	}
 	else {
-		sliderSetRange [9900103, 0, _ammoCount];
+		_sliderControl sliderSetRange [0, _ammoCount];
 	};
 }
 else {
-	sliderSetRange [9900103, 0, 0];
-	ctrlSetText [9900104,'Out of Ammo'];
+	_sliderControl sliderSetRange [0, 0];
+	findDisplay 99001 displayCtrl 9900104 ctrlSetText ['Out of Ammo'];
 };
 
-if (_sliderOld > (sliderRange 9900103) select 1) then {
-	sliderSetPosition [9900103, (sliderRange 9900103) select 1];
-	_text = format ['%1 Rounds',(sliderRange 9900103) select 1];
-	ctrlSetText [9900104, _text];
+if (_sliderOld > (sliderRange _sliderControl) select 1) then {
+	_sliderControl sliderSetPosition (sliderRange _sliderControl) select 1;
+	_text = format ['%1 Rounds',(sliderRange _sliderControl) select 1];
+	findDisplay 99001 displayCtrl 9900104 ctrlSetText _text;
 }
 else {
-	sliderSetPosition [9900103, _sliderOld];
+	_sliderControl sliderSetPosition _sliderOld;
 };

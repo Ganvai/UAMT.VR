@@ -1,8 +1,8 @@
 artiStatus = 0;
 publicVariable "artiStatus";
 
-deleteMarker "artMrk";
-deleteMarker "artMrkRadius";
+deleteMarkerLocal "artMrk";
+deleteMarkerLocal "artMrkRadius";
 
 onMapSingleClick "";
 

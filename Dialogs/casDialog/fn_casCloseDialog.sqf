@@ -1,6 +1,6 @@
 closeDialog 0;
-deleteMarker "casStrikeMrk";
-deleteMarker "casDirMrk";
+deleteMarkerLocal "casStrikeMrk";
+deleteMarkerLocal "casDirMrk";
 onMapSingleClick "";
 
 casStatus = 0;
