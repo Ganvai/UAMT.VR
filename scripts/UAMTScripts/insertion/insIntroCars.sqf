@@ -10,6 +10,9 @@ _ttline4 = format ["<t color='#ffffff' size='1'>%1<br/>____________________</t><
 //Needed for fadeMusic to work
 ace_hearing_disableVolumeUpdate = true;
 
+// Set threshold for NVGs
+_brightness = 50;
+
 //set Music to zero for FadeIn
 0 fadeMusic 0;
 
@@ -44,6 +47,15 @@ _endPos = getMarkerPos ["insCarCam1_2",true];
 _camera camCommit 0;
 _camera camSetPos _startPos;
 _camera camCommit 0;
+
+//NVG or not
+if (((getLightingAt _camera ) select 3 )> _brightness || ((getLightingAt _camera ) select 1 ) > 0.4) then {
+	camUseNVG false;
+}
+else {
+	camUseNVG true;
+};
+
 _camera camSetPos _endPos;
 _camera camCommit 12;
 
@@ -56,6 +68,15 @@ _endPos = getMarkerPos ["insCarCam2_2",true];
 
 _camera camSetPos _startPos;
 _camera camCommit 0;
+
+//NVG or not
+if (((getLightingAt _camera ) select 3 )> _brightness || ((getLightingAt _camera ) select 1 ) > 0.4) then {
+	camUseNVG false;
+}
+else {
+	camUseNVG true;
+};
+
 _camera camSetPos _endPos;
 _camera camCommit 11;
 
@@ -68,6 +89,15 @@ _endPos = getMarkerPos ["insCarCam3_2",true];
 
 _camera camSetPos _startPos;
 _camera camCommit 0;
+
+//NVG or not
+if (((getLightingAt _camera ) select 3 )> _brightness || ((getLightingAt _camera ) select 1 ) > 0.4) then {
+	camUseNVG false;
+}
+else {
+	camUseNVG true;
+};
+
 _camera camSetPos _endPos;
 _camera camCommit 11;
 

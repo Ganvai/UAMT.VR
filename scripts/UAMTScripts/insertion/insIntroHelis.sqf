@@ -10,6 +10,9 @@ _ttline4 = format ["<t color='#ffffff' size='1'>%1<br/>____________________</t><
 //Needed for fadeMusic to work
 ace_hearing_disableVolumeUpdate = true;
 
+// Set threshold for NVGs
+_brightness = 50;
+
 //set Music to zero for FadeIn
 0 fadeMusic 0;
 
@@ -21,7 +24,6 @@ sleep 1;
 
 playMusic ["MainTheme_F_Tank",167];
 1 fadeMusic 1;
-
 
 player action ["nvGogglesOff", player];
 
@@ -41,6 +43,15 @@ _endPos = getMarkerPos ["insHeloCam1_2",true];
 
 _camera camSetPos _startPos;
 _camera camCommit 0;
+
+//NVG or not
+if (((getLightingAt _camera ) select 3 )> _brightness || ((getLightingAt _camera ) select 1 ) > 0.4) then {
+	camUseNVG false;
+}
+else {
+	camUseNVG true;
+};
+
 _camera camSetPos _endPos;
 _camera camCommit 12;
 
@@ -53,6 +64,15 @@ _endPos = getMarkerPos ["insHeloCam2_2",true];
 
 _camera camSetPos _startPos;
 _camera camCommit 0;
+
+//NVG or not
+if (((getLightingAt _camera ) select 3 )> _brightness || ((getLightingAt _camera ) select 1 ) > 0.4) then {
+	camUseNVG false;
+}
+else {
+	camUseNVG true;
+};
+
 _camera camSetPos _endPos;
 _camera camCommit 11;
 
@@ -66,6 +86,14 @@ _startPos set [2,(_pos select 2)];
 
 _camera camSetPos _startPos;
 _camera camCommit 0;
+
+//NVG or not
+if (((getLightingAt _camera ) select 3 )> _brightness || ((getLightingAt _camera ) select 1 ) > 0.4) then {
+	camUseNVG false;
+}
+else {
+	camUseNVG true;
+};
 
 titleText [_ttline3, "PLAIN", 1, true, true];
 

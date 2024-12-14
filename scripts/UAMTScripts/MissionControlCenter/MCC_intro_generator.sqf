@@ -145,6 +145,9 @@ switch (_intro) do {
 //Needed for fadeMusic to work
 ace_hearing_disableVolumeUpdate = true;
 
+// Set threshold for NVGs
+_brightness = 50;
+
 //set Music to zero for FadeIn
 0 fadeMusic 0;
 
@@ -153,7 +156,6 @@ ace_hearing_disableVolumeUpdate = true;
 playMusic _introTrack;
 
 sleep 0.1;
-
 
 playMusic [_introTrack,_trackStart];
 _fadeInTime fadeMusic 1;
@@ -192,6 +194,14 @@ _range = 60;
 _camera camSetRelPos [0,_range,4];
 _camera camCommit 0;
 
+//NVG or not
+if (((getLightingAt _camera ) select 3 )> _brightness || ((getLightingAt _camera ) select 1 ) > 0.4) then {
+	camUseNVG false;
+}
+else {
+	camUseNVG true;
+};
+
 //Zoom in on Player
 while {_range > -60} do {
 	_range = _range - 1;
@@ -217,6 +227,14 @@ _maxAngle = 360;
 _camera camSetRelPos [_distance*cos(_angle),_distance*sin(_angle),_height];
 _camera camCommit 0;
 
+//NVG or not
+if (((getLightingAt _camera ) select 3 )> _brightness || ((getLightingAt _camera ) select 1 ) > 0.4) then {
+	camUseNVG false;
+}
+else {
+	camUseNVG true;
+};
+
 //Circle around Player
 while {_angle < _maxAngle} do {
 	_angle = _angle + 1;
@@ -238,6 +256,14 @@ _height = 2;
 
 _camera camSetRelPos [0,0,_height];
 _camera camCommit 0;
+
+//NVG or not
+if (((getLightingAt _camera ) select 3 )> _brightness || ((getLightingAt _camera ) select 1 ) > 0.4) then {
+	camUseNVG false;
+}
+else {
+	camUseNVG true;
+};
 
 //Zoom out on top of Player
 while {_height < 50} do {

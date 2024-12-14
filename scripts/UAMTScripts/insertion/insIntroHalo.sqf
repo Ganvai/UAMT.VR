@@ -12,6 +12,9 @@ sleep 4;
 //Needed for fadeMusic to work
 ace_hearing_disableVolumeUpdate = true;
 
+// Set threshold for NVGs
+_brightness = 50;
+
 //set Music to zero for FadeIn
 0 fadeMusic 0;
 
@@ -42,6 +45,15 @@ _endPos = getMarkerPos ["insHaloCam1_2",true];
 _camera camCommit 0;
 _camera camSetPos _startPos;
 _camera camCommit 0;
+
+//NVG or not
+if (((getLightingAt _camera ) select 3 )> _brightness || ((getLightingAt _camera ) select 1 ) > 0.4) then {
+	camUseNVG false;
+}
+else {
+	camUseNVG true;
+};
+
 _camera camSetPos _endPos;
 _camera camCommit 12;
 
@@ -54,6 +66,15 @@ _endPos = getMarkerPos ["insHaloCam2_2",true];
 
 _camera camSetPos _startPos;
 _camera camCommit 0;
+
+//NVG or not
+if (((getLightingAt _camera ) select 3 )> _brightness || ((getLightingAt _camera ) select 1 ) > 0.4) then {
+	camUseNVG false;
+}
+else {
+	camUseNVG true;
+};
+
 _camera camSetPos _endPos;
 _camera camCommit 11;
 
@@ -69,6 +90,15 @@ _endPos set [2,((_pos select 2) * 2)];
 
 _camera camSetPos _startPos;
 _camera camCommit 0;
+
+//NVG or not
+if (((getLightingAt _camera ) select 3 )> _brightness || ((getLightingAt _camera ) select 1 ) > 0.4) then {
+	camUseNVG false;
+}
+else {
+	camUseNVG true;
+};
+
 _camera camSetPos _endPos;
 _camera camCommit 11;
 
