@@ -19,11 +19,10 @@ _artiNewAmmoCount = _artiAmmoRemaining - _rounds;
 publicVariable "FullArti";
 
 // Set ArtiStatus for Interface Control
-artiStatus = 2;
-publicVariable "artiStatus";
+missionNameSpace setVariable ["artiStatus",2,true];
 
-_artCount = (missionnamespace getVariable ["artCount",0]) + 1;
-missionnamespace setVariable ["artCount",_artCount,true];
+_artCount = (missionnamespace getVariable ["artiStrikeCount",0]) + 1;
+missionnamespace setVariable ["artiStrikeCount",_artCount,true];
 
 _mrkName = format ["artMrk%1",_artCount];
 _mrkRadName = format ["artRadMrk%1",_artCount];
@@ -166,8 +165,7 @@ if (_audioMessages) then {
 	};
 };
 
-artiStatus = 3;
-publicVariable "artiStatus";
+missionNameSpace setVariable ["artiStatus",3,true];
 
 if (_createMarker) then {
 	deleteMarker _mrkName;
@@ -203,5 +201,4 @@ if (_audioMessages) then {
 	};
 };
 
-artiStatus = 0;
-publicVariable "artiStatus";
+missionNameSpace setVariable ["artiStatus",0,true];

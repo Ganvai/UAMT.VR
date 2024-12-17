@@ -14,4 +14,7 @@ if (!_result) exitWith {};
 onMapSingleClick "";
 closeDialog 0;
 
-[[_hfsTargetPos,_dir, side player,_heliIndex,false],UAMThfs_fnc_hfsExecute] remoteExec ["spawn",2];
+deleteMarkerLocal "hfsMrk";
+deleteMarkerLocal "hfsDirMrk";
+
+[[_hfsTargetPos,_dir, side player,_heliIndex,true],UAMThfs_fnc_hfsExecute] remoteExec ["spawn",2];

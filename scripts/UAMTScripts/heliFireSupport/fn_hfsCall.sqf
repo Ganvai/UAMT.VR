@@ -22,15 +22,13 @@ if (_fireZoneCheck) exitWith {
 	cutText ["<t color='#ff0000' size='2' shadow = '2'>Heli Fire Support not allowed in this area!</t>", "PLAIN", 2, true, true];
 };
 
-hfsStatus = 1;
-publicVariable "casStatus";
+missionNameSpace setVariable ["hfsStatus",1,true];
 	
 _result = false;
 private _result = ["You are calling Helicopters for Firesupport to your position. Do you confirm?", "Confirm CAS Firemission?", true, true] call BIS_fnc_guiMessage;
 
 if (!_result) exitWith {
-	hfsStatus = 0;
-	publicVariable "hfsStatus";
+	missionNameSpace setVariable ["hfsStatus",0,true];
 };
 
 _pos = getPos player;

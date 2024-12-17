@@ -1,5 +1,10 @@
 params ["_weaponID","_dir"];
 
+if (missionNameSpace getVariable ["casStatus",0] >= 2) exitWith{
+	["A CAS Strike is currently in progress. Wait until CAS is available again.", "Error"] call BIS_fnc_guiMessage;
+};
+
+
 _casTargetPos = getMarkerPos "casStrikeMrk";
 
 if (_weaponID == -1) exitWith{

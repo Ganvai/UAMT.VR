@@ -59,16 +59,14 @@ if (_fireZoneCheck) exitWith {
 	cutText ["<t color='#ff0000' size='2' shadow = '2'>Coordinates for Cruise Missile Strike are in No Fire Zone!</t>", "PLAIN", 2, true, true];
 };
 
-casStatus = 1;
-publicVariable "casStatus";
+missionNameSpace setVariable ["vlsStatus",1,true];
 
 _result = false;
 private _result = ["You are calling a Cruise Missile Strike on the Designated coordinates. Do you confirm?", "Confirm vls Firemission?", true, true] call BIS_fnc_guiMessage;
 
 if (!_result) exitWith {
 	cutText ["<t color='#ff0000' size='2' shadow = '2'>vls Strike was cancelled</t>", "PLAIN", 2, true, true];
-	casStatus = 0;
-	publicVariable "casStatus";
+	missionNameSpace setVariable ["vlsStatus",0,true];
 };
 
 [[_vlsTargetPos, side player,_ammoID],UAMTvls_fnc_vlsExecute] remoteExec ["spawn",2];

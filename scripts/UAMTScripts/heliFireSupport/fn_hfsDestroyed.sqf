@@ -20,8 +20,7 @@ if (_audioMessages) then {
 
 if (hfsRespawn) then {
 
-	hfsStatus = 3;
-	publicVariable "hfsStatus";
+	missionNameSpace setVariable ["hfsStatus",3,true];
 	
 	_cooldown = hfsCooldown + hfsPenalty;
 	
@@ -44,8 +43,7 @@ if (hfsRespawn) then {
 		
 	sleep _cooldown;
 
-	hfsStatus = 0;
-	publicVariable "hfsStatus";
+	missionNameSpace setVariable ["hfsStatus",0,true];
 	
 	if (_audioMessages) then {
 		if (_customAudio) then {
@@ -57,8 +55,7 @@ if (hfsRespawn) then {
 	};
 }
 else {
-	hfsStatus = 0;
-	publicVariable "hfsStatus";
+	missionNameSpace setVariable ["hfsStatus",0,true];
 	
 	_hfsStillAvailable = false;
 	{

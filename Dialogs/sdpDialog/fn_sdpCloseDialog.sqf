@@ -1,6 +1,6 @@
 closeDialog 0;
-deleteMarker "sdpMrk";
-deleteMarker "sdpDirMrk";
+deleteMarkerLocal "sdpMrk";
+deleteMarkerLocal "sdpDirMrk";
 onMapSingleClick "";
 
 supplyDropStatus = 0;

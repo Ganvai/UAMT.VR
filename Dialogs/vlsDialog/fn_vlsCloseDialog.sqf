@@ -2,5 +2,4 @@ closeDialog 0;
 deleteMarker "vlsMrk";
 onMapSingleClick "";
 
-vlsStatus = 0;
-publicVariable "vlsStatus";
+missionNameSpace setVariable ["vlsStatus",0,true];

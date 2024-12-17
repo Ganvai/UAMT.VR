@@ -477,12 +477,11 @@ if ( getMissionConfigValue "chtFeature" == "true" ) then {
 	publicVariable "chtFeature";
 
 	if ( getMissionConfigValue "chtAvailable" == "true" ) then {
-		chtAvailable = true;
+		missionNameSpace setVariable ["chtAvailable",true,true];
 	}
 	else {
-		chtAvailable = false;
+		missionNameSpace setVariable ["chtAvailable",false,true];
 	};
-	publicVariable "chtAvailable";
 	
 	chtClasses = getMissionConfigValue "chtClasses";
 	publicVariable "chtClasses";
@@ -496,8 +495,7 @@ if ( getMissionConfigValue "chtFeature" == "true" ) then {
 	chtDespawn = getMissionConfigValue "chtDespawn";
 	publicVariable "chtDespawn";
 	
-	chtCount = 0;
-	publicVariable "chtCount";
+	missionNameSpace setVariable ["chtCount",0,true];
 }
 else {
 	chtFeature = false;
@@ -534,11 +532,9 @@ if (getMissionConfigValue "artiFeature" == "true") then {
 	publicVariable "artiNoFireZones";
 	
 	// Availability Artillery - 0 = Available, 1 = In Use, 2 = In Firemission, 3 = in Cooldown
-	artiStatus = 0;
-	publicVariable "artiStatus";
+	missionNameSpace setVariable ["artiStatus",getMissionConfigValue "artiStatus",true];
 	
-	artiStrikeCount = 0;
-	publicVariable "artiStrikeCount";
+	missionNameSpace setVariable ["artiStrikeCount",0,true];
 };
 
 
@@ -554,14 +550,11 @@ if ( getMissionConfigValue "vlsFeature" == "true" ) then {
 	publicVariable "vlsName";
 
 	// Availability VLS - 0 = Available, 1 = In Use, 2 = In Firemission, 3 = in Cooldown
-	vlsStatus = 0;
-	publicVariable "vlsStatus";	
+	missionNameSpace setVariable ["vlsStatus",getMissionConfigValue "vlsStatus",true];
 	
-	vlsHERounds = getMissionConfigValue "vlsHERounds";
-	publicVariable "vlsHERounds";
+	missionNameSpace setVariable ["vlsHERounds",getMissionConfigValue "vlsHERounds",true];
 
-	vlsClusterRounds = getMissionConfigValue "vlsClusterRounds";
-	publicVariable "vlsClusterRounds";
+	missionNameSpace setVariable ["vlsClusterRounds",getMissionConfigValue "vlsClusterRounds",true];
 
 	vlsDelay = getMissionConfigValue "vlsDelay";
 	publicVariable "vlsDelay";
@@ -643,23 +636,16 @@ if ( getMissionConfigValue "casFeature" == "true" ) then {
 	publicVariable "casFeature";
 
 	// Availability CAS - 0 = Available, 1 = In Use, 2 = In Firemission, 3 = in Cooldown, 4 = Not available, will not show in Menu
-	casStatus = 0;
-	publicVariable "casStatus";
+	missionNameSpace setVariable ["casStatus",getMissionConfigValue "casStatus",true];
 	
 	casClass = getMissionConfigValue "casClass";
 	publicVariable "casClass";
 	
-	casMGruns = getMissionConfigValue "casMGruns";
-	publicVariable "casMGruns";
+	missionNameSpace setVariable ["casMGruns",getMissionConfigValue "casMGruns",true];
 
-	casMisMGruns = getMissionConfigValue "casMisMGruns";
-	publicVariable "casMisMGruns";
+	missionNameSpace setVariable ["casMisRuns",getMissionConfigValue "casMisRuns",true];
 
-	casMisRuns = getMissionConfigValue "casMisRuns";
-	publicVariable "casMisRuns";
-
-	casBombRuns = getMissionConfigValue "casBombRuns";
-	publicVariable "casBombRuns";
+	missionNameSpace setVariable ["casBombRuns",getMissionConfigValue "casBombRuns",true];
 
 	casDelay = getMissionConfigValue "casDelay";
 	publicVariable "casDelay";
@@ -713,8 +699,7 @@ if ( getMissionConfigValue "hfsFeature" == "true" ) then {
 	publicVariable "hfsFeature";
 
 	// Availability HFS - 0 = Available, 1 = In Use, 2 = In Firemission, 3 = in Cooldown
-	hfsStatus = getMissionConfigValue "hfsStatus";
-	publicVariable "hfsStatus";
+	missionNameSpace setVariable ["hfsStatus",getMissionConfigValue "hfsStatus",true];
 	
 	hfsArray = getMissionConfigValue "hfsArray";
 	publicVariable "hfsArray";

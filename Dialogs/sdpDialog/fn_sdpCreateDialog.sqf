@@ -1,6 +1,6 @@
 if (supplyDropStatus > 0) exitWith {
 	switch supplyDropStatus do {
-		case 1: {["Supply Drop NOT available. Another Player is currently ordering a supply Drop.", "Error"] call BIS_fnc_guiMessage;};
+		case 1: {["Supply Drop NOT available. Another Player is currently ordering a drop.", "Error"] call BIS_fnc_guiMessage;};
 		case 2: {["Supply Drop NOT available. Supply Drop is currently being executed.", "Error"] call BIS_fnc_guiMessage;};
 		case 3: {["Supply Drop NOT available. A new Supply Drop is currently being prepared.", "Error"] call BIS_fnc_guiMessage;};
 		case 4: {["No Supply Drops available.", "Error"] call BIS_fnc_guiMessage;};
@@ -14,37 +14,37 @@ if (supplyDropCount >= supplyDropMax) exitWith {
 supplyDropStatus = 1;
 publicVariable "supplyDropStatus";
 
-createDialog "sdpDialog";
+_display = createDialog ["sdpDialog"];
 
-_map = findDisplay 99007 ctrlCreate ["RscMapControl", -1];
+_map = _display ctrlCreate ["RscMapControl", -1];
 _map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.316,safeZoneY + safeZoneH * 0.333,safeZoneW * 0.369,safeZoneH * 0.368];
 
-createMarker ["sdpMrk",[0,0,0]];
-"sdpMrk" setMarkerAlpha 0;
-"sdpMrk" setMarkerType "mil_destroy_noShadow";
-"sdpMrk" setMarkerText "Supply Drop";
+createMarkerLocal ["sdpMrk",[0,0,0]];
+"sdpMrk" setMarkerAlphaLocal 0;
+"sdpMrk" setMarkerTypeLocal "mil_destroy_noShadow";
+"sdpMrk" setMarkerTextLocal "Supply Drop";
 
-createMarker ["sdpDirMrk",[0,0,0]];
-"sdpDirMrk" setMarkerAlpha 0;
-"sdpDirMrk" setMarkerType "mil_arrow_noShadow";
-"sdpDirMrk" setMarkerText "Supply Drop Approach Vector";
+createMarkerLocal ["sdpDirMrk",[0,0,0]];
+"sdpDirMrk" setMarkerAlphaLocal 0;
+"sdpDirMrk" setMarkerTypeLocal "mil_arrow_noShadow";
+"sdpDirMrk" setMarkerTextLocal "Supply Drop Approach Vector";
 
 [] onMapSingleClick {
-	"sdpMrk" setMarkerPos _pos;
-	"sdpMrk" setMarkerAlpha 1;
-	"sdpDirMrk" setMarkerAlpha 1;
+	"sdpMrk" setMarkerPosLocal _pos;
+	"sdpMrk" setMarkerAlphaLocal 1;
+	"sdpDirMrk" setMarkerAlphaLocal 1;
 	
 	_dir = sliderPosition 9900403;
-	"sdpDirMrk" setMarkerPos (_pos getPos [500,_dir]);
-	"sdpDirMrk" setMarkerDir (_dir + 180);
+	"sdpDirMrk" setMarkerPosLocal (_pos getPos [500,_dir]);
+	"sdpDirMrk" setMarkerDirLocal (_dir + 180);
 };
 
 sleep 2;
 
 if (findDisplay 99007 == displayNull) then {
 	onMapSingleClick "";
-	deleteMarker "sdpMrk";
-	deleteMarker "sdpDirMrk";
+	deleteMarkerLocal "sdpMrk";
+	deleteMarkerLocal "sdpDirMrk";
 	supplyDropStatus = 0;
 	publicVariable "supplyDropStatus";
 };

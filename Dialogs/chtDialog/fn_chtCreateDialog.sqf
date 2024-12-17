@@ -5,10 +5,10 @@ _map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.316,safeZoneY + safeZoneH * 0
 
 {
 	_heliName = getText (configFile >> "CfgVehicles" >> _x >> "displayName");
-	lbAdd [9900601,_heliName];
+	_display displayCtrl 9900601 lbAdd _heliName;
 } forEach chtClasses;
 
-lbSetCurSel [9900601,0];
+_display displayCtrl 9900601 lbSetCurSel 0;
 
 chtCount = chtCount + 1;
 publicVariable "chtCount";
@@ -22,7 +22,7 @@ _chtPickUpMrkName setMarkerType "hd_pickup_noShadow";
 _pickupmrkText = format ["Transport Pickup %1",_chtNumber];
 _chtPickUpMrkName setMarkerText _pickupmrkText;
 
-lbSetData [9900602,0,_chtPickUpMrkName];
+_display displayCtrl 9900602 lbSetData [0,_chtPickUpMrkName];
 
 _chtDropOffMrkName = format ["chtDropOffMrk%1",_chtNumber];
 createMarker [_chtDropOffMrkName,[0,0,0]];
@@ -34,13 +34,13 @@ _chtDropOffMrkName setMarkerText _dropoffmrkText;
 _display setVariable ["chtCallPUMrk",_chtPickUpMrkName];
 _display setVariable ["chtCallDOMrk",_chtDropOffMrkName];
 
-lbSetData [9900602,1,_chtDropOffMrkName];
+_display displayCtrl 9900602 lbSetData [1,_chtDropOffMrkName];
 
-[_chtPickUpMrkName,_chtDropOffMrkName] onMapSingleClick {
+[_display,_chtPickUpMrkName,_chtDropOffMrkName] onMapSingleClick {
 	
-	params ["_pickup","_dropOff"];
+	params ["_display","_pickup","_dropOff"];
 	
-	if (lbCurSel 9900602 == 0) then {
+	if ( lbCurSel (_display displayCtrl 9900602) == 0) then {
 		_pickup setMarkerPos _pos;
 		_pickup setMarkerAlpha 1;
 		_pickup setMarkerAlpha 1;

@@ -12,8 +12,8 @@ private _result = ["You are calling a Supply Drop to the designated Coordinates.
 if (!_result) exitWith {};
 
 onMapSingleClick "";
-deleteMarker "sdpMrk";
-deleteMarker "sdpDirMrk";
+deleteMarkerLocal "sdpMrk";
+deleteMarkerLocal "sdpDirMrk";
 closeDialog 0;
 
 supplyDropCount = supplyDropCount + 1;

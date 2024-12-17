@@ -1,4 +1,4 @@
-if (artiStatus > 0) exitWith {
+if (missionNameSpace getVariable ["artiStatus",0] > 0) exitWith {
 	switch artiStatus do {
 		case 1 : {["No Artillery Strike available. Someone else is currently ordering a strike.", "Error"] call BIS_fnc_guiMessage;};
 		case 2 : {["No Artillery Strike available. Artillery is executing a strike", "Error"] call BIS_fnc_guiMessage;};
@@ -6,12 +6,10 @@ if (artiStatus > 0) exitWith {
 	};
 };
 
-createDialog "artDialog";
+_display = createDialog ["artDialog"];
 
-artiStatus = 1;
-publicVariable "artiStatus";
+missionNameSpace setVariable ["artiStatus",1,true];
 
-_display = findDisplay 99001;
 _map = _display ctrlCreate ["RscMapControl", -1];
 _map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.297,safeZoneY + safeZoneH * 0.329,safeZoneW * 0.406,safeZoneH * 0.333];
 
@@ -130,6 +128,5 @@ if (findDisplay 99001 == displayNull) then {
 	onMapSingleClick "";
 	deleteMarkerLocal "artMrkRadius";
 	deleteMarkerLocal "artMrk";
-	artiStatus = 0;
-	publicVariable "artiStatus";
+	missionNameSpace setVariable ["artiStatus",0,true];
 };

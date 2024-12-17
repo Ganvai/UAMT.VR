@@ -313,7 +313,7 @@ if (chtFeature) then {
 if (artiFeature) then {
 
 	_artiCondition = {
-		artiStatus < 4 && ((artiRoles findIf {_x == vehicleVarName player;} > -1) || (artiRoles findIf {_x == groupID group player;} > -1) || (artiRoles findIf {_x == player getVariable "loadout";} > -1))
+		missionNameSpace getVariable ["artiStatus",4] < 4 && ((artiRoles findIf {_x == vehicleVarName player;} > -1) || (artiRoles findIf {_x == groupID group player;} > -1) || (artiRoles findIf {_x == player getVariable "loadout";} > -1))
 	};
 
 	_modifierFunc = {
@@ -321,7 +321,7 @@ if (artiFeature) then {
 			
 		// Getting the Status suffix for the Aactionname
 		_status = "";
-		switch artiStatus do {
+		switch (missionNameSpace getVariable ["artiStatus",4]) do {
 			case 1 : {_status = " (Call in Progress)";};
 			case 2 : {_status = " (Executing Strike)";};
 			case 3 : {_status = " (Preparing new Strike)";};
@@ -347,14 +347,14 @@ if (artiFeature) then {
 if (vlsFeature) then {
 
 	// VLS Terminal
-	_condition = { vlsStatus < 4 && ((vlsRolesCMDR findIf {_x == vehicleVarName player;} > -1) || (vlsRolesCMDR findIf {_x == groupID group player;} > -1) || (vlsRolesCMDR findIf {_x == player getVariable "loadout";} > -1)) };
+	_condition = { missionNameSpace getVariable ["vlsStatus",4] < 4 && ((vlsRolesCMDR findIf {_x == vehicleVarName player;} > -1) || (vlsRolesCMDR findIf {_x == groupID group player;} > -1) || (vlsRolesCMDR findIf {_x == player getVariable "loadout";} > -1)) };
 
 	_modifierFunc = {
 		params ["_target", "_player", "_params", "_actionData"];
 			
 		// Getting the Status suffix for the Aactionname
 		_status = "";
-		switch vlsStatus do {
+		switch (missionNameSpace getVariable ["vlsStatus",4]) do {
 			case 1 : {_status = " (Call in Progress)";};
 			case 2 : {_status = " (Executing Strike)";};
 			case 3 : {_status = " (Preparing new Strike)";};
@@ -373,14 +373,14 @@ if (vlsFeature) then {
 	if (vlsNeedsLaser) then {
 		if (vlsAllowDrones) then {
 			_condition = {
-							vlsStatus < 4 &&
+							missionNameSpace getVariable ["vlsStatus",4] < 4 &&
 								(( vlsEquipment findIf {currentWeapon player ==  _x } > -1 && isLaserOn player ) || ( [player,"GUNNER"] isEqualTo UAVControl getConnectedUAV player && isLaserOn getConnectedUAV player ) )  && 
 							((vlsRoles findIf {_x == vehicleVarName player;} > -1) || (vlsRoles findIf {_x == groupID group player;} > -1) || (vlsRoles findIf {_x == player getVariable "loadout";} > -1))
 			};		
 		}
 		else {
 			_condition = {
-							vlsStatus < 4 &&
+							missionNameSpace getVariable ["vlsStatus",4] < 4 &&
 								( vlsEquipment findIf {currentWeapon player ==  _x } > -1 && isLaserOn player ) && 
 							((vlsRoles findIf {_x == vehicleVarName player;} > -1) || (vlsRoles findIf {_x == groupID group player;} > -1) || (vlsRoles findIf {_x == player getVariable "loadout";} > -1))
 			};		
@@ -389,14 +389,14 @@ if (vlsFeature) then {
 	else {
 		if (vlsAllowDrones) then {
 			_condition = {
-							vlsStatus < 4 &&
+							missionNameSpace getVariable ["vlsStatus",4] < 4 &&
 								(( vlsEquipment findIf {currentWeapon player ==  _x } > -1) || ( [player,"GUNNER"] isEqualTo UAVControl getConnectedUAV player && isLaserOn getConnectedUAV player ) )  && 
 							((vlsRoles findIf {_x == vehicleVarName player;} > -1) || (vlsRoles findIf {_x == groupID group player;} > -1) || (vlsRoles findIf {_x == player getVariable "loadout";} > -1))
 			};		
 		}
 		else {
 			_condition = {
-							vlsStatus < 4 &&
+							missionNameSpace getVariable ["vlsStatus",4] < 4 &&
 								( vlsEquipment findIf {currentWeapon player ==  _x } > -1) && 
 							((vlsRoles findIf {_x == vehicleVarName player;} > -1) || (vlsRoles findIf {_x == groupID group player;} > -1) || (vlsRoles findIf {_x == player getVariable "loadout";} > -1))
 			};		
@@ -408,7 +408,7 @@ if (vlsFeature) then {
 			
 		// Getting the Status suffix for the Aactionname
 		_status = "";
-		switch vlsStatus do {
+		switch (missionNameSpace getVariable ["vlsStatus",4]) do {
 			case 1 : {_status = " (Call in Progress)";};
 			case 2 : {_status = " (Executing Strike)";};
 			case 3 : {_status = " (Preparing new Strike)";};
@@ -424,7 +424,7 @@ if (vlsFeature) then {
 
 	
 	// He Missile Entry
-	_condition = {vlsStatus < 4};
+	_condition = {missionNameSpace getVariable ["vlsStatus",4] < 4};
 	
 	_modifierFunc = {
 		params ["_target", "_player", "_params", "_actionData"];
@@ -438,7 +438,7 @@ if (vlsFeature) then {
 	
 	
 	// Cluster Missile Entry
-	_condition = {vlsStatus < 4};
+	_condition = {missionNameSpace getVariable ["vlsStatus",4] < 4};
 	
 	_modifierFunc = {
 		params ["_target", "_player", "_params", "_actionData"];
@@ -473,14 +473,14 @@ if (vlsFeature) then {
 if (casFeature) then {
 	
 	// CAS Terminal
-	_condition = { casStatus < 4 && ((casRolesCMDR findIf {_x == vehicleVarName player;} > -1) || (casRolesCMDR findIf {_x == groupID group player;} > -1) || (casRolesCMDR findIf {_x == player getVariable "loadout";} > -1)) };
+	_condition = { missionNameSpace getVariable ["casStatus",4] < 4 && ((casRolesCMDR findIf {_x == vehicleVarName player;} > -1) || (casRolesCMDR findIf {_x == groupID group player;} > -1) || (casRolesCMDR findIf {_x == player getVariable "loadout";} > -1)) };
 
 	_modifierFunc = {
 		params ["_target", "_player", "_params", "_actionData"];
 			
 		// Getting the Status suffix for the Aactionname
 		_status = "";
-		switch casStatus do {
+		switch (missionNameSpace getVariable ["casStatus",4]) do {
 			case 1 : {_status = " (Call in Progress)";};
 			case 2 : {_status = " (Executing Strike)";};
 			case 3 : {_status = " (Preparing new Strike)";};
@@ -499,14 +499,14 @@ if (casFeature) then {
 	if (casNeedsLaser) then {
 		if (casAllowDrones) then {
 			_condition = {
-							casStatus < 4 &&
+							missionNameSpace getVariable ["casStatus",4] < 4 &&
 							(( casEquipment findIf {currentWeapon player ==  _x } > -1 && isLaserOn player ) || ( [player,"GUNNER"] isEqualTo UAVControl getConnectedUAV player && isLaserOn getConnectedUAV player ) )  &&
 							((casRoles findIf {_x == vehicleVarName player;} > -1) || (casRoles findIf {_x == groupID group player;} > -1) || (casRoles findIf {_x == player getVariable "loadout";} > -1))
 			};		
 		}
 		else {
 			_condition = {
-							casStatus < 4 &&
+							missionNameSpace getVariable ["casStatus",4] < 4 &&
 							( casEquipment findIf {currentWeapon player ==  _x } > -1 && isLaserOn player ) &&
 							((casRoles findIf {_x == vehicleVarName player;} > -1) || (casRoles findIf {_x == groupID group player;} > -1) || (casRoles findIf {_x == player getVariable "loadout";} > -1))
 			};		
@@ -515,14 +515,14 @@ if (casFeature) then {
 	else {
 		if (casAllowDrones) then {
 			_condition = {
-							casStatus < 4 &&
+							missionNameSpace getVariable ["casStatus",4] < 4 &&
 							(( casEquipment findIf {currentWeapon player ==  _x } > -1) || ( [player,"GUNNER"] isEqualTo UAVControl getConnectedUAV player && isLaserOn getConnectedUAV player ) )  &&
 							((casRoles findIf {_x == vehicleVarName player;} > -1) || (casRoles findIf {_x == groupID group player;} > -1) || (casRoles findIf {_x == player getVariable "loadout";} > -1))
 			};	
 		}
 		else {
 			_condition = {
-							casStatus < 4 &&
+							missionNameSpace getVariable ["casStatus",4] < 4 &&
 							( casEquipment findIf {currentWeapon player ==  _x } > -1)  &&
 							((casRoles findIf {_x == vehicleVarName player;} > -1) || (casRoles findIf {_x == groupID group player;} > -1) || (casRoles findIf {_x == player getVariable "loadout";} > -1))
 			};		
@@ -534,7 +534,7 @@ if (casFeature) then {
 			
 		// Getting the Status suffix for the Aactionname
 		_status = "";
-		switch casStatus do {
+		switch (missionNameSpace getVariable ["casStatus",4]) do {
 			case 1 : {_status = " (Call in Progress)";};
 			case 2 : {_status = " (Executing Strike)";};
 			case 3 : {_status = " (Preparing new Strike)";};
@@ -550,7 +550,7 @@ if (casFeature) then {
 	
 	
 	// CAS MG runs
-	_condition = {casStatus < 4};
+	_condition = {missionNameSpace getVariable ["casStatus",4] < 4};
 
 	_modifierFunc = {
 		params ["_target", "_player", "_params", "_actionData"];
@@ -564,7 +564,7 @@ if (casFeature) then {
 	
 	
 	// CAS missile runs
-	_condition = {casStatus < 4};
+	_condition = {missionNameSpace getVariable ["casStatus",4] < 4};
 
 	_modifierFunc = {
 		params ["_target", "_player", "_params", "_actionData"];
@@ -578,7 +578,7 @@ if (casFeature) then {
 
 	
 	// CAS Missile + MG runs
-	_condition = {casStatus < 4};
+	_condition = {missionNameSpace getVariable ["casStatus",4] < 4};
 
 	_modifierFunc = {
 		params ["_target", "_player", "_params", "_actionData"];
@@ -600,7 +600,7 @@ if (casFeature) then {
 
 	
 	// Bomb drops
-	_condition = {casStatus < 4};
+	_condition = {missionNameSpace getVariable ["casStatus",4] < 4};
 
 	_modifierFunc = {
 		params ["_target", "_player", "_params", "_actionData"];
@@ -624,14 +624,14 @@ if (casFeature) then {
 if (hfsFeature) then {
 
 	// HFS Terminal
-	_condition = { hfsStatus < 4 && ((hfsRolesCMDR findIf {_x == vehicleVarName player;} > -1) || (hfsRolesCMDR findIf {_x == groupID group player;} > -1) || (hfsRolesCMDR findIf {_x == player getVariable "loadout";} > -1)) };
+	_condition = { missionNameSpace getVariable ["hfsStatus",4] < 4 && ((hfsRolesCMDR findIf {_x == vehicleVarName player;} > -1) || (hfsRolesCMDR findIf {_x == groupID group player;} > -1) || (hfsRolesCMDR findIf {_x == player getVariable "loadout";} > -1)) };
 
 	_modifierFunc = {
 		params ["_target", "_player", "_params", "_actionData"];
 			
 		// Getting the Status suffix for the Aactionname
 		_status = "";
-		switch hfsStatus do {
+		switch (missionNameSpace getVariable ["hfsStatus",4]) do {
 			case 1 : {_status = " (Call in Progress)";};
 			case 2 : {_status = " (Executing Strike)";};
 			case 3 : {_status = " (Preparing new Strike)";};
@@ -647,7 +647,7 @@ if (hfsFeature) then {
 	
 	//Heli Fire Support Menu
 	_condition = {
-		 hfsStatus < 4 && 
+		 missionNameSpace getVariable ["hfsStatus",4] < 4 && 
 		((hfsRoles findIf {_x == vehicleVarName player;} > -1) || (hfsRoles findIf {_x == groupID group player;} > -1) || (hfsRoles findIf {_x == player getVariable "loadout";} > -1))
 	};
 	
@@ -656,7 +656,7 @@ if (hfsFeature) then {
 			
 		// Getting the Status suffix for the Aactionname
 		_status = "";
-		switch hfsStatus do {
+		switch (missionNameSpace getVariable ["hfsStatus",4]) do {
 			case 1 : {_status = " (Call in Progress)";};
 			case 2 : {_status = " (Executing Strike)";};
 			case 3 : {_status = " (Preparing new Strike)";};

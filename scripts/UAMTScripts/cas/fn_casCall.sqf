@@ -64,15 +64,13 @@ switch _runID do {
 };
 _resultText = format ["You are calling a CAS Strike on the designated coordinates with %1. Do you confirm?",_runName];
 
-casStatus = 1;
-publicVariable "casStatus";
+missionNameSpace setVariable ["casStatus",1,true];
 
 _result = false;
 private _result = [_resultText, "Confirm CAS Firemission?", true, true] call BIS_fnc_guiMessage;
 
 if (!_result) exitWith {
-	casStatus = 0;
-	publicVariable "casStatus";
+	missionNameSpace setVariable ["casStatus",0,true];
 };
 
 _dir = getDir player;

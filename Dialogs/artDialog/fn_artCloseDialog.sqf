@@ -1,5 +1,4 @@
-artiStatus = 0;
-publicVariable "artiStatus";
+missionNameSpace setVariable ["artiStatus",0,true];
 
 deleteMarkerLocal "artMrk";
 deleteMarkerLocal "artMrkRadius";

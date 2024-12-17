@@ -1,5 +1,9 @@
 params ["_artIndex", "_ammoIndex", "_rounds", "_pattern", ["_radius",0]];
 
+if (missionNameSpace getVariable ["artiStatus",0] >= 2) exitWith {
+	["An artillery strike is already called and in progress. Wait until the Artilelry is available again.", "Error"] call BIS_fnc_guiMessage;
+};
+
 _targetPos = getMarkerPos "artMrk";
 
 if (_targetPos isEqualTo [0,0,0]) exitWith {

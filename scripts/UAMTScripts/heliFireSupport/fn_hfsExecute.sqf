@@ -2,8 +2,7 @@ if (!isServer) exitWith {};
 
 params ["_pos","_dir","_side","_hfsIndex",["_createMarker",true]];
 
-hfsStatus = 2;
-publicVariable "hfsStatus";
+missionNameSpace setVariable ["hfsStatus",2,true];
 
 _heloClass = (hfsArray select _hfsIndex) select 0;
 _heloCount = (hfsArray select _hfsIndex) select 1;
@@ -21,11 +20,16 @@ _heloArr = [];
 _heloVehArr = [];
 _heloGrpArr = [];
 
+_hfsCount = (missionnamespace getVariable  ["hfsCount",0]) + 1;
+missionNameSpace setVariable ["hfsCount",_hfsCount,true];
+
+_hfsMrk = format ["hfsMrk%1",_hfsCount];
+
 if (_createMarker) then {
-	createMarker ["hfsMrk",_pos];
-	"hfsMrk" setMarkerAlpha 0;
-	"hfsMrk" setMarkerType "hd_destroy_noShadow";
-	"hfsMrk" setMarkerText "Heli Target";
+	createMarker [_hfsMrk,_pos];
+	_hfsMrk setMarkerAlpha 0;
+	_hfsMrk setMarkerType "hd_destroy_noShadow";
+	_hfsMrk setMarkerText "Heli Target";
 };
 
 if (_audioMessages) then {
@@ -58,6 +62,7 @@ waitUntil {sleep 0.5; {_x distance2D _pos < 1000} count _heloVehArr > 0  || {can
 
 {
 	if (not canMove _x) then {
+		deleteMarker _hfsMrk;
 		deleteVehicleCrew _x;
 		_x setDamage 1;
 		
@@ -96,6 +101,7 @@ waitUntil {sleep 1; time - _timer > _duration || {canMove _x} count _heloVehArr 
 
 {
 	if (not canMove _x) then {
+		deleteMarker _hfsMrk;
 		deleteVehicleCrew _x;
 		_x setDamage 1;
 		
@@ -119,8 +125,7 @@ if ({alive _x} count _heloVehArr == 0) exitWith {
 	[_hfsIndex,_side] spawn UAMThfs_fnc_hfsDestroyed;
 };
 
-hfsStatus = 3;
-publicVariable "hfsStatus";
+missionNameSpace setVariable ["hfsStatus",3,true];
 
 if (_audioMessages) then {
 	if (_customAudio) then {
@@ -164,6 +169,7 @@ waituntil {sleep 1; {_x distance2D _heloPos < 100} count _heloVehArr > 0 || {can
 
 {
 	if (not canMove _x) then {
+		deleteMarker _hfsMrk;
 		deleteVehicleCrew _x;
 		_x setDamage 1;
 		
@@ -200,8 +206,7 @@ if (_penalty) then {
 
 sleep _cooldown;
 
-hfsStatus = 0;
-publicVariable "hfsStatus";
+missionNameSpace setVariable ["hfsStatus",0,true];
 
 if (_audioMessages) then {
 	if (_customAudio) then {
@@ -212,4 +217,4 @@ if (_audioMessages) then {
 	};
 };
 
-deleteMarker "hfsMrk";
+deleteMarker _hfsMrk;

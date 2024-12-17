@@ -2,8 +2,7 @@ if (!isServer) exitWith {};
 
 params ["_targetPos","_dir","_side","_weaponTypesID",["_createMarker",true]];
 
-casStatus = 2;
-publicVariable "casStatus";
+missionNameSpace setVariable ["casStatus",2,true];
 
 _casCount = (missionnamespace getVariable ["casCount",0]) + 1;
 missionnamespace setVariable ["casCount",_casCount,true];
@@ -47,10 +46,10 @@ if (_audioMessages) then {
 };
 
 switch _weaponTypesID do {
-	case 0 : {casMGruns = casMGruns - 1; publicVariable "casMGruns";};
-	case 1 : {casMisRuns = casMisRuns - 1; publicVariable "casMisRuns";};
-	case 2 : {casMGruns = casMGruns - 1; publicVariable "casMGruns"; casMisRuns = casMisRuns - 1; publicVariable "casMisRuns";};
-	case 3 : {casBombRuns = casBombRuns - 1; publicVariable "casBombRuns";};
+	case 0 : { missionNameSpace setVariable ["casMGruns",(missionNameSpace getVariable "casMGruns") - 1,true]; };
+	case 1 : { missionNameSpace setVariable ["casMisRuns",(missionNameSpace getVariable "casMisRuns") - 1,true]; };
+	case 2 : { missionNameSpace setVariable ["casMGruns",(missionNameSpace getVariable "casMGruns") - 1,true]; missionNameSpace setVariable ["casMisRuns",(missionNameSpace getVariable "casMisRuns") - 1,true]; };
+	case 3 : { missionNameSpace setVariable ["casBombRuns",(missionNameSpace getVariable "casBombRuns") - 1,true]; };
 };
 
 _planeCfg = configfile >> "cfgvehicles" >> _planeClass;
@@ -227,14 +226,11 @@ if (!canMove _plane) exitWith {
 	if (casPenalty > 0 ) then {
 		_cooldown = casCooldown + casPenalty;
 
-		casStatus = 3;
-		publicVariable "casStatus";
-
+		missionNameSpace setVariable ["casStatus",3,true];
 		
 		sleep _cooldown;
 		
-		casStatus = 0;
-		publicVariable "casStatus";
+		missionNameSpace setVariable ["casStatus",0,true];
 		
 		if (_audioMessages) then {
 			if (_customAudio) then {
@@ -246,8 +242,7 @@ if (!canMove _plane) exitWith {
 		};
 	}
 	else {
-		casStatus = 0;
-		publicVariable "casStatus";
+		missionNameSpace setVariable ["casStatus",0,true];
 
 		if (_audioMessages) then {
 			if (_customAudio) then {
@@ -298,8 +293,7 @@ if (canMove _plane) then {
 
 	if (casMGruns > 0 || casMisRuns > 0 || casBombRuns > 0) then {
 
-		casStatus = 3;
-		publicVariable "casStatus";
+		missionNameSpace setVariable ["casStatus",3,true];
 
 		_cooldownMike = ceil (casCooldown / 60);
 		
@@ -318,8 +312,7 @@ if (canMove _plane) then {
 		
 		sleep casCooldown;
 		
-		casStatus = 0;
-		publicVariable "casStatus";
+		missionNameSpace setVariable ["casStatus",0,true];
 
 		if (_audioMessages) then {
 			if (_customAudio) then {
@@ -332,8 +325,7 @@ if (canMove _plane) then {
 	}
 	else {
 	
-		casStatus = 0;
-		publicVariable "casStatus";
+		missionNameSpace setVariable ["casStatus",0,true];
 
 		if (_audioMessages) then {
 			if (_customAudio) then {
@@ -360,11 +352,9 @@ else {
 	if (casPenalty > 0 ) then {
 		_cooldown = casCooldown + casPenalty;
 
-		casStatus = 3;
-		publicVariable "casStatus";
+		missionNameSpace setVariable ["casStatus",3,true];
 		
-		sleep _cooldown;
-		
+		sleep _cooldown;		
 		
 		if (_audioMessages) then {
 			if (_customAudio) then {
@@ -377,9 +367,7 @@ else {
 	}
 	else {
 
-		casStatus = 0;
-		publicVariable "casStatus";
-
+		missionNameSpace setVariable ["casStatus",0,true];
 
 		if (_audioMessages) then {
 			if (_customAudio) then {

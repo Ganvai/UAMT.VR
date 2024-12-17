@@ -1,4 +1,4 @@
-if (casStatus > 0) exitWith {
+if (missionNameSpace getVariable ["casStatus",0] > 0) exitWith {
 	switch casStatus do {
 		case 1 : {["CAS not available. Another Element is currently requesting a CAS Strike", "Error"] call BIS_fnc_guiMessage;};
 		case 2 : {["CAS not available. CAS strike in progress", "Error"] call BIS_fnc_guiMessage;};
@@ -6,12 +6,11 @@ if (casStatus > 0) exitWith {
 	};
 };
 
-casStatus = 1;
-publicVariable "casStatus";
+missionNameSpace setVariable ["casStatus",1,true];
 
-createDialog "casStrikeDialog";
+_display = createDialog ["casStrikeDialog"];
 
-_map = findDisplay 99003 ctrlCreate ["RscMapControl", -1];
+_map = _display ctrlCreate ["RscMapControl", -1];
 _map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.316,safeZoneY + safeZoneH * 0.333,safeZoneW * 0.369,safeZoneH * 0.368];
 
 createMarkerLocal ["casStrikeMrk",[0,0,0]];
@@ -24,7 +23,7 @@ createMarkerLocal ["casDirMrk",[0,0,0]];
 "casDirMrk" setMarkerTypeLocal "mil_arrow_noShadow";
 "casDirMrk" setMarkerTextLocal "CAS Approach Vector";
 
-_weaponsControl = findDisplay 99003 displayCtrl 9900301;
+_weaponsControl = _display displayCtrl 9900301;
 
 _line = format ["Machine Gun (%1 left)",casMGruns];
 _weaponsControl lbAdd _line;
@@ -80,6 +79,5 @@ if (findDisplay 99003 == displayNull) exitWith {
 	deleteMarkerLocal "casStrikeMrk";
 	deleteMarkerLocal "casDirMrk";
 	onMapSingleClick "";
-	casStatus = 0;
-	publicVariable "casStatus";
+	missionNameSpace setVariable ["casStatus",0,true];
 };

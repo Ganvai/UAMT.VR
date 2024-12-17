@@ -2,8 +2,7 @@ if (!isServer) exitWith {};
 
 params ["_targetPos","_side","_ammoID",["_createMarker",true]];
 
-vlsStatus = 2;
-publicVariable "vlsStatus";
+missionNameSpace setVariable ["vlsStatus",2,true];
 
 _audioMessages = supportMessages;
 _customAudio = supportCustomAudio;
@@ -35,12 +34,10 @@ _ammo  = "magazine_Missiles_Cruise_01_x18";
 if (_ammoID == 1) then {
 	_ammo = "magazine_Missiles_Cruise_01_Cluster_x18";
 	
-	vlsClusterRounds = vlsClusterRounds - 1;
-	publicVariable "vlsClusterRounds";
+	missionNameSpace setVariable ["vlsClusterRounds",(missionNameSpace getVariable "vlsClusterRounds") - 1,true];
 }
 else {
-	vlsHERounds = vlsHERounds - 1;
-	publicVariable "vlsHERounds";
+	missionNameSpace setVariable ["vlsHERounds",(missionNameSpace getVariable "vlsHERounds") - 1,true];
 };
 
 if ( _ammo != vlsName currentMagazineTurret [0] ) then {
@@ -78,11 +75,11 @@ sleep vlsDelay;
 _target = createVehicle ["Land_HelipadEmpty_F",_targetPos];
 
 sleep  5;
-vlsName setVehicleReceiveRemoteTargets  true;
+vlsName setVehicleReceiveRemoteTargets true;
 _side reportRemoteTarget [_target,1000];
 vlsName doWatch _target;
 vlsName fireAtTarget [_target];
-vlsName setVehicleReceiveRemoteTargets  false;
+vlsName setVehicleReceiveRemoteTargets false;
 
 waitUntil {sleep 0.5; vlsMissile != objNull};
 
@@ -122,8 +119,7 @@ else {
 	vlsMissile setDamage 1;
 };
 
-vlsStatus = 3;
-publicVariable "vlsStatus";
+missionNameSpace setVariable ["vlsStatus",3,true];
 
 sleep 5;
 
@@ -159,8 +155,7 @@ deleteMarker "vlsMrk";
 missile = objNull;
 publicVariable "missile";
 
-vlsStatus = 0;
-publicVariable "vlsStatus";
+missionNameSpace setVariable ["vlsStatus",0,true];
 
 /*
 ammo_Missile_Cruise_01_Cluster

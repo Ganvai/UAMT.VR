@@ -40,7 +40,6 @@ _heliVeh allowDamage false;
 // AI Behaviour
 {
 	_x disableAI "AUTOCOMBAT";
-	_x disableAI "COMBAT";
 	_x disableAI "AUTOTARGET";
 	_x disableAI "TARGET";
 	_x disableAI "COVER";
