@@ -13,6 +13,19 @@
 //
 // The Supply System will be filled automatically with Items 
 // defined here.
+//
+// For a better Explanation, all Values have in Comments what they expect as Type
+//
+// There are three Types:
+// 1. - STRING "ItemClassName" - A simple String with the Item Class Name
+//
+// 2. - Variant Array ["ItemClassname 1","ItemClassName 2", etc] - An array with multiple Item Class names. 
+//																	Even when you only have one Item, you still need to set this in array brackets []
+//
+// 3. - Load Array [["ItemClassName 1", Number Amount],["ItemClassName 2", Number Amount],etc] - A multidimensional array giving the ItemClassName as string
+//																									and the amount to load as number (mostly used for Container Loading, 
+//																									like uniforms, vests and backpacks)
+//
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 
@@ -29,10 +42,10 @@
 // element into it. So always use:
 // variable = ["itemName"];
 //------------------------------------------------------------------
-uniforms = ["U_B_CombatUniform_mcam","U_B_CombatUniform_mcam_tshirt"];
-helmet = ["H_HelmetB","H_Cap_khaki_specops_UK","H_Cap_usblack"];
-vests = ["V_PlateCarrier1_rgr"];
-facewear = ["G_Tactical_Clear","G_Lowprofile"];
+uniforms = ["U_B_CombatUniform_mcam","U_B_CombatUniform_mcam_tshirt"]; // Variant Array ["ItemClassname 1","ItemClassName 2", etc]
+helmet = ["H_HelmetB","H_Cap_khaki_specops_UK","H_Cap_usblack"]; // Variant Array ["ItemClassname 1","ItemClassName 2", etc]
+vests = ["V_PlateCarrier1_rgr"]; // Variant Array ["ItemClassname 1","ItemClassName 2", etc]
+facewear = ["G_Tactical_Clear","G_Lowprofile"]; // Variant Array ["ItemClassname 1","ItemClassName 2", etc]
 
 //------------------------------------------------------------------
 // 	Backpacks
@@ -46,9 +59,9 @@ facewear = ["G_Tactical_Clear","G_Lowprofile"];
 // element into it. So always use:
 // variable = ["itemName"];
 //------------------------------------------------------------------
-backpack_std = ["B_AssaultPack_mcamo"]; // For all roles without much to carry, like Rifleman, DM, Squadleaders
-backpack_med = ["B_Kitbag_mcamo"]; // For roles with need for larger carrying capacity: MG, Medic, Groupleader, EOD, Engineer
-backpack_big = ["B_Carryall_mcamo"]; // For Roles with heavy loads, like AT,AA, all Assistants
+backpack_std = ["B_AssaultPack_mcamo"]; // For all roles without much to carry, like Rifleman, DM, Squadleaders | Variant Array ["ItemClassname 1","ItemClassName 2", etc]
+backpack_med = ["B_Kitbag_mcamo"]; // For roles with need for larger carrying capacity: MG, Medic, Groupleader, EOD, Engineer | Variant Array ["ItemClassname 1","ItemClassName 2", etc]
+backpack_big = ["B_Carryall_mcamo"]; // For Roles with heavy loads, like AT,AA, all Assistants | Variant Array ["ItemClassname 1","ItemClassName 2", etc]
 
 //------------------------------------------------------------------
 //							Slotted Items
@@ -60,10 +73,10 @@ backpack_big = ["B_Carryall_mcamo"]; // For Roles with heavy loads, like AT,AA, 
 // Leaders.
 //------------------------------------------------------------------
 // Standard Items
-watch = "ACE_Altimeter";
-map = "ItemMap";
-compass = "ItemCompass";
-binocs = "Binocular";
+watch = "ACE_Altimeter"; // String
+map = "ItemMap"; // String
+compass = "ItemCompass"; // String
+binocs = "Binocular"; // String
 
 //------------------------------------------------------------------
 //
@@ -79,21 +92,21 @@ binocs = "Binocular";
 // Groupleaders and JTAC get Tier 3. As always, you still can adapt this
 // here in the Role Equipment Sections
 //------------------------------------------------------------------
-terminal_t1 = "ItemGPS";			// Available for Everyone
-terminal_t2 = "ItemGPS";			// Only Available for Groupleader
-terminal_t3 = "ItemGPS";			// Only available for Squadleaders
+terminal_t1 = "ItemGPS"; // Available for Everyone | String
+terminal_t2 = "ItemGPS"; // Only Available for Groupleader | String
+terminal_t3 = "ItemGPS"; // Only available for Squadleaders | String
 
 if (isClass(configFile >> "cfgPatches" >> "cTab")) then {
-	terminal_t1 = "ItemMicroDAGR";
-	terminal_t2 = "ItemAndroid";
-	terminal_t3 = "ItemcTab";
+	terminal_t1 = "ItemMicroDAGR"; // String
+	terminal_t2 = "ItemAndroid"; // String
+	terminal_t3 = "ItemcTab"; // String
 };
 
 // All Roles except Fighter Pilots
 // All standard Infantery roles have the NVGs put in their Uniforms
 // Roles with limited carrying capacity like Divers and Crew Roles
 // have the NVG equipped.
-nvg = "NVGoggles";
+nvg = "NVGoggles"; // String
 
 
 //------------------------------------------------------------------
@@ -105,13 +118,13 @@ nvg = "NVGoggles";
 //------------------------------------------------------------------
 
 //Radios with Modcheck for TFAR or ACRE
-radio = "ItemRadio";
+radio = "ItemRadio"; // String
 if (isClass(configFile >> "cfgPatches" >> "task_force_radio")) then {
-	radio = "TFAR_anprc152";
+	radio = "TFAR_anprc152"; // String
 };
 
 if (isClass(configFile >> "cfgPatches" >> "acre_main")) then {
-	radio = "ACRE_PRC152";
+	radio = "ACRE_PRC152"; // String
 };
 
 //------------------------------------------------------------------
@@ -123,16 +136,16 @@ lrAvailable = false; // Long Range Available
 lrRoles = ["Groupleader","JTAC"]; 	// Roles that get Long Range Radio Equipment.
 									// If TFAR or Vanilla LR, overwrites the default Backpack of the role
 
-lrRadio = ""; 	// Use this for using Vanilla LR Radio Backpack.
+lrRadio = ""; 	// String | Use this for using Vanilla LR Radio Backpack. 
 				// Will be overwritten when ACRE or TFAR is loaded
 
 // LR Radio Equipment depending on loaded Mod
 if (isClass(configFile >> "cfgPatches" >> "task_force_radio")) then {
-	lrRadio = "TFAR_rt1523g_big";
+	lrRadio = "TFAR_rt1523g_big"; // String
 };
 
 if (isClass(configFile >> "cfgPatches" >> "acre_main")) then {
-	lrRadio = "ACRE_PRC117F";
+	lrRadio = "ACRE_PRC117F"; // String
 };
 
 //------------------------------------------------------------------
@@ -160,11 +173,11 @@ san_t0_u = [
 					["ACE_tourniquet",1],
 					["ACE_morphine",1],
 					["ACE_epinephrine",1]
-];
+]; // Load Array [["ItemClassName 1", Number Amount],["ItemClassName 2", Number Amount],etc]
 
-san_t0_v = [];
+san_t0_v = []; // Load Array [["ItemClassName 1", Number Amount],["ItemClassName 2", Number Amount],etc]
 
-san_t0_b = [];
+san_t0_b = []; // Load Array [["ItemClassName 1", Number Amount],["ItemClassName 2", Number Amount],etc]
 
 //------------------------------------------------------------------
 //			Tier 1 medical Equipment
@@ -172,9 +185,9 @@ san_t0_b = [];
 // For all roles except Medics and Docs
 //
 //------------------------------------------------------------------
-san_t1_u = [];
+san_t1_u = []; // Load Array [["ItemClassName 1", Number Amount],["ItemClassName 2", Number Amount],etc]
 
-san_t1_v = [];
+san_t1_v = []; // Load Array [["ItemClassName 1", Number Amount],["ItemClassName 2", Number Amount],etc]
 
 san_t1_b = [					
 					["ACE_fieldDressing",8],
@@ -185,7 +198,7 @@ san_t1_b = [
 					["ACE_tourniquet",2],
 					["ACE_morphine",1],
 					["ACE_epinephrine",1]
-];
+]; // Load Array [["ItemClassName 1", Number Amount],["ItemClassName 2", Number Amount],etc]
 
 
 //------------------------------------------------------------------
@@ -193,9 +206,9 @@ san_t1_b = [
 //
 // For Medics and Docs
 //------------------------------------------------------------------
-san_t2_u = [];
+san_t2_u = []; // Load Array [["ItemClassName 1", Number Amount],["ItemClassName 2", Number Amount],etc]
 
-san_t2_v = [];
+san_t2_v = []; // Load Array [["ItemClassName 1", Number Amount],["ItemClassName 2", Number Amount],etc]
 
 san_t2_b = [		
 					["ACE_surgicalKit",1],
@@ -217,7 +230,7 @@ san_t2_b = [
 					["ACE_adenosine",5],
 					
 					["ACE_bodyBag",2]
-];
+]; // Load Array [["ItemClassName 1", Number Amount],["ItemClassName 2", Number Amount],etc]
 
 
 //------------------------------------------------------------------
@@ -232,25 +245,25 @@ invStd_u = [
 	["ACE_Flashlight_XL50",1],
 	["ACE_MapTools",1],
 	["ACE_IR_Strobe_Item",1]
-];
+]; // Load Array [["ItemClassName 1", Number Amount],["ItemClassName 2", Number Amount],etc]
 
-invStd_v = [];
+invStd_v = []; // Load Array [["ItemClassName 1", Number Amount],["ItemClassName 2", Number Amount],etc]
 
-invStd_b = [];
+invStd_b = []; // Load Array [["ItemClassName 1", Number Amount],["ItemClassName 2", Number Amount],etc]
 
 // Will be put into Vests, if full into Backpacks
 throwablesStd = [
 	["HandGrenade",2],
 	["SmokeShell",2],
 	["ACE_CTS9",2]
-];
+]; // Load Array [["ItemClassName 1", Number Amount],["ItemClassName 2", Number Amount],etc]
 
 // Will be put into Vests, if full into Backpacks
 throwablesExt = [
 	["SmokeShellGreen",2],
 	["SmokeShellRed",2],
 	["B_IR_Grenade",2]
-];
+]; // Load Array [["ItemClassName 1", Number Amount],["ItemClassName 2", Number Amount],etc]
 
 //------------------------------------------------------------------
 //
@@ -263,26 +276,26 @@ throwablesExt = [
 //
 //------------------------------------------------------------------
 
-std_rifle = "arifle_MX_F";
-std_scope = "optic_Aco";
-std_attachement1 = "ACE_DBAL_A3_Green";
-std_attachement2 = "";
-std_attachement3 = "";
+std_rifle = "arifle_MX_F"; // String
+std_scope = "optic_Aco"; // String
+std_attachement1 = "ACE_DBAL_A3_Green"; // String
+std_attachement2 = ""; // String
+std_attachement3 = ""; // String
 
 std_rifleAmmo_inv = [
 	["30Rnd_65x39_caseless_mag",5],
 	["30Rnd_65x39_caseless_mag_Tracer",2]
-];
+]; // Load Array [["ItemClassName 1", Number Amount],["ItemClassName 2", Number Amount],etc]
 
 // Available for all Roles except fpilot
-std_handgun = "hgun_P07_F";
-std_handgun_scope = "";
-std_handgun_attachment1 = "";
-std_handgun_attachment2 = "";
+std_handgun = "hgun_P07_F"; // String
+std_handgun_scope = ""; // String
+std_handgun_attachment1 = ""; // String
+std_handgun_attachment2 = ""; // String
 
 std_handgunAmmo_inv = [
 	["16Rnd_9x21_Mag",2]
-];
+]; // Load Array [["ItemClassName 1", Number Amount],["ItemClassName 2", Number Amount],etc]
 
 // Alternative Weapons for Roles with Standard Rifles in Armory. 
 // Ammo, Scopes and Attachements go into Equipment Array, as they should be available for all Roles
@@ -293,83 +306,74 @@ std_weapons_alt = [
 	"arifle_MXC_F",
 	"arifle_MXC_Black_F",
 	"arifle_MXC_khk_F"
-];
+]; // Variant Array ["ItemClassname 1","ItemClassName 2", etc]
 
 //------------------------------------------------------------------
 //	Rifelman Equipment
 //------------------------------------------------------------------
-// Outfit Variables
-//
-// You can give more than one item if you want some randomised variation
-// for the Players. 
-//
-// IMPORTANT: Outfit Variables must always be an Array, even if you put only one 
-// element into it. So always use:
-// variable = ["itemName"];
-//------------------------------------------------------------------
+
+// Outfit
 rifleman_uniform = uniforms;
 rifleman_vest = vests;
 rifleman_helmet = helmet;
 rifleman_backpack = backpack_std;
 
-// Weapons
-rifleman_rifle = std_rifle;
-rifleman_scope = std_scope;
-rifleman_attachement1 = std_attachement1;
-rifleman_attachement2 = std_attachement2;
-rifleman_attachement3 = std_attachement3;
+// Weapons Loadout
+rifleman_rifle = std_rifle; // String
+rifleman_scope = std_scope; // String
+rifleman_attachement1 = std_attachement1; // String
+rifleman_attachement2 = std_attachement2; // String
+rifleman_attachement3 = std_attachement3; // String
 
-rifleman_ammo_inv = std_rifleAmmo_inv;
+// Rifle Ammo in Inventory
+rifleman_ammo_inv = std_rifleAmmo_inv; // Load Array [["ItemClassName 1", Number Amount],["ItemClassName 2", Number Amount],etc]
 
-rifleman_handgun = std_handgun;
-rifleman_handgun_scope = std_handgun_scope;
-rifleman_handgun_attachement1 = std_handgun_attachment1;
-rifleman_handgun_attachement2 = std_handgun_attachment2;
+// Handgun Loadout
+rifleman_handgun = std_handgun; // String
+rifleman_handgun_scope = std_handgun_scope; // String
+rifleman_handgun_attachement1 = std_handgun_attachment1; // String
+rifleman_handgun_attachement2 = std_handgun_attachment2; // String
 
-rifleman_handgunAmmo_inv = std_handgunAmmo_inv;
+// Handgun Ammo in Inventory
+rifleman_handgunAmmo_inv = std_handgunAmmo_inv; // Load Array [["ItemClassName 1", Number Amount],["ItemClassName 2", Number Amount],etc]
 
 // Slotted Items
-rifleman_watch = watch;
-rifleman_map = map;
-rifleman_compass = compass;
-rifleman_binocs = binocs;
-rifleman_terminal = terminal_t1;
-rifleman_radio = radio;
+rifleman_watch = watch; // String
+rifleman_map = map; // String
+rifleman_compass = compass; // String
+rifleman_binocs = binocs; // String
+rifleman_terminal = terminal_t1; // String
+rifleman_radio = radio; // String
 
 // Inventory items
-rifleman_inv_u = invStd_u + san_t1_u;
-rifleman_inv_v = invStd_v + san_t1_v + throwablesStd;
-rifleman_inv_b = invStd_b + san_t1_b + [["ACE_EntrenchingTool",1], ["ACE_wirecutter",1]];
+rifleman_inv_u = invStd_u + san_t1_u; // Load Array [["ItemClassName 1", Number Amount],["ItemClassName 2", Number Amount],etc]
+rifleman_inv_v = invStd_v + san_t1_v + throwablesStd; // Load Array [["ItemClassName 1", Number Amount],["ItemClassName 2", Number Amount],etc]
+rifleman_inv_b = invStd_b + san_t1_b + [["ACE_EntrenchingTool",1], ["ACE_wirecutter",1]]; // Load Array [["ItemClassName 1", Number Amount],["ItemClassName 2", Number Amount],etc]
 
 //Additional or alternative Items available for this specific Role in the Armory
-rifleman_equipment_AR = [];
+rifleman_equipment_AR = []; // Variant Array ["ItemClassname 1","ItemClassName 2", etc]
 
 //------------------------------------------------------------------
 //	Grenadier Equipment
 //------------------------------------------------------------------
-// Outfit Variables
-//
-// You can give more than one item if you want some randomised variation
-// for the Players. 
-//
-// IMPORTANT: Outfit Variables must always be an Array, even if you put only one 
-// element into it. So always use:
-// variable = ["itemName"];
-//------------------------------------------------------------------
+
+// Outfit
 grenadier_uniform = uniforms;
 grenadier_vest = vests;
 grenadier_helmet = helmet;
 grenadier_backpack = backpack_std;
 
-// Weapons
+// Weapons Loadout
 grenadier_rifle = "arifle_MX_GL_F";
 grenadier_scope = std_scope;
 grenadier_attachement1 = std_attachement1;
 grenadier_attachement2 = std_attachement2;
 grenadier_attachement3 = std_attachement3;
 
+// Rifle Ammo in Inventory
 grenadier_ammo_inv = std_rifleAmmo_inv;
 
+// Handgun Loadout
 grenadier_handgun = std_handgun;
 grenadier_handgun_scope = std_handgun_scope;
 grenadier_handgun_attachement1 = std_handgun_attachment1;
@@ -725,7 +729,7 @@ launcher_at_ammo = [
 	["Titan_AT",1]
 ]; 
 // Additional Ammo for At that is available in Armory, Supply Crates and for Assistant Roles
-// As this is not loaded in any Inventory, this is a simple Array with Ammo-Class without amount
+// As this is not loaded in any Inventory, this is a Variant Array with Ammo-Class without amount
 launcher_at_ammoPool = ["Titan_AP"];
 
 launcher_aa = "launch_B_Titan_F";
@@ -737,7 +741,7 @@ launcher_aa_ammo = [
 	["Titan_AA",1]
 ];
 // Additional Ammo for At that is available in Armory, Supply Crates and for Assistant Roles
-// As this is not loaded in any Inventory, this is a simple Array with Ammo-Class without amount
+// As this is not loaded in any Inventory, this is a Variant Array with Ammo-Class without amount
 launcher_aa_ammoPool = [];
 
 launcher_at_light = "";
@@ -754,7 +758,7 @@ _lightATdispenseble = true;
 // Needs multidimensional  Array: [["Ammo_Type_1",1],["Ammo_Type_2",1]]
 launcher_at_light_ammo = [];
 // Additional Ammo for At that is available in Armory, Supply Crates and for Assistant Roles
-// As this is not loaded in any Inventory, this is a simple Array with Ammo-Class without amount
+// As this is not loaded in any Inventory, this is a Variant Array with Ammo-Class without amount
 launcher_at_light_ammoPool = [];
 
 // Slotted Items
