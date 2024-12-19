@@ -11,7 +11,8 @@ _ttline4 = format ["<t color='#ffffff' size='1'>%1<br/>____________________</t><
 ace_hearing_disableVolumeUpdate = true;
 
 // Set threshold for NVGs
-_brightness = 50;
+_dynLightBrightness = 50;
+_ambLight = 12;
 
 //set Music to zero for FadeIn
 0 fadeMusic 0;
@@ -45,7 +46,7 @@ _camera camSetPos _startPos;
 _camera camCommit 0;
 
 //NVG or not
-if (((getLightingAt _camera ) select 3 )> _brightness || ((getLightingAt _camera ) select 1 ) > 0.4) then {
+if (((getLightingAt _camera ) select 3 )> _dynLightBrightness || ((getLightingAt _camera ) select 1 ) >_ambLight) then {
 	camUseNVG false;
 }
 else {
@@ -66,7 +67,7 @@ _camera camSetPos _startPos;
 _camera camCommit 0;
 
 //NVG or not
-if (((getLightingAt _camera ) select 3 )> _brightness || ((getLightingAt _camera ) select 1 ) > 0.4) then {
+if (((getLightingAt _camera ) select 3 )> _dynLightBrightness || ((getLightingAt _camera ) select 1 ) > _ambLight) then {
 	camUseNVG false;
 }
 else {
@@ -88,7 +89,7 @@ _camera camSetPos _startPos;
 _camera camCommit 0;
 
 //NVG or not
-if (((getLightingAt _camera ) select 3 )> _brightness || ((getLightingAt _camera ) select 1 ) > 0.4) then {
+if (((getLightingAt _camera ) select 3 )> _dynLightBrightness || ((getLightingAt _camera ) select 1 ) > _ambLight) then {
 	camUseNVG false;
 }
 else {
