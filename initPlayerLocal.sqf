@@ -5,6 +5,21 @@
 //
 //------------------------------------------------------------------
 //------------------------------------------------------------------
+
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+//
+//						Developer Mode
+//
+// Deactivates all Intros in the beginning for a "faster" Load In
+//
+// Should be deactivated when doing a final Mission extract.
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+
+devMode = true;
+publicVariable "devMode";
+
 if (!devMode) then {
 	titleText ["Preparing Mission...", "BLACK FADED", 1];
 };
@@ -88,8 +103,6 @@ if (getMissionConfigValue "missionstartedfeat" == "true") then {
 };
 
 waitUntil{!isNull(player)};
-setTerrainGrid 25;
-enableEnvironment [false, true];
 
 _welcomemessage = getMissionConfigValue "WelcomeMessage";
 _missionControlCenterMessage = getMissionConfigValue "MissionControlCenterMessage";

@@ -19,17 +19,6 @@
 //------------------------------------------------------------------
 
 //------------------------------------------------------------------
-//						Debug Variable
-//------------------------------------------------------------------
-if (getMissionConfigValue "debugOn" == "true") then {
-	debugOn = true;
-}
-else {
-	debugOn = true;
-};
-publicVariable "debugOn";
-
-//------------------------------------------------------------------
 //						Mission Started Feature
 //------------------------------------------------------------------
 
@@ -594,7 +583,8 @@ if ( getMissionConfigValue "vlsFeature" == "true" ) then {
 	publicVariable "vlsMissile";
 	
 	//Preparing the VLS Turret
-	vlsName setVehicleReceiveRemoteTargets  false;
+	vlsName setVehicleReceiveRemoteTargets false;
+	vlsName setVehicleAmmo 0;
 	vlsName setVehicleRadar 2;
 	vlsName disableAI "AUTOTARGET";
 	vlsName disableAI "AUTOCOMBAT";
@@ -617,8 +607,8 @@ if ( getMissionConfigValue "vlsFeature" == "true" ) then {
 		if (isNull _projectile) then {
 			_projectile = nearestObject [_unit, _ammo];
 		};
-		vlsMissile = _projectile;
-		publicVariable "vlsMissile";
+		
+		missionNameSpace setVariable ["vlsMissile",_projectile,true];
 	}];
 }
 else {
