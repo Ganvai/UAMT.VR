@@ -53,9 +53,11 @@ if ( _ammo != vlsName currentMagazineTurret [0] ) then {
 			[_msg,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 		};
 	};
-
-	waitUntil {sleep 1; weaponState [vlsName,[0]] #6 == 0;};
 };
+
+sleep 1;
+
+waitUntil {sleep 1; weaponState [vlsName,[0]] #6 == 0 && weaponState [vlsName,[0]] #5 == 0 };
 
 if (_audioMessages) then {
 	
@@ -75,28 +77,36 @@ sleep vlsDelay;
 _target = createVehicle ["Land_HelipadEmpty_F",_targetPos];
 
 sleep  5;
+
 vlsName setVehicleReceiveRemoteTargets true;
 _side reportRemoteTarget [_target,1000];
 vlsName doWatch _target;
 vlsName fireAtTarget [_target];
-vlsName setVehicleReceiveRemoteTargets false;
 
-waitUntil {sleep 0.5; vlsMissile != objNull};
+vlsName setVehicleAmmo 0;
 
-waitUntil {sleep 0.5; vlsMissile distance2D _target < 1000};
+waitUntil { sleep 0.5; missionNameSpace getVariable ["vlsMissile",objNull] != objNull };
+
+waitUntil { sleep 0.5; (missionNameSpace getVariable ["vlsMissile",objNull] distance2D _target < 1000 || getPos (missionNameSpace getVariable ["vlsMissile",objNull]) select 2 > 1000) };
+
+_error = false;
+
+if ((getPos (missionNameSpace getVariable ["vlsMissile",objNull])) select 2 > 1000) then {
+	_error = true;
+};
 
 if (_audioMessages) then {
 	if (_customAudio) then {
-		["Missile distance to target: 1000 meter",_supportControlName,"msg_vls1000",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["Missile distance to target: 1000 meters",_supportControlName,"msg_vls1000",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 	}
 	else {
-		["Missile distance to target: 1000 meter",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["Missile distance to target: 1000 meters",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 	};
 };
 
-waitUntil {sleep 0.5; !alive vlsMissile || vlsMissile distance2D _target > 2000};
+waitUntil {sleep 0.5; !alive (missionNameSpace getVariable ["vlsMissile",objNull]) || (missionNameSpace getVariable ["vlsMissile",objNull]) distance2D _target > 2000 || _error};
 
-if (!alive vlsMissile) then {
+if (!alive (missionNameSpace getVariable ["vlsMissile",objNull]) && !_error) then {
 	if (_audioMessages) then {
 		if (_customAudio) then {
 			["Missile Impact",_supportControlName,"msg_vlsimpact",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
@@ -109,14 +119,14 @@ if (!alive vlsMissile) then {
 else {
 	if (_audioMessages) then {
 		if (_customAudio) then {
-			["Missile Target Error. Executing Selfdestruct.",_supportControlName,"msg_vlsSelfDestruct",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			["Missile Guidance Error. Executing Selfdestruct.",_supportControlName,"msg_vlsSelfDestruct",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 		}
 		else {
-			["Missile Target Error. Executing Selfdestruct.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			["Missile Guidance Error. Executing Selfdestruct.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 		};
 	};
 
-	vlsMissile setDamage 1;
+	missionNameSpace getVariable ["vlsMissile",objNull] setDamage 1;
 };
 
 missionNameSpace setVariable ["vlsStatus",3,true];
@@ -150,10 +160,11 @@ else {
 	};
 };
 
+vlsName setVehicleReceiveRemoteTargets false;
+
 deleteVehicle _target;
 deleteMarker "vlsMrk";
-missile = objNull;
-publicVariable "missile";
+missionNameSpace setVariable ["vlsMissile",objNull,true];
 
 missionNameSpace setVariable ["vlsStatus",0,true];
 
