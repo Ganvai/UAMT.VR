@@ -33,6 +33,8 @@
 // pad: Object / The Pad the Keypad will work from
 // code: String / The Code that will unlock all defined doors
 // doors: Array of Numbers / Optional / The Door numbers you want to lock with the Keypad
+// objectType: String / Optional / Default "HouseBase" / The object type the function will 
+//						search for to lock the doors and attach the keypad function. 
 //
 // Usage
 // -----------------------------------------
@@ -50,15 +52,30 @@
 //
 // When in the init of a Tablet, use 'this' to give the object. 
 // With no door array given, only door 1 will be locked as default
+//
+// -----------------------------------------
+// 
+// IMPORTANT TO KNOW:
+//
+// Please pay attention to the surroundings on the map. There are a lot of
+// objects that are inheriting from the Class "HouseBase" even though they are
+// definetly not houses (like Street lamps for example). If these objects are closer
+// to the keypad than the actual object (the distance is measured from the middle of
+// the object, so even when you have a keypad in  the wall of the house, when there
+// is a street lamp directly in front, the function will attach to the street lamp.
+// Sadly, this will not throw an error. If you have the keypad working but the doors
+// of the house are not locked, it is often because there is another object from the
+// given objectType closer to the keypad. In this case, try to give the exact class
+// of the house so the function will attach to the right object.
 //-------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------
 
 
 if (!isServer) exitWith {};
 
-params ["_pad","_code",["_doors",[1]]];
+params ["_pad","_code",["_doors",[1]],["_objectType","HouseBase"]];
 
-_house = nearestObject [_pad,"Building"];
+_house = nearestObject [_pad,_objectType];
 
 {
 	_doorName = format ["bis_disabled_Door_%1",_x];

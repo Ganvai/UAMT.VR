@@ -1,6 +1,6 @@
 params ["_number"];
 
-_pad = (nearestObjects [player,["Land_Tablet_01_F", "Land_Tablet_02_F", "Land_Tablet_02_black_F", "Land_Tablet_02_sand_F"],2,false]) select 0;
+_pad = (nearestObjects [player,["Land_Tablet_01_F", "Land_Tablet_02_F", "Land_Tablet_02_black_F", "Land_Tablet_02_sand_F"],3,false]) select 0;
 _code = _pad getVariable "_code";
 
 _text = ctrlText 9900200;

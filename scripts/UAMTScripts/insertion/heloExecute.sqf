@@ -87,13 +87,18 @@ publicVariable "missionstarted";
 ["taskInsPrepMethod", "SUCCEEDED"] call BIS_fnc_taskSetState;
 ["taskInsPrepTime", "SUCCEEDED"] call BIS_fnc_taskSetState;
 
+if (_customAudio) then {
+	["Lift Off, Gentlemen. Fasten your seatbelts.","Pilot","msg_heloLift",_side] remoteExec ["UAMT_fnc_quickMsg"];
+}
+else {
+	["Lift Off, Gentlemen. Fasten your seatbelts.","Pilot","Radio",_side] remoteExec ["UAMT_fnc_quickMsg"];
+};
+		
 for "_i" from 0 to ((count insHeloVeh) - 1) do {
-
-	sleep 3;
 	
 	[_i,_customAudio,_side]spawn {
 		params ["_index","_customAudio","_side"];
-		
+
 		_helo = insHeloVeh select _index;
 		_heloDest = insHeloLZs select _index;
 		
@@ -114,15 +119,8 @@ for "_i" from 0 to ((count insHeloVeh) - 1) do {
 		_wp1 setWaypointType "LOAD";
 		_wp1 setWaypointStatements ["true", "vehicle this land ""GET IN"";"];
 		_wp1 setWaypointBehaviour "careless";
-		
+				
 		sleep 5;
-		
-		if (_customAudio) then {
-			["Lift Off, Gentlemen. Fasten your seatbelts.","Pilot","msg_heloLift",side _grpHelo] remoteExec ["UAMT_fnc_quickMsg",crew _helo arrayIntersect allPlayers];
-		}
-		else {
-			["Lift Off, Gentlemen. Fasten your seatbelts.","Pilot","Radio",side _grpHelo] remoteExec ["UAMT_fnc_quickMsg",crew _helo arrayIntersect allPlayers];
-		};
 		
 		waitUntil {sleep 1; _helo distance2D _destPos < 100 || !alive _helo};
 		
@@ -171,9 +169,11 @@ for "_i" from 0 to ((count insHeloVeh) - 1) do {
 		deleteVehicleCrew _helo;
 		deleteVehicle _helo;
 	};
+	
+	sleep 3;
 };
 
-sleep 2;
+sleep 3;
 
 if (insIntro) then {
 	_line1 = getMissionConfigValue "introM";
