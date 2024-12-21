@@ -89,7 +89,7 @@ class chtDialog
 	};
 	class Controls
 	{
-		class comboWeapon
+		class comboHeli
 		{
 			type = 4;
 			idc = 9900601;
@@ -121,7 +121,7 @@ class chtDialog
 				border = "\A3\ui_f\data\gui\cfg\scrollbar\border_ca.paa";
 				
 			};
-			
+			onLBSelChanged = "params ['_control', '_lbCurSel']; [_control,_lbCurSel] call chtDialog_fnc_chtChangeMrkNamesDialog;";
 		};
 
 		
@@ -183,7 +183,7 @@ class chtDialog
 			w = safeZoneW * 0.13867188;
 			h = safeZoneH * 0.03645834;
 			style = 0+2;
-			text = "Call Transport Helicopters";
+			text = "Call Transport Helicopter";
 			borderSize = 0;
 			colorBackground[] = {0.2,0.2,0.2,1};
 			colorBackgroundActive[] = {0.302,0.302,0.302,1};

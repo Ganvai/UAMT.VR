@@ -1,11 +1,8 @@
-_display = findDisplay 99006;
-
 onMapSingleClick "";
 
-deleteMarker (_display getVariable "_chtPickUpMrkName");
-deleteMarker (_display getVariable "_chtDropOffMrkName");
+deleteMarkerLocal (player getVariable "CHT_CallPUMrk");
+deleteMarkerLocal (player getVariable "CHT_CallDOMrk");
 
-chtAvailable = true;
-publicVariable "chtAvailable";
+missionNameSpace setVariable ["chtStatus",0,true];
 
 closeDialog 0;

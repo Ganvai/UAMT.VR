@@ -1,35 +1,51 @@
-params ["_heliIndex"];
+params ["_lbCurSel"];
 
 _display = findDisplay 99006;
 
-_pickUpMrk = _display getVariable ["chtCallPUMrk",""];
+_pickUpMrk = player getVariable ["CHT_CallPUMrk",""];
 
 if (_pickUpMrk == "") exitWith {
 	["Something went wrong with the Pick Up Map Marker. Please restart the Interface", "Error"] call BIS_fnc_guiMessage;
 };
 
 
-_dropOffMrk = _display getVariable ["chtCallDOMrk",""];
+_dropOffMrk = player getVariable ["CHT_CallDOMrk",""];
 
 if (_dropOffMrk == "") exitWith {
 	["Something went wrong with the Drop Off Map Marker. Please restart the Interface", "Error"] call BIS_fnc_guiMessage;
 };
 
 
-if (_heliIndex == -1) exitWith {
+if (_lbCurSel == -1) exitWith {
 	["No Helicopter selected", "Error"] call BIS_fnc_guiMessage;
 };
 
 _pickUp = getMarkerPos _pickUpMrk;
 if (_pickUp isEqualTo [0,0,0]) exitWith {
-	["No Pickup Position selected", "Error"] call BIS_fnc_guiMessage;
+	["No Pickup Position set", "Error"] call BIS_fnc_guiMessage;
 };
 
 _dropOff = getMarkerPos _dropOffMrk;
 if (_dropOff isEqualTo [0,0,0]) exitWith {
-	["No Drop-Off Position selected", "Error"] call BIS_fnc_guiMessage;
+	["No Drop-Off Position set", "Error"] call BIS_fnc_guiMessage;
 };
 
-[[_heliIndex, _pickUpMrk, _dropOffMrk, side player],chtDialog_fnc_chtExecute]remoteExec ["spawn",2];
+missionNameSpace setVariable ["chtCount",(player getVariable "CHT_CallCount"),true];
+
+_heliIndex = _display displayCtrl 9900601 lbValue _lbCurSel;
+
+_heliclass = ((missionNameSpace getVariable "chtHeliArray") select _heliIndex) select 0;
+
+_heliTempArray = missionNameSpace getVariable "chtHeliArray";
+(_heliTempArray select _heliIndex) set [1,false];
+
+missionNameSpace setVariable ["chtHeliArray",_heliTempArray,true];
+
+[[_heliclass, _heliIndex,getMarkerPos _pickUpMrk, getMarkerPos _dropOffMrk, markerText _pickUpMrk, markerText _dropOffMrk, missionNameSpace getVariable "chtCount", player],chtDialog_fnc_chtExecute]remoteExec ["spawn",2];
+
+deleteMarkerLocal _pickUpMrk;
+deleteMarkerLocal _dropOffMrk;
 
 closeDialog 0;
+
+missionNameSpace setVariable ["chtStatus",0,true];

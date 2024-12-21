@@ -465,16 +465,15 @@ if ( getMissionConfigValue "chtFeature" == "true" ) then {
 	chtFeature = true;
 	publicVariable "chtFeature";
 
-	if ( getMissionConfigValue "chtAvailable" == "true" ) then {
-		missionNameSpace setVariable ["chtAvailable",true,true];
-	}
-	else {
-		missionNameSpace setVariable ["chtAvailable",false,true];
-	};
+	// Form Helicopter Array
+	_chtClasses = getMissionConfigValue "chtClasses";
+	_chtHeliArray = [];
+	{
+		_chtHeliArray pushback [_x,true];
+	} forEach _chtClasses;
 	
-	chtClasses = getMissionConfigValue "chtClasses";
-	publicVariable "chtClasses";
-
+	missionNameSpace setVariable ["chtHeliArray",_chtHeliArray,true];
+	
 	chtRoles = getMissionConfigValue "chtRoles";
 	publicVariable "chtRoles";
 
@@ -483,6 +482,14 @@ if ( getMissionConfigValue "chtFeature" == "true" ) then {
 
 	chtDespawn = getMissionConfigValue "chtDespawn";
 	publicVariable "chtDespawn";
+
+	chtCivil = getMissionConfigValue "chtCivil";
+	publicVariable "chtCivil";
+
+	chtDamage = getMissionConfigValue "chtDamage";
+	publicVariable "chtDamage";
+	
+	missionNameSpace setVariable  ["chtStatus",getMissionConfigValue "chtStatus",true];
 	
 	missionNameSpace setVariable ["chtCount",0,true];
 }

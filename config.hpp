@@ -284,11 +284,27 @@ supplyDropDelayPenalty 	= 10;			// Defines how much time is added as penalty whe
 //-----------------------------------------------------------------------
 //-----------------------------------------------------------------------
 chtFeature = true;				// Activates the Heli Fire Support Feature. This permanently deactivates this feature for the mission and it won't be accessible even if you set it to true later.
-chtAvailable = true;			// Makes Helicopter Transport available from the start. If you want to activate it during the mission progress, use 'chtAvailable = true; publicVariable "chtAvailable";'
-chtClasses[] = {"B_Heli_Light_01_F","B_Heli_Transport_01_F"};	// Helicopter Classes available for Transport
+
+chtStatus = 0;			// The Status manages the accessebility of the function.
+							// While 0 to 3 are Ingame Status, 4 is to manage by the Missionmaker
+							// 0 : Available -> Use this if you want it to be accessibel from the very beginning of the Mission
+							// 1 : Call -> Another player is calling this Support and it is therefor not available for any other Player
+							// 2 : Progress  -> The Support was called and is now being executed and it is therefor not available for any other player
+							// 3 : Cooldown -> The Support was executed and is now in Cooldown before it is avialable again
+							// 4 : Not available -> The support is not available until the Missionmaker sets the Status manually to 0
+							//						-> The function will not be shown in the players ace selfinteract menu until its under 4
+							//					artiStatus = 0;
+							//					publicVariable "artiStatus";
+							//		IF YOU DON'T WANT ANY Artillery use artiFeature instead!
+							
+chtClasses[] = {"B_Heli_Light_01_F","B_Heli_Light_01_F","B_Heli_Transport_01_F"};	// Helicopters available for Transport. If you want several Helicopters of one type, just give another one in this array (see example Heli_Light).
 chtRoles[] = {JTAC,Groupleader};	// Roles that can call in Heli Transport
-chtSpawn = "chtSpawnMrk";		// Location the Helicopter will spawn. Place a marker and configure the name here.
-chtDespawn = "chtDespawnMrk";	// Location the Helicopter will despawn. Place a marker and configure the name here.
+chtSpawn = "chtSpawnMrk";		// Location the Helicopter will spawn. Place a marker and configure its name here.
+chtDespawn = "chtDespawnMrk";	// Location the Helicopter will despawn. Place a marker and configure its name here.
+chtCivil = true;				// If true, Helicopters are on civil side, won't be attacked or react to hostile forces.
+chtDamage = false;				// If false, Helicopter is invulnerable. Recommended as the AI Pilots sometimes do weird shit even without enemy in contact XD
+chtRespawn = 0;					// If larger then 0, helicopters respawn when they were destroyed after the given time (in seconds).
+chtCooldown  = 120;				// Time in seconds until a Helicopter is ready to fly again.
 
 
 //------------------------------------------------------------------

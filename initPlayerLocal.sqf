@@ -308,9 +308,23 @@ if (supplyDropFeature) then {
 if (chtFeature) then {
 
 	// CAS Terminal
-	_condition = { chtAvailable && ((chtRoles findIf {_x == vehicleVarName player;} > -1) || (chtRoles findIf {_x == groupID group player;} > -1) || (chtRoles findIf {_x == player getVariable "loadout";} > -1)) };
+	_condition = { ((chtRoles findIf {_x == vehicleVarName player;} > -1) || (chtRoles findIf {_x == groupID group player;} > -1) || (chtRoles findIf {_x == player getVariable "loadout";} > -1)) };
+
+	_modifierFunc = {
+		params ["_target", "_player", "_params", "_actionData"];
+			
+		// Getting the Status suffix for the Aactionname
+		_status = "";
+		if (missionNameSpace getVariable ["chtStatus",0] == 1) then {
+			_status = " (Call in Progress)";
+		};
+		
+		// Modify the action - index 1 is the display name, 2 is the icon...
+		_actionData set [1, format ["Heli Transport%1",_status]];
+	};
+
 	
-	_chtTerminal = ["Heli Transport","Heli Transport","a3\ui_f\data\igui\cfg\simpletasks\types\Heli_ca.paa",{[] spawn chtDialog_fnc_chtCreateDialog;},_condition] call ace_interact_menu_fnc_createAction;
+	_chtTerminal = ["Heli Transport","Heli Transport","a3\ui_f\data\igui\cfg\simpletasks\types\Heli_ca.paa",{[] spawn chtDialog_fnc_chtCreateDialog;},_condition,{},[],"",0,[false, false, false, false, false],_modifierFunc] call ace_interact_menu_fnc_createAction;
 	[(typeOf player), 1, ["ACE_SelfActions"], _chtTerminal] call ace_interact_menu_fnc_addActionToClass;
 	
 };
