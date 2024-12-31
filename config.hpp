@@ -62,7 +62,7 @@ endAllDead = false;					// When activated ends the Mission when every player is 
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 // Faction
-faction 			= "Nato-2035"; 	// Sets the Faction for the Mission start. You can find available Factions under Missionfolder\loadouts
+faction 			= "Nato-2035_config_sgn"; 	// Sets the Faction for the Mission start. You can find available Factions under Missionfolder\loadouts
 FortifyToolCamo		= "wood";			// Selects the Camo of the Items created with the Fortify Tool. Available are "wood" and "arid"
 
 // Loadout Customisation

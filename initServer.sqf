@@ -113,8 +113,10 @@ publicVariable "supplyPath";
 spawnBoxPath = format ["%1spawnBox.sqf", supplyPath];
 publicVariable "spawnBoxPath";
 
-_rolessqf = format ["loadouts\%1\roles.sqf", factionVariable];
-execVM _rolessqf;
+//_rolessqf = format ["loadouts\%1\roles.sqf", factionVariable];
+//execVM _rolessqf;
+roles = [missionConfigFile >> "CfgRoles" >> "roles"] call BIS_fnc_returnConfigEntry;
+publicVariable "roles";
 
 _faction_equipmentsqf = format ["loadouts\%1\faction_equipment.sqf", factionVariable];
 execVM _faction_equipmentsqf;

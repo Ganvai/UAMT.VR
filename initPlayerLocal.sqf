@@ -129,9 +129,12 @@ _missionControlCenterMessage = getMissionConfigValue "MissionControlCenterMessag
 
 sleep 2;
 _playerLoadout = player getVariable "loadout";
-_loadoutPath = format ["loadouts\%1\%2.sqf", factionVariable, _playerLoadout];
-null = [] execVM _loadoutPath;
+//_loadoutPath = format ["loadouts\%1\%2.sqf", factionVariable, _playerLoadout];
+//null = [] execVM _loadoutPath;
 
+UAMT_fnc_createLoadoutArray = compile preprocessFileLineNumbers "loadouts\Nato-2035_config_sgn\createLoadoutArray.sqf"; 	// move to CfgFunctions later
+[] call UAMT_fnc_createLoadoutArray;
+[player] spawn UAMT_fnc_applyLoadout;
 
 //------------------------------------------------------------------
 //------------------------------------------------------------------
@@ -257,8 +260,10 @@ if (allowLoadouts) then {
 };
 
 _reset_loadout = ["Reset Loadout","Reset Loadout","a3\modules_f\data\iconrespawn_ca.paa",{ 
-	_loadoutPath = format ["loadouts\%1\%2.sqf", factionVariable, player getVariable "loadout"];
-	null = [] execVM _loadoutPath;
+	// _loadoutPath = format ["loadouts\%1\%2.sqf", factionVariable, player getVariable "loadout"];
+	// null = [] execVM _loadoutPath;
+	private _loadoutArray = missionnamespace getVariable format ["UAMT_%1Array", (player getVariable "loadout")];
+	player setUnitLoadout _loadoutArray;
 },_conBaseMenu] call ace_interact_menu_fnc_createAction;
 [(typeOf player), 1, ["ACE_SelfActions","Base Menu"], _reset_loadout] call ace_interact_menu_fnc_addActionToClass;
 
