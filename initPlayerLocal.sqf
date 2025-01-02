@@ -132,9 +132,8 @@ _playerLoadout = player getVariable "loadout";
 //_loadoutPath = format ["loadouts\%1\%2.sqf", factionVariable, _playerLoadout];
 //null = [] execVM _loadoutPath;
 
-UAMT_fnc_createLoadoutArray = compile preprocessFileLineNumbers "loadouts\Nato-2035_config_sgn\createLoadoutArray.sqf"; 	// move to CfgFunctions later
-[] call UAMT_fnc_createLoadoutArray;
-[player] spawn UAMT_fnc_applyLoadout;
+_loadoutArr =  [] call UAMT_fnc_createLoadoutArray;
+[player,_loadoutArr] spawn UAMT_fnc_applyLoadout;
 
 //------------------------------------------------------------------
 //------------------------------------------------------------------

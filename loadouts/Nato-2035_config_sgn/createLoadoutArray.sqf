@@ -131,14 +131,15 @@ _newLoadout = [[
 	[_backpack, _itemsBackpack],
 	_helmet, _facewear, [_binocs, "", "", "", [], [], ""],
 	[_map, _gps, _radio, _compass, _watch, _nvgs]
-],true];			
+],true];
 
+
+/* Depricated - Alte Speicherung des Loadout Array
 // save loadout array
 _loadOutVar = format ["UAMT_%1Array", _unitLoadOut];
 missionNamespace setVariable [_loadOutVar, _newLoadout]; 		// save locally
 //missionNamespace setVariable [_loadOutVar, _newLoadout, true]; 	// save globally
-
-
+*/
 
 //------------------------------------------------------------------
 // debug stuff below this line -> delete
@@ -146,9 +147,6 @@ missionNamespace setVariable [_loadOutVar, _newLoadout]; 		// save locally
 
 //copytoclipboard str _personal;
 //systemchat str _ars;
-
-
-
 
 player addAction ["Open Arsenal", {
 	_unitLoadOut = player getVariable ["UAMT_unitLoadout", "DefaultLoadout"]; 
@@ -163,3 +161,5 @@ player addAction ["Apply Loadout", {
 //[player, (missionNamespace getVariable format ["UAMT_%1ArsenalArray","testSoldier"]), false] call ace_arsenal_fnc_openBox;
 
 // [player, (missionNamespace getVariable "UAMT_testsoldierarsenalarray"), false] call ace_arsenal_fnc_addVirtualItems;
+
+_newLoadout 

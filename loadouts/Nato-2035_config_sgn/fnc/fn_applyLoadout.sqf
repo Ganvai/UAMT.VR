@@ -1,13 +1,15 @@
 // [player] spawn UAMT_fnc_applyLoadout;
 
-params ["_unit"];	
+params ["_unit","_loadoutArray"];	
 
+/*
 // get loadout name from player object
 //private _unitLoadOut	= _unit getVariable ["UAMT_unitLoadout", "DefaultLoadout"];	
 private _unitLoadOut	= _unit getVariable ["loadout", "DefaultLoadout"];	
 
 // get loadout array from missionnamespace
 private _loadoutArray = missionnamespace getVariable format ["UAMT_%1Array", _unitLoadOut];
+*/
 
 // apply unitLoadout
 _unit setUnitLoadout _loadoutArray;
