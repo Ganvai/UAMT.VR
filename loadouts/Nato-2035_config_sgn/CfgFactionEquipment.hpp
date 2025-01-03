@@ -22,13 +22,13 @@ class CfgRoles {
 		{"Rifleman","Rifleman"},
 		{"Grenadier","Grenadier"},
 		{"MG","MG"},
-		{"MG-Assistant","MG-Assistant"},
+		{"MG-Assistant","MGAssistant"},
 		{"Autorifle","autorifle"},
 		{"AT","AT"},
-		{"AT-Assistant","AT-Assistant"},
+		{"AT-Assistant","ATAssistant"},
 		{"AA","AA"},
-		{"AA-Assistant","AA-Assistant"},
-		{"AT-Light","AT-Light"},
+		{"AA-Assistant","AAAssistant"},
+		{"AT-Light","ATLight"},
 		{"DM","DM"},
 		{"EOD","EOD"},
 		{"Engineer","Engineer"},
@@ -39,13 +39,14 @@ class CfgRoles {
 		{"Groupleader","Groupleader"},
 		{"Sniper","Sniper"},
 		{"Spotter","Spotter"},
-		{"Diver-Groupleader","Diver-Groupleader"},
-		{"Diver-EOD","Diver-EOD"},
-		{"Diver-Medic","Diver-Medic"},
-		{"Diver-Rifleman","Diver-Rifleman"},
+		{"Diver-Groupleader","DiverGroupleader"},
+		{"Diver-EOD","DiverEOD"},
+		{"Diver-Medic","DiverMedic"},
+		{"Diver-Rifleman","DiverRifleman"},
 		{"Pilot","Pilot"},
-		{"Fighter-Pilot","Fighter-Pilot"},
-		{"AV Crew","crew"}	
+		{"Fighter-Pilot","FighterPilot"},
+		{"AV Crew","AVcrew"},
+		{"AV Commander","AVcommander"},
 	};
 };
 
@@ -554,7 +555,14 @@ class CfgLoadouts {
 		ace_isMedic = 0; 		// 0 | 1 | 2
 		ace_isEngineer = 0;		// 0 | 1 | 2
 		ace_isEOD = false;		// true | false		
-    }; 
+    };
+	
+	//------------------------------------------------------------------------
+	//				Rifleman
+	//
+	// Rifleman Class. All Troop Loudouts with Standard Rifle inherit from 
+	// this Class
+	//------------------------------------------------------------------------
 	class Rifleman: DefaultLoadout {   
 		terminal = "terminal_t1"; 
 		itemsVest[] 	= {
@@ -570,6 +578,10 @@ class CfgLoadouts {
 			{"ACE_wirecutter",1}
 		}; 		
     };
+	
+	//------------------------------------------------------------------------
+	//			Grenadier
+	//------------------------------------------------------------------------
 	class Grenadier: DefaultLoadout {
 		primary[] 	= {"arifle_MX_GL_F","","ACE_DBAL_A3_Green","optic_Aco",{"30Rnd_65x39_caseless_mag",1},{},""};
 		itemsVest[] = {
@@ -616,7 +628,116 @@ class CfgLoadouts {
 			"ACE_HuntIR_monitor"
 		};
 	};
-    class Groupleader: DefaultLoadout {
+
+	//------------------------------------------------------------------------
+	//			MG
+	//------------------------------------------------------------------------
+    class MG: DefaultLoadout {
+		
+	};
+	
+	//------------------------------------------------------------------------
+	//			MG-Assistant
+	//------------------------------------------------------------------------
+    class MGAssistant: DefaultLoadout {
+		
+	};
+
+	//------------------------------------------------------------------------
+	//			Autorifle
+	//------------------------------------------------------------------------
+    class Autorifle: DefaultLoadout {
+		
+	};
+	
+	//------------------------------------------------------------------------
+	//			AT
+	//------------------------------------------------------------------------
+    class AT: Rifleman {
+		
+	};
+	
+	//------------------------------------------------------------------------
+	//			AT-Assistant
+	//------------------------------------------------------------------------
+    class ATAssistant: Rifleman {
+		
+	};
+	
+	//------------------------------------------------------------------------
+	//			AA
+	//------------------------------------------------------------------------
+    class AA: Rifleman {
+		
+	};
+	
+	//------------------------------------------------------------------------
+	//			AA-Assistant
+	//------------------------------------------------------------------------
+    class AAAssistant: Rifleman {
+		
+	};
+	
+	//------------------------------------------------------------------------
+	//			AT-Light
+	//------------------------------------------------------------------------
+    class ATLight: Rifleman {
+		
+	};
+	
+	//------------------------------------------------------------------------
+	//			DM
+	//------------------------------------------------------------------------
+    class DM: DefaultLoadout {
+		
+	};
+	
+	//------------------------------------------------------------------------
+	//			EOD
+	//------------------------------------------------------------------------
+    class EOD: Rifleman {
+		
+	};
+	
+	//------------------------------------------------------------------------
+	//			Engineer
+	//------------------------------------------------------------------------
+    class Engineer: Rifleman {
+		
+	};
+	
+	//------------------------------------------------------------------------
+	//			JTAC
+	//------------------------------------------------------------------------
+    class JTAC: Rifleman {
+		
+	};
+	
+	//------------------------------------------------------------------------
+	//			Medic
+	//------------------------------------------------------------------------
+    class Medic: Rifleman {
+		
+	};
+	
+	//------------------------------------------------------------------------
+	//			Doc
+	//------------------------------------------------------------------------
+    class Doc: Rifleman {
+		
+	};
+	
+	//------------------------------------------------------------------------
+	//			Squadleader
+	//------------------------------------------------------------------------
+    class Squadleader: Rifleman {
+		
+	};
+	
+	//------------------------------------------------------------------------
+	//			Groupleader
+	//------------------------------------------------------------------------
+    class Groupleader: Rifleman {
 		terminal= "terminal_t3"; 	// String
 		binocs 	= "Laserdesignator"; 	// String 
 		itemsUniform[] 	= {
@@ -632,46 +753,84 @@ class CfgLoadouts {
 			{"16Rnd_9x21_Mag",2}			
 		}; 
     };
-    class B_Soldier_AR_F: DefaultLoadout {
-        backpack[] = {"B_AssaultPack_rgr", "B_AssaultPack_blk"};
-        primary[] = {"LMG_03_F", "optic_Holosight_blk_F"};
-        magazines[] = {
-            "200Rnd_556x45_Box_Red_F", 5,
-            "9Rnd_45ACP_Mag", 2,
-            "SmokeShell", 2,
-            "SmokeShellRed",
-            "SmokeShellGreen"
-        };
-    };
-    class B_Soldier_GL_F: DefaultLoadout {
-        primary[] = {
-            {"arifle_SPAR_01_GL_blk_F", "optic_Holosight_blk_F", "muzzle_snds_M"},
-            {"arifle_SPAR_01_GL_snd_F", "optic_Holosight_blk_F", "muzzle_snds_M"}
-        };
-        magazines[] = {
-            "30Rnd_556x45_Stanag", 6,
-            "30Rnd_556x45_Stanag_Tracer_Red", 2,
-            "9Rnd_45ACP_Mag", 2,
-            "1Rnd_HE_Grenade_shell", 31,
-            "SmokeShell", 2,
-            "SmokeShellRed",
-            "SmokeShellGreen"
-        };
-        backpack[] = {"B_AssaultPack_rgr", "B_AssaultPack_blk"};
-    };
-    class B_medic_F: DefaultLoadout {
-        backpack[] = {"B_Kitbag_rgr"};
-        items[] = {
-            "ACE_fieldDressing", 25,
-            "ACE_packingBandage", 25,
-            "ACE_elasticBandage", 25,
-            "ACE_quikclot", 25,
-            "ACE_morphine", 10,
-            "ACE_epinephrine", 10,
-            "ACE_salineIV_500", 10,
-            "ACE_tourniquet", 10,
-            "ACE_surgicalKit", 5,
-            "ACE_earplugs"
-        };
-    };
+	
+	//------------------------------------------------------------------------
+	//------------------------------------------------------------------------
+	//
+	//			Specialist Roles
+	//
+	// Roles that are above the normal troops loadouts. They have mostly their
+	// complete own setup and differ widely from the Default Loadout because
+	// of their very specialised assignment.
+	//
+	//------------------------------------------------------------------------	
+	//------------------------------------------------------------------------	
+	
+	//------------------------------------------------------------------------
+	//			Sniper
+	//------------------------------------------------------------------------
+	class Sniper: DefaultLoadout {
+		
+	};
+
+	//------------------------------------------------------------------------
+	//			Spotter
+	//------------------------------------------------------------------------
+	class Spotter: DefaultLoadout {
+		
+	};
+
+	//------------------------------------------------------------------------
+	//			DiverRifleman
+	//------------------------------------------------------------------------
+	class DiverRifleman: DefaultLoadout {
+		
+	};
+
+	//------------------------------------------------------------------------
+	//			Diver-Groupleader
+	//------------------------------------------------------------------------
+	class DiverGroupleader: DiverRifleman {
+		
+	};
+
+	//------------------------------------------------------------------------
+	//			Diver-EOD
+	//------------------------------------------------------------------------
+	class DiverEOD: DiverRifleman {
+		
+	};
+
+	//------------------------------------------------------------------------
+	//			Pilot
+	//
+	// Meant for Helicopter Pilots
+	//------------------------------------------------------------------------
+	class Pilot: DefaultLoadout {
+		
+	};
+
+	//------------------------------------------------------------------------
+	//			Fighter-Pilot
+	//
+	// Extension of Pilot with special outfit for Fighter Pilots
+	//------------------------------------------------------------------------
+	class FighterPilot: Pilot {
+		
+	};
+
+	//------------------------------------------------------------------------
+	//			AV Crew
+	//------------------------------------------------------------------------
+	class AVcrew: DefaultLoadout {
+		
+	};
+
+	//------------------------------------------------------------------------
+	//			AV Commander
+	//------------------------------------------------------------------------
+	class AVcommander: DefaultLoadout {
+		
+	};
+
 };
