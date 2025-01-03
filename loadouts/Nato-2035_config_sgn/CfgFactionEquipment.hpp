@@ -276,6 +276,14 @@ class CfgFactionEquipment {
 		{"B_IR_Grenade",2}
 	};
 	
+	// Grenade Pool for Grenadier. Needed for Supply Crates and Arsenal. 
+	grenadier_UGL_Pool [] = {
+		"1Rnd_HE_Grenade_shell",
+		"1Rnd_Smoke_Grenade_shell",
+		"ACE_40mm_Flare_ir",
+		"1Rnd_SmokeGreen_Grenade_shell",
+		"1Rnd_SmokeRed_Grenade_shell"	
+	};
 	
 	//------------------------------------------------------------------
 	//	Content for Armory
