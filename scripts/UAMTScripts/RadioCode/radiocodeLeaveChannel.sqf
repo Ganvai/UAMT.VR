@@ -1,5 +1,7 @@
 _networkID = clientowner;
 
-recipients = recipients - [_networkID];
+_recipients = missionNameSpace getVariable ["UAMT_RadioRecipients",[]];
 
-publicVariable "recipients";
+_recipients = _recipients - [_networkID];
+
+missionNameSpace setVariable ["UAMT_RadioRecipients",_recipients,true];

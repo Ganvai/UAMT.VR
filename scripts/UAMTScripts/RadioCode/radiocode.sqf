@@ -25,16 +25,16 @@ _exists = false;
 // Choosing which code is sended
 switch _code do
 {
-	case 1 : { _radiocode = radio1; };
-	case 2 : { _radiocode = radio2; };
-	case 3 : { _radiocode = radio3; };
-	case 4 : { _radiocode = radio4; };
-	case 5 : { _radiocode = radio5; };
-	case 6 : { _radiocode = radio6; };
-	case 7 : { _radiocode = radio7; };
-	case 8 : { _radiocode = radio8; };
-	case 9 : { _radiocode = radio9; };
-	case 10 : { _radiocode = radio10; };
+	case 1 : { _radiocode = getMissionConfigValue "radio1M"; };
+	case 2 : { _radiocode = getMissionConfigValue "radio2M"; };
+	case 3 : { _radiocode = getMissionConfigValue "radio3M"; };
+	case 4 : { _radiocode = getMissionConfigValue "radio4M"; };
+	case 5 : { _radiocode = getMissionConfigValue "radio5M"; };
+	case 6 : { _radiocode = getMissionConfigValue "radio6M"; };
+	case 7 : { _radiocode = getMissionConfigValue "radio7M"; };
+	case 8 : { _radiocode = getMissionConfigValue "radio8M"; };
+	case 9 : { _radiocode = getMissionConfigValue "radio9M"; };
+	case 10 : { _radiocode = getMissionConfigValue "radio10M"; };
 };
 
 // Creating the log entry message
@@ -54,7 +54,7 @@ _logEntry = format ["%1 | %2 | %3",_playerGrp,_playerName,_radiocode];
 [player,["Radio",["Radio Log",_logEntry]]] remoteExec ["createDiaryRecord",[0, -2]];
 
 // Send the Radio message to all recipients
-[[_radioCodeMessage],"scripts\UAMTScripts\RadioCode\radiomessage.sqf"] remoteExec ["execVM",recipients,false];
+[[_radioCodeMessage],"scripts\UAMTScripts\RadioCode\radiomessage.sqf"] remoteExec ["execVM",missionNameSpace getVariable ["UAMT_RadioRecipients",[]],false];
 
 // Show the player the radio code he just sent as feedback
 

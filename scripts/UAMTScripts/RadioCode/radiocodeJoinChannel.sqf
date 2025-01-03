@@ -1,10 +1,11 @@
 _networkID = clientowner;
 
 _check = false;
-_check = recipients findIf { _x == _networkID } > -1;
+_recipients = missionNameSpace getVariable ["UAMT_RadioRecipients",[]];
+_check = _recipients findIf { _x == _networkID } > -1;
 
 if (_check == false) then {
-	recipients pushback _networkID;
+	_recipients pushback _networkID;
 };
 
-publicVariable "recipients";
+missionNameSpace setVariable ["UAMT_RadioRecipients",_recipients,true];

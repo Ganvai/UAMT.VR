@@ -32,53 +32,6 @@ else {
 publicVariable "missionstarted";
 
 //------------------------------------------------------------------
-//						Mission Control Center
-//------------------------------------------------------------------
-if (getMissionConfigValue "mCC" == "true") then {
-	mCC = true;
-
-	mccAccess = getMissionConfigValue "mccAccess";
-	publicVariable "mccAccess";
-
-	mccStart = getMissionConfigValue "mccStart";
-	publicVariable "mccStart";
-
-	mccEnd = getMissionConfigValue "mccEnd";
-	publicVariable "mccEnd";
-
-	mccContinue = getMissionConfigValue "mccContinue";
-	publicVariable "mccContinue";
-
-	mccHeal = getMissionConfigValue "mccHeal";
-	publicVariable "mccHeal";
-}
-else {
-	mCC = false;
-};
-publicVariable "mCC";	
-
-if (getMissionConfigValue "missionstartedfeat" == "true") then {
-	missionstarted = false;
-}
-else {
-	missionstarted = true;
-};
-
-publicVariable "missionstarted";
-
-//------------------------------------------------------------------
-//						Intro Jingle
-//------------------------------------------------------------------
-iJName = getMissionConfigValue "iJName";
-publicVariable "iJName";
-
-iJStart = getMissionConfigValue "iJStart";
-publicVariable "iJStart";
-
-iJFade = getMissionConfigValue "iJFade";
-publicVariable "iJFade";
-
-//------------------------------------------------------------------
 //						Loadouts
 //------------------------------------------------------------------
 factionVariable = getMissionConfigValue "faction";
@@ -713,60 +666,10 @@ else {
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 //
-//						Radio-Code Feature
-//
-//------------------------------------------------------------------
-//------------------------------------------------------------------
-
-if (getMissionConfigValue "radioCodeFeature" == "true") then {
-	
-	radio1 = getMissionConfigValue "radio1M";
-	publicVariable "radio1";
-
-	radio2 = getMissionConfigValue "radio2M";
-	publicVariable "radio2";
-
-	radio3 = getMissionConfigValue "radio3M";
-	publicVariable "radio3";
-
-	radio4 = getMissionConfigValue "radio4M";
-	publicVariable "radio4";
-
-	radio5 = getMissionConfigValue "radio5M";
-	publicVariable "radio5";
-
-	radio6 = getMissionConfigValue "radio6M";
-	publicVariable "radio6";
-
-	radio7 = getMissionConfigValue "radio7M";
-	publicVariable "radio7";
-
-	radio8 = getMissionConfigValue "radio8M";
-	publicVariable "radio8";
-
-	radio9 = getMissionConfigValue "radio9M";
-	publicVariable "radio9";
-
-	radio10 = getMissionConfigValue "radio10M";
-	publicVariable "radio10";
-
-	recipientConfigVariable = getMissionConfigValue "recipientConfig";
-	publicVariable "recipientConfigVariable";
-
-	recipients = [];
-	publicVariable "recipients";
-};
-
-//------------------------------------------------------------------
-//------------------------------------------------------------------
-//
 //						Ambient Fly By
 //
 //------------------------------------------------------------------
 //------------------------------------------------------------------
-
-colorgGadingVariable = getMissionConfigValue "colorgrading";
-publicVariable "colorgGadingVariable";
 
 if (getMissionConfigValue "AFBActivated" == "true") then {
 	execVM "scripts\UAMTScripts\AmbienceScripts\AmbientFlyBy.sqf";

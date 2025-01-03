@@ -18,7 +18,6 @@
 //------------------------------------------------------------------
 
 devMode = true;
-publicVariable "devMode";
 
 if (!devMode) then {
 	titleText ["Preparing Mission...", "BLACK FADED", 1];
@@ -63,14 +62,14 @@ if (!devMode) then {
 
 			// Debug Play, needed because sometimes Arme has problems starting a Track
 			// that is not defined in the Missions CfGMusic.
-			playMusic iJName;
+			playMusic (getMissionConfigValue "iJName");
 			sleep 0.1;
 
 			//Playing the OT Track with music
-			playMusic [iJName,iJStart];
-			iJFade fadeMusic 1;
+			playMusic [getMissionConfigValue "iJName",getMissionConfigValue "iJStart"];
+			(getMissionConfigValue "iJFade") fadeMusic 1;
 			
-			sleep (IJFade + 1);
+			sleep (getMissionConfigValue "iJFade" + 1);
 			ace_hearing_disableVolumeUpdate = false;
 		};
 	};
@@ -756,7 +755,7 @@ if (getMissionConfigValue "radiocodefeature" == "true") then {
 		_radioAccess = 2;
 	};
 	
-	if ((recipientConfigVariable findIf {_x == _playerLoadout} > -1) || (recipientConfigVariable findIf {_x == _playerGroupID} > -1)) then {
+	if (((getMissionConfigValue "recipientConfig") findIf {_x == _playerLoadout} > -1) || ((getMissionConfigValue "recipientConfig") findIf {_x == _playerGroupID} > -1)) then {
 		execVM "scripts\UAMTScripts\RadioCode\RadiocodeJoinChannel.sqf";
 		_radioAccess = 2;
 	};	
@@ -843,7 +842,7 @@ player setVariable ["ace_advanced_fatigue_performanceFactor", _perf, true];
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 
-switch (colorgGadingVariable) do
+switch (getMissionConfigValue "colorgrading") do
 {
 	case "Night": {
 		// Recolor Post-Processing - Night
@@ -983,10 +982,10 @@ if (!devMode) then {
 		sleep 10.5;
 	};
 
-	if (mcc) then {
-		if ((mCCAccess findIf {_x == _playerVar} > -1) || (mCCAccess findIf {_x == _playerGroupID} > -1)) then {
+	if (getMissionConfigValue "mCC" == "true") then {
+		if ((getMissionConfigValue "mccAccess" findIf {_x == _playerVar} > -1) || (getMissionConfigValue "mccAccess" findIf {_x == _playerGroupID} > -1)) then {
 			if (_MissionControlCenterMessage != "") then {
-				titleText [_MissionControlCenterMessage, "PLAIN DOWN",0.8,true,true ];
+				titleText [_MissionControlCenterMessage, "PLAIN",0.8,true,true ];
 				sleep 8.5;
 			};
 		};

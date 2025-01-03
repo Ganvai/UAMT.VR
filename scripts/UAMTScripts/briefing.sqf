@@ -6,7 +6,7 @@
 if (getMissionConfigValue "radiocodefeature" == "true") then {
 	_Radio = player createDiarySubject ["Radio","Radio"];
 
-	_radioString = radio1 + "<br/>" + radio2 + "<br/>" + radio3 + "<br/>" + radio4 + "<br/>" + radio5 + "<br/>" + radio6 + "<br/>" + radio7 + "<br/>" + radio8 + "<br/>" + radio9 + "<br/>" + radio10;
+	_radioString = getMissionConfigValue "radio1M" + "<br/>" + getMissionConfigValue "radio2M" + "<br/>" + getMissionConfigValue "radio3M" + "<br/>" + getMissionConfigValue "radio4M" + "<br/>" + getMissionConfigValue "radio5M" + "<br/>" + getMissionConfigValue "radio6M" + "<br/>" + getMissionConfigValue "radio7M" + "<br/>" + getMissionConfigValue "radio8M" + "<br/>" + getMissionConfigValue "radio9M" + "<br/>" + getMissionConfigValue "radio10M";
 	player createDiaryRecord ["Radio",["Radiocodes",_radioString]];
 };
 
