@@ -243,7 +243,7 @@ _base_menu = ["Base Menu","Base Menu","images\Logo.paa",{},_conBaseMenu] call ac
 [(typeOf player), 1, ["ACE_SelfActions"], _base_menu] call ace_interact_menu_fnc_addActionToClass;
 
 //Add Armory to ACE Menu GR Base
-if (allowArmory) then {
+if (getMissionConfigValue "allowArmory" == "true") then {
 	_armory = ["Armory","Armory","a3\ui_f\data\igui\cfg\cursors\iconrearmat_ca.paa",{call UAMT_fnc_loadoutArsenal},_conBaseMenu] call ace_interact_menu_fnc_createAction;
 	[(typeOf player), 1, ["ACE_SelfActions","Base Menu"], _armory] call ace_interact_menu_fnc_addActionToClass;
 };
@@ -253,7 +253,7 @@ _teleport_action = ["Teleporter","Teleporter","a3\modules_f_tacops\data\civilian
 [(typeOf player), 1, ["ACE_SelfActions","Base Menu"], _teleport_action] call ace_interact_menu_fnc_addActionToClass;
 
 //Add Loadout Menu to ACE Base Menu
-if (allowLoadouts) then {
+if (getMissionConfigValue "allowLoadouts" == "true") then {
 	_loadout_action = ["Loadouts","Loadouts","z\ace\addons\nametags\ui\icon_position_ffv.paa",{ _loadoutDialog = createDialog "loadoutDialog";},_conBaseMenu] call ace_interact_menu_fnc_createAction;
 	[(typeOf player), 1, ["ACE_SelfActions","Base Menu"], _loadout_action] call ace_interact_menu_fnc_addActionToClass;
 };

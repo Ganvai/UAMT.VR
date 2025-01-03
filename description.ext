@@ -482,7 +482,6 @@ class CfgDebriefing
 class CfgFunctions
 {
 	#include "Dialogs\loadoutDialog\class_loadouts_config.hpp" 
-	#include "loadouts\Nato-2035_config_sgn\fnc\CfgFunctions.hpp"
 	#include "Dialogs\teleportDialog\teleportconfig.hpp"
 	#include "Dialogs\artDialog\artDialogConfig.hpp"
 	#include "MissionSpecifics\missionCFGFunctions.hpp"

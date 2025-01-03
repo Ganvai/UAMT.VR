@@ -81,38 +81,14 @@ publicVariable "iJFade";
 //------------------------------------------------------------------
 //						Loadouts
 //------------------------------------------------------------------
-if (getMissionConfigValue "allowLoadouts" == "true") then {
-	allowLoadouts = true;
-}
-else {
-	allowLoadouts = false;
-};
-publicVariable "allowLoadouts";
-
-if (getMissionConfigValue "allowArmory" == "true") then {
-	allowArmory = true;
-}
-else {
-	allowArmory = false;
-};
-publicVariable "allowArmory";
-
 factionVariable = getMissionConfigValue "faction";
 publicVariable "factionVariable";
-
-armoryPath = format ["loadouts\%1\armory.sqf", factionVariable];
-publicVariable "armoryPath";
 
 supplyPath = format ["loadouts\%1\supplySystem\", factionVariable];
 publicVariable "supplyPath";
 
 spawnBoxPath = format ["%1spawnBox.sqf", supplyPath];
 publicVariable "spawnBoxPath";
-
-//_rolessqf = format ["loadouts\%1\roles.sqf", factionVariable];
-//execVM _rolessqf;
-roles = [missionConfigFile >> "CfgRoles" >> "roles"] call BIS_fnc_returnConfigEntry;
-publicVariable "roles";
 
 //------------------------------------------------------------------
 //------------------------------------------------------------------
