@@ -125,11 +125,7 @@ _missionControlCenterMessage = getMissionConfigValue "MissionControlCenterMessag
 //
 //------------------------------------------------------------------
 //------------------------------------------------------------------
-
-sleep 2;
 _playerLoadout = player getVariable "loadout";
-//_loadoutPath = format ["loadouts\%1\%2.sqf", factionVariable, _playerLoadout];
-//null = [] execVM _loadoutPath;
 
 _loadoutArr = call UAMT_fnc_loadoutCreate;
 [player,_loadoutArr] spawn UAMT_fnc_loadoutApply;
@@ -146,10 +142,6 @@ _loadoutArr = call UAMT_fnc_loadoutCreate;
 _playerGrp = group player;
 _playerGroupID = groupID group player;
 _playerVar = vehicleVarName player;
-
-//Sleep to give server time to initialise Variables
-sleep 2;
-
 
 //------------------------------------------------------------------
 //------------------------------------------------------------------
