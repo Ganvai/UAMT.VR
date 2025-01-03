@@ -1,8 +1,6 @@
 // Config Data ==================================================
 #include "config.hpp"
 #include "Dialogs\config.hpp"
-#include "loadouts\Nato-2035_config_sgn\CfgFactionEquipment.hpp"
-#include "loadouts\Nato-2035_config_sgn\CfgLoadouts.hpp"
 
 // Mission Configuration ========================================
 // Everything about your mission you can find in:

@@ -143,11 +143,36 @@ class CfgFactionEquipment {
 	//------------------------------------------------------------------
 	//	Tier 2 medical Equipment
 	//
-	// For Medics and Docs
+	// For Medics
 	//------------------------------------------------------------------
 	san_t2_u[] = { };
 	san_t2_v[] = { };
-	san_t2_b[] = {
+	san_t2_b[] = {				
+		{"ACE_fieldDressing",30},			
+		{"ACE_elasticBandage",15},
+		{"ACE_packingBandage",15},
+		{"ACE_quikclot",15},
+					
+		{"ACE_splint",10},
+		{"ACE_suture",5},
+		{"ACE_tourniquet",5},
+					
+		{"ACE_salineIV_500",15},
+					
+		{"ACE_morphine",15},
+		{"ACE_epinephrine",15},
+					
+		{"ACE_bodyBag",2}
+	};
+
+	//------------------------------------------------------------------
+	//	Tier 2 medical Equipment
+	//
+	// For Docs
+	//------------------------------------------------------------------
+	san_t3_u[] = { };
+	san_t3_v[] = { };
+	san_t3_b[] = {
 		{"ACE_surgicalKit",1},
 				
 		{"ACE_fieldDressing",30},			
@@ -165,8 +190,6 @@ class CfgFactionEquipment {
 		{"ACE_painkillers",2},
 		{"ACE_epinephrine",15},
 		{"ACE_adenosine",5},
-					
-		{"ACE_bodyBag",2}
 	};
 	
 	//------------------------------------------------------------------
@@ -399,3 +422,6 @@ class CfgFactionEquipment {
 		"G_Lowprofile"
 	};
 };
+
+// Here you find all Loadouts and customise them further to your liking
+#include "loadouts\Nato-2035_config_sgn\CfgLoadouts.hpp"

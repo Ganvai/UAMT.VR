@@ -21,6 +21,7 @@ class CfgRoles {
 		{"Engineer","Engineer"},
 		{"JTAC","JTAC"},
 		{"Medic","Medic"},
+		{"Doc","Doc"},
 		{"Squadleader","Squadleader"},
 		{"Groupleader","Groupleader"},
 		{"Sniper","Sniper"},
@@ -34,6 +35,37 @@ class CfgRoles {
 		{"AV Crew","crew"}	
 	};
 };
+
+
+//----------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------
+//
+//				Explanation for Arrays and Item Declaration
+//
+// For the Loadouts, there are multiple types of Items and Arrays used.
+//
+// Simple Item: Just a string with the Item Class inserted. 
+//		map 	= "ItemMap";
+//
+// Array: Array with Items. You can just put one item in there, but you have the option
+//			to have multiple Items in it that will be distributed randomised to the players
+// 		helmet[] 	= {"H_HelmetB","H_Cap_khaki_specops_UK","H_Cap_usblack"};
+//
+// BIS Unit Loadout Array: BIS Array format to supply Loadout informations. There are a lot of these
+//					but there is of course a Wiki Page to explain them all:
+//		https://community.bistudio.com/wiki/Unit_Loadout_Array
+//
+// Item Loadout Arrays: A multidimensional Array similar to the Unit Loadout Array.
+//						An Array that has multiple Arrays inside it, defining the Item and the amount
+//						that will be stored in the players inventory.
+//		{
+//			{ "ItemClass1",Amount},	// ItemClass = String with Item Class | Amount = Number of Items added to inventory
+//			{ "ItemClass2",Amount}  // ItemClass2 = String with Item Class | Amount = Number of Items added to inventory
+//		}
+//
+//----------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------
+
 
 class CfgLoadouts {	
 	class DefaultLoadout {
@@ -56,22 +88,26 @@ class CfgLoadouts {
 		nvgs 	= "NVGoggles";	 // String	 
 		binocs 	= "Binocular"; 	// String  	     
 		
+		// Item Loadout Array
 		itemsUniform[] 	= {
-			"invStd_u",
-			"san_t1_u"			
+			"invStd_u",			// Reference to config Class
+			"san_t1_u"			// Reference to config Class
 		}; 	
 		
+		// Item Loadout Array
 		itemsVest[] 	= {
 			{"30Rnd_65x39_caseless_mag",5},
 			{"30Rnd_65x39_caseless_mag_Tracer",2},
 			{"16Rnd_9x21_Mag",2}
 		}; 
 		
+		// Item Loadout Array
 		itemsBackPack[] = {
 			"invStd_b",
 			"san_t1_b"			
 		}; 	
-
+		
+		// Simple Array
 		arsenal[] = {
 			"equipment_ar",
 			"facewear_Arm",
