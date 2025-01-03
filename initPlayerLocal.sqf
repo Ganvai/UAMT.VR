@@ -132,8 +132,8 @@ _playerLoadout = player getVariable "loadout";
 //_loadoutPath = format ["loadouts\%1\%2.sqf", factionVariable, _playerLoadout];
 //null = [] execVM _loadoutPath;
 
-_loadoutArr =  [] call UAMT_fnc_createLoadoutArray;
-[player,_loadoutArr] spawn UAMT_fnc_applyLoadout;
+_loadoutArr = call UAMT_fnc_loadoutCreate;
+[player,_loadoutArr] spawn UAMT_fnc_loadoutApply;
 
 //------------------------------------------------------------------
 //------------------------------------------------------------------
@@ -244,7 +244,7 @@ _base_menu = ["Base Menu","Base Menu","images\Logo.paa",{},_conBaseMenu] call ac
 
 //Add Armory to ACE Menu GR Base
 if (allowArmory) then {
-	_armory = ["Armory","Armory","a3\ui_f\data\igui\cfg\cursors\iconrearmat_ca.paa",{ execVM armoryPath; },_conBaseMenu] call ace_interact_menu_fnc_createAction;
+	_armory = ["Armory","Armory","a3\ui_f\data\igui\cfg\cursors\iconrearmat_ca.paa",{call UAMT_fnc_loadoutArsenal},_conBaseMenu] call ace_interact_menu_fnc_createAction;
 	[(typeOf player), 1, ["ACE_SelfActions","Base Menu"], _armory] call ace_interact_menu_fnc_addActionToClass;
 };
 

@@ -1,6 +1,6 @@
 params ["_unit","_loadoutArray"];	
 
-private _unitLoadOut = _unit getVariable ["loadout", "DefaultLoadout"];	
+private _unitLoadOut = _unit getVariable ["loadout", "DefaultLoadout"];
 
 // apply unitLoadout
 _unit setUnitLoadout _loadoutArray;
@@ -27,23 +27,3 @@ if (isplayer _unit) then {
 	};		
 	[] spawn { sleep 0.6; player action ["WeaponOnBack", player]; };
 };
-
-/*
-// ToDo: Arsenal muss umziehen in eigene Funktion
-
-// create armory-array for this role
-_arsenalVar = format ["UAMT_%1ArsenalArray",_unitLoadOut];
-
-// create array from current loadout
-_playerItems = flatten (getUnitLoadout player);
-_playerItems = (_playerItems arrayIntersect _playerItems) select {_x isEqualType "" && {_x != ""}};
-
-// get role-specific arsenal-items from config
-_arsenalItems = [_unitLoadOut,"arsenal",""] call UAMT_fnc_getCfgValue;
-
-// combine them to one array
-{ _playerItems pushBackUnique _x; } forEach _arsenalItems;
-
-// save arsenal-array
-missionNamespace setVariable [_arsenalVar, _playerItems];
-*/

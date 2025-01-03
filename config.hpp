@@ -64,6 +64,7 @@ endAllDead = false;					// When activated ends the Mission when every player is 
 // Faction
 #include "loadouts\Nato-2035_config_sgn\CfgFactionEquipment.hpp" // Change path to the Faction you want to use in your mission
 
+faction			 	= "Nato-2035_config_sgn";
 FortifyToolCamo		= "wood";			// Selects the Camo of the Items created with the Fortify Tool. Available are "wood" and "arid"
 
 // Loadout Customisation

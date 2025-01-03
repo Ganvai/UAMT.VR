@@ -529,6 +529,12 @@ class CfgFunctions
 			class noVisSafePos{};
 			
 			class supplyDrop{};
+			
+			//Loadout Functions
+			class loadoutApply{};
+			class loadoutArsenal{};
+			class loadoutCreate{};
+			class loadoutGetValue{};
 		};
 	};
 	

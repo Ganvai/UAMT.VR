@@ -162,4 +162,4 @@ player addAction ["Apply Loadout", {
 
 // [player, (missionNamespace getVariable "UAMT_testsoldierarsenalarray"), false] call ace_arsenal_fnc_addVirtualItems;
 
-_newLoadout 
+_newLoadout;

@@ -97,12 +97,8 @@ else {
 };
 publicVariable "allowArmory";
 
-
 factionVariable = getMissionConfigValue "faction";
 publicVariable "factionVariable";
-
-camoVariable = getMissionConfigValue "camo";
-publicVariable "camoVariable";
 
 armoryPath = format ["loadouts\%1\armory.sqf", factionVariable];
 publicVariable "armoryPath";
@@ -117,9 +113,6 @@ publicVariable "spawnBoxPath";
 //execVM _rolessqf;
 roles = [missionConfigFile >> "CfgRoles" >> "roles"] call BIS_fnc_returnConfigEntry;
 publicVariable "roles";
-
-_faction_equipmentsqf = format ["loadouts\%1\faction_equipment.sqf", factionVariable];
-execVM _faction_equipmentsqf;
 
 //------------------------------------------------------------------
 //------------------------------------------------------------------

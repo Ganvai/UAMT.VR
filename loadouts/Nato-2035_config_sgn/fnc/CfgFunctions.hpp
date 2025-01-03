@@ -4,5 +4,6 @@ class SGN_UAMT {
 		file = "loadouts\Nato-2035_config_sgn\fnc";	
 		class applyLoadout{};	
 		class getCfgValue{};
+		class createLoadoutArray{};
 	};	
 };
