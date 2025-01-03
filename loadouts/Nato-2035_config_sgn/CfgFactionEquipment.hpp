@@ -1,3 +1,5 @@
+// description.ext -> #include "loadouts\Nato-2035_config_sgn\CfgFactionEquipment.hpp"
+
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 //
@@ -216,7 +218,7 @@ class CfgFactionEquipment {
 	};
 
 	//------------------------------------------------------------------
-	//	Tier 2 medical Equipment
+	//	Tier 3 medical Equipment
 	//
 	// For Docs
 	//------------------------------------------------------------------
@@ -511,7 +513,7 @@ class CfgLoadouts {
 		secondary[] = {"","","","",{},{},""};												// Array  in format weapon-Array
 				
 		map 	= "ItemMap"; 	// String ItemMap
-		terminal= "ItemGPS"; 	// String
+		terminal= "terminal_t1"; 	// String
 		radio 	= "ItemRadio"; 	// String
 		compass = "ItemCompass"; // String
 		watch 	= "ACE_Altimeter"; // String		
@@ -561,8 +563,7 @@ class CfgLoadouts {
 	// Rifleman Class. All Troop Loudouts with Standard Rifle inherit from 
 	// this Class
 	//------------------------------------------------------------------------
-	class Rifleman: DefaultLoadout {   
-		terminal = "terminal_t1"; 
+	class Rifleman: DefaultLoadout { 		
 		itemsVest[] 	= {
 			{"30Rnd_65x39_caseless_mag",5},
 			{"30Rnd_65x39_caseless_mag_Tracer",2},
@@ -602,7 +603,6 @@ class CfgLoadouts {
 			//Weapons
 			"arifle_MX_GL_Black_F",
 			"arifle_MX_GL_khk_F",
-
 			//Ammo
 			"1Rnd_SmokeRed_Grenade_shell",
 			"UGL_FlareGreen_F",
@@ -619,8 +619,7 @@ class CfgLoadouts {
 			"1Rnd_SmokeOrange_Grenade_shell",
 			"1Rnd_SmokePurple_Grenade_shell",
 			"1Rnd_SmokeRed_Grenade_shell",
-			"1Rnd_SmokeYellow_Grenade_shell",
-			
+			"1Rnd_SmokeYellow_Grenade_shell",			
 			//Hunt IR Equipment
 			"ACE_HuntIR_M203",
 			"ACE_HuntIR_monitor"
@@ -630,106 +629,277 @@ class CfgLoadouts {
 	//------------------------------------------------------------------------
 	//			MG
 	//------------------------------------------------------------------------
-    class MG: DefaultLoadout {
-		
+    class MG: DefaultLoadout {		
+		primary[] 	= {"MMG_02_sand_F","","ACE_DBAL_A3_Green","optic_Hamr",{"130Rnd_338_Mag",130},{},"bipod_01_F_snd"}; 		
+		itemsVest[] = {
+			"throwablesStd",			
+			{"130Rnd_338_Mag",1},			
+			{"16Rnd_9x21_Mag",2}			
+		}; 
+		itemsBackPack[] = {
+			"invStd_b",
+			"san_t1_b",
+			{"130Rnd_338_Mag",4}
+		}; 	
+		arsenal[] = {
+			"equipment_ar",
+			"facewear_Arm",
+			//Weapons
+			"MMG_02_camo_F",
+			"MMG_02_black_F"
+		};		
 	};
 	
 	//------------------------------------------------------------------------
 	//			MG-Assistant
 	//------------------------------------------------------------------------
     class MGAssistant: DefaultLoadout {
-		
+		backpack[]  = {"backpack_med"};	
+		itemsBackPack[] = {
+			"invStd_b",
+			"san_t1_b",
+			{"130Rnd_338_Mag",4}
+		}; 	
 	};
 
 	//------------------------------------------------------------------------
 	//			Autorifle
 	//------------------------------------------------------------------------
-    class Autorifle: DefaultLoadout {
-		
+    class Autorifle: DefaultLoadout {		
+		primary[] 	= {"arifle_MX_SW_F","","ACE_DBAL_A3_Green","optic_Aco",{"100Rnd_65x39_caseless_mag",100},{},"bipod_01_F_snd"}; 		
+		itemsVest[] = {
+			"throwablesStd",			
+			{"100Rnd_65x39_caseless_mag",4},
+			{"100Rnd_65x39_caseless_mag_Tracer",2},		
+			{"16Rnd_9x21_Mag",2}			
+		}; 		 	
+		arsenal[] = {
+			"equipment_ar",
+			"facewear_Arm",
+			//Weapons
+			"arifle_MX_SW_Black_F",
+			"arifle_MX_SW_khk_F",
+			//ammo
+			"100Rnd_65x39_caseless_black_mag",
+			"100Rnd_65x39_caseless_black_mag_tracer",
+			"100Rnd_65x39_caseless_khaki_mag",
+			"100Rnd_65x39_caseless_khaki_mag_tracer"
+		};		
 	};
 	
 	//------------------------------------------------------------------------
 	//			AT
 	//------------------------------------------------------------------------
     class AT: Rifleman {
-		
+		secondary[] = {"launch_B_Titan_short_F","","","",{},{},""};
+		backpack[]  = {"backpack_med"};	
+		itemsBackPack[] = {			
+			{"Titan_AT",1}
+		};
+		arsenal[] = {
+			"equipment_ar",
+			"facewear_Arm",
+			"Titan_AP"
+		};	
 	};
 	
 	//------------------------------------------------------------------------
 	//			AT-Assistant
 	//------------------------------------------------------------------------
     class ATAssistant: Rifleman {
-		
+		backpack[]  = {"backpack_med"};	
+		itemsBackPack[] = {			
+			{"Titan_AT",1}
+		};
+		arsenal[] = {
+			"equipment_ar",
+			"facewear_Arm",
+			"Titan_AP"
+		};
 	};
 	
 	//------------------------------------------------------------------------
 	//			AA
 	//------------------------------------------------------------------------
     class AA: Rifleman {
-		
+		secondary[] = {"launch_B_Titan_F","","","",{},{},""};
+		backpack[]  = {"backpack_med"};	
+		itemsBackPack[] = {			
+			{"Titan_AA",1}
+		};		
 	};
 	
 	//------------------------------------------------------------------------
 	//			AA-Assistant
 	//------------------------------------------------------------------------
     class AAAssistant: Rifleman {
-		
+		backpack[]  = {"backpack_med"};	
+		itemsBackPack[] = {			
+			{"Titan_AA",1}
+		};	
 	};
 	
 	//------------------------------------------------------------------------
 	//			AT-Light
 	//------------------------------------------------------------------------
     class ATLight: Rifleman {
-		
+		secondary[] = {"launch_RPG32_F","","","",{"RPG32_F",1},{},""};		
 	};
 	
 	//------------------------------------------------------------------------
 	//			DM
 	//------------------------------------------------------------------------
     class DM: DefaultLoadout {
-		
+		primary[] 	= {"arifle_MXM_F","","ACE_DBAL_A3_Green","optic_Hamr",{"30Rnd_65x39_caseless_mag",30},{},"bipod_01_F_snd"}; 
+		itemsUniform[] 	= {
+			"invStd_u",			
+			"san_t1_u",
+			{"ACE_RangeCard",1}
+		}; 	
+		itemsVest[] = {
+			"throwablesStd",			
+			{"30Rnd_65x39_caseless_mag",4},
+			{"30Rnd_65x39_caseless_mag_Tracer",2},		
+			{"16Rnd_9x21_Mag",2}			
+		}; 		
+		itemsBackPack[] = {
+			"invStd_b",
+			"san_t1_b",
+			{"ACE_EntrenchingTool",1},
+			{"ACE_wirecutter",1}
+		}; 		
+		arsenal[] = {
+			"equipment_ar",
+			"facewear_Arm",
+			//Weapons
+			"arifle_MXM_Black_F",
+			"arifle_MXM_khk_F",
+			//Tools
+			"optic_AMS",
+			"optic_AMS_khk",
+			"optic_AMS_snd",
+			"optic_DMS"
+		};	
 	};
 	
 	//------------------------------------------------------------------------
 	//			EOD
 	//------------------------------------------------------------------------
     class EOD: Rifleman {
-		
+		backpack[]  = {"backpack_med"};	
+		itemsVest[] = {
+			"throwablesStd",
+			"throwablesExt",
+			{"30Rnd_65x39_caseless_mag",4},
+			{"30Rnd_65x39_caseless_mag_Tracer",2},
+			{"16Rnd_9x21_Mag",2}			
+		}; 
+		itemsBackPack[] = {
+			"invStd_b",
+			"san_t1_b",
+			{"ACE_M26_Clacker",1},
+			{"DemoCharge_Remote_Mag",2},
+			{"ACE_VMM3",1}
+		};
+		arsenal[] = {
+			"equipment_ar",
+			"facewear_Arm",			
+			//Tools					
+			"SatchelCharge_Remote_Mag",			
+			"ClaymoreDirectionalMine_Remote_Mag",
+			"ATMine_Range_Mag",
+			"ACE_DeadManSwitch",
+			"ACE_Cellphone"
+		};	
+		ace_isEOD = true;
 	};
 	
 	//------------------------------------------------------------------------
 	//			Engineer
 	//------------------------------------------------------------------------
     class Engineer: Rifleman {
-		
+		itemsBackPack[] = {
+			"invStd_b",
+			"san_t1_b",
+			{"ACE_Fortify",1},
+			{"ToolKit",1}
+		};
+		arsenal[] = {
+			"equipment_ar",
+			"facewear_Arm",			
+			//Tools					
+			"ACE_EntrenchingTool",
+			"ACE_wirecutter"
+		};	
+		ace_isEngineer = 2;		// 0 | 1 | 2
 	};
 	
 	//------------------------------------------------------------------------
 	//			JTAC
 	//------------------------------------------------------------------------
-    class JTAC: Rifleman {
-		
+    class JTAC: Rifleman {		
+		terminal= "terminal_t3"; 		
+		binocs 	= "Laserdesignator";  
+		itemsUniform[] 	= {
+			"invStd_u",			
+			"san_t1_u",
+			{"ACE_RangeTable_82mm",1},
+			{"ACE_artilleryTable",1}, 
+			{"ACE_PlottingBoard",1},
+			{"Laserbatteries",2}
+		}; 
+		itemsVest[] = {
+			"throwablesStd",
+			"throwablesExt",
+			{"30Rnd_65x39_caseless_mag",4},
+			{"30Rnd_65x39_caseless_mag_Tracer",2},
+			{"16Rnd_9x21_Mag",2}			
+		}; 
+		itemsBackPack[] = {
+			"invStd_b",
+			"san_t1_b",
+			{"ACE_HuntIR_monitor",1},
+			{"B_UavTerminal",1}
+		};
 	};
 	
 	//------------------------------------------------------------------------
 	//			Medic
 	//------------------------------------------------------------------------
     class Medic: Rifleman {
-		
+		backpack[]  = {"backpack_med"};	
+		itemsBackPack[] = {
+			"san_t2_b",
+			"throwablesExt"			
+		};		
+		ace_isMedic = 1; 		// 0 | 1 | 2
 	};
 	
 	//------------------------------------------------------------------------
 	//			Doc
 	//------------------------------------------------------------------------
     class Doc: Rifleman {
-		
+		backpack[]  = {"backpack_med"};	
+		ace_isMedic = 2; 		// 0 | 1 | 2
+		itemsBackPack[] = {
+			"san_t3_b",
+			"throwablesExt"			
+		};	
 	};
 	
 	//------------------------------------------------------------------------
 	//			Squadleader
 	//------------------------------------------------------------------------
     class Squadleader: Rifleman {
-		
+		terminal= "terminal_t2";
+		binocs 	= "Rangefinder";
+		itemsVest[] = {
+			"throwablesStd",
+			"throwablesExt",
+			{"30Rnd_65x39_caseless_mag",4},
+			{"30Rnd_65x39_caseless_mag_Tracer",2},
+			{"16Rnd_9x21_Mag",2}			
+		}; 		
 	};
 	
 	//------------------------------------------------------------------------
@@ -768,36 +938,131 @@ class CfgLoadouts {
 	//			Sniper
 	//------------------------------------------------------------------------
 	class Sniper: DefaultLoadout {
-		
+		helmet[] 	= {"H_Bandanna_mcamo"}; 						
+        uniforms[] 	= {"U_B_GhillieSuit"};						
+		vests[] 	= {"V_Chestrig_rgr"};		
+		primary[] 	= {"srifle_LRR_camo_F","","ACE_DBAL_A3_Green","optic_LRPS",{"7Rnd_408_Mag",7},{},""}; // Array in format weapon-Array		
+		terminal= "terminal_t2"; 		
+		itemsUniform[] 	= {
+			"invStd_u",			
+			"san_t1_u",
+			{"ACE_RangeCard",1},
+			{"ACE_Kestrel4500",1}
+		};		
+		itemsVest[] 	= {
+			{"7Rnd_408_Mag",5},			
+			{"16Rnd_9x21_Mag",2}
+		};		
+		itemsBackPack[] = {
+			"invStd_b",
+			"san_t1_b",
+			"throwablesStd",
+			"throwablesExt"
+		};		
+		arsenal[] = {
+			"equipment_ar",
+			"facewear_Arm",
+			"srifle_LRR_F",
+			"srifle_LRR_tna_F"
+		};	
 	};
 
 	//------------------------------------------------------------------------
 	//			Spotter
 	//------------------------------------------------------------------------
-	class Spotter: DefaultLoadout {
-		
+	class Spotter: Sniper {			
+		primary[] 	= {"arifle_MXM_F","","ACE_DBAL_A3_Green","optic_Hamr",{"30Rnd_65x39_caseless_mag",30},{},"bipod_01_F_snd"}; 		 	
+		binocs 	= "Rangefinder";
+		itemsUniform[] 	= {
+			"invStd_u",			
+			"san_t1_u",
+			{"ACE_RangeCard",1}
+		};		
+		itemsVest[] 	= {
+			"throwablesStd",
+			"throwablesExt",
+			{"30Rnd_65x39_caseless_mag",4},
+			{"30Rnd_65x39_caseless_mag_Tracer",2},			
+			{"16Rnd_9x21_Mag",2}
+		};		
+		itemsBackPack[] = {
+			"invStd_b",
+			"san_t1_b",
+			{"ACE_Kestrel4500",1},
+			{"ACE_SpottingScope",1},
+			{"ACE_wirecutter",1}
+		};		
 	};
 
 	//------------------------------------------------------------------------
 	//			DiverRifleman
 	//------------------------------------------------------------------------
 	class DiverRifleman: DefaultLoadout {
-		
+		helmet[] 	= {"H_HelmetB_light_black"}; 				
+		facewear[] 	= {"G_B_Diving"};									
+        uniforms[] 	= {"U_B_Wetsuit"};			
+		vests[] 	= {"V_RebreatherB"};												
+        backpack[]  = {"B_AssaultPack_blk"};	
+		primary[] 	= {"arifle_SDAR_F","","","",{"20Rnd_556x45_UW_mag",20},{},""}; 
+		handgun[] 	= {"hgun_P07_F","muzzle_snds_L","","",{"16Rnd_9x21_Mag",16},{},""};			
+		itemsUniform[] 	= {
+			"invStd_u",			
+			"san_t1_u",
+			"san_t1_v",
+			"san_t1_b"
+		}; 
+		itemsVest[] = {};
+		itemsBackPack[] = {
+			"throwablesStd",
+			"throwablesExt",
+			{"20Rnd_556x45_UW_mag",2},			
+			{"16Rnd_9x21_Mag",2}
+		}; 
 	};
 
 	//------------------------------------------------------------------------
 	//			Diver-Groupleader
 	//------------------------------------------------------------------------
 	class DiverGroupleader: DiverRifleman {
-		
+		terminal= "terminal_t3";
 	};
 
 	//------------------------------------------------------------------------
 	//			Diver-EOD
 	//------------------------------------------------------------------------
 	class DiverEOD: DiverRifleman {
-		
+		itemsBackPack[] = {
+			"throwablesStd",
+			"throwablesExt",
+			{"20Rnd_556x45_UW_mag",2},			
+			{"16Rnd_9x21_Mag",2},
+			{"ACE_Clacker",1},
+			{"DemoCharge_Remote_Mag",2}
+		}; 		
+		ace_isEOD = true;		// true | false		
 	};
+	
+	//------------------------------------------------------------------------
+	//			Diver-Medic
+	//------------------------------------------------------------------------
+	class DiverMedic: DiverRifleman {
+		itemsBackPack[] = {
+			"throwablesStd",
+			"throwablesExt",
+			{"20Rnd_556x45_UW_mag",2},			
+			{"16Rnd_9x21_Mag",2},
+			{"ACE_surgicalKit",1},
+			{"ACE_fieldDressing",20},
+			{"ACE_elasticBandage",10},
+			{"ACE_packingBandage",10},
+			{"ACE_epinephrine",5},
+			{"ACE_morphine",5},
+			{"ACE_salineIV_250",5},
+			{"ACE_splint",10},
+			{"ACE_tourniquet",3}
+		}; 		
+		ace_isMedic = 1; 		// 0 | 1 | 2
+	};		
 
 	//------------------------------------------------------------------------
 	//			Pilot
@@ -805,7 +1070,28 @@ class CfgLoadouts {
 	// Meant for Helicopter Pilots
 	//------------------------------------------------------------------------
 	class Pilot: DefaultLoadout {
-		
+		helmet[] 	= {"H_PilotHelmetHeli_B"}; 				
+		facewear[] 	= {"G_Aviator"};									
+        uniforms[] 	= {"U_B_HeliPilotCoveralls"};			
+		vests[] 	= {"V_TacVest_blk"};												
+        backpack[]  = {""};	
+		primary[] 	= {"SMG_01_F","","","optic_Holosight_smg",{"30Rnd_45ACP_Mag_SMG_01",30},{},""}; 
+		handgun[] 	= {"hgun_P07_F","","","",{"16Rnd_9x21_Mag",16},{},""};
+		terminal= "terminal_t2";
+		nvgs 	= "ACE_NVG_Wide";
+		itemsUniform[] 	= {
+			"invStd_u"			
+		}; 			
+		itemsVest[] = {
+			"san_t0_u",
+			{"30Rnd_45ACP_Mag_SMG_01",2},			
+			{"16Rnd_9x21_Mag",2},
+			{"ACE_HandFlare_Green",2},			
+			{"SmokeShellGreen",2}
+		};
+		arsenal[] = {
+			"ACE_NVG_Wide_WP"			
+		};
 	};
 
 	//------------------------------------------------------------------------
@@ -814,21 +1100,56 @@ class CfgLoadouts {
 	// Extension of Pilot with special outfit for Fighter Pilots
 	//------------------------------------------------------------------------
 	class FighterPilot: Pilot {
-		
+		handgun[] 	= {};
+		helmet[] 	= {"H_PilotHelmetFighter_B"}; 				
+		facewear[] 	= {""};									
+        uniforms[] 	= {"U_B_PilotCoveralls"};			
+		vests[] 	= {""};												
+        backpack[]  = {"B_Parachute"};	
+		itemsUniform[] 	= {
+			"invStd_u",
+			"san_t0_u",
+			{"30Rnd_45ACP_Mag_SMG_01",2},			
+			{"ACE_HandFlare_Green",1},			
+			{"SmokeShellGreen",1}
+		};
+		itemsVest[] = {};
 	};
 
 	//------------------------------------------------------------------------
 	//			AV Crew
 	//------------------------------------------------------------------------
 	class AVcrew: DefaultLoadout {
-		
+		helmet[] 	= {"H_HelmetCrew_B"}; 				
+		facewear[] 	= {"G_Lowprofile"};									
+        uniforms[] 	= {"U_B_CombatUniform_mcam_vest"};			
+		vests[] 	= {"V_BandollierB_rgr"};												
+        backpack[]  = {""};	
+		primary[] 	= {"arifle_MXC_F","","","",{"30Rnd_65x39_caseless_mag",30},{},""}; 
+		handgun[] 	= {"hgun_P07_F","","","",{"16Rnd_9x21_Mag",16},{},""};				
+		itemsUniform[] 	= {
+			"invStd_u",
+			"san_t0_u"
+		}; 			
+		itemsVest[] = {			
+			{"30Rnd_65x39_caseless_mag",2},			
+			{"16Rnd_9x21_Mag",2},
+			{"ACE_HandFlare_Green",2},			
+			{"SmokeShellGreen",2}
+		};
+		arsenal[] = {
+			"V_BandollierB_blk",
+			"V_BandollierB_cbr",
+			"V_BandollierB_khk",
+			"V_BandollierB_oli",
+			"H_Cap_headphones"			
+		};
 	};
 
 	//------------------------------------------------------------------------
 	//			AV Commander
 	//------------------------------------------------------------------------
-	class AVcommander: DefaultLoadout {
-		
+	class AVcommander: AVcrew {
+		terminal= "terminal_t2";
 	};
-
 };

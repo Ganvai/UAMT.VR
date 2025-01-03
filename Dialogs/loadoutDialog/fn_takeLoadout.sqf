@@ -15,8 +15,8 @@ sleep 2;
 
 // apply selected loadout
 player setVariable ["loadout", _role];
-[] call UAMT_fnc_createLoadoutArray;
-[player] spawn UAMT_fnc_applyLoadout;
+_loadoutArr = call UAMT_fnc_loadoutCreate;
+[player,_loadoutArr] spawn UAMT_fnc_loadoutApply;
 
 sleep 1;
 titleText ["", "BLACK IN", 2];
