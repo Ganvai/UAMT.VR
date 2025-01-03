@@ -298,7 +298,7 @@ if (getMissionConfigValue "insFeature" == "true") then {
 
 		[true, "taskInsPrep", [_description, _title, _waypoint], objNull, true] call BIS_fnc_taskCreate;
 
-		if (allowLoadouts) then {
+		if (getMissionConfigValue "allowLoadouts" == "true") then {
 			private _title = "Choose Team Loadouts";
 			private _description = "All Teammembers can choose their loadout, depending on what is needed for the Mission.<br/>Use ACE-Selfinteract, go to 'Base Menu' and select 'Loadouts'. There you can see all available Loadouts.";
 			private _waypoint = "";
@@ -1016,4 +1016,3 @@ if isClass (configFile >> "CfgPatches" >> "ace_main") then
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 execVM "MissionSpecifics\MSInitServer.sqf";
-

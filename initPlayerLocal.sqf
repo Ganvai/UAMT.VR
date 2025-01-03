@@ -200,26 +200,26 @@ _uDMcas = ["Reset CAS","Reset CAS","\a3\ui_f\data\igui\cfg\simpletasks\types\des
 //					Ingame Mission Control
 //------------------------------------------------------------------
 
-if (mCC) then {
-	if (((mCCAccess findIf {_x == _playerVar} > -1) || (mCCAccess findIf {_x == _playerGroupID} > -1)) && mCC) then {
+if (getMissionConfigValue "mCC" == "true") then {
+	if ((getMissionConfigValue "mccAccess" findIf {_x == _playerVar} > -1) || (getMissionConfigValue "mccAccess" findIf {_x == _playerGroupID} > -1)) then {
 		// Creating the Admin Control Menu Category GR Base with Logo
 		_adminmenu = ["Mission Control Center","Mission Control Center","images\Logo.paa",{}, {true}] call ace_interact_menu_fnc_createAction;
 		[(typeOf player), 1, ["ACE_SelfActions"], _adminmenu] call ace_interact_menu_fnc_addActionToClass;
 		
-		if (mccHeal == "true") then {
+		if (getMissionConfigValue "mccHeal" == "true") then {
 			_fullheal = ["Full Heal","Full Heal","a3\ui_f\data\igui\cfg\simpletasks\types\heal_ca.paa",{[player, cursorObject] call ace_medical_treatment_fnc_fullHeal},{true}] call ace_interact_menu_fnc_createAction;
 			[(typeOf player), 1, ["ACE_SelfActions","Mission Control Center"], _fullheal] call ace_interact_menu_fnc_addActionToClass;
 		};
 
-		if (mccStart == "true") then {
+		if (getMissionConfigValue "mccStart" == "true") then {
 			[(typeOf player), 1, ["ACE_SelfActions","Mission Control Center"], _start_mission] call ace_interact_menu_fnc_addActionToClass;
 		};
 
-		if (mccEnd == "true") then {
+		if (getMissionConfigValue "mccEnd" == "true") then {
 			[(typeOf player), 1, ["ACE_SelfActions","Mission Control Center"], _mission_succesful] call ace_interact_menu_fnc_addActionToClass;
 		};
 
-		if (mccContinue == "true") then {
+		if (getMissionConfigValue "mccContinue" == "true") then {
 			[(typeOf player), 1, ["ACE_SelfActions","Mission Control Center"], _to_be_continued] call ace_interact_menu_fnc_addActionToClass;
 		};
 	};
