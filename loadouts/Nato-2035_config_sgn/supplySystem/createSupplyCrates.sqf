@@ -3,17 +3,31 @@
 //	Supply Crates
 //
 //------------------------------------------------------------------
+
+// The maximum Weight for the Crate. In Ace, crates with a weight of 600
+// can still be carried, crates with weight under 700 can still be dragged.
+// Crates heavier than 700 can not be moved at all. 
+// Recommended limit is 600.
 _crateLimit = 600;
+
+
 //------------------------------------------------------------------
 //	Ammo Crate
 //------------------------------------------------------------------
 ammoCrateArr = [];
 
+_additionalItems = [missionConfigFile >> "CfgFactionEquipment", "ammo_SupplyCrate", []] call BIS_fnc_returnConfigEntry;
+
+_loadMax = 600;
+if (count _additionalItems > 0 ) then {
+	_loadMax = 450;
+};
+
 //Primary Mag load - Alway takes the first Mag Type from the std_rifleAmmo_inv array
 _mag = (([missionConfigFile >> "CfgLoadouts" >> "DefaultLoadout", "primary", []] call BIS_fnc_returnConfigEntry) select 4 ) select 0;
 _magMass = [configfile >> "CfgMagazines" >> _mag, "mass"] call BIS_fnc_returnConfigEntry;
 
-_loadItems = floor (500 / _magMass);
+_loadItems = floor ((_loadMax - 100) / _magMass);
 
 ammoCrateArr append [[_mag,_loaditems]];
 
@@ -24,11 +38,25 @@ _loadItems = floor (100 / _magMass);
 
 ammoCrateArr append [[_mag,_loaditems]];
 
+_cargoSpace  = 150 / count _additionalItems;
+
+{
+	_mass = [_x] call  UAMT_fnc_getItemMass;
+	if (_mass > 0 ) then {
+		_loaditems = floor (_cargoSpace / ([configFile >> "CfgMagazines" >> _x,"mass"] call BIS_fnc_returnConfigEntry));
+		ammoCrateArr append [[_x,_loaditems]];
+	};
+} forEach _additionalItems;
+
+missionNameSpace setVariable ["SupplyPoint_AmmoCrate",ammoCrateArr,true];
+
 
 //------------------------------------------------------------------
 // 	Heavy Ammo Crate
 //------------------------------------------------------------------
 heavyammoCrateArr = [];
+
+_additionalItems = [missionConfigFile >> "CfgFactionEquipment", "heavyAmmo_SupplyCrate", []] call BIS_fnc_returnConfigEntry;
 
 _div = 0;
 
@@ -44,6 +72,10 @@ if ((([missionConfigFile >> "CfgRoles", "roles", []] call BIS_fnc_returnConfigEn
 };
 
 if ((([missionConfigFile >> "CfgRoles", "roles", []] call BIS_fnc_returnConfigEntry) findIf {_x select 0 == "DM"}) >= 0) then {
+	_div = _div + 1;
+};
+
+if (count _additionalItems > 0) then {
 	_div = _div + 1;
 };
 
@@ -75,6 +107,16 @@ if ((([missionConfigFile >> "CfgRoles", "roles", []] call BIS_fnc_returnConfigEn
 
 	heavyammoCrateArr append [[_mag,_loaditems]];
 };
+
+{
+	_mass = [_x] call  UAMT_fnc_getItemMass;
+	if (_mass > 0 ) then {
+		_loaditems = floor (_loadMass / ([configFile >> "CfgMagazines" >> _x,"mass"] call BIS_fnc_returnConfigEntry));
+		heavyammoCrateArr append [[_x,_loaditems]];
+	};
+} forEach _additionalItems;
+
+missionNameSpace setVariable ["SupplyPoint_HeavyAmmoCrate",heavyammoCrateArr,true];
 
 //------------------------------------------------------------------
 // 	Grenades Ammo Crate
@@ -114,7 +156,7 @@ _loadMass = floor (_loadLimiter / _div);
 }forEach throwablesExt;
 
 if (_loadLimiter < 600) then {
-	_uglPool = [missionConfigFile >> "CfgFactionEquipment", "grenadier_UGL_Pool", []] call BIS_fnc_returnConfigEntry;
+	_uglPool = [missionConfigFile >> "CfgFactionEquipment", "grenades_SupplyCrate", []] call BIS_fnc_returnConfigEntry;
 	_div = count _uglPool;
 
 	_loadMass = floor (200 / _div);

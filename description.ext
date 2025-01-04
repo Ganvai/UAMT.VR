@@ -534,6 +534,10 @@ class CfgFunctions
 			class loadoutCreate{};
 			class loadoutGetValue{};
 			class loadoutTake{};
+			
+			//Supply Crate Functions
+			class getItemMass{};
+			class fillSupplyCrate{};
 		};
 	};
 	

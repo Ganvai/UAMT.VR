@@ -276,14 +276,56 @@ class CfgFactionEquipment {
 		{"B_IR_Grenade",2}
 	};
 	
-	// Grenade Pool for Grenadier. Needed for Supply Crates and Arsenal. 
-	grenadier_UGL_Pool[] = {
+	//------------------------------------------------------------------
+	//------------------------------------------------------------------
+	//
+	// 		Supply Crates
+	//
+	// While most of the Supply Crates from Supply Points or Supply Drops
+	// are filled automatically, you have the chance to add additional
+	// Items to each crate by giving the items here.
+	//
+	// The Items will be added in addition to what the crate will
+	// automatically filled into the crate.
+	//
+	// There are some Supply Crates that don't have an automatic fill.
+	// These crates need the arrays here, otherwise they will be empty.
+	// These crates are marked here with "EXCLUSIVE"
+	//------------------------------------------------------------------
+	//------------------------------------------------------------------
+	
+	// Additional Items for the Ammo Supply Crate (Standard Rifle and Handguns)
+	// Only Items from Type Magazine are accepted
+	ammo_SupplyCrate[] = {};
+	
+	// Additional Items for the Heavy Ammo Supply Crate (MG, Autorifle, DM)
+	// Only Items from Type Magazine are accepted
+	heavyAmmo_SupplyCrate[] = {};
+	
+	// Additional Items for the Grenades Supply Crate (throwablesStd, throwablesExt)
+	// Recommended to give UGL Ammo for Grenadier here
+	// Only Items from Type Magazine are accepted
+	grenades_SupplyCrate[] = {
 		"1Rnd_HE_Grenade_shell",
 		"1Rnd_Smoke_Grenade_shell",
 		"ACE_40mm_Flare_ir",
 		"1Rnd_SmokeGreen_Grenade_shell",
 		"1Rnd_SmokeRed_Grenade_shell"	
 	};
+	
+	// JTAC Supply Crate
+	// All Contents for the JTAC Supply Crate. 
+	jtac_SupplyCrate[] = {
+		
+	};
+	
+	// Explosives Supply Crate
+	// All contents for the Explosive Supply Crate.
+	eod_SupplyCrate[] = {
+	
+	};
+	
+	
 	
 	//------------------------------------------------------------------
 	//	Content for Armory
