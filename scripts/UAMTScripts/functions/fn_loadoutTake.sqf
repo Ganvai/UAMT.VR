@@ -1,3 +1,5 @@
+// spawned by loadout dialog
+// [] spawn UAMT_fnc_loadoutTake;
 private _index = lbCurSel 100;
 
 private _roles = [missionConfigFile >> "CfgRoles" >> "roles"] call BIS_fnc_returnConfigEntry;
@@ -20,15 +22,3 @@ _loadoutArr = call UAMT_fnc_loadoutCreate;
 
 sleep 1;
 titleText ["", "BLACK IN", 2];
-
-/*
-
-//params [_index,_index2];
-
-_index = lbCurSel 100;
-_index2 = lbdata[100, _index];
-
-_loadouts = format ["loadouts\%1\%2", factionVariable, _index2];
-call compile preprocessFileLineNumbers _loadouts;	
-
-*/

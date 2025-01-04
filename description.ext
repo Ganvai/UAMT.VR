@@ -481,7 +481,6 @@ class CfgDebriefing
 
 class CfgFunctions
 {
-	#include "Dialogs\loadoutDialog\class_loadouts_config.hpp" 
 	#include "Dialogs\teleportDialog\teleportconfig.hpp"
 	#include "Dialogs\artDialog\artDialogConfig.hpp"
 	#include "MissionSpecifics\missionCFGFunctions.hpp"
@@ -534,6 +533,7 @@ class CfgFunctions
 			class loadoutArsenal{};
 			class loadoutCreate{};
 			class loadoutGetValue{};
+			class loadoutTake{};
 		};
 	};
 	

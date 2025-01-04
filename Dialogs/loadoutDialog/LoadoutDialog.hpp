@@ -173,7 +173,7 @@ class LoadoutDialog
 			soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush",0.09,1.0};
 			default = true;
 			shadow = 0;
-			action = "[] spawn CLF_fnc_takeLoadout;";
+			action = "[] spawn UAMT_fnc_loadoutTake;";
 		};
 		
 		class BtnClose
