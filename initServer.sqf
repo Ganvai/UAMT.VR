@@ -43,6 +43,8 @@ publicVariable "supplyPath";
 spawnBoxPath = format ["%1spawnBox.sqf", supplyPath];
 publicVariable "spawnBoxPath";
 
+_createSupplyCrates = format ["%1createSupplyCrates.sqf",supplyPath];
+execVM _createSupplyCrates;
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 //
