@@ -2,44 +2,25 @@
 	by SmartGun
 		
  	Description:	
-	get values from config and create loadout-array
+	get values from CfgFactionEquipment + CfgLoadouts, create Loadout-Array and return it
 	
  	Paramameters:	
-	-none		
-			
+		_this select 0: unitLoadout	(STRING) -> Name of Loadout; -> "loadout" variable in player init = Loadout Class in CfgLoadouts		
+		
 	Return values:
-	-none	
+		loadout (ARRAY) -> Format is unitLoadoutArray -> https://community.bistudio.com/wiki/Unit_Loadout_Array	
 	
-	execVM "createLoadoutArray.sqf";
-	
-	ToDo:
-	die loadoutVar der InitZeile, Name der Config und pfad in roles.sqf müssen identisch sein.
-	Damit enfällt ".sqf" in roles
-	
-	init.sqf -> execVM "loadouts\Nato-2035_config_sgn\createLoadoutArray.sqf";
-	UAMT_fnc_createLoadoutArray = compile preprocessFileLineNumbers "loadouts\Nato-2035_config_sgn\createLoadoutArray.sqf"; 	// move to CfgFunctions later
-	[] call UAMT_fnc_createLoadoutArray;
-	
-	runs once on mission start
-	
+	example:
+	_loadoutArray = ["rifleman"] call UAMT_fnc_loadoutCreate;
 	
 */
-
-//UAMT_fnc_getCfgValue = compile preprocessFileLineNumbers "loadouts\Nato-2035_config_sgn\fn_getCfgValue.sqf"; 	// move to CfgFunctions later
-//UAMT_fnc_applyLoadout = compile preprocessFileLineNumbers "loadouts\Nato-2035_config_sgn\fn_applyLoadout.sqf";	// move to CfgFunctions later
-
-// get loadoutVar from unit-init
-//_unitLoadOut = player getVariable ["UAMT_unitLoadout", "DefaultLoadout"]; 
-_unitLoadOut = player getVariable ["loadout", "DefaultLoadout"];
+params ["_unitLoadOut"]; // DefaultLoadout
 
 // no config for this Role -> use defaultLoadout 
 if (!(isClass(missionConfigFile >> "CfgLoadouts" >> _unitLoadOut))) then {
 	systemchat format ["Missing Loadout Config for Role: %1 !",_unitLoadOut];
 	_unitLoadOut = "DefaultLoadout";	
 };
-
-// ToDo: check if loadout already exists
-
 
 // Array -> item will be selected by random
 _helmet = 	selectRandom ([missionConfigFile >> "CfgLoadouts" >> _unitLoadOut, "helmet", [""]] call BIS_fnc_returnConfigEntry);
@@ -74,7 +55,6 @@ if (_backpack in ["backpack_std","backpack_med","backpack_big"]) then {
 };
 
 // handle NVGs
-// player sideChat format ["%1", items player];
 if (_nvgs != "") then {
 	_itemsUniform pushBack [_nvgs,1];
 	_nvgs = "";
@@ -134,12 +114,6 @@ _newLoadout = [[
 ],true];
 
 
-/* Depricated - Alte Speicherung des Loadout Array
-// save loadout array
-_loadOutVar = format ["UAMT_%1Array", _unitLoadOut];
-missionNamespace setVariable [_loadOutVar, _newLoadout]; 		// save locally
-//missionNamespace setVariable [_loadOutVar, _newLoadout, true]; 	// save globally
-*/
 
 //------------------------------------------------------------------
 // debug stuff below this line -> delete
@@ -153,15 +127,5 @@ player addAction ["Open Arsenal", {
 	[player, (missionNamespace getVariable format ["UAMT_%1ArsenalArray",_unitLoadOut]), false] call ace_arsenal_fnc_addVirtualItems;
 	[player, player, false] call ace_arsenal_fnc_openBox;
 }];
-
-/*
-player addAction ["Apply Loadout", {
-	[player] spawn UAMT_fnc_loadoutApply;
-}];
-*/
-
-//[player, (missionNamespace getVariable format ["UAMT_%1ArsenalArray","testSoldier"]), false] call ace_arsenal_fnc_openBox;
-
-// [player, (missionNamespace getVariable "UAMT_testsoldierarsenalarray"), false] call ace_arsenal_fnc_addVirtualItems;
 
 _newLoadout;

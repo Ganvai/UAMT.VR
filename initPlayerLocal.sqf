@@ -127,7 +127,7 @@ _missionControlCenterMessage = getMissionConfigValue "MissionControlCenterMessag
 //------------------------------------------------------------------
 _playerLoadout = player getVariable "loadout";
 
-_loadoutArr = call UAMT_fnc_loadoutCreate;
+_loadoutArr = [_playerLoadout] call UAMT_fnc_loadoutCreate;
 [player,_loadoutArr] spawn UAMT_fnc_loadoutApply;
 
 //------------------------------------------------------------------

@@ -1,9 +1,25 @@
-params ["_unit","_loadoutArray"];	
-
-private _unitLoadOut = _unit getVariable ["loadout", "DefaultLoadout"];
+/*	
+	by SmartGun
+		
+ 	Description:	
+	apply Loadout to Unit
+	set Insignia
+	set ACE Unit Traits
+	put primary weapon on save 
+	
+ 	Paramameters:	
+		_this select 0: unit 	(OBJECT)
+		_this select 1: loadout (ARRAY) -> unitLoadoutArray -> https://community.bistudio.com/wiki/Unit_Loadout_Array
+		
+	Return values:
+	-none
+*/
+params ["_unit","_loadoutArray"];
 
 // apply unitLoadout
 _unit setUnitLoadout _loadoutArray;
+
+private _unitLoadOut = _unit getVariable ["loadout", "DefaultLoadout"];
 
 // apply insignia
 private _insignia = [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut, "insignia", [""]] call BIS_fnc_returnConfigEntry;
