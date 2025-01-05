@@ -577,10 +577,11 @@ class CfgLoadouts {
 		}; 	
 		
 		// Item Loadout Array
-		itemsVest[] 	= {
-			{"30Rnd_65x39_caseless_mag",5},
+		itemsVest[] 	= {			
+			{"30Rnd_65x39_caseless_mag",4},
 			{"30Rnd_65x39_caseless_mag_Tracer",2},
-			{"16Rnd_9x21_Mag",2}
+			{"16Rnd_9x21_Mag",2},
+			"throwablesStd"
 		}; 
 		
 		// Item Loadout Array
@@ -680,7 +681,8 @@ class CfgLoadouts {
 	//			MG
 	//------------------------------------------------------------------------
     class MG: DefaultLoadout {		
-		primary[] 	= {"MMG_02_sand_F","","ACE_DBAL_A3_Green","optic_Hamr",{"130Rnd_338_Mag",130},{},"bipod_01_F_snd"}; 		
+		primary[] 	= {"MMG_02_sand_F","","ACE_DBAL_A3_Green","optic_Hamr",{"130Rnd_338_Mag",130},{},"bipod_01_F_snd"}; 
+		backpack[]  = {"backpack_med"};	
 		itemsVest[] = {
 			"throwablesStd",			
 			{"130Rnd_338_Mag",1},			
@@ -741,7 +743,7 @@ class CfgLoadouts {
 	//			AT
 	//------------------------------------------------------------------------
     class AT: Rifleman {
-		secondary[] = {"launch_B_Titan_short_F","","","",{},{},""};
+		secondary[] = {"launch_B_Titan_short_F","","","",{"Titan_AT",1},{},""};
 		backpack[]  = {"backpack_med"};	
 		itemsBackPack[] = {			
 			{"Titan_AT",1}
@@ -772,7 +774,7 @@ class CfgLoadouts {
 	//			AA
 	//------------------------------------------------------------------------
     class AA: Rifleman {
-		secondary[] = {"launch_B_Titan_F","","","",{},{},""};
+		secondary[] = {"launch_B_Titan_F","","","",{"Titan_AA",1},{},""};
 		backpack[]  = {"backpack_med"};	
 		itemsBackPack[] = {			
 			{"Titan_AA",1}
