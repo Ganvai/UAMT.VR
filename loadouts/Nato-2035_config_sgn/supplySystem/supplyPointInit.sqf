@@ -24,15 +24,15 @@
 //--------------------------------------------------------------------
 
 _boxes = [
-	["Ammo","ACE_Box_Ammo","01_ammo_1.sqf"],
-	["Heavy Ammo","ACE_Box_Ammo","02_ammo_2.sqf"],
-	["Grenades","ACE_Box_82mm_Mo_HE","03_grenades.sqf"],
-	["AT Ammo","ACE_Box_Chemlights","04_ammo_at.sqf"],
-	["AA Ammo","ACE_Box_Chemlights","05_ammo_aa.sqf"],
-	["AT-Light","ACE_Box_Chemlights","06_at_light.sqf"],
-	["Medic Supplies","ACE_medicalSupplyCrate","07_medic_supplies.sqf"],
-	["Explosives","ACE_Box_82mm_Mo_HE","08_sp_explosives.sqf"],
-	["Mines","ACE_Box_82mm_Mo_HE","09_sp_mines.sqf"],
+	["Ammo","ACE_Box_Ammo","SupplyPoint_AmmoCrate"],
+	["Heavy Ammo","ACE_Box_Ammo","SupplyPoint_HeavyAmmoCrate"],
+	["Grenades","ACE_Box_82mm_Mo_HE","SupplyPoint_GrenadeCrate"],
+	["AT Ammo","ACE_Box_Chemlights","SupplyPoint_ATCrate"],
+	["AA Ammo","ACE_Box_Chemlights","SupplyPoint_AACrate"],
+	["AT-Light","ACE_Box_Chemlights","SupplyPoint_ATLightCrate"],
+	["Medic Supplies","ACE_medicalSupplyCrate","SupplyPoint_MedicCrate"],
+	["Explosives","ACE_Box_82mm_Mo_HE","SupplyPoint_ExplosivesCrate"],
+	["UAV","Box_NATO_Equip_F","SupplyPoint_UAVCrate"],
 	["Empty Box","Box_NATO_Equip_F","10_sp_empty.sqf"],
 	["Emtpy Transport Box","B_supplyCrate_F","11_sp_emptyLarge.sqf"]
 ];
@@ -55,7 +55,7 @@ _supplyPointDist = _this select 1;
 _supplyPointDir = _this select 2;
 _supplyPointBoxName = "";
 _supplyPointBoxType = "";
-_supplyPointBoxScript = "";
+_supplyPointBoxVar = "";
 _boxNumber = 0;
 
 private _supplyPoint = _this select 0;
@@ -64,15 +64,16 @@ private _supplyPoint = _this select 0;
 	_actionName = format ["SupplyBox %1", _boxNumber];
 	_supplyPointBoxName = _x select 0;
 	_supplyPointBoxType = _x select 1;
-	_supplyPointBoxScript = _x select 2;
+	_supplyPointBoxVar = _x select 2;
 
 	_statement = {
 		params ["_target", "_player", "_actionParams"];
-		_actionParams params ["_supplyPointVar", "_supplyPointDist", "_supplyPointDir", "_supplyPointBoxType", "_supplyPointBoxScript"];
-		[[_supplyPointVar,_supplyPointDist,_supplyPointDir,_supplyPointBoxType,_supplyPointBoxScript], spawnBoxPath] remoteExec ["execVM"];
+		_actionParams params ["_supplyPointVar", "_supplyPointDist", "_supplyPointDir", "_supplyPointBoxType", "_supplyPointBoxVar"];
+		
+		[_supplyPointVar,_supplyPointDist,_supplyPointDir,_supplyPointBoxType,_supplyPointBoxVar] call UAMT_fnc_spawnSupplyCrate;
 	};
 	
-	_box = [_actionName, _supplyPointBoxName, "", _statement, {true}, {}, [_supplyPointVar, _supplyPointDist, _supplyPointDir, _supplyPointBoxType, _supplyPointBoxScript]] call ace_interact_menu_fnc_createAction;		
+	_box = [_actionName, _supplyPointBoxName, "", _statement, {true}, {}, [_supplyPointVar, _supplyPointDist, _supplyPointDir, _supplyPointBoxType, _supplyPointBoxVar]] call ace_interact_menu_fnc_createAction;		
 	[_supplyPointVar, 0, ["ACE_MainActions"], _box] call ace_interact_menu_fnc_addActionToObject;
 	
 }forEach _boxes;

@@ -118,85 +118,76 @@ if ((([missionConfigFile >> "CfgRoles", "roles", []] call BIS_fnc_returnConfigEn
 
 missionNameSpace setVariable ["SupplyPoint_HeavyAmmoCrate",heavyammoCrateArr,true];
 
+
 //------------------------------------------------------------------
 // 	Grenades Ammo Crate
 //------------------------------------------------------------------
 
 grenadeCrateArr = [];
 
-_throwablesStd = [missionConfigFile >> "CfgFactionEquipment", "throwablesStd", []] call BIS_fnc_returnConfigEntry;
-_throwablesExt = [missionConfigFile >> "CfgFactionEquipment", "throwablesExt", []] call BIS_fnc_returnConfigEntry;
-
-_div = count _throwablesStd + count _throwablesExt;
-
-_loadLimiter = 600;
-
-if ((([missionConfigFile >> "CfgRoles", "roles", []] call BIS_fnc_returnConfigEntry) findIf {_x select 0 == "DM"}) >= 0) then {
-	_loadLimiter = 400;
-};
-
-_loadMass = floor (_loadLimiter / _div);
+_fillarray = [];
 
 {
-	_mag = _x select 0;
-	_magMass = [configfile >> "CfgMagazines" >> _mag, "mass"] call BIS_fnc_returnConfigEntry;
-	
-	_loadItems = floor (_loadMass / _magMass);
-	
-	grenadeCrateArr append [[_mag,_loaditems]];
-}forEach throwablesStd;
+	_fillarray pushBackUnique _x;
+}forEach [missionConfigFile >> "CfgFactionEquipment", "throwablesStd", []] call BIS_fnc_returnConfigEntry;
 
 {
-	_mag = _x select 0;
-	_magMass = [configfile >> "CfgMagazines" >> _mag, "mass"] call BIS_fnc_returnConfigEntry;
+	_fillarray pushBackUnique _x;
+}forEach [missionConfigFile >> "CfgFactionEquipment", "throwablesExt", []] call BIS_fnc_returnConfigEntry;
+
+{
+	_fillarray pushBackUnique _x;
+}forEach [missionConfigFile >> "CfgFactionEquipment", "grenades_SupplyCrate", []] call BIS_fnc_returnConfigEntry;
+
+_div = count _fillarray;
+
+_loadMass = floor (_crateLimit / _div);
+
+{
+	_item = _x select 0;
+	_mass = _mass = [_x] call  UAMT_fnc_getItemMass;
 	
-	_loadItems = floor (_loadMass / _magMass);
-	
-	grenadeCrateArr append [[_mag,_loaditems]];
-}forEach throwablesExt;
-
-if (_loadLimiter < 600) then {
-	_uglPool = [missionConfigFile >> "CfgFactionEquipment", "grenades_SupplyCrate", []] call BIS_fnc_returnConfigEntry;
-	_div = count _uglPool;
-
-	_loadMass = floor (200 / _div);
-
-	{
-		_mag = _x;
-		_magMass = [configfile >> "CfgMagazines" >> _mag, "mass"] call BIS_fnc_returnConfigEntry;
-		
-		_loadItems = floor (_loadMass / _magMass);
-		
+	if (_mass == -1) then {
+		diag_log text format["Error when creating AT Supply Crate with Item:%1", _item];
+	}
+	else {
+		_loadItems = floor (_loadMass / _mass);
 		grenadeCrateArr append [[_mag,_loaditems]];
-	}forEach _uglPool;
-};
+	};
+}forEach _fillarray;
+
+missionNameSpace setVariable ["SupplyPoint_GrenadeCrate",grenadeCrateArr,true];
+
 
 //------------------------------------------------------------------
 // 	AT Missile Ammo Crate
 //------------------------------------------------------------------
 atMissileCrateArr = [];
 
-_div = 	count launcher_at_ammo + count launcher_at_ammoPool;
+_fillarray = [];
+
+{
+	_fillarray pushBackUnique _x;
+}forEach [missionConfigFile >> "CfgFactionEquipment", "itemsATSupplyCrate", []] call BIS_fnc_returnConfigEntry);
+
+_div = count _fillarray;
 
 _loadMass = floor (_crateLimit / _div);
 
 {
-	_mag = _x select 0;
-	_magMass = [configfile >> "CfgMagazines" >> _mag, "mass"] call BIS_fnc_returnConfigEntry;
+	_item = _x select 0;
+	_mass = _mass = [_x] call  UAMT_fnc_getItemMass;
 	
-	_loadItems = floor (_loadMass / _magMass);
-	
-	atMissileCrateArr append [[_mag,_loaditems]];
-}forEach launcher_at_ammo;
+	if (_mass == -1) then {
+		diag_log text format["Error when creating AT Supply Crate with Item:%1", _item];
+	}
+	else {
+		_loadItems = floor (_loadMass / _mass);
+		atMissileCrateArr append [[_mag,_loaditems]];
+	};
+}forEach _fillarray;
 
-{
-	_mag = _x;
-	_magMass = [configfile >> "CfgMagazines" >> _mag, "mass"] call BIS_fnc_returnConfigEntry;
-	
-	_loadItems = floor (_loadMass / _magMass);
-	
-	atMissileCrateArr append [[_mag,_loaditems]];
-}forEach launcher_at_ammoPool;
+missionNameSpace setVariable ["SupplyPoint_ATCrate",atMissileCrateArr,true];
 
 
 //------------------------------------------------------------------
@@ -204,147 +195,199 @@ _loadMass = floor (_crateLimit / _div);
 //------------------------------------------------------------------
 aaMissileCrateArr = [];
 
-_div = 	count launcher_aa_ammo + count launcher_aa_ammoPool;
+_fillarray = [];
+
+{
+	_fillarray pushBackUnique _x;
+}forEach [missionConfigFile >> "CfgFactionEquipment", "itemsAASupplyCrate", []] call BIS_fnc_returnConfigEntry);
+
+_div = count _fillarray;
 
 _loadMass = floor (_crateLimit / _div);
 
 {
-	_mag = _x select 0;
-	_magMass = [configfile >> "CfgMagazines" >> _mag, "mass"] call BIS_fnc_returnConfigEntry;
+	_item = _x select 0;
+	_mass = _mass = [_x] call  UAMT_fnc_getItemMass;
 	
-	_loadItems = floor (_loadMass / _magMass);
-	
-	aaMissileCrateArr append [[_mag,_loaditems]];
-}forEach launcher_aa_ammo;
+	if (_mass == -1) then {
+		diag_log text format["Error when creating AT Supply Crate with Item:%1", _item];
+	}
+	else {
+		_loadItems = floor (_loadMass / _mass);
+		aaMissileCrateArr append [[_mag,_loaditems]];
+	};
+}forEach _fillarray;
 
+missionNameSpace setVariable ["SupplyPoint_AACrate",aaMissileCrateArr,true];
 
-{
-	_mag = _x;
-	_magMass = [configfile >> "CfgMagazines" >> _mag, "mass"] call BIS_fnc_returnConfigEntry;
-	
-	_loadItems = floor (_loadMass / _magMass);
-	
-	aaMissileCrateArr append [[_mag,_loaditems]];
-}forEach launcher_aa_ammoPool;
 
 //------------------------------------------------------------------
 // 	AT-Light Missile Ammo Crate
 //------------------------------------------------------------------
 atLightCrateArr = [];
 
-if (launcher_at_light != "") then {
-	if (_lightATdispenseble) then {
-		_magMass = getNumber (configFile >> "CfgWeapons" >> launcher_at_light >> "WeaponSlotsInfo" >> "mass");
-		
-		_loadItems = floor (600 / _magMass);
-		
-		atLightCrateArr append [[launcher_at_light,_loaditems]];
+_fillarray = [];
+
+{
+	_fillarray pushBackUnique _x;
+}forEach [missionConfigFile >> "CfgFactionEquipment", "itemsATLightSupplyCrate", []] call BIS_fnc_returnConfigEntry);
+
+_div = count _fillarray;
+
+_loadMass = floor (_crateLimit / _div);
+
+{
+	_item = _x select 0;
+	_mass = _mass = [_x] call  UAMT_fnc_getItemMass;
+	
+	if (_mass == -1) then {
+		diag_log text format["Error when creating AT Supply Crate with Item:%1", _item];
 	}
-	else
-	{
-		_magMass = getNumber (configFile >> "CfgWeapons" >> launcher_at_light >> "WeaponSlotsInfo" >> "mass");
-		
-		_loadItems = floor (300 / _magMass);
-		
-		atLightCrateArr append [[launcher_at_light,_loaditems]];
-		
-		_atLightAmmoArr = launcher_at_light_ammoPool;
-		
-		{
-			_atLightAmmoArr pushback (_x select 0);
-		} forEach launcher_at_light_ammo;
-
-		_div = 	count _atLightAmmoArr;
-
-		_loadMass = floor (_crateLimit / _div);
-		
-		{
-			atLightCrateArr append [[_x,_loaditems]];
-		} forEach _atLightAmmoArr;
+	else {
+		_loadItems = floor (_loadMass / _mass);
+		atLightCrateArr append [[_mag,_loaditems]];
 	};
-};
+}forEach _fillarray;
+
+missionNameSpace setVariable ["SupplyPoint_ATLightCrate",atLightCrateArr,true];
 
 
 //------------------------------------------------------------------
 // 	Medic Supplies
 //------------------------------------------------------------------
 medicCrateArr = [];
-_sanCollected = [];
-
-_sanCollected append san_t1_u;
-_sanCollected append san_t1_v;
-_sanCollected append san_t1_b;
-_sanCollected append san_t2_u;
-_sanCollected append san_t2_v;
-_sanCollected append san_t2_b;
+_fillarray = [];
 
 {
-	medicCrateArr append [[_x select 0,(_x select 1) * 2]];
-}forEach _sanCollected;
+	_fillarray pushBackUnique _x;
+}forEach [missionConfigFile >> "CfgFactionEquipment", "san_t1_u", []] call BIS_fnc_returnConfigEntry;
+
+{
+	_fillarray pushBackUnique _x;
+}forEach [missionConfigFile >> "CfgFactionEquipment", "san_t1_v", []] call BIS_fnc_returnConfigEntry;
+
+{
+	_fillarray pushBackUnique _x;
+}forEach [missionConfigFile >> "CfgFactionEquipment", "san_t1_b", []] call BIS_fnc_returnConfigEntry;
+
+{
+	_fillarray pushBackUnique _x;
+}forEach [missionConfigFile >> "CfgFactionEquipment", "san_t2_u", []] call BIS_fnc_returnConfigEntry;
+
+{
+	_fillarray pushBackUnique _x;
+}forEach [missionConfigFile >> "CfgFactionEquipment", "san_t2_v", []] call BIS_fnc_returnConfigEntry;
+
+{
+	_fillarray pushBackUnique _x;
+}forEach [missionConfigFile >> "CfgFactionEquipment", "san_t2_b", []] call BIS_fnc_returnConfigEntry;
+
+{
+	_fillarray pushBackUnique _x;
+}forEach [missionConfigFile >> "CfgFactionEquipment", "san_t3_u", []] call BIS_fnc_returnConfigEntry;
+
+{
+	_fillarray pushBackUnique _x;
+}forEach [missionConfigFile >> "CfgFactionEquipment", "san_t3_v", []] call BIS_fnc_returnConfigEntry;
+
+{
+	_fillarray pushBackUnique _x;
+}forEach [missionConfigFile >> "CfgFactionEquipment", "san_t3_b", []] call BIS_fnc_returnConfigEntry;
+
+{
+	_fillarray pushBackUnique _x;
+}forEach [missionConfigFile >> "CfgFactionEquipment", "medicAddSupplyCrate", []] call BIS_fnc_returnConfigEntry;
+
+{
+	_fillarray pushBackUnique _x;
+}forEach [missionConfigFile >> "CfgFactionEquipment", "docAddSupplyCrate", []] call BIS_fnc_returnConfigEntry;
+
+_div = _fillarray;
+
+_loadMass = floor (_crateLimit / _div);
+
+{
+	_item = _x select 0;
+	_mass = _mass = [_x] call  UAMT_fnc_getItemMass;
+	
+	if (_mass == -1) then {
+		diag_log text format["Error when creating Medic Supply Crate. Item has no Mass :%1", _item];
+	}
+	else {
+		_loadItems = floor (_loadMass / _mass);
+		medicCrateArr append [[_mag,_loaditems]];
+	};
+}forEach _fillarray;
+
+missionNameSpace setVariable ["SupplyPoint_MedicCrate",medicCrateArr,true];
+
 
 //------------------------------------------------------------------
 // 	Explosives Supplies
 //------------------------------------------------------------------
 explosivesCrateArr = [];
-
-_div = count eod_explosive_pool;
-_itemMass = 0;
-_loadItems = 0;
-_loadMass = floor (600 / _div);
+_fillarray = [];
 
 {
-	if (isClass (configFile >> "CfgVehicles" >> _x)) then {
-		if (getNumber (configFile >> "CfgWeapons" >> _x >> "WeaponSlotsInfo" >> "mass") != 0) then {
-			_itemMass = getNumber (configFile >> "CfgWeapons" >> _x >> "WeaponSlotsInfo" >> "mass");
-			
-			_loadItems = floor (_loadMass / _itemMass);
-		}
-		else {
-			if (getNumber (configFile >> "CfgWeapons" >> _x >> "ItemInfo" >> "mass") != 0) then {
-				_itemMass = getNumber (configFile >> "CfgWeapons" >> _x >> "ItemInfo" >> "mass");
-				
-				_loadItems = floor (_loadMass / _itemMass);
-			};
-		};
+	_fillarray pushBackUnique _x;
+}forEach [missionConfigFile >> "CfgFactionEquipment", "explosives_SupplyCrate", []] call BIS_fnc_returnConfigEntry);
+
+{
+	_fillarray pushBackUnique _x;
+}forEach [missionConfigFile >> "CfgFactionEquipment", "eodItemsExplosiveSupplyCrate", []] call BIS_fnc_returnConfigEntry);
+
+_div = _fillarray;
+
+_loadMass = floor (_crateLimit / _div);
+
+{
+	_item = _x select 0;
+	_mass = _mass = [_x] call  UAMT_fnc_getItemMass;
+	
+	if (_mass == -1) then {
+		diag_log text format["Error when creating AT Supply Crate with Item:%1", _item];
 	}
 	else {
-		if (isClass (configFile >> "CfgMagazines" >> _x)) then {
-			_itemMass = getNumber (configFile >> "CfgMagazines" >> _x >> "mass");
-			_loadItems = floor (_loadMass / _itemMass);
-		};
+		_loadItems = floor (_loadMass / _mass);
+		explosivesCrateArr append [[_mag,_loaditems]];
 	};
-	
-	explosivesCrateArr append [[_x,_loadItems]];
-}forEach eod_explosive_pool;
+}forEach _fillarray;
+
+missionNameSpace setVariable ["SupplyPoint_ExplosivesCrate",explosivesCrateArr,true];
+
 
 //------------------------------------------------------------------
-// 	Mines Supplies
+// 	UAV Supplies
 //------------------------------------------------------------------
-minesCrateArr = [];
-_loadItems = 0;
-_div = count eod_mines_pool;
+uavSupplyCrate = [];
 
-_loadMass = floor (600 / _div);
+_fillarray = [];
 
 {
-	_itemMass = getNumber (configFile >> "CfgMagazines" >> _x >> "mass");
-	_loadItems = floor (_loadMass / _itemMass);
-	minesCrateArr append [[_x,_loadItems]];
-}forEach eod_mines_pool;
+	_fillarray pushBackUnique _x;
+}forEach [missionConfigFile >> "CfgFactionEquipment", "uav_SupplyCrate", []] call BIS_fnc_returnConfigEntry);
+
+{
+	_fillarray pushBackUnique _x;
+}forEach [missionConfigFile >> "CfgFactionEquipment", "jtacSupplyCrate", []] call BIS_fnc_returnConfigEntry);
+
+_div = _fillarray;
+
+_loadMass = floor (_crateLimit / _div);
+
+{
+	_item = _x select 0;
+	_mass = _mass = [_x] call  UAMT_fnc_getItemMass;
+	
+	if (_mass == -1) then {
+		diag_log text format["Error when creating AT Supply Crate with Item:%1", _item];
+	}
+	else {
+		_loadItems = floor (_loadMass / _mass);
+		uavSupplyCrate append [[_mag,_loaditems]];
+	};
+}forEach _fillarray;
+
+missionNameSpace setVariable ["SupplyPoint_UAVCrate",uavSupplyCrate,true];
 
 
-//------------------------------------------------------------------
-//
-//	Push Public Variables
-//
-//------------------------------------------------------------------
-
-publicVariable "ammoCrateArr";
-publicVariable "heavyammoCrateArr";
-publicVariable "grenadeCrateArr";
-publicVariable "atMissileCrateArr";
-publicVariable "aaMissileCrateArr";
-publicVariable "atLightCrateArr";
-publicVariable "medicCrateArr";
-publicVariable "explosivesCrateArr";
-publicVariable "minesCrateArr";

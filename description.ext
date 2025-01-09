@@ -538,6 +538,7 @@ class CfgFunctions
 			//Supply Crate Functions
 			class getItemMass{};
 			class fillSupplyCrate{};
+			class spawnSupplyCrate{};
 		};
 	};
 	

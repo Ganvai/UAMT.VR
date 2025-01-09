@@ -294,17 +294,14 @@ class CfgFactionEquipment {
 	//------------------------------------------------------------------
 	//------------------------------------------------------------------
 	
-	// Additional Items for the Ammo Supply Crate (Standard Rifle and Handguns)
-	// Only Items from Type Magazine are accepted
+	// Additional Items for the Ammo Supply Crate (Ammo for Standard Rifle and Handguns)
 	ammo_SupplyCrate[] = {};
 	
-	// Additional Items for the Heavy Ammo Supply Crate (MG, Autorifle, DM)
-	// Only Items from Type Magazine are accepted
+	// Additional Items for the Heavy Ammo Supply Crate (Ammo for MG, Autorifle, DM)
 	heavyAmmo_SupplyCrate[] = {};
 	
 	// Additional Items for the Grenades Supply Crate (throwablesStd, throwablesExt)
 	// Recommended to give UGL Ammo for Grenadier here
-	// Only Items from Type Magazine are accepted
 	grenades_SupplyCrate[] = {
 		"1Rnd_HE_Grenade_shell",
 		"1Rnd_Smoke_Grenade_shell",
@@ -312,17 +309,20 @@ class CfgFactionEquipment {
 		"1Rnd_SmokeGreen_Grenade_shell",
 		"1Rnd_SmokeRed_Grenade_shell"	
 	};
+
 	
 	// JTAC Supply Crate
 	// All Contents for the JTAC Supply Crate. 
-	jtac_SupplyCrate[] = {
-		
+	uav_SupplyCrate[] = {
+		"ACE_UAVBattery",
+		"B_UavTerminal",
+		"B_UAV_01_backpack_F"		
 	};
 	
 	// Explosives Supply Crate
 	// All contents for the Explosive Supply Crate.
-	eod_SupplyCrate[] = {
-	
+	explosives_SupplyCrate[] = {
+		"ATMine_Range_Mag"
 	};
 	
 	
@@ -752,7 +752,14 @@ class CfgLoadouts {
 			"equipment_ar",
 			"facewear_Arm",
 			"Titan_AP"
-		};	
+		};
+		
+		// Define Items that will be available in the AT Supply Crate from Supply Points and Drops.
+		// Can be ammo or weapon or weapon attachement.
+		itemsATSupplyCrate [] = {
+			"Titan_AP",
+			"Titan_AT"
+		};
 	};
 	
 	//------------------------------------------------------------------------
@@ -779,6 +786,12 @@ class CfgLoadouts {
 		itemsBackPack[] = {			
 			{"Titan_AA",1}
 		};		
+
+		// Define Items that will be available in the AA Supply Crate from Supply Points and Drops.
+		// Can be ammo or weapon or weapon attachement.
+		itemsAASupplyCrate [] = {
+			"Titan_AA"
+		};
 	};
 	
 	//------------------------------------------------------------------------
@@ -796,6 +809,13 @@ class CfgLoadouts {
 	//------------------------------------------------------------------------
     class ATLight: Rifleman {
 		secondary[] = {"launch_RPG32_F","","","",{"RPG32_F",1},{},""};		
+		
+		// Define Items that will be available in the AT Supply Crate from Supply Points and Drops.
+		// Can be ammo or weapon or weapon attachement.
+		itemsATLightSupplyCrate [] = {
+			"launch_RPG32_F",
+			"RPG32_F"
+		};
 	};
 	
 	//------------------------------------------------------------------------
@@ -864,6 +884,14 @@ class CfgLoadouts {
 			"ACE_Cellphone"
 		};	
 		ace_isEOD = true;
+		
+		// Define Items that will be available in the Explosives Supply Crate from Supply Points and Drops.
+		// Can be ammo or weapon or weapon attachement.
+		eodItemsExplosiveSupplyCrate [] = {
+			"Clacker",
+			"DemoCharge_Remote_Mag",
+			"SatchelCharge_Remote_Mag"
+		};
 	};
 	
 	//------------------------------------------------------------------------
@@ -913,6 +941,13 @@ class CfgLoadouts {
 			{"ACE_HuntIR_monitor",1},
 			{"B_UavTerminal",1}
 		};
+		// Define Items that will be available in the UAVs Supply Crate from Supply Points and Drops.
+		// Can be ammo or weapon or weapon attachement.
+		jtacSupplyCrate [] = {
+			"ACE_UAVBattery",
+			"B_UavTerminal",
+			"B_UAV_01_backpack_F"
+		};
 	};
 	
 	//------------------------------------------------------------------------
@@ -923,8 +958,18 @@ class CfgLoadouts {
 		itemsBackPack[] = {
 			"san_t2_b",
 			"throwablesExt"			
-		};		
+		};
+		
 		ace_isMedic = 1; 		// 0 | 1 | 2
+		
+		// Define Items that will be available in the Medic Supply Crate from Supply Points and Drops.
+		// Can be ammo or weapon or weapon attachement.
+		medicAddSupplyCrate [] = {
+			"ace_marker_flags_green",
+			"ace_marker_flags_red",
+			"ace_marker_flags_yellow",
+			"ace_marker_flags_black"
+		};
 	};
 	
 	//------------------------------------------------------------------------
@@ -936,7 +981,16 @@ class CfgLoadouts {
 		itemsBackPack[] = {
 			"san_t3_b",
 			"throwablesExt"			
-		};	
+		};
+		
+		ace_isMedic = 2; 		// 0 | 1 | 2
+
+		// Define Items that will be available in the Medic Supply Crate from Supply Points and Drops.
+		// Can be ammo or weapon or weapon attachement.
+		docAddSupplyCrate [] = {
+			"ACE_suture",
+			"ACE_surgicalKit"
+		};
 	};
 	
 	//------------------------------------------------------------------------
