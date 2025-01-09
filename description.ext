@@ -539,6 +539,7 @@ class CfgFunctions
 			class getItemMass{};
 			class fillSupplyCrate{};
 			class spawnSupplyCrate{};
+			class supplyPointInit{};
 		};
 	};
 	

@@ -34,17 +34,11 @@ publicVariable "missionstarted";
 //------------------------------------------------------------------
 //						Loadouts
 //------------------------------------------------------------------
-factionVariable = getMissionConfigValue "faction";
-publicVariable "factionVariable";
+if (getMissionConfigValue "supplyPointFeature" == "true") then {
+	_createSupplyCrates = format ["loadouts\%1\createSupplyCrates.sqf",getMissionConfigValue "factionPath"];
+	execVM _createSupplyCrates;
+};
 
-supplyPath = format ["loadouts\%1\supplySystem\", factionVariable];
-publicVariable "supplyPath";
-
-spawnBoxPath = format ["%1spawnBox.sqf", supplyPath];
-publicVariable "spawnBoxPath";
-
-_createSupplyCrates = format ["%1createSupplyCrates.sqf",supplyPath];
-execVM _createSupplyCrates;
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 //

@@ -763,12 +763,10 @@ if (getMissionConfigValue "radiocodefeature" == "true") then {
 //
 //------------------------------------------------------------------
 //------------------------------------------------------------------
-
-if (supplyPointFeature) then {
-		_createSupplyPoints = format ["%1createSupplyPoints.sqf", supplyPath];
-		execVM _createSupplyPoints;
+if (getMissionConfigValue "supplyPointFeature" == "true") then {
+	_supplyPoints = getMissionConfigValue "supplyPoints";
+	[_supplyPoints] call UAMT_fnc_supplyPointInit;
 };
-
 
 //------------------------------------------------------------------
 //------------------------------------------------------------------

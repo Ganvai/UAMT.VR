@@ -1,5 +1,8 @@
 // description.ext -> #include "loadouts\Nato-2035_config_sgn\CfgFactionEquipment.hpp"
 
+//Path for the Faction. This must be the name of the Folder the Faction is in. In This example "Nato-2035"
+factionPath = "Nato-2035_config_sgn";
+
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 //
@@ -293,6 +296,20 @@ class CfgFactionEquipment {
 	// These crates are marked here with "EXCLUSIVE"
 	//------------------------------------------------------------------
 	//------------------------------------------------------------------
+
+	supplyCrates[] = {
+		{"Ammo","ACE_Box_Ammo","SupplyPoint_AmmoCrate"},
+		{"Heavy Ammo","ACE_Box_Ammo","SupplyPoint_HeavyAmmoCrate"},
+		{"Grenades","ACE_Box_82mm_Mo_HE","SupplyPoint_GrenadeCrate"},
+		{"AT Ammo","ACE_Box_Chemlights","SupplyPoint_ATCrate"},
+		{"AA Ammo","ACE_Box_Chemlights","SupplyPoint_AACrate"},
+		{"AT-Light","ACE_Box_Chemlights","SupplyPoint_ATLightCrate"},
+		{"Medic Supplies","ACE_medicalSupplyCrate","SupplyPoint_MedicCrate"},
+		{"Explosives","ACE_Box_82mm_Mo_HE","SupplyPoint_ExplosivesCrate"},
+		{"UAV","Box_NATO_Equip_F","SupplyPoint_UAVCrate"},
+		{"Empty Box","Box_NATO_Equip_F","10_sp_empty.sqf"},
+		{"Emtpy Transport Box","B_supplyCrate_F","11_sp_emptyLarge.sqf"}
+	};
 	
 	// Additional Items for the Ammo Supply Crate (Ammo for Standard Rifle and Handguns)
 	ammo_SupplyCrate[] = {};
@@ -305,9 +322,7 @@ class CfgFactionEquipment {
 	grenades_SupplyCrate[] = {
 		"1Rnd_HE_Grenade_shell",
 		"1Rnd_Smoke_Grenade_shell",
-		"ACE_40mm_Flare_ir",
-		"1Rnd_SmokeGreen_Grenade_shell",
-		"1Rnd_SmokeRed_Grenade_shell"	
+		"ACE_40mm_Flare_ir"	
 	};
 
 	
@@ -718,7 +733,7 @@ class CfgLoadouts {
 	//			Autorifle
 	//------------------------------------------------------------------------
     class Autorifle: DefaultLoadout {		
-		primary[] 	= {"arifle_MX_SW_F","","ACE_DBAL_A3_Green","optic_Aco",{"100Rnd_65x39_caseless_mag",100},{},"bipod_01_F_snd"}; 		
+		primary[] = {"arifle_MX_SW_F","","ACE_DBAL_A3_Green","optic_Aco",{"100Rnd_65x39_caseless_mag",100},{},"bipod_01_F_snd"}; 		
 		itemsVest[] = {
 			"throwablesStd",			
 			{"100Rnd_65x39_caseless_mag",4},
@@ -736,7 +751,7 @@ class CfgLoadouts {
 			"100Rnd_65x39_caseless_black_mag_tracer",
 			"100Rnd_65x39_caseless_khaki_mag",
 			"100Rnd_65x39_caseless_khaki_mag_tracer"
-		};		
+		};
 	};
 	
 	//------------------------------------------------------------------------
@@ -756,7 +771,7 @@ class CfgLoadouts {
 		
 		// Define Items that will be available in the AT Supply Crate from Supply Points and Drops.
 		// Can be ammo or weapon or weapon attachement.
-		itemsATSupplyCrate [] = {
+		itemsATSupplyCrate[] = {
 			"Titan_AP",
 			"Titan_AT"
 		};
@@ -789,7 +804,7 @@ class CfgLoadouts {
 
 		// Define Items that will be available in the AA Supply Crate from Supply Points and Drops.
 		// Can be ammo or weapon or weapon attachement.
-		itemsAASupplyCrate [] = {
+		itemsAASupplyCrate[] = {
 			"Titan_AA"
 		};
 	};
@@ -812,7 +827,7 @@ class CfgLoadouts {
 		
 		// Define Items that will be available in the AT Supply Crate from Supply Points and Drops.
 		// Can be ammo or weapon or weapon attachement.
-		itemsATLightSupplyCrate [] = {
+		itemsATLightSupplyCrate[] = {
 			"launch_RPG32_F",
 			"RPG32_F"
 		};
@@ -887,8 +902,8 @@ class CfgLoadouts {
 		
 		// Define Items that will be available in the Explosives Supply Crate from Supply Points and Drops.
 		// Can be ammo or weapon or weapon attachement.
-		eodItemsExplosiveSupplyCrate [] = {
-			"Clacker",
+		eodItemsExplosiveSupplyCrate[] = {
+			"ACE_Clacker",
 			"DemoCharge_Remote_Mag",
 			"SatchelCharge_Remote_Mag"
 		};
@@ -920,13 +935,17 @@ class CfgLoadouts {
     class JTAC: Rifleman {		
 		terminal= "terminal_t3"; 		
 		binocs 	= "Laserdesignator";  
+		backpack[]  =  {"B_UAV_01_backpack_F"};
 		itemsUniform[] 	= {
 			"invStd_u",			
 			"san_t1_u",
 			{"ACE_RangeTable_82mm",1},
 			{"ACE_artilleryTable",1}, 
 			{"ACE_PlottingBoard",1},
-			{"Laserbatteries",2}
+			{"Laserbatteries",2},
+			{"B_UavTerminal",1},
+			"invStd_b",
+			"san_t1_b"
 		}; 
 		itemsVest[] = {
 			"throwablesStd",
@@ -936,17 +955,13 @@ class CfgLoadouts {
 			{"16Rnd_9x21_Mag",2}			
 		}; 
 		itemsBackPack[] = {
-			"invStd_b",
-			"san_t1_b",
-			{"ACE_HuntIR_monitor",1},
-			{"B_UavTerminal",1}
 		};
+
 		// Define Items that will be available in the UAVs Supply Crate from Supply Points and Drops.
 		// Can be ammo or weapon or weapon attachement.
-		jtacSupplyCrate [] = {
+		jtacSupplyCrate[] = {
 			"ACE_UAVBattery",
-			"B_UavTerminal",
-			"B_UAV_01_backpack_F"
+			"B_UavTerminal"
 		};
 	};
 	
@@ -964,7 +979,7 @@ class CfgLoadouts {
 		
 		// Define Items that will be available in the Medic Supply Crate from Supply Points and Drops.
 		// Can be ammo or weapon or weapon attachement.
-		medicAddSupplyCrate [] = {
+		medicAddSupplyCrate[] = {
 			"ace_marker_flags_green",
 			"ace_marker_flags_red",
 			"ace_marker_flags_yellow",
@@ -977,7 +992,6 @@ class CfgLoadouts {
 	//------------------------------------------------------------------------
     class Doc: Rifleman {
 		backpack[]  = {"backpack_med"};	
-		ace_isMedic = 2; 		// 0 | 1 | 2
 		itemsBackPack[] = {
 			"san_t3_b",
 			"throwablesExt"			
@@ -987,7 +1001,7 @@ class CfgLoadouts {
 
 		// Define Items that will be available in the Medic Supply Crate from Supply Points and Drops.
 		// Can be ammo or weapon or weapon attachement.
-		docAddSupplyCrate [] = {
+		docAddSupplyCrate[] = {
 			"ACE_suture",
 			"ACE_surgicalKit"
 		};
