@@ -543,6 +543,12 @@ class CfgFunctions
 			
 			//Vehicle IEDs
 			class vehicleIED{};
+			
+			//Casualty Message Feature
+			class cFCivMessage{};
+			class cFFriendlyMessage{};
+			class cFquickMessage{};
+			
 		};
 	};
 	

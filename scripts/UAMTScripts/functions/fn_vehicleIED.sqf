@@ -24,9 +24,11 @@ params ["_vehicle",["_bombType",0]];
 
 //Register vehicle as trapped
 
-_trappedVehicles = missionNameSpace getVariable ["trappedVehicles",[]];
-_trappedVehicles pushbackUnique _vehicle;
-missionNameSpace setVariable ["trappedVehicles",_trappedVehicles,true];
+if (_bombType < 3) then {
+	_trappedVehicles = missionNameSpace getVariable ["trappedVehicles",[]];
+	_trappedVehicles pushbackUnique _vehicle;
+	missionNameSpace setVariable ["trappedVehicles",_trappedVehicles,true];
+};
 
 // Add Option for EODs to search for Trap
 [
@@ -39,7 +41,7 @@ missionNameSpace setVariable ["trappedVehicles",_trappedVehicles,true];
 	{},
 	{},
 	{
-		//Check if Vehicle is trapped
+		// Check if Vehicle is trapped
 		if (_this select 0 in (missionNameSpace getVariable ["trappedVehicles",[]])) then {
 
 			titleText ["<t color='#ff0000' size='2' font='RobotoCondensed' shadow = '2' >The vehicle is rigged with an IED</t>", "PLAIN", 1, true, true];

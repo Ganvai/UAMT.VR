@@ -679,56 +679,102 @@ if (getMissionConfigValue "AFBActivated" == "true") then {
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 
-if (getMissionConfigValue "civKillFeature" == "true") then {
+if (getMissionConfigValue "cFcivil" == "true") then {
 
-	civEscalation1 = getMissionConfigValue "civEscalation1";
-	publicVariable "civEscalation1";
+	{
+		_x addEventHandler ["Killed", {
+			params ["_unit", "_killer", "_instigator", "_useEffects"];
 
-	civEscalation2 = getMissionConfigValue "civEscalation2";
-	publicVariable "civEscalation2";
-
-	civAbortMission = getMissionConfigValue "civAbortMission";
-	publicVariable "civAbortMission";
-
-	civAbortKillCount = getMissionConfigValue "civAbortKillCount";
-	publicVariable "civAbortKillCount";
-	
-	civMessageSender = getMissionConfigValue "civMessageSender";
-	publicVariable "civMessageSender";
-
-	civKillcount = 0;
-	publicVariable "civKillcount";
-
-	//Adds Eventhandler to every Unit from the Class Civilian_F
-	["Civilian_F", "killed", {
-		params ["_unit", "_killer", "_instigator", "_useEffects"];
-		
-		if (isPlayer _killer) then {
-			
-			_id = format ["civscriptid%1",_unit];
-			_text = format ["Civilian casualty. Suspected Shooter: %1.", name  _killer];
-			
-			_mrkr = createMarker [_id,getPosASL _unit];
-			_mrkr setMarkerShape "ICON";
-			_mrkr setMarkerType "hd_warning";
-			_mrkr setMarkerText _text;
-			_mrkr setMarkerColor "colorRed";
-			_mrkr setMarkerAlpha 0.5;
-
-			civKillcount = civKillCount + 1;
-			publicVariable "civKillcount";
-			
-			[[_killer],"Scripts\UAMTScripts\killedCivs\civKilledMessage.sqf"]remoteExec ["execVM"];
-			
-			if (civAbortMission == "true") then {
-			
-				if (civKillcount >= civAbortKillCount) then {	
-					"Scripts\UAMTScripts\killedCivs\abortMission.sqf" remoteExec ["execVM",2];
-				}
+			if (isPlayer _killer) then {
+				
+				_id = format ["civscriptid%1",_unit];
+				_text = format ["Civilian casualty. Suspected Shooter: %1.", name  _killer];
+				
+				_mrkr = createMarker [_id,getPosASL _unit];
+				_mrkr setMarkerShape "ICON";
+				_mrkr setMarkerType "hd_warning";
+				_mrkr setMarkerText _text;
+				_mrkr setMarkerColor "colorRed";
+				_mrkr setMarkerAlpha 0.5;
+				
+				[_killer] remoteExec ["UAMT_fnc_cFCivMessage",2];
 			};
+		}];
+	}forEach units civilian;
+};
 
-		};
-	}] call CBA_fnc_addClassEventHandler;
+if (getMissionConfigValue "cFfriendlies" == "true") then {
+
+	_sides = getMissionConfigValue "cFFriendlySides";
+	
+	if ("west" in _sides) then {
+		{
+			_x addEventHandler ["Killed", {
+				params ["_unit", "_killer", "_instigator", "_useEffects"];
+
+				if (isPlayer _killer) then {
+					
+					_id = format ["cFscriptid%1",_unit];
+					_text = format ["Friendly casualty. Suspected Shooter: %1.", name  _killer];
+					
+					_mrkr = createMarker [_id,getPosASL _unit];
+					_mrkr setMarkerShape "ICON";
+					_mrkr setMarkerType "hd_warning";
+					_mrkr setMarkerText _text;
+					_mrkr setMarkerColor "colorRed";
+					_mrkr setMarkerAlpha 0.5;
+					
+					[_killer] remoteExec ["UAMT_fnc_cFFriendlyMessage",2];
+				};
+			}];
+		}forEach units west;
+	};
+
+	if ("east" in _sides) then {
+		{
+			_x addEventHandler ["Killed", {
+				params ["_unit", "_killer", "_instigator", "_useEffects"];
+
+				if (isPlayer _killer) then {
+					
+					_id = format ["cFscriptid%1",_unit];
+					_text = format ["Friendly casualty. Suspected Shooter: %1.", name  _killer];
+					
+					_mrkr = createMarker [_id,getPosASL _unit];
+					_mrkr setMarkerShape "ICON";
+					_mrkr setMarkerType "hd_warning";
+					_mrkr setMarkerText _text;
+					_mrkr setMarkerColor "colorRed";
+					_mrkr setMarkerAlpha 0.5;
+					
+					[_killer] remoteExec ["UAMT_fnc_cFFriendlyMessage",2];
+				};
+			}];
+		}forEach units east;
+	};
+
+	if ("independent" in _sides) then {
+		{
+			_x addEventHandler ["Killed", {
+				params ["_unit", "_killer", "_instigator", "_useEffects"];
+
+				if (isPlayer _killer) then {
+					
+					_id = format ["cFscriptid%1",_unit];
+					_text = format ["Friendly casualty. Suspected Shooter: %1.", name  _killer];
+					
+					_mrkr = createMarker [_id,getPosASL _unit];
+					_mrkr setMarkerShape "ICON";
+					_mrkr setMarkerType "hd_warning";
+					_mrkr setMarkerText _text;
+					_mrkr setMarkerColor "colorRed";
+					_mrkr setMarkerAlpha 0.5;
+					
+					[_killer] remoteExec ["UAMT_fnc_cFFriendlyMessage",2];
+				};
+			}];
+		}forEach units independent;
+	};
 };
 
 //------------------------------------------------------------------
@@ -809,8 +855,11 @@ if (getMissionConfigValue "rifFeature" == "true") then {
 			
 			if (_rnd < _rifChance) then {
 				[_x,_rifBombType] call  UAMT_fnc_vehicleIED;
+			}
+			else {
+				[_x,3] call  UAMT_fnc_vehicleIED;
 			};
-		};
+		}
 	}forEach entities "CAR";
 };
 

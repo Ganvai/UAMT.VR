@@ -126,6 +126,24 @@ aceDmgCnfg = 1; 	// Unit Damage Threshhold for ACE Medical
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 //
+//					Support Features
+//
+// Configuration of Support Features
+// 
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+
+//------------------------------------------------------------------
+//					Overall Config
+//------------------------------------------------------------------
+supportMessages = true;			// Activate/Deactivate audio messages for all UAMT support functions. Not recommended as important informations for players will be lost.
+supportControlName = "TOC";			//The Name that is shown in Radio Messages from all Support Functions from UAMT. Something like TOC, Oberkommando, CO or whatever you come up with.
+supportCustomAudio = false;		//Plays Custom Audio messages. If you don't like them, set it to false. It will still send Status Reports,
+									//but just with generic radio chatter sound. And no, there will be no translations to other languages. English was hard enough XD.
+
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+//
 //					Insertion Feature
 //
 // Gives the Players Options on how they want to Insert for this
@@ -188,40 +206,19 @@ insCarVeh[] = {"insCar_1","insCar_2","insCar_3","insCar_4"}; // Array of Cars fo
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 //
-//					Killed Civilian Feature
+//					Casualty Feature
 //
-// Marks positions of killed Civilians with Shooter Name.
-// Also gives voice messages and text messages with shooter name
-// Has two escalation stages where the messages from TOC get more angry
-// Also has an option to abort the Mission when to many civs are killed.
+// Marks positions of killed Civilians (or friendlies if enabled)
+// including the shooters name.
+// Also gives audio and text messages with shooter name
 // 
+// Will use Support Audio Configs for messages.
 //------------------------------------------------------------------
 //------------------------------------------------------------------
-civKillFeature = true; //Enables/Disables the Killed Civilian Feature
-civEscalation1 = 5; // Gives a special warning when this number of Civ Kills is reached.
-civEscalation2 = 10; // Gives a special warning when this number of Civ Kills is reached.
-civAbortMission = false; // Ends the Mission with a special Message when number of Civ Kills is reached.
-civAbortKillCount = 50; // Number of Civilian kills to abort mission.
-civMessageSender = "TOC"; // Name of the Source who sends the Kill Messages
-
-
-//------------------------------------------------------------------
-//------------------------------------------------------------------
-//
-//					Support Features
-//
-// Configuration of Support Features
-// 
-//------------------------------------------------------------------
-//------------------------------------------------------------------
-
-//------------------------------------------------------------------
-//					Overall Config
-//------------------------------------------------------------------
-supportMessages = true;			// Activate/Deactivate audio messages for all UAMT support functions. Not recommended as important informations for players will be lost.
-supportControlName = "TOC";			//The Name that is shown in Radio Messages from all Support Functions from UAMT. Something like TOC, Oberkommando, CO or whatever you come up with.
-supportCustomAudio = true;		//Plays Custom Audio messages. If you don't like them, set it to false. It will still send Status Reports,
-									//but just with generic radio chatter sound. And no, there will be no translations to other languages. English was hard enough XD.
+cFcivil = true; // Enables/Disables the Killed Civilian Feature
+cFfriendlies = true; // Enables messages when killing friendlys
+cFFriendlySides[] = {"west","independent"};	// Side which are considered friendlies. 
+											// Available sides: "west","east","indipendent"
 
 
 //------------------------------------------------------------------
@@ -241,6 +238,8 @@ supportCustomAudio = true;		//Plays Custom Audio messages. If you don't like the
 //		"loadouts/Faction-Name/supplySystem/supplyPointInit.sqf"
 //
 // and should be already predefined with the Faction
+//
+// Will use Support Audio Configs for messages.
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 supplyPointFeature	= true;					//Sets if a Supply Point Feature is available.
@@ -587,7 +586,7 @@ hfsNoFireZones[] = {noFireZone_1};	// Areas where Heli Fire Support is prohibite
 //-----------------------------------------------------------------------
 rifFeature = true;				// Activates the Random IED Feature
 rifFactions[] = {"OPF_F","CIV_F"}; // Side of which vehicles shall be propped with IEDs. Available: "BLU_F","OPF_F","CIV_F","IND_F"
-rifChance = 0.2;				// Chance a vehicle has an IED in %. 1 means every vehicle, 0 means never. Recommended 0.2.
+rifChance = 0.5;				// Chance a vehicle has an IED in %. 1 means every vehicle, 0 means never. Recommended 0.2.
 rifBombType = 0;				// Bomb Type: 0 means normal Vehicle detonation. 1 is a medium sized explosion, 2 a very large one. Recommended 0.
 
 
