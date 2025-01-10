@@ -564,6 +564,34 @@ hfsRolesCMDR[] = {TOC,JTAC};			// Roles that can call in a Heli Fire Support fro
 hfsNoFireZones[] = {noFireZone_1};	// Areas where Heli Fire Support is prohibited. Place an area on the map and give it a variable name. Enter the variable name here. It doesn't matter if area is visible or not.
 
 
+//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
+//
+//				Random IED Feature
+//
+// Searches for Vehicles of the given Faction and randomly props them
+// with IEDs. 
+//
+// The IEDs explode when players (only players) want to access the inventory
+// or enter the vehicle.
+//
+// Before exploding, a beeping sound is played for 4 seconds.
+//
+// EODs can check all vehicles from the faction for IEDs and defuse them
+// if they find one.
+//
+// We have a function you can use in the vehicles init if you want to have 
+// more control over which vehicle is prepped. See more in:
+// "scripts\UAMTScripts\functions\fn_vehicleIED.sqf"
+//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
+rifFeature = true;				// Activates the Random IED Feature
+rifFactions[] = {"OPF_F","CIV_F"}; // Side of which vehicles shall be propped with IEDs. Available: "BLU_F","OPF_F","CIV_F","IND_F"
+rifChance = 0.2;				// Chance a vehicle has an IED in %. 1 means every vehicle, 0 means never. Recommended 0.2.
+rifBombType = 0;				// Bomb Type: 0 means normal Vehicle detonation. 1 is a medium sized explosion, 2 a very large one. Recommended 0.
+
+
+
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 //

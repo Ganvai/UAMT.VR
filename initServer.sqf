@@ -784,6 +784,37 @@ if (getMissionConfigValue "loadCargoFeature" == "true") then {
 	}, true, [], true] call CBA_fnc_addClassEventHandler;
 };
 
+
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+//
+//				Random Vehicle IED Feature
+//
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+
+if (getMissionConfigValue "rifFeature" == "true") then {
+	_rifFactions = getMissionConfigValue "rifFactions";
+	_rifChance = getMissionConfigValue "rifChance";
+	_rifBombType = getMissionConfigValue "rifBombType";
+	
+	{
+		_vehClass = typeOf _x;
+		
+		_fac = getText (configFile >> "CfgVehicles" >> _vehClass >> "faction");
+		
+		if (_fac in _rifFactions) then {
+
+			_rnd = random 1;
+			
+			if (_rnd < _rifChance) then {
+				[_x,_rifBombType] call  UAMT_fnc_vehicleIED;
+			};
+		};
+	}forEach entities "CAR";
+};
+
+
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 //

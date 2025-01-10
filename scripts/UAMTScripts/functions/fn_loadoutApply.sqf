@@ -34,7 +34,12 @@ private _ace_isEngineer = [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut, "
 private _ace_isEOD 		= [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut, "ace_isEOD", false] call BIS_fnc_returnConfigEntry;
 player setVariable ["ACE_medical_medicClass",_ace_isMedic,true];
 player setVariable ["ACE_isEngineer",_ace_isEngineer,true];
-player setVariable ["ACE_isEOD",_ace_isEOD,true];
+if (_ace_isEOD == "true") then {
+	player setVariable ["ACE_isEOD",true,true];
+}
+else {
+	player setVariable ["ACE_isEOD",false,true];
+};
 
 // put weapon on safe && in lowered position
 if (isplayer _unit) then {		

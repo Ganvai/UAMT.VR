@@ -158,11 +158,11 @@ private _newLoadout = [[
 
 //copytoclipboard str _personal;
 //systemchat str _ars;
-
+/*
 player addAction ["Open Arsenal", {
 	_unitLoadOut = player getVariable ["UAMT_unitLoadout", "DefaultLoadout"]; 
 	[player, (missionNamespace getVariable format ["UAMT_%1ArsenalArray",_unitLoadOut]), false] call ace_arsenal_fnc_addVirtualItems;
 	[player, player, false] call ace_arsenal_fnc_openBox;
 }];
-
+*/
 _newLoadout;
