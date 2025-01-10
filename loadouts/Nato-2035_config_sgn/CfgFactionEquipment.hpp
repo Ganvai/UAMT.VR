@@ -629,7 +629,8 @@ class CfgLoadouts {
 	// Rifleman Class. All Troop Loudouts with Standard Rifle inherit from 
 	// this Class
 	//------------------------------------------------------------------------
-	class Rifleman: DefaultLoadout { 		
+	class Rifleman: DefaultLoadout {
+		proficientWeapons[] = {"arifle"};
 		itemsVest[] 	= {
 			{"30Rnd_65x39_caseless_mag",5},
 			{"30Rnd_65x39_caseless_mag_Tracer",2},
@@ -648,6 +649,7 @@ class CfgLoadouts {
 	//			Grenadier
 	//------------------------------------------------------------------------
 	class Grenadier: DefaultLoadout {
+		proficientWeapons[] = {"arifle"};
 		primary[] 	= {"arifle_MX_GL_F","","ACE_DBAL_A3_Green","optic_Aco",{"30Rnd_65x39_caseless_mag",1},{},""};
 		itemsVest[] = {
 			"throwablesStd",
@@ -695,7 +697,8 @@ class CfgLoadouts {
 	//------------------------------------------------------------------------
 	//			MG
 	//------------------------------------------------------------------------
-    class MG: DefaultLoadout {		
+    class MG: DefaultLoadout {
+		proficientWeapons[] = {"mg"};
 		primary[] 	= {"MMG_02_sand_F","","ACE_DBAL_A3_Green","optic_Hamr",{"130Rnd_338_Mag",130},{},"bipod_01_F_snd"}; 
 		backpack[]  = {"backpack_med"};	
 		itemsVest[] = {
@@ -721,6 +724,7 @@ class CfgLoadouts {
 	//			MG-Assistant
 	//------------------------------------------------------------------------
     class MGAssistant: DefaultLoadout {
+		proficientWeapons[] = {"arifle"};
 		backpack[]  = {"backpack_med"};	
 		itemsBackPack[] = {
 			"invStd_b",
@@ -732,7 +736,8 @@ class CfgLoadouts {
 	//------------------------------------------------------------------------
 	//			Autorifle
 	//------------------------------------------------------------------------
-    class Autorifle: DefaultLoadout {		
+    class Autorifle: DefaultLoadout {
+		proficientWeapons[] = {"mg"};
 		primary[] = {"arifle_MX_SW_F","","ACE_DBAL_A3_Green","optic_Aco",{"100Rnd_65x39_caseless_mag",100},{},"bipod_01_F_snd"}; 		
 		itemsVest[] = {
 			"throwablesStd",			
@@ -758,6 +763,7 @@ class CfgLoadouts {
 	//			AT
 	//------------------------------------------------------------------------
     class AT: Rifleman {
+		proficientWeapons[] = {"missile","rocket"};
 		secondary[] = {"launch_B_Titan_short_F","","","",{"Titan_AT",1},{},""};
 		backpack[]  = {"backpack_med"};	
 		itemsBackPack[] = {			
@@ -781,6 +787,7 @@ class CfgLoadouts {
 	//			AT-Assistant
 	//------------------------------------------------------------------------
     class ATAssistant: Rifleman {
+		proficientWeapons[] = {"arifle"};
 		backpack[]  = {"backpack_med"};	
 		itemsBackPack[] = {			
 			{"Titan_AT",1}
@@ -796,6 +803,7 @@ class CfgLoadouts {
 	//			AA
 	//------------------------------------------------------------------------
     class AA: Rifleman {
+		proficientWeapons[] = {"missile","rocket"};
 		secondary[] = {"launch_B_Titan_F","","","",{"Titan_AA",1},{},""};
 		backpack[]  = {"backpack_med"};	
 		itemsBackPack[] = {			
@@ -813,6 +821,7 @@ class CfgLoadouts {
 	//			AA-Assistant
 	//------------------------------------------------------------------------
     class AAAssistant: Rifleman {
+		proficientWeapons[] = {"arifle"};
 		backpack[]  = {"backpack_med"};	
 		itemsBackPack[] = {			
 			{"Titan_AA",1}
@@ -823,6 +832,7 @@ class CfgLoadouts {
 	//			AT-Light
 	//------------------------------------------------------------------------
     class ATLight: Rifleman {
+		proficientWeapons[] = {"missile","rocket"};
 		secondary[] = {"launch_RPG32_F","","","",{"RPG32_F",1},{},""};		
 		
 		// Define Items that will be available in the AT Supply Crate from Supply Points and Drops.
@@ -837,6 +847,7 @@ class CfgLoadouts {
 	//			DM
 	//------------------------------------------------------------------------
     class DM: DefaultLoadout {
+		proficientWeapons[] = {"srifle"};
 		primary[] 	= {"arifle_MXM_F","","ACE_DBAL_A3_Green","optic_Hamr",{"30Rnd_65x39_caseless_mag",30},{},"bipod_01_F_snd"}; 
 		itemsUniform[] 	= {
 			"invStd_u",			
@@ -873,6 +884,7 @@ class CfgLoadouts {
 	//			EOD
 	//------------------------------------------------------------------------
     class EOD: Rifleman {
+		proficientWeapons[] = {};
 		backpack[]  = {"backpack_med"};	
 		itemsVest[] = {
 			"throwablesStd",
@@ -913,6 +925,7 @@ class CfgLoadouts {
 	//			Engineer
 	//------------------------------------------------------------------------
     class Engineer: Rifleman {
+		proficientWeapons[] = {};
 		itemsBackPack[] = {
 			"invStd_b",
 			"san_t1_b",
@@ -932,7 +945,8 @@ class CfgLoadouts {
 	//------------------------------------------------------------------------
 	//			JTAC
 	//------------------------------------------------------------------------
-    class JTAC: Rifleman {		
+    class JTAC: Rifleman {
+		proficientWeapons[] = {"laserDesignator"};		
 		terminal= "terminal_t3"; 		
 		binocs 	= "Laserdesignator";  
 		backpack[]  =  {"B_UAV_01_backpack_F"};
@@ -969,6 +983,7 @@ class CfgLoadouts {
 	//			Medic
 	//------------------------------------------------------------------------
     class Medic: Rifleman {
+		proficientWeapons[] = {};
 		backpack[]  = {"backpack_med"};	
 		itemsBackPack[] = {
 			"san_t2_b",
@@ -991,6 +1006,7 @@ class CfgLoadouts {
 	//			Doc
 	//------------------------------------------------------------------------
     class Doc: Rifleman {
+		proficientWeapons[] = {};
 		backpack[]  = {"backpack_med"};	
 		itemsBackPack[] = {
 			"san_t3_b",
@@ -1011,6 +1027,7 @@ class CfgLoadouts {
 	//			Squadleader
 	//------------------------------------------------------------------------
     class Squadleader: Rifleman {
+		proficientWeapons[] = {};
 		terminal= "terminal_t2";
 		binocs 	= "Rangefinder";
 		itemsVest[] = {
@@ -1026,6 +1043,7 @@ class CfgLoadouts {
 	//			Groupleader
 	//------------------------------------------------------------------------
     class Groupleader: Rifleman {
+		proficientWeapons[] = {};
 		terminal= "terminal_t3"; 	// String
 		binocs 	= "Laserdesignator"; 	// String 
 		itemsUniform[] 	= {
@@ -1058,6 +1076,7 @@ class CfgLoadouts {
 	//			Sniper
 	//------------------------------------------------------------------------
 	class Sniper: DefaultLoadout {
+		proficientWeapons[] = {"srifle"};
 		helmet[] 	= {"H_Bandanna_mcamo"}; 						
         uniforms[] 	= {"U_B_GhillieSuit"};						
 		vests[] 	= {"V_Chestrig_rgr"};		
@@ -1090,7 +1109,8 @@ class CfgLoadouts {
 	//------------------------------------------------------------------------
 	//			Spotter
 	//------------------------------------------------------------------------
-	class Spotter: Sniper {			
+	class Spotter: Sniper {
+		proficientWeapons[] = {"srifle"};		
 		primary[] 	= {"arifle_MXM_F","","ACE_DBAL_A3_Green","optic_Hamr",{"30Rnd_65x39_caseless_mag",30},{},"bipod_01_F_snd"}; 		 	
 		binocs 	= "Rangefinder";
 		itemsUniform[] 	= {
@@ -1118,6 +1138,7 @@ class CfgLoadouts {
 	//			DiverRifleman
 	//------------------------------------------------------------------------
 	class DiverRifleman: DefaultLoadout {
+		proficientWeapons[] = {"arifle","smg"};
 		helmet[] 	= {"H_HelmetB_light_black"}; 				
 		facewear[] 	= {"G_B_Diving"};									
         uniforms[] 	= {"U_B_Wetsuit"};			
@@ -1190,6 +1211,7 @@ class CfgLoadouts {
 	// Meant for Helicopter Pilots
 	//------------------------------------------------------------------------
 	class Pilot: DefaultLoadout {
+		proficientWeapons[] = {};
 		helmet[] 	= {"H_PilotHelmetHeli_B"}; 				
 		facewear[] 	= {"G_Aviator"};									
         uniforms[] 	= {"U_B_HeliPilotCoveralls"};			
@@ -1220,6 +1242,7 @@ class CfgLoadouts {
 	// Extension of Pilot with special outfit for Fighter Pilots
 	//------------------------------------------------------------------------
 	class FighterPilot: Pilot {
+		proficientWeapons[] = {};
 		handgun[] 	= {};
 		helmet[] 	= {"H_PilotHelmetFighter_B"}; 				
 		facewear[] 	= {""};									
@@ -1240,6 +1263,7 @@ class CfgLoadouts {
 	//			AV Crew
 	//------------------------------------------------------------------------
 	class AVcrew: DefaultLoadout {
+		proficientWeapons[] = {};
 		helmet[] 	= {"H_HelmetCrew_B"}; 				
 		facewear[] 	= {"G_Lowprofile"};									
         uniforms[] 	= {"U_B_CombatUniform_mcam_vest"};			
@@ -1270,6 +1294,7 @@ class CfgLoadouts {
 	//			AV Commander
 	//------------------------------------------------------------------------
 	class AVcommander: AVcrew {
+		proficientWeapons[] = {};
 		terminal= "terminal_t2";
 	};
 };

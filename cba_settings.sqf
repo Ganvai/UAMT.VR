@@ -14,7 +14,7 @@ Note that this will crash the mission on a dedicated server if the file is not p
 */
 
 // ACE AI
-force force ace_ai_assignNVG = false;
+force ace_ai_assignNVG = false;
 
 // ACE Advanced Ballistics_____________________________________________________________
 force force ace_advanced_ballistics_ammoTemperatureEnabled = true;
@@ -31,8 +31,8 @@ force force ace_advanced_fatigue_fadeStaminaBar = true;
 force force ace_advanced_fatigue_loadFactor = 0.7;
 force force ace_advanced_fatigue_performanceFactor = 1;
 force force ace_advanced_fatigue_recoveryFactor = 1.1;
-force force ace_advanced_fatigue_swayFactor = 1;
-force force ace_advanced_fatigue_terrainGradientFactor = 1;
+ace_advanced_fatigue_swayFactor = 1;
+ace_advanced_fatigue_terrainGradientFactor = 1;
 
 // ACE Advanced Throwing
 force force ace_advanced_throwing_enabled = true;

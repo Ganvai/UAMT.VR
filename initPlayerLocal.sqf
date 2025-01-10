@@ -771,6 +771,41 @@ if (getMissionConfigValue "supplyPointFeature" == "true") then {
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 //
+//						Weapon Proficiency
+//
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+if (getMissionConfigValue "supplyPointFeature" == "true") then {
+
+player addEventHandler ["WeaponChanged", {
+	params ["_object", "_oldWeapon", "_newWeapon", "_oldMode", "_newMode", "_oldMuzzle", "_newMuzzle", "_turretIndex"];
+		
+	_weaponCursor = [configfile >> "CfgWeapons" >> _newWeapon ,"cursor",""] call BIS_fnc_returnConfigEntry;
+	_profCursors = [missionconfigfile >> "CfgLoadouts" >> (player getVariable "loadout"), "proficientWeapons",[]] call BIS_fnc_returnConfigEntry;
+	hint str _profCursors;
+	if (_weaponCursor in _profCursors) then {
+		//hint "Prof";
+		ace_common_SwayFactor = getMissionConfigValue "wPSwayPro";
+		player setUnitRecoilCoefficient (getMissionConfigValue "wPRecoilPro");
+	}
+	else {	
+		if (_weaponCursor in (getMissionConfigValue "wPNonProWeapons")) then {
+			//hint "Non Prof";
+			ace_common_SwayFactor = getMissionConfigValue "wPSwayNonPro";;
+			player setUnitRecoilCoefficient (getMissionConfigValue "wPRecoilNonPro");
+		}
+		else {
+			//hint "Default";
+			ace_common_SwayFactor = getMissionConfigValue "wPSwayDef";
+			player setUnitRecoilCoefficient (getMissionConfigValue "wPRecoilDef");		
+		};		
+	};
+	}];
+};
+
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+//
 //					Player Performance
 //
 //------------------------------------------------------------------

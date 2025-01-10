@@ -55,7 +55,7 @@ endAllDead = false;					// When activated ends the Mission when every player is 
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 //
-//				Faction & Loadout Features
+//				Faction & Roles
 //
 // All Loadout related Features can be activated here
 // 
@@ -70,6 +70,33 @@ FortifyToolCamo		= "wood";			// Selects the Camo of the Items created with the F
 allowArmory			= true;			// Armory is available ingame.
 allowLoadouts		= true;			// Players can switch their roles ingame.
 
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+//
+//		Weapon Proficiency
+//
+// Gives a bonus to the main weapon class defined in the loadouts
+// and also a malus when handling a non proficient weapon
+//
+// By default, the standard rifle bonus only applies to 
+// the Role Rifleman, for all other roles that use a standard rifle
+// there will be the default values.
+//
+// Handguns recieve no bonus.
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+weaponProficiency 	= true;			// Enables the Weapon Proficiency System. This gives a Bonus for the Weapon Class attached to the role
+wPSwayPro			= 0.6;			// Weapon Sway with proficient weapons. 1 is default.
+wPRecoilPro			= 0.6;			// Recoil with proficient weapons. 1 is default.
+wPSwayDef			= 0.9;			// Weapon Sway with all Weapon Classes that are not in wPNonProWeapons. Default Arma Value is 1.
+wPRecoilDef			= 0.9;			// Recoil with with all Weapon Classes that are not in wPNonProWeapons. Default Arma Value is 1.
+wPSwayNonPro		= 1.2;			// Sway with non proficient weapons. 1 is default.
+wPRecoilNonPro		= 1.2;			// Recoil with non proficient weapons. 1 is default.
+
+// Array of Weapon-Classes that the Non Pro Values get attached to IF they are NOT set as proficient Weapons in CFGLoadouts.
+// All Weapon Cursors in Arma Vanilla: ["arfile","mg","smg","missile","rocket","sgun","srifle","mortar","laserDesignator","esd"].
+// Important. The function is case sensitiv, so keep an eye on that D in laserDesignator
+wPNonProWeapons		= ["mg","smg","missile","rocket","sgun","srifle"]; 
 
 //------------------------------------------------------------------
 //------------------------------------------------------------------
