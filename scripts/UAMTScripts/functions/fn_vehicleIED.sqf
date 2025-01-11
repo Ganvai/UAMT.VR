@@ -30,10 +30,10 @@ if (_bombType < 3) then {
 	missionNameSpace setVariable ["trappedVehicles",_trappedVehicles,true];
 };
 
-// Add Option for EODs to search for Trap
+// Add Option for EODs to search for IED
 [
 	_vehicle,
-	"check for Boobie Traps",
+	"check for IED",
 	"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_search_ca.paa",
 	"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_search_ca.paa",
 	"_this distance _target < 7 && ([_this] call ace_common_fnc_isEOD)",
@@ -54,7 +54,7 @@ if (_bombType < 3) then {
 			//Add Defuse Action for EODs
 			[
 				_this select 0,
-				"defuse booby trap",
+				"defuse IED",
 				"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_search_ca.paa",
 				"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_search_ca.paa",
 				"_this distance _target < 7 && ([_this] call ace_common_fnc_isEOD)",
