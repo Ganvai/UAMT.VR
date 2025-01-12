@@ -39,27 +39,29 @@ _result = ["You are ordering an insertion via Helicopter. Do you acknowledge?", 
 if (!_result) exitWith {};
 
 closeDialog 0;
+onMapSingleClick "";
 
 missionNameSpace setVariable ["insertionActual","Helo",true];
 
 for "_i" from 0 to ((count _insHeloArray) - 1) do {
 
 	{
-		_pos = getMarkerPos str _x;
-		_markerName = str _x;
-		deleteMarkerLocal str _x;
-		createMarker [_markerName,_pos];
+		_pos = getMarkerPos _x;
+		deleteMarkerLocal _x;
 		
-		if (_forEachIndex == ((count (_insHeloArray select 2)) - 1)) then {
+		if (_forEachIndex == ((count (((_insHeloArray select _i)select 2))) - 1)) then {
 			_markerName = format ["Heli %1 - LZ",(_i + 1)];
+			createMarker [_markerName,_pos];
 			_markerName setMarkerText _markerName;
 			_markerName setMarkerType "hd_end_noShadow";
 		}
 		else {
+			_markerName = _x;
+			createMarker [_markerName,_pos];
 			_markerName setMarkerText _markerName;
 			_markerName setMarkerType "hd_dot_noShadow";
 		};
-	}forEach (_insHeloArray select 2);
+	}forEach ((_insHeloArray select _i) select 2);
 };
 
 
