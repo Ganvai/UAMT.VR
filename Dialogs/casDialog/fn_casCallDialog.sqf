@@ -39,7 +39,7 @@ if (_ammo == 0) exitWith {
 	["Out of Ammo", "Error"] call BIS_fnc_guiMessage;
 };
 
-_resultText = format ["You are calling a CAS Strike on the designated coordinates with %1. Do you confirm?",_runName];
+_resultText = format ["You are calling a CAS Strike on the designated coordinates with %1. Do you acknowledge?",_runName];
 
 _result = false;
 private _result = [_resultText, "Confirm CAS Firemission?", true, true] call BIS_fnc_guiMessage;

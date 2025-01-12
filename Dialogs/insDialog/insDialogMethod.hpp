@@ -1,7 +1,7 @@
-class insertionDialog
+class insDialogMethod
 {
-	idd = 102030;
-	name = "Insertion-Dialog";
+	idd = 99101;
+	name = "Insertion-Dialog Main";
 	
 	movingEnable = false;
 
@@ -118,7 +118,7 @@ class insertionDialog
 			colorText[] = {0.2275,0.902,0.4118,1};
 			font = "PuristaSemiBold";
 			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
-			onLoad = "if (!insEnableGroundV) then {(_this # 0) ctrlsetTextColor [0.3,0.3,0.3,1]; (_this # 0) ctrlsetText 'Ground Vehicles (NA)';};";
+			onLoad = "if (getMissionConfigValue 'insEnableGroundV' == 'false') then {(_this # 0) ctrlsetTextColor [0.3,0.3,0.3,1]; (_this # 0) ctrlsetText 'Ground Vehicles (NA)';};";
 		};
 		class HL_HaLo
 		{
@@ -134,7 +134,7 @@ class insertionDialog
 			colorText[] = {0.2275,0.902,0.4118,1};
 			font = "PuristaSemiBold";
 			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
-			onLoad = "if (!insEnableHALO) then {(_this # 0) ctrlsetTextColor [0.3,0.3,0.3,1]; (_this # 0) ctrlsetText 'HALO (NA)';};";
+			onLoad = "if (getMissionConfigValue 'insEnableHALO' == 'false') then {(_this # 0) ctrlsetTextColor [0.3,0.3,0.3,1]; (_this # 0) ctrlsetText 'HALO (NA)';};";
 		};
 		class HL_Helo
 		{
@@ -151,7 +151,7 @@ class insertionDialog
 			font = "PuristaSemiBold";
 			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
 			default = false;
-			onLoad = "if (!insEnableHeli) then {(_this # 0) ctrlsetTextColor [0.3,0.3,0.3,1]; (_this # 0) ctrlsetText 'Helicopter (NA)';};";
+			onLoad = "if (getMissionConfigValue 'insEnableHeli' == 'false') then {(_this # 0) ctrlsetTextColor [0.3,0.3,0.3,1]; (_this # 0) ctrlsetText 'Helicopter (NA)';};";
 		};
 		
 	};
@@ -252,7 +252,7 @@ class insertionDialog
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
 			soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush",0.09,1.0};
 			action = execVM "scripts\UAMTScripts\insertion\carsSetUp.sqf";
-			onLoad = "if (!insEnableGroundV) then {(_this # 0) ctrlEnable false;};";
+			onLoad = "if (getMissionConfigValue 'insEnableGroundV' == 'false') then {(_this # 0) ctrlEnable false;};";
 		};
 		class BtnHelicopter
 		{
@@ -283,8 +283,8 @@ class insertionDialog
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
 			soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush",0.09,1.0};
-			action = execVM "scripts\UAMTScripts\insertion\heloSetUp.sqf";
-			onLoad = "if (!insEnableHeli) then {(_this # 0) ctrlEnable false;};";
+			action = "closeDialog 0; [] call UAMTins_fnc_insDialogCreateHelo;";
+			onLoad = "if (getMissionConfigValue 'insEnableHeli' == 'false') then {(_this # 0) ctrlEnable false;};";
 		};
 		class BtnHaLo
 		{
@@ -315,8 +315,8 @@ class insertionDialog
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
 			soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush",0.09,1.0};
-			action = execVM "scripts\UAMTScripts\insertion\HALOSetUp.sqf";
-			onLoad = "if (!insEnableHALO) then {(_this # 0) ctrlEnable false;};";
+			action = "closeDialog 0; [] call UAMTins_fnc_insDialogCreateHALO;";
+			onLoad = "if (getMissionConfigValue 'insEnableHALO' == 'false') then {(_this # 0) ctrlEnable false;};";
 		};
 		
 		class TextHALO
@@ -329,7 +329,7 @@ class insertionDialog
 			h = safeZoneH * 0.296875;
 			style = 16;
 			lineSpacing = 0.8;
-			text = "High Altitude Low Opening - Parachute Jump from Aircraft. A slow but relatively silent approach with low visibility in low light conditions. While it is the most silent option, it is very dangerous and needs more coordination of your group.";
+			text = "High Altitude Low Opening - Parachute jump from aircraft in a height of 6000 to 7000 meters above ground. A slow but relatively silent approach with low visibility in low light conditions. While it is the most silent option, it is very dangerous and needs more coordination of your group.";
 			colorBackground[] = {0.102,0.102,0.102,1};
 			colorText[] = {0.902,0.7725,0.9961,1};
 			font = "PuristaMedium";
@@ -346,7 +346,7 @@ class insertionDialog
 			h = safeZoneH * 0.296875;
 			style = 16;
 			lineSpacing = 0.8;
-			text = "Insertion with helicopters. Loud but fast. You can set an individual landing zones for each helicopter to attack from multiple sides. Helicopters are easy targets. It is advised to land on the Y and patrol into the AO instead of landing on the X.";
+			text = "Insertion with helicopters. Loud but fast. You can set individual flight paths and landing zones for each helicopter to attack from multiple sides. Helicopters are easy targets and might be spotted by the enemy. It is advised to land on the Y and patrol into the AO instead of landing on the X.";
 			colorBackground[] = {0.102,0.102,0.102,1};
 			colorText[] = {0.902,0.7725,0.9961,1};
 			font = "PuristaMedium";

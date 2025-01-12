@@ -23,13 +23,12 @@
 //------------------------------------------------------------------
 
 if (getMissionConfigValue "missionstartedfeat" == "true") then {
-	missionstarted = false;
+	missionNameSpace setVariable ["missionStarted",false,true];
 }
 else {
-	missionstarted = true;
+	missionNameSpace setVariable ["missionStarted",true,true];
 };
 
-publicVariable "missionstarted";
 
 //------------------------------------------------------------------
 //						Loadouts
@@ -47,123 +46,18 @@ if (getMissionConfigValue "supplyPointFeature" == "true") then {
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 if (getMissionConfigValue "insFeature" == "true") then {
-	insFeature = true;
-	publicVariable "insFeature";
-	
-	if (getMissionConfigValue "insEnableHALO" == "true") then {
-		insEnableHALO = true;
-	}
-	else {
-		insEnableHALO = false;
-	};
-	publicVariable "insEnableHALO";
-
-	if (getMissionConfigValue "insEnableHeli" == "true") then {
-		insEnableHeli = true;
-	}
-	else {
-		insEnableHeli = false;
-	};
-	publicVariable "insEnableHeli";
-
-	if (getMissionConfigValue "insEnableGroundV" == "true") then {
-		insEnableGroundV = true;
-	}
-	else {
-		insEnableGroundV = false;
-	};
-	publicVariable "insEnableGroundV";
-	
-
-	if (getMissionConfigValue "insIntro" == "true") then {
-		insIntro = true;
-	}
-	else {
-		insIntro = false;
-	};
-	publicVariable "insIntro";
-
-	if (getMissionConfigValue "insPrepareTasks" == "true") then {
-		insPrepareTasks = true;
-	}
-	else {
-		insPrepareTasks = false;
-	};
-	publicVariable "insPrepareTasks";
-	
-	if (getMissionConfigValue "insCustomAudio" == "true") then {
-		insCustomAudio = true;
-	}
-	else {
-		insCustomAudio = false;
-	};
-	publicVariable "insCustomAudio";
-
-	if (getMissionConfigValue "insNoBoC" == "true") then {
-		insNoBoC = true;
-	}
-	else {
-		insNoBoC = false;
-	};
-	publicVariable "insNoBoC";
-	
-	_TempinsMethodObj = getMissionConfigValue "insMethodObj";
-	insMethodObj = missionNamespace getVariable [_TempinsMethodObj, objNull];
-	publicVariable "insMethodObj";
-	
-	_TempinsHALOVeh = getMissionConfigValue "insHALOVeh";
-	insHALOVeh = missionNamespace getVariable [_TempinsHALOVeh, objNull];
-	publicVariable "insHALOVeh";
-
-	insHALODoors = getMissionConfigValue "insHALODoors";
-	publicVariable "insHALODoors";
-	
-	_TempinsHeloVeh = getMissionConfigValue "insHeloVeh";
-	insHeloVeh = [];
-	{
-		_obj = missionNamespace getVariable [_x, objNull];		
-		insHeloVeh pushback _obj;
-	} forEach _TempinsHeloVeh;
-	publicVariable "insHeloVeh";
-
-	_TempinsCarVeh = getMissionConfigValue "insCarVeh";
-	insCarVeh = [];
-	{		
-		_obj = missionNamespace getVariable [_x, objNull];
-		insCarVeh pushback _obj;
-	} forEach _TempinsCarVeh;
-	publicVariable "insCarVeh";	
-
-	insHeloDoors = getMissionConfigValue "insHeloDoors";
-	publicVariable "insHeloDoors";
-	
-	insHeloLandinPosArr = [];
-	publicVariable "insHeloLandinPosArr";
-	
-	insHeloLandinApprArr = [];
-	publicVariable "insHeloLandinApprArr";
-	
-	insControl = 0;
-	publicVariable "insControl";	
-
-	insertionCancel = false;
-	publicVariable "insertionCancel";
-
-	insHaloExecute = false;
-	publicVariable "insHaloExecute";
 	
 	[ 
-		insMethodObj, 
+		missionNameSpace getVariable [(getMissionConfigValue "insMethodObj"),objNull], 
 		"select Insertion", 
 		"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_takeOff1_ca.paa", 
 		"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_takeOff1_ca.paa", 
-		"_this distance _target < 3 && !missionstarted && insControl == 0", 
-		"_caller distance _target < 3 && !missionstarted && insControl == 0", 
+		"_this distance _target < 3 && !missionstarted", 
+		"_caller distance _target < 3 && !missionstarted", 
 		{}, 
 		{}, 
 		{  
-			_insertionDialog = createDialog "insertionDialog";
-			insMethodObj say3D "msg_insertion";
+			[] call UAMTins_fnc_insDialogCallDialog;
 		}, 
 		{}, 
 		[], 
@@ -171,67 +65,34 @@ if (getMissionConfigValue "insFeature" == "true") then {
 		0, 
 		false, 
 		false 
-	] remoteExec ["BIS_fnc_holdActionAdd", 0, insMethodObj];
+	] remoteExec ["BIS_fnc_holdActionAdd", 0, missionNameSpace getVariable [(getMissionConfigValue "insMethodObj"),objNull]];
 
-	[ 
-		insMethodObj, 
-		"cancel Insertion", 
-		"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_takeOff1_ca.paa", 
-		"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_takeOff1_ca.paa", 
-		"_this distance _target < 3 && !missionstarted && insControl == 2", 
-		"_caller distance _target < 3 && !missionstarted && insControl == 2", 
-		{}, 
-		{}, 
-		{  
-			execVM "scripts\UAMTScripts\insertion\insCancel.sqf";
-		}, 
-		{}, 
-		[], 
-		1, 
-		0, 
-		false, 
-		false 
-	] remoteExec ["BIS_fnc_holdActionAdd", 0, insMethodObj];
-
-	if (getMissionConfigValue "insTimeFeat" == "true") then {
-		_TempinsTimeObj = getMissionConfigValue "insTimeObj";
-		insTimeObj = missionNamespace getVariable [_TempinsTimeObj, objNull];
-		publicVariable "insTimeObj";
-
-		[ 
-			insTimeObj, 
-			"select Time", 
-			"\a3\ui_f_orange\Data\CfgOrange\Missions\action_fragment_back_ca.paa", 
-			"\a3\ui_f_orange\Data\CfgOrange\Missions\action_fragment_back_ca.paa", 
-			"_this distance _target < 3 && !missionstarted", 
-			"_caller distance _target < 3 && !missionstarted", 
-			{}, 
-			{}, 
-			{  
-				_timeDialog = createDialog "timeDialog";
-				insTimeObj say3D "msg_time";
-			}, 
-			{}, 
-			[], 
-			1, 
-			0, 
-			false, 
-			false 
-		] remoteExec ["BIS_fnc_holdActionAdd", 0, insTimeObj];
-	};
 	
 	{
-		_x lock true;
-		[_x,0]remoteExec ["setFuel"];
-	}forEach insHeloVeh;
+		_vehicle = missionNameSpace getVariable [_x,objNull];
+		_vehicle lock true;
+		[_vehicle,0]remoteExec ["setFuel"];
+		
+		{
+			_x disableAI "AUTOTARGET";
+			_x disableAI "TARGET";
+			_x disableAI "WEAPONAIM";
+			_x disableAI "AUTOCOMBAT";
+			_x disableAI "SUPPRESSION";
+			_x disableAI "COVER";
+		}forEach (crew _vehicle);
+		
+	}forEach getMissionConfigValue "insHeloVeh";
 
 	{
-		_x lock true;
-		[_x,0]remoteExec ["setFuel"];
-	}forEach insCarVeh;
+		_vehicle = missionNameSpace getVariable [_x,objNull];
+		_vehicle lock true;
+		[_vehicle,0]remoteExec ["setFuel"];
+	}forEach getMissionConfigValue "insCarVeh";
 
-	insHALOVeh lock true;
-	[insHALOVeh,0]remoteExec ["setFuel"];
+	_HALOveh = missionNameSpace getVariable ["insHALOVeh",objNull];
+	_HALOveh lock true;
+	[_HALOveh,0]remoteExec ["setFuel"];
 
 	//------------------------------------------------------------------
 	//------------------------------------------------------------------
@@ -240,9 +101,9 @@ if (getMissionConfigValue "insFeature" == "true") then {
 	//
 	//------------------------------------------------------------------
 	//------------------------------------------------------------------
-	if (insPrepareTasks) then {
+	if (getMissionConfigValue "insPrepareTasks" == "true") then {
 		private _title = "Prepare for your Mission";
-		private _description = "You are a Special Operations Team. That means you can decide about how you want to conduct the Mission. This means, you have to prepare the right way for the mission.<br/><br/>Decide which Roles you need for this Mission in your team, choose an insertion and a time of day when you want to execute the mission.";
+		private _description = "Decide how you want to conduct the Mission. This means, you have to prepare the right way for the mission.<br/><br/>Decide which Roles you need for this Mission in your team, choose an insertion and a time of day when you want to execute the mission.";
 		private _waypoint = "";
 
 		[true, "taskInsPrep", [_description, _title, _waypoint], objNull, true] call BIS_fnc_taskCreate;
@@ -259,22 +120,18 @@ if (getMissionConfigValue "insFeature" == "true") then {
 		private _description = "How do you want to get into the Mission AO. Go to the Flight Control and choose from three Options<br/><br/>1. HALO-Jump<br/>2. Helicopter Insertion<br/>3. Insertion by Cars<br/><br/>The Mission will start when all Team-Members are in the Vehicles.";
 		private _waypoint = "";
 
-		[true, ["taskInsPrepMethod","taskInsPrep"], [_description, _title, _waypoint], insMethodObj, false] call BIS_fnc_taskCreate;
+		[true, ["taskInsPrepMethod","taskInsPrep"], [_description, _title, _waypoint], missionNameSpace getVariable [(getMissionConfigValue "insMethodObj"),objNull], false] call BIS_fnc_taskCreate;
 		
 		if (getMissionConfigValue "insTimeFeat" == "true") then {
 			private _title = "Choose Operation Time";
 			private _description = "Go to the Time Control and choose the time when you want to conduct the Mission.<br/>While darkness can give advantages over underequiped enemies, it makes the Insertion more dangerous and the enemy can be equiped with IR Equipment too.";
 			private _waypoint = "";
 
-			[true, ["taskInsPrepTime","taskInsPrep"], [_description, _title, _waypoint], insTimeObj, false] call BIS_fnc_taskCreate;
+			[true, ["taskInsPrepTime","taskInsPrep"], [_description, _title, _waypoint], missionNameSpace getVariable [(getMissionConfigValue "insTimeObj"),objNull], false] call BIS_fnc_taskCreate;
 		};
 
 	};
-}
-else {
-	insFeature = false;
 };
-publicVariable "insFeature";
 
 
 //------------------------------------------------------------------

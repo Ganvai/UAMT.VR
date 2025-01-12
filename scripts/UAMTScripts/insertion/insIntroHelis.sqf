@@ -1,11 +1,9 @@
 if (isDedicated) exitWith {};
-
-params ["_line1","_line2","_line3","_titleHeader","_title","_tickerCountry","_tickerLocation"];
-
-_ttline1 = format ["<t color='#ffffff' size='2'>%1</t>",_line1];
-_ttline2 = format ["<t color='#ffffff' size='2'>%1</t>",_line2];
-_ttline3 = format ["<t color='#ffffff' size='2'>%1</t>",_line3];
-_ttline4 = format ["<t color='#ffffff' size='1'>%1<br/>____________________</t><br/><t color='#ffffff' size='5'>%2</t><br/><br/><img image='images\Clan-Logo.paa' shadow='0' size='8'/>",_titleHeader,_title];
+	
+_ttline1 = format ["<t color='#ffffff' size='2'>%1</t>",(getMissionConfigValue "introM")];
+_ttline2 = format ["<t color='#ffffff' size='2'>%1</t>",(getMissionConfigValue "backgroundM")];
+_ttline3 = format ["<t color='#ffffff' size='2'>%1</t>",(getMissionConfigValue "missionM")];
+_ttline4 = format ["<t color='#ffffff' size='1'>%1<br/>____________________</t><br/><t color='#ffffff' size='5'>%2</t><br/><br/><img image='images\Clan-Logo.paa' shadow='0' size='8'/>",(getMissionConfigValue "titleHeader"),(getMissionConfigValue "title")];
 
 //Needed for fadeMusic to work
 ace_hearing_disableVolumeUpdate = true;
@@ -113,7 +111,7 @@ titleText [_ttline4, "PLAIN", 0.6, true, true];
 sleep 6;
 
 //Text Ticker
-[[[_tickerCountry,"size = '0.7' font='PuristaBold'"],["","<br/>"],[_tickerLocation,"size = '0.7'","#aaaaaa"]],safeZoneX / 4, safeZoneH / 2,true,"<t font='PuristaBold'>%1</t>",[],{ false },true] spawn BIS_fnc_typeText2;	
+[[[(getMissionConfigValue "tickerCountry"),"size = '0.7' font='PuristaBold'"],["","<br/>"],[(getMissionConfigValue "tickerLocation"),"size = '0.7'","#aaaaaa"]],safeZoneX / 4, safeZoneH / 2,true,"<t font='PuristaBold'>%1</t>",[],{ false },true] spawn BIS_fnc_typeText2;	
 sleep 8;
 private _t = [daytime, "HH:MM"] call BIS_fnc_timeToString;			// time at missionstart as a string
 [["Time: "+_t],safeZoneX / 4, safeZoneH / 2,true,"<t font='PuristaBold'>%1</t>",[],{ false },true] spawn BIS_fnc_typeText2;

@@ -30,6 +30,12 @@ if (_dropOff isEqualTo [0,0,0]) exitWith {
 	["No Drop-Off Position set", "Error"] call BIS_fnc_guiMessage;
 };
 
+_result = false;
+private _result = ["You are calling a Helicopter Transport? Do you acknowledge?", "Confirm CAS Firemission?", true, true] call BIS_fnc_guiMessage;
+
+if (!_result) exitWith {};
+
+
 missionNameSpace setVariable ["chtCount",(player getVariable "CHT_CallCount"),true];
 
 _heliIndex = _display displayCtrl 9900601 lbValue _lbCurSel;

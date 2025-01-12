@@ -2,7 +2,6 @@
 
 #include "loadoutDialog\LoadoutDialog.hpp" 
 #include "teleportDialog\TeleportDialog.hpp"
-#include "InsertionDialog\InsertionDialog.hpp" 
 #include "timeDialog\timeDialog.hpp"
 #include "doorkeypad\doorkeypad.hpp"
 
@@ -13,3 +12,10 @@
 #include "vlsDialog\vlsDialog.hpp" 
 #include "chtDialog\chtDialog.hpp" 
 #include "sdpDialog\sdpDialog.hpp" 
+
+//Insertion Feature
+#include "insDialog\insDialogMethod.hpp"
+#include "insDialog\insDialogEdit.hpp"
+#include "insDialog\insDialogHelo.hpp"
+#include "insDialog\insDialogHALO.hpp"
+#include "insDialog\insDialogTime.hpp"

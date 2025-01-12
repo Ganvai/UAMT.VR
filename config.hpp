@@ -134,10 +134,13 @@ aceDmgCnfg = 1; 	// Unit Damage Threshhold for ACE Medical
 //------------------------------------------------------------------
 
 //------------------------------------------------------------------
-//					Overall Config
+//					UAMT Message Config
+//
+// All Support features in the UAMT have custom messages as text and
+// with audio messages in english.
 //------------------------------------------------------------------
 supportMessages = true;			// Activate/Deactivate audio messages for all UAMT support functions. Not recommended as important informations for players will be lost.
-supportControlName = "TOC";			//The Name that is shown in Radio Messages from all Support Functions from UAMT. Something like TOC, Oberkommando, CO or whatever you come up with.
+supportControlName = "TOC";		//The Name that is shown in Radio Messages from all Support Functions from UAMT. Something like TOC, Oberkommando, CO or whatever you come up with.
 supportCustomAudio = false;		//Plays Custom Audio messages. If you don't like them, set it to false. It will still send Status Reports,
 									//but just with generic radio chatter sound. And no, there will be no translations to other languages. English was hard enough XD.
 
@@ -197,7 +200,7 @@ insNoBoC = true; 	// Extra function for HALO when you are Playing without the Ba
 
 //Insertion Helo
 insHeloVeh[] = {"insHelo_1","insHelo_2","insHelo_3","insHelo_4"}; // Array of Helicopters for Insertion Feature.
-insHeloDoors[] = {"door_L","door_R"}; // Look at Doors for HALO for extended Description
+insHeloDoors[] = {"door_L","door_R"}; // See doors for HALO for help
 
 //Insertion Cars
 insCarVeh[] = {"insCar_1","insCar_2","insCar_3","insCar_4"}; // Array of Cars for Insertion Feature
