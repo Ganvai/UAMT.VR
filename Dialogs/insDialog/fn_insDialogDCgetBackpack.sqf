@@ -2,6 +2,7 @@ _backpack = player getVariable ["savedBackpack",""];
 
 if (_backpack == "") exitWith {
 	["No Backpack stored.", "Error"] call BIS_fnc_guiMessage;
+	closeDialog 0;
 };
 	
 if (backpack player != _backpack) then {
@@ -14,3 +15,5 @@ if (backpack player != _backpack) then {
 	player setVariable ["savedItems",[""]];
 	player setVariable ["savedBackpack",""];
 };
+
+closeDialog 0;

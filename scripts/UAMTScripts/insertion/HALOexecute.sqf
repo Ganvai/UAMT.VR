@@ -1,6 +1,6 @@
 if (!isServer) exitWith {};
 
-params ["_haloVeh","_haloVehDoors","_dropPos","_dir","_timeToTransit",["_noBoC",""],["_side",west],["_intro","none"],["_pilotTalking","true"],["_uamtAudio","false"]];
+params ["_haloVeh","_haloVehDoors","_dropPos","_dir","_timeToTransit","_haloCrate",["_side",west],["_intro","none"],["_pilotTalking","true"],["_uamtAudio","false"]];
 
 // Setting height for HALO vehicle depending on if its a heli or a plane
 _height = 4000;
@@ -34,37 +34,15 @@ _fakeWP = _haloVeh getPos [10000,getDir _haloVeh];
 	_haloVeh animate [_x,1];
 } forEach _haloVehDoors;
 
-
-// If Backpack on Chest is not in Modpack, this is a nice workaround for it
-_noBoCCrate = objNull;
-_noBoCLight1 = objNull;
-_noBoCLight2 = objNull;
-
-if (_noBoC != "") then {
-	
-	// Spawn the cargo crate
-	_noBoCCrate = createVehicle ["B_supplyCrate_F",[0,0,0]];
-	
-	// Set position of the Cargo crate
-	_noBoCCrate setPos (getMarkerPos _noBoC);
-	
-	// Remove all Items from the crate
-	clearWeaponCargoGlobal _noBoCCrate; 
-	clearItemCargoGlobal _noBoCCrate; 
-	clearMagazineCargoGlobal _noBoCCrate; 
-	clearBackpackCargoGlobal _noBoCCrate;
-
-	_noBoCLight1 = createVehicle ["Land_TentLamp_01_standing_red_F",[0,0,0]];
-	_noBoCLight2 = createVehicle ["Land_TentLamp_01_standing_red_F",[0,0,0]];
-	
-	_noBoCLight1 attachTo [_noBoCCrate,[-1,-1,-0.62]];
-	_noBoCLight2 attachTo [_noBoCCrate,[1,1,-0.62]];
-	_noBoCLight2 setDir 180;
-
-
+_BoC = false;
+if (isClass(configFile >> "cfgPatches" >> "BackpackOnChest")) then {
+	_BoC = true;
+	_haloCrate addBackpackCargoGlobal [(getMissionConfigValue "insHALOParachutes"), getMissionConfigValue ("insHALOParachutesCount")];
+}
+else {
 	// Add the Function to save the current Backpack and get a parachute
 	[  
-		_noBoCCrate,  
+		_haloCrate,  
 		"open HALO Drop Crate",
 		"\a3\missions_f_oldman\data\img\holdactions\holdAction_box_ca.paa",  
 		"\a3\missions_f_oldman\data\img\holdactions\holdAction_box_ca.paa",  
@@ -81,7 +59,7 @@ if (_noBoC != "") then {
 		1000,  
 		false,  
 		false  
-	] remoteExec ["BIS_fnc_holdActionAdd", 0, _noBoCCrate]; 
+	] remoteExec ["BIS_fnc_holdActionAdd", 0, _haloCrate]; 
 };
 
 waitUntil {sleep 1; ({(_x in _haloVeh)} count (call BIS_fnc_listPlayers) == count(call BIS_fnc_listPlayers)) || missionNameSpace getVariable ["insertionCancel",false] };
@@ -91,7 +69,7 @@ waitUntil {sleep 1; ({(_x in _haloVeh)} count (call BIS_fnc_listPlayers) == coun
 	_haloVeh animate [_x,0];
 }forEach _haloVehDoors;
 
-if (missionNameSpace getVariable ["insertionCancel",false]) exitWith {deleteVehicle _noBocCrate;};
+if (missionNameSpace getVariable ["insertionCancel",false]) exitWith {deleteVehicle _haloCrate;};
 
 missionNameSpace setVariable ["insHaloExecute",true,true];
 
@@ -181,12 +159,12 @@ if (_haloVeh isKindOf "plane") then {
 };
 
 // Move _noBoC crate
-if (_noBoC != "") then {
+if (!_BoC) then {
 	deleteVehicle _noBoCLight1;
 	deleteVehicle _noBoCLight2;
 
-	[_dropPos,_noBoCCrate] spawn {
-		params  ["_dropPos","_noBoCCrate"];
+	[_dropPos,_haloCrate] spawn {
+		params  ["_dropPos","_haloCrate"];
 		_centre = _dropPos getPos [(random 400), (random 360)];
 		_drop_point = [];
 		_max_distance = 30;
@@ -197,14 +175,14 @@ if (_noBoC != "") then {
 			_max_distance = _max_distance + 20;
 		};
 
-		_noBoCCrate setPos _drop_point;		
+		_haloCrate setPos _drop_point;		
 
 		for "_i" from 1 to 8 do {
 			 _rndDir = random 360;
 			 _rndDis = random 5;
 			 
 			 _haloCargoLight = createVehicle ["Chemlight_green", [0,0,0], [], 0, "NONE"];
-			 _haloCargoLight setPos (_noBoCCrate getRelPos [_rndDis,_rndDir]); 
+			 _haloCargoLight setPos (_haloCrate getRelPos [_rndDis,_rndDir]); 
 		};
 	};
 };
@@ -247,13 +225,13 @@ if (_pilotTalking == "true") then {
 	};
 };
 
-if (_noBoC != "") then {
-	[_noBoCCrate] spawn {
-		params ["_noBoCCrate"];
+if (!_BoC) then {
+	[_haloCrate] spawn {
+		params ["_haloCrate"];
 		
 		for "_i" from 1 to 15 do {
 			_haloCargoSmoke = createVehicle ["SmokeShellGreen", [0,0,0], [], 0, "NONE"];
-			_haloCargoSmoke attachTo [_noBoCCrate,[0,0,0]];
+			_haloCargoSmoke attachTo [_haloCrate,[0,0,0]];
 			sleep 60;	
 		};
 	};

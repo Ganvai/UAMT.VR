@@ -177,7 +177,7 @@ insTimeFeat = true; // Gives the Players the option to choose time of operation
 insTimeObj = "insTimeLaptop"; // Variable Name of the Object the Time Feature is attached to
 insMethodObj = "insFlightControl"; // Variable Name of the Object the Time Feature is attached to
 				
-//Insertion HAlo
+//Insertion HALO
 insHALOVeh = "halo_1"; // Name of the Halo Vehicle.
 insHALODoors[] = {"Door_rear_source"}; // Array of Doors to animate for start and Halo. Ignores 'wrong' values
 												// Vanilla Chinook Ramp: "Door_rear_source"
@@ -191,11 +191,22 @@ insHALODoors[] = {"Door_rear_source"}; // Array of Doors to animate for start an
 											// To find doors look up the Vehicle in Config Viewer, Scroll down to User Actions and look for actions to close or open the doors. 
 											
 												
-
-insNoBoCMarker = "haloDropCrate"; 	// Extra function for HALO when you are playing without the Backpack on Chest Mod. 
-									// Spawns a Crate where Players have a Hold Action to store their Backpack and get a Parachute.
-									// No extra Parachute in Arsenal or Vehicle needed!
-									// Place an Empty Marker and give the name here.
+//------------------------------------------------------------------
+// 			HALO Parachute Crate
+//
+// Crate that will spawn when choosing HALO Insertion. Makes
+// the HALO insertion compatible with/without BackpackOnChest Mod
+// If no BackpackOnChest is loaded, players will be able to store
+// Their Backpacks in the crate and recieve a parachute in exchange.
+// The Crate will be moved close to the drop position where players can
+// then retrieve their backpacks.
+//
+// If BackpackOnChest is loaded, this crate will simply hold the given 
+// parachutes.
+//------------------------------------------------------------------
+parachuteCrate = "insHaloCrate"; 	// Variable name of the crate you placed for the parachutes.
+insHALOParachutes = "B_Parachute"; // Parachute that will be put in the Box or given out via the no BackpackOnChest function
+insHALOParachutesCount = 30;		// Number of parachutes put in the crate when BackpackOnChest is loaded
 
 //Insertion Helo
 insHeloVeh[] = {"insHelo_1","insHelo_2","insHelo_3","insHelo_4"}; // Array of Helicopters for Insertion Feature.

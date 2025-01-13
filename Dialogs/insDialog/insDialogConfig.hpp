@@ -12,6 +12,7 @@ class insDialog
 		class insDialogHALOClose{};
 		class insDialogHALOControl{};
 		class insDialogHALOInit{};
+		class insDialogHALOHelp{};
 		
 		class insDialogHeloCreate{};
 		class insDialogHeloCall{};
@@ -24,5 +25,6 @@ class insDialog
 		
 		class insDialogDCSaveBackpack{};
 		class insDialogDCgetBackpack{};
+		class insDialogDChelp{};
 	}; 
 };

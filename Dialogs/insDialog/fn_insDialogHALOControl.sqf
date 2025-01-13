@@ -29,14 +29,6 @@ private _waypoint = "";
 
 [true, "task00boardVehicle", [_description, _title, _waypoint], _haloVeh, true] call BIS_fnc_taskCreate;
 
-if (getMissionConfigValue "insNoBoC" == "true") then {
-	private _title = "Parachute at the Drop Crate";
-	private _description = "Your equipment is to heavy to jump with it. Store it in the crate at the heck of the HALO Aircraft and exchange it for a Parachute.<br/><br/>The crate will be dropped in the Drop Zone. There you can retrieve your gear.";
-	private _waypoint = "";
-
-	[true, "haloCargoCrate", [_description, _title, _waypoint], insNoBoCPos, true] call BIS_fnc_taskCreate;
-};
-
 _haloMarker = createMarker ["HALO Aircraft", _haloVeh];
 _haloMarker setMarkerText "HALO Aircraft";
 _haloMarker setMarkerType "hd_pickup_noShadow";
@@ -50,23 +42,24 @@ if (getMissionConfigValue "supportMessages" == "true") then {
 	};
 };
 
-_insNoBoC = getMissionConfigValue "insNoBoCMarker";
+_haloCrate = missionNameSpace getVariable [(getMissionConfigValue "parachuteCrate"),objNull];
+
 if (isClass(configFile >> "cfgPatches" >> "BackpackOnChest")) then {
 	_insNoBoC = "";
 	private _title = "Pack a Parachute";
-	private _description = "You can put your Backpack on your chest, so go to the Arsenal and grab a Parachute.";
+	private _description = "Grab a Parachute from the crate. Put your backpack on chest before!";
 	private _waypoint = "";
 
-	[true, "taskinsParachute", [_description, _title, _waypoint], objNull, true] call BIS_fnc_taskCreate;
+	[true, "taskinsParachute", [_description, _title, _waypoint], _haloCrate, true] call BIS_fnc_taskCreate;
 }else {
 	private _title = "Parachute at the Drop Crate";
-	private _description = "Your equipment is to heavy to jump with it. Store it in the crate at the heck of the HALO Aircraft and exchange it for a Parachute.<br/><br/>The crate will be dropped in the Drop Zone. There you can retrieve your gear.";
+	private _description = "Your equipment is to heavy to jump with it. Store it in the deployed crate and exchange it for a Parachute.<br/><br/>The crate will be dropped in the Drop Zone. There you can retrieve your gear.";
 	private _waypoint = "";
 
-	[true, "taskinsParachute", [_description, _title, _waypoint], insNoBoCPos, true] call BIS_fnc_taskCreate;
+	[true, "taskinsParachute", [_description, _title, _waypoint], _haloCrate, true] call BIS_fnc_taskCreate;
 };
 
-[[_haloVeh,getMissionConfigValue "insHaloDoors",_haloPos,_dir,52,_insNoBoC,_side,"scripts\UAMTScripts\insertion\insIntroHalo.sqf",getMissionConfigValue "supportMessages",getMissionConfigValue "supportCustomAudio"],"scripts\UAMTScripts\insertion\haloexecute.sqf"] remoteExec ["execVM",2];
+[[_haloVeh,getMissionConfigValue "insHaloDoors",_haloPos,_dir,52,_haloCrate,_side,"scripts\UAMTScripts\insertion\insIntroHalo.sqf",getMissionConfigValue "supportMessages",getMissionConfigValue "supportCustomAudio"],"scripts\UAMTScripts\insertion\haloexecute.sqf"] remoteExec ["execVM",2];
 
 waitUntil {sleep 1; {vehicle _x in _haloVeh} count (call BIS_fnc_listPlayers) == count(call BIS_fnc_listPlayers) || missionNameSpace getVariable ["insertionCancel",false]};
 
