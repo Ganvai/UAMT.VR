@@ -50,7 +50,23 @@ if (getMissionConfigValue "supportMessages" == "true") then {
 	};
 };
 
-[[_haloVeh,getMissionConfigValue "insHaloDoors",_haloPos,_dir,52,getMissionConfigValue "insNoBoCMarker",_side,"scripts\UAMTScripts\insertion\insIntroHalo.sqf",getMissionConfigValue "supportMessages",getMissionConfigValue "supportCustomAudio"],"scripts\UAMTScripts\insertion\haloexecute.sqf"] remoteExec ["execVM",2];
+_insNoBoC = getMissionConfigValue "insNoBoCMarker";
+if (isClass(configFile >> "cfgPatches" >> "BackpackOnChest")) then {
+	_insNoBoC = "";
+	private _title = "Pack a Parachute";
+	private _description = "You can put your Backpack on your chest, so go to the Arsenal and grab a Parachute.";
+	private _waypoint = "";
+
+	[true, "taskinsParachute", [_description, _title, _waypoint], objNull, true] call BIS_fnc_taskCreate;
+}else {
+	private _title = "Parachute at the Drop Crate";
+	private _description = "Your equipment is to heavy to jump with it. Store it in the crate at the heck of the HALO Aircraft and exchange it for a Parachute.<br/><br/>The crate will be dropped in the Drop Zone. There you can retrieve your gear.";
+	private _waypoint = "";
+
+	[true, "taskinsParachute", [_description, _title, _waypoint], insNoBoCPos, true] call BIS_fnc_taskCreate;
+};
+
+[[_haloVeh,getMissionConfigValue "insHaloDoors",_haloPos,_dir,52,_insNoBoC,_side,"scripts\UAMTScripts\insertion\insIntroHalo.sqf",getMissionConfigValue "supportMessages",getMissionConfigValue "supportCustomAudio"],"scripts\UAMTScripts\insertion\haloexecute.sqf"] remoteExec ["execVM",2];
 
 waitUntil {sleep 1; {vehicle _x in _haloVeh} count (call BIS_fnc_listPlayers) == count(call BIS_fnc_listPlayers) || missionNameSpace getVariable ["insertionCancel",false]};
 
@@ -88,3 +104,4 @@ missionNameSpace setVariable ["missionStarted",true,true];
 ["taskInsPrepLoadouts", "SUCCEEDED"] call BIS_fnc_taskSetState;
 ["taskInsPrepMethod", "SUCCEEDED"] call BIS_fnc_taskSetState;
 ["taskInsPrepTime", "SUCCEEDED"] call BIS_fnc_taskSetState;
+["taskinsParachute", "SUCCEEDED"] call BIS_fnc_taskSetState;
