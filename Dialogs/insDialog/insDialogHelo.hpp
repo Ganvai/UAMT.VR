@@ -1,7 +1,7 @@
 class insDialogHelo
 {
 	idd = 99104;
-	onLoad = "[_this select 0]execVM 'Dialogs\insDialog\fn_insDialogInitHelo.sqf';";
+	onLoad = "[_this select 0]execVM 'Dialogs\insDialog\fn_insDialogHeloInit.sqf';";
 	
 	class ControlsBackground
 	{
@@ -206,7 +206,7 @@ class insDialogHelo
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
 			soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush",0.09,1.0};
-			action = "[] spawn UAMTins_fnc_insDialogCallHelo;";
+			action = "[] spawn UAMTins_fnc_insDialogHeloCall;";
 		};
 
 		class BtnHelp
@@ -275,7 +275,7 @@ class insDialogHelo
 			default = false;
 			shadow = 0;
 			//action = "call UAMTins_fnc_insDialogCloseHelo;";
-			action = "call UAMTins_fnc_insDialogCloseHelo;";
+			action = "call UAMTins_fnc_insDialogHeloClose;";
 		};
 	};
 };

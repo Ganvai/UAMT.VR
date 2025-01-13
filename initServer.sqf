@@ -68,31 +68,42 @@ if (getMissionConfigValue "insFeature" == "true") then {
 	] remoteExec ["BIS_fnc_holdActionAdd", 0, missionNameSpace getVariable [(getMissionConfigValue "insMethodObj"),objNull]];
 
 	
+	// Prepare all Insertion Helicopters
 	{
 		_vehicle = missionNameSpace getVariable [_x,objNull];
 		_vehicle lock true;
 		[_vehicle,0]remoteExec ["setFuel"];
 		
 		{
-			_x disableAI "AUTOTARGET";
-			_x disableAI "TARGET";
-			_x disableAI "WEAPONAIM";
-			_x disableAI "AUTOCOMBAT";
-			_x disableAI "SUPPRESSION";
-			_x disableAI "COVER";
+			if (!isPlayer _x) then {
+				_x disableAI "AUTOTARGET";
+				_x disableAI "TARGET";
+				_x disableAI "WEAPONAIM";
+				_x disableAI "AUTOCOMBAT";
+				_x disableAI "SUPPRESSION";
+				_x disableAI "COVER";
+			};
 		}forEach (crew _vehicle);
-		
 	}forEach getMissionConfigValue "insHeloVeh";
 
+	// Prepare Insertion Cars
 	{
 		_vehicle = missionNameSpace getVariable [_x,objNull];
 		_vehicle lock true;
 		[_vehicle,0]remoteExec ["setFuel"];
 	}forEach getMissionConfigValue "insCarVeh";
+	
+	// Prepare HALO vehicle
+	_haloVeh = missionNameSpace getVariable ["insHALOVeh",objNull];
+	_haloVeh lock true;
+	{
+		if (!isPlayer _x) then {
+			_x setCaptive true;
+		};
+	}forEach (crew _haloVeh);
 
-	_HALOveh = missionNameSpace getVariable ["insHALOVeh",objNull];
-	_HALOveh lock true;
-	[_HALOveh,0]remoteExec ["setFuel"];
+	_haloVeh allowDamage false;
+	[_haloVeh,0]remoteExec ["setFuel"];
 
 	//------------------------------------------------------------------
 	//------------------------------------------------------------------

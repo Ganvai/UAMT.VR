@@ -33,8 +33,25 @@ if (missionNameSpace getVariable ["insertionCancel",false]) exitWith {
 	} forEach insHeloLZs;
 
 	{
-		_x lock true;
-	}forEach _insHeloVeh;	
+		// save current heli
+		_veh = _x;
+		
+		// move all players out of the vehicle
+		{
+			if (isPlayer _x) then {
+				_x moveOut _veh;
+			};
+		} forEach (crew _x);
+		
+		// close all doors of the heli
+		{
+			_veh animateDoor [_x,0];
+			_veh animate [_x,0];
+		} forEach (getMissionConfigValue "insHeloDoors");
+
+		// lock the heli
+		_veh lock true;
+	}forEach _insHeloVeh;
 	
 	["<t color='#ff0000' size='2' font='RobotoCondensed' shadow = '2' >Helicopter Insertion was cancelled!</t>", "PLAIN", 0.6, true, true]remoteExec ["titletext"];
 };

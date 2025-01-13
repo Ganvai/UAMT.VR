@@ -183,6 +183,7 @@ insHALODoors[] = {"Door_rear_source"}; // Array of Doors to animate for start an
 												// Vanilla Chinook Ramp: "Door_rear_source"
 												// Vanilla Ghost Hawk / Mi-48: "door_L","door_R"
 												// Vanilla Merlin : "door_back_R","door_back_L","CargoRamp_Open"
+												// Vanilla Blackfish: "Door_1_source"
 												// CUP CH-53, C-130, Osprey: "ramp_bottom","ramp_top"
 												// CUP Chinook HC-6: "Ani_Hatch1","Ani_Hatch2"
 												// CUP Merlin: "dvere_l","dvere_p","rampa"
@@ -191,12 +192,10 @@ insHALODoors[] = {"Door_rear_source"}; // Array of Doors to animate for start an
 											
 												
 
-insNoBoC = true; 	// Extra function for HALO when you are Playing without the Backpack on Chest Mod. 
-					// Spawns a Crate where Players have a Hold Action to store their Backpack and get a Parachute.
-					// No extra Parachute in Arsenal or Vehicle needed!
-					// It needs a Helipad called insNoBoCPos (see Template Mission for reference).
-					// When the Halo Aircraft starts, it will move the Crate to the Drop Zone 
-					// where Players can retrieve their gear.
+insNoBoCMarker = "haloDropCrate"; 	// Extra function for HALO when you are playing without the Backpack on Chest Mod. 
+									// Spawns a Crate where Players have a Hold Action to store their Backpack and get a Parachute.
+									// No extra Parachute in Arsenal or Vehicle needed!
+									// Place an Empty Marker and give the name here.
 
 //Insertion Helo
 insHeloVeh[] = {"insHelo_1","insHelo_2","insHelo_3","insHelo_4"}; // Array of Helicopters for Insertion Feature.

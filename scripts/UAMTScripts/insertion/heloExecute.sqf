@@ -9,14 +9,16 @@ _insHeloVeh = [];
 }forEach _insHeloArray;
 
 {
+	_heli = _x;
 	// Unlock Helos
-	_x lock false;
+	_heli lock false;
 	
-	_helo = _x;
+	_helo = _heli;
 	{
-		_helo animateDoor [_x,1];
-		_helo animate [_x,1];
+		_helo animateDoor [_heli,1];
+		_helo animate [_heli,1];
 	} forEach (getMissionConfigValue "insHeloDoors");
+	
 } forEach _insHeloVeh;
 
 waitUntil {sleep 1; {vehicle _x in _insHeloVeh} count (call BIS_fnc_listPlayers) == count(call BIS_fnc_listPlayers) || missionNameSpace getVariable ["insertionCancel",false]};

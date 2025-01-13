@@ -1,202 +1,277 @@
 if (!isServer) exitWith {};
 
-params [["_side",west]];
+params ["_haloVeh","_haloVehDoors","_dropPos","_dir","_timeToTransit",["_noBoC",""],["_side",west],["_intro","none"],["_pilotTalking","true"],["_uamtAudio","false"]];
 
-insControl = 2;
-publicVariable "insControl";
-
-insHALOVeh lock false;
-
-_grpHalo = group insHALOVeh;
-
-_grpHalo setBehaviour "CARELESS";
-
-_customAudio = insCustomAudio;
-
-private _title = "Board HALO Aircraft";
-private _description = "Board the Aircraft for HALO Jump to start the Mission.";
-private _waypoint = "";
-
-[true, "task00boardVehicle", [_description, _title, _waypoint], insHALOVeh, true] call BIS_fnc_taskCreate;
-
-if (insNoBoC) then {
-	execVM "scripts\UAMTScripts\insertion\insNoBoC.sqf";
-	
-	sleep 2;
-	
-	private _title = "Parachute at the Drop Crate";
-	private _description = "Your equipment is to heavy to jump with it. Store it in the crate at the heck of the HALO Aircraft and exchange it for a Parachute.<br/><br/>The crate will be dropped in the Drop Zone. There you can retrieve your gear.";
-	private _waypoint = "";
-
-	[true, "haloCargoCrate", [_description, _title, _waypoint], insNoBoCPos, true] call BIS_fnc_taskCreate;
+// Setting height for HALO vehicle depending on if its a heli or a plane
+_height = 4000;
+_distance = 7000;
+if (_haloVeh isKindOf "plane") then {
+	_height = 7000;
+	_distance = 12000;
 };
 
-
-_haloMarker = createMarker ["HALO Aircraft", insHALOVeh];
-_haloMarker setMarkerType "hd_pickup_noShadow";
-
-{
-	insHALOVeh animateDoor [_x,1];
-	insHALOVeh animate [_x,1];
-} forEach insHALODoors;
-
-if (_customAudio) then {
-	["HALO Aircraft is ready and waiting for you. Get your parachutes and board the Aircraft.","Pilot","msg_HALOReady",side _grpHalo] remoteExec ["UAMT_fnc_quickMsg"];
-}
-else {
-	["HALO Aircraft is ready and waiting for you. Get your parachutes and board the Aircraft.","Pilot","Radio",side _grpHalo] remoteExec ["UAMT_fnc_quickMsg"];
-};
-
-waitUntil {sleep 1; ({(_x in insHALOVeh)} count (call BIS_fnc_listPlayers) == count(call BIS_fnc_listPlayers)) || insertionCancel };
-
-deleteMarker _haloMarker;
-
-{
-	insHALOVeh animateDoor [_x,0];
-	insHALOVeh animate [_x,0];
-}forEach insHALODoors;
-
-if (insertionCancel) exitWith {
-	["task00boardVehicle",true,true] call BIS_fnc_deleteTask;
-	["haloCargoCrate",true,true] call BIS_fnc_deleteTask;
-	
-	insertionCancel = false;
-	publicVariable "insertionCancel";
-	
-	insControl = 0;
-	publicVariable "insControl";
-	
-	insHALOVeh lock true;
-	
-	deleteMarker "Halo Drop Position";
-	deleteMarker "Halo Approach Vector";
-	["<t color='#ff0000' size='2' font='RobotoCondensed' shadow = '2' >HALO Insertion was cancelled!</t>", "PLAIN", 0.6, true, true]remoteExec ["titletext"];
-};
-
-missionstarted = true;
-publicVariable "missionstarted";
-
-insHaloExecute = true;
-publicVariable "insHaloExecute";
-
-["task00boardVehicle", "SUCCEEDED"] call BIS_fnc_taskSetState;
-["taskInsPrep", "SUCCEEDED"] call BIS_fnc_taskSetState;
-["taskInsPrepLoadouts", "SUCCEEDED"] call BIS_fnc_taskSetState;
-["taskInsPrepMethod", "SUCCEEDED"] call BIS_fnc_taskSetState;
-["taskInsPrepTime", "SUCCEEDED"] call BIS_fnc_taskSetState;
-
-if (_customAudio) then {
-	["All personal aboard. Starting Engines. Prepare for lift off.","Pilot","msg_HALOStart",side _grpHalo] remoteExec ["UAMT_fnc_quickMsg"];
-}
-else {
-	["All personal aboard. Starting Engines. Prepare for lift off","Pilot","Radio",side _grpHalo] remoteExec ["UAMT_fnc_quickMsg"];
-};
-
-// Setting up Variables
-_HALOVeh = insHALOVeh;
-_grpHalo = group _HALOVeh;
-_approachPos = getMarkerPos "Halo Approach Vector";
-_dropPos = getMarkerPos "Halo Drop Position";
-_dir = _approachPos getDir _dropPos;
+// Preparing all values needed later
+_grpHalo = group _haloVeh;
+_approachPos = _dropPos getPos [_distance, (_dir + 180)];
+_approachPos set [2,_height];
 _despawnPos = _dropPos getpos [5000, _dir];
-_wpRadius = 100;
+_wpRadius = 300;
+{
+	if (!isPlayer _x) then {
+		_x setCaptive true;
+	};
+}forEach (crew _haloVeh);
 
-//Adding Flightroute
-if (_HALOVeh isKindOf "plane") then {
-	_wp1Dir = getDir _HALOVeh;
-	_startingPos = _HALOVeh getPos [8000,_wp1Dir];
-	_wpRadius = 400;
-	_grpHalo addWaypoint [_startingPos,_wpRadius];
-	_wp2Dir = _approachPos getDir _dropPos;
-	_wp2Dir = _wp2Dir + 180;
-	_addApproachPos = _HALOVeh getPos [2000,_wp2Dir];
-	_grpHalo addWaypoint [_addApproachPos,_wpRadius];
-	[_grpHalo, 1] setWaypointSpeed "LIMITED";
+_haloVeh allowDamage false;
+
+// Setting the Fake Waypoint to which the Vehicle will fly. 
+// Use this for cutscenes.
+_fakeWP = _haloVeh getPos [10000,getDir _haloVeh];
+
+// Opening the Doors of the HALO vehicle
+{
+	_haloVeh animateDoor [_x,1];
+	_haloVeh animate [_x,1];
+} forEach _haloVehDoors;
+
+
+// If Backpack on Chest is not in Modpack, this is a nice workaround for it
+_noBoCCrate = objNull;
+_noBoCLight1 = objNull;
+_noBoCLight2 = objNull;
+
+if (_noBoC != "") then {
+	
+	// Spawn the cargo crate
+	_noBoCCrate = createVehicle ["B_supplyCrate_F",[0,0,0]];
+	
+	// Set position of the Cargo crate
+	_noBoCCrate setPos (getMarkerPos _noBoC);
+	
+	// Remove all Items from the crate
+	clearWeaponCargoGlobal _noBoCCrate; 
+	clearItemCargoGlobal _noBoCCrate; 
+	clearMagazineCargoGlobal _noBoCCrate; 
+	clearBackpackCargoGlobal _noBoCCrate;
+
+	_noBoCLight1 = createVehicle ["Land_TentLamp_01_standing_red_F",[0,0,0]];
+	_noBoCLight2 = createVehicle ["Land_TentLamp_01_standing_red_F",[0,0,0]];
+	
+	_noBoCLight1 attachTo [_noBoCCrate,[-1,-1,-0.62]];
+	_noBoCLight2 attachTo [_noBoCCrate,[1,1,-0.62]];
+	_noBoCLight2 setDir 180;
+
+
+	// Add the Function to save the current Backpack and get a parachute
+	[  
+		_noBoCCrate,  
+		"open HALO Drop Crate",
+		"\a3\missions_f_oldman\data\img\holdactions\holdAction_box_ca.paa",  
+		"\a3\missions_f_oldman\data\img\holdactions\holdAction_box_ca.paa",  
+		"_this distance _target < 4",  
+		"_caller distance _target < 4",  
+		{},  
+		{},  
+		{
+			createDialog "insDialogCrate";
+		},
+		{},  
+		[],  
+		1,  
+		1000,  
+		false,  
+		false  
+	] remoteExec ["BIS_fnc_holdActionAdd", 0, _noBoCCrate]; 
 };
 
-_grpHalo addWaypoint [_approachPos,_wpRadius];
-_grpHalo addWaypoint [_dropPos,_wpRadius];
-_grpHalo addWaypoint [_despawnPos,_wpRadius];
+waitUntil {sleep 1; ({(_x in _haloVeh)} count (call BIS_fnc_listPlayers) == count(call BIS_fnc_listPlayers)) || missionNameSpace getVariable ["insertionCancel",false] };
 
-_HALOVeh flyInHeight 3000;
+{
+	_haloVeh animateDoor [_x,0];
+	_haloVeh animate [_x,0];
+}forEach _haloVehDoors;
 
-[_HALOVeh,1] remoteExec ["setFuel"];
+if (missionNameSpace getVariable ["insertionCancel",false]) exitWith {deleteVehicle _noBocCrate;};
 
-[_customAudio, _HALOVeh,_side] execVM "scripts\UAMTScripts\insertion\HALOflightattendant.sqf";
+missionNameSpace setVariable ["insHaloExecute",true,true];
 
-if (insIntro) then {
-	_target = insHALOVeh;
-	_line1 = getMissionConfigValue "introM";
-	_line2 = getMissionConfigValue "backgroundM";
-	_line3 = getMissionConfigValue "missionM";
-	_titleHeader = getMissionConfigValue "titleHeader";
-	_title = getMissionConfigValue "title";
-	_tickerCountry = getMissionConfigValue "tickerCountry";
-	_tickerLocation = getMissionConfigValue "tickerLocation";
-
-	[[_line1, _line2, _line3, _titleHeader, _title, _tickerCountry, _tickerLocation],"scripts\UAMTScripts\insertion\insIntroHalo.sqf"] remoteExec ["execVM",[0, -2] select isDedicated];	
-};
-
-WaitUntil {sleep 0.1; (ASLToAGL eyePos driver _HALOVeh) select 2  > 2900};
-
-
-WaitUntil {sleep 0.2; (_approachPos distance2D _HALOVeh < _wpRadius);};
-
-
-if (_customAudio) then {
-	["Setting course to Drop Zone. We will open the ramp one klick away. You coordinate your jump.","Pilot","msg_HALODropZone",side _grpHalo] remoteExec ["UAMT_fnc_quickMsg"];
-}
-else {
-	["Setting course to Drop Zone. We will open the ramp one klick away. You coordinate your jump.","Pilot","Radio",side _grpHalo] remoteExec ["UAMT_fnc_quickMsg"];
-};
-
-WaitUntil {sleep 0.1; (_dropPos distance2D _HALOVeh < 1500)};
-
-if (_HALOVeh isKindOf "plane") then {
-	if (_customAudio) then {
-		["One Klick to the Drop Zone. Opening the Ramp... get ready to jump! (Double-Tab V).","Pilot","msg_HALOOpening",side _grpHalo] remoteExec ["UAMT_fnc_quickMsg"];
+if (_pilotTalking == "true") then {
+	if (_uamtAudio == "true") then {
+		["All personal aboard. Starting Engines. Prepare for lift off.","Pilot","msg_HALOStart",side _grpHalo] remoteExec ["UAMT_fnc_quickMsg"];
 	}
 	else {
-		["One Klick to the Drop Zone. Opening the Ramp... get ready to jump! (Double-Tab V).","Pilot","Radio",side _grpHalo] remoteExec ["UAMT_fnc_quickMsg"];
+		["All personal aboard. Starting Engines. Prepare for lift off","Pilot","Radio",side _grpHalo] remoteExec ["UAMT_fnc_quickMsg"];
+	};
+};
+
+[_haloVeh,1] remoteExec ["setFuel"];
+
+_haloVeh engineOn true;
+
+_wp = _grpHalo addWaypoint [_fakeWP , -1];
+_wp setWaypointType "MOVE";
+_wp setWaypointBehaviour "careless";
+
+//  Start the Intro if one given
+if (_intro != "none" && _intro != "") then {
+	"scripts\UAMTScripts\insertion\insIntroHalo.sqf" remoteExec ["execVM",[0, -2] select isDedicated];	
+};
+
+// Sleep until the Intro is over
+sleep _timeToTransit;
+
+if (_pilotTalking == "true") then {
+	if (_uamtAudio == "true") then {
+		["Okay, listen up. We will now start our climb to the jump height of 3000 meters. This will be a rapid pressure change, so be ready to pop your ears.","Pilot","msg_HALOClimbStart",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+	}
+	else {
+		["Okay, listen up. We will now start our climb to the jump height of 3000 meters. This will be a rapid pressure change, so be ready to pop your ears.","Pilot","Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+	};
+};
+
+// Sleep to wait until Pilot is done talking
+sleep  4;
+
+// Black Fade transition to mask timejump and move to approach position
+"scripts\UAMTScripts\insertion\insTimeJump.sqf" remoteExec ["execVM"];
+
+// Wait until Player Screens are black
+sleep 3;
+
+// Skip the time
+[30 / 60] call BIS_fnc_setDate;
+
+[_grpHalo] call CBA_fnc_clearWaypoints;
+
+//  Prepare the Pilot Agent
+_driverClass = typeOf (driver _haloVeh);
+_Pilot = CreateAgent [_driverClass, [0,0,0], [], 0, "NONE"];
+
+// Delete the actual Pilot and place the Agent
+deleteVehicle driver _haloVeh;
+_Pilot MoveInDriver _haloVeh;
+
+// AI fuckery for Pilot Agent
+_Pilot setRank "SERGEANT";
+_Pilot SetBehaviour "CARELESS";
+_Pilot setCombatMode "BLUE";
+_Pilot setSpeedMode "FULL";
+_Pilot disableAI "FSM";
+
+// Move the Vehicle to the approach Position
+_haloVeh setPos _approachPos;
+_haloVeh setDir _dir;
+
+// Giving the Pilot the Waypoint for the Drop Pos
+_Pilot MoveTo _dropPos;
+
+//Setting the Flight Height for the Vehicle
+_haloVeh flyInHeight _height;
+
+// Giving Planes a much higher speed. Is needed to avoid crashes
+if (_haloVeh isKindOf "plane") then {
+	private _vel = velocity _haloVeh;
+	private _dir = direction _haloVeh;
+	private _speed = 200; 
+	_haloVeh setVelocity [
+		(_vel select 0) + (sin _dir * _speed), 
+		(_vel select 1) + (cos _dir * _speed), 
+		0
+	];
+};
+
+// Move _noBoC crate
+if (_noBoC != "") then {
+	deleteVehicle _noBoCLight1;
+	deleteVehicle _noBoCLight2;
+
+	[_dropPos,_noBoCCrate] spawn {
+		params  ["_dropPos","_noBoCCrate"];
+		_centre = _dropPos getPos [(random 400), (random 360)];
+		_drop_point = [];
+		_max_distance = 30;
+		
+		while { count _drop_point < 1 } do
+		{
+			_drop_point = _centre findEmptyPosition [20, _max_distance, "B_supplyCrate_F"];
+			_max_distance = _max_distance + 20;
+		};
+
+		_noBoCCrate setPos _drop_point;		
+
+		for "_i" from 1 to 8 do {
+			 _rndDir = random 360;
+			 _rndDis = random 5;
+			 
+			 _haloCargoLight = createVehicle ["Chemlight_green", [0,0,0], [], 0, "NONE"];
+			 _haloCargoLight setPos (_noBoCCrate getRelPos [_rndDis,_rndDir]); 
+		};
+	};
+};
+
+sleep 10;
+
+if (_pilotTalking == "true") then {
+	if (_uamtAudio == "true") then {
+		["Setting course to Drop Zone. We will open the ramp one klick away. You coordinate your jump.","Pilot","msg_HALODropZone",_side] remoteExec ["UAMT_fnc_quickMsg"];
+	}
+	else {
+		["Setting course to Drop Zone. We will open the ramp one klick away. You coordinate your jump.","Pilot","Radio",_side] remoteExec ["UAMT_fnc_quickMsg"];
+	};
+};
+
+WaitUntil {sleep 0.1; (_dropPos distance2D _haloVeh < 1300)};
+
+if (_pilotTalking == "true") then {
+	if (_uamtAudio == "true") then {
+		["One Klick to the Drop Zone. Opening the Ramp... get ready to jump! (Double-Tab V).","Pilot","msg_HALOOpening",_side] remoteExec ["UAMT_fnc_quickMsg"];
+	}
+	else {
+		["One Klick to the Drop Zone. Opening the Ramp... get ready to jump! (Double-Tab V).","Pilot","Radio",_side] remoteExec ["UAMT_fnc_quickMsg"];
 	};
 };
 
 {
-	_HALOVeh animateDoor [_x,1];
-	_HALOVeh animate [_x,1];
-}forEach insHALODoors;
+	_haloVeh animateDoor [_x,1];
+	_haloVeh animate [_x,1];
+}forEach _haloVehDoors;
 
-WaitUntil {sleep 0.1; (_dropPos distance2D _HALOVeh < 1000)};
+WaitUntil {sleep 0.1; (_dropPos distance2D _haloVeh < 800)};
 
-if (_HALOVeh isKindOf "plane") then {
-	if (_customAudio) then {
-		["Let's go, gentlemen!","Pilot","letsGo",side _grpHalo] remoteExec ["UAMT_fnc_quickMsg"];
+if (_pilotTalking == "true") then {
+	if (_uamtAudio == "true") then {
+		["Let's go, gentlemen!","Pilot","letsGo",_side] remoteExec ["UAMT_fnc_quickMsg"];
 	}
 	else {
-		["Let's go, gentlemen!","Pilot","Radio",side _grpHalo] remoteExec ["UAMT_fnc_quickMsg"];
-	};
-}
-else {
-	if (_customAudio) then {
-		["One Klick to the Drop Zone. Opening the Ramp... get ready to jump! (Double-Tab V).","Pilot","msg_HALOOpening",side _grpHalo] remoteExec ["UAMT_fnc_quickMsg"];
-	}
-	else {
-		["One Klick to the Drop Zone. Opening the Ramp... get ready to jump! (Double-Tab V).","Pilot","Radio",side _grpHalo] remoteExec ["UAMT_fnc_quickMsg"];
+		["Let's go, gentlemen!","Pilot","Radio",_side] remoteExec ["UAMT_fnc_quickMsg"];
 	};
 };
 
-WaitUntil {sleep 0.1; (_dropPos distance2D _HALOVeh < 500)};
-
-if !(_HALOVeh isKindOf "plane") then {
-	if (_customAudio) then {
-		["Let's go, gentlemen!","Pilot","letsGo",side _grpHalo] remoteExec ["UAMT_fnc_quickMsg"];
-	}
-	else {
-		["Let's go, gentlemen!","Pilot","Radio",side _grpHalo] remoteExec ["UAMT_fnc_quickMsg"];
+if (_noBoC != "") then {
+	[_noBoCCrate] spawn {
+		params ["_noBoCCrate"];
+		
+		for "_i" from 1 to 15 do {
+			_haloCargoSmoke = createVehicle ["SmokeShellGreen", [0,0,0], [], 0, "NONE"];
+			_haloCargoSmoke attachTo [_noBoCCrate,[0,0,0]];
+			sleep 60;	
+		};
 	};
 };
 
-WaitUntil {sleep 0.1; ( _despawnPos distance2D _HALOVeh < 500)};
+WaitUntil {sleep 0.1; (_dropPos distance2D _haloVeh < 300)};
 
-deleteVehicleCrew _HALOVeh;
-deleteVehicle _HALOVeh;
+_Pilot MoveTo _despawnPos;
+
+WaitUntil {sleep 0.1; (_dropPos distance2D _haloVeh > 600)};
+
+{
+	if (isPlayer _x) then {
+		_x moveOut _haloVeh;
+	};
+}forEach crew _haloVeh;
+
+WaitUntil {sleep 0.1; ( _despawnPos distance2D _haloVeh < 500)};
+
+deleteVehicleCrew _haloVeh;
+deleteVehicle _haloVeh;

@@ -1,6 +1,7 @@
 class insDialogHALO
 {
 	idd = 99103;
+	onLoad = "[_this select 0]execVM 'Dialogs\insDialog\fn_insDialogHALOInit.sqf';";
 	
 	class ControlsBackground
 	{
@@ -138,7 +139,7 @@ class insDialogHALO
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
 			soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush",0.09,1.0};
-			action = "[(sliderPosition 9910303)] spawn UAMTins_fnc_insDialogCallHALO;";
+			action = "[(sliderPosition 9910303)] spawn UAMTins_fnc_insDialogHALOCall;";
 		};
 		
 		class BtnClose
@@ -172,7 +173,7 @@ class insDialogHALO
 			soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush",0.09,1.0};
 			default = false;
 			shadow = 0;
-			action = "call UAMTins_fnc_insDialogCloseHALO;";
+			action = "call UAMTins_fnc_insDialogHALOClose;";
 		};
 	};
 };

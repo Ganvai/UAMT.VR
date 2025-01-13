@@ -168,14 +168,14 @@ class insDialogMethod
 			style = 0+2;
 			text = "";
 			borderSize = 0;
-			colorBackground[] = {0.302,0.302,0.302,1};
-			colorBackgroundActive[] = {0.6,0.6,0.6,1};
-			colorBackgroundDisabled[] = {0.2,0.2,0.2,1};
-			colorBorder[] = {0.2353,0.9294,0.2667,1};
-			colorDisabled[] = {0.2,0.2,0.2,1};
-			colorFocused[] = {0.2,0.2,0.2,1};
-			colorShadow[] = {0.2353,0.9294,0.2667,1};
-			colorText[] = {0.2353,0.9294,0.2667,1};
+			colorBackground[] = {0,0,0,0};
+			colorBackgroundActive[] = {0,0,0,0};
+			colorBackgroundDisabled[] = {0,0,0,0};
+			colorBorder[] = {0,0,0,0};
+			colorDisabled[] = {0,0,0,0};
+			colorFocused[] = {0,0,0,0};
+			colorShadow[] = {0,0,0,0};
+			colorText[] = {0,0,0,0};
 			font = "PuristaMedium";
 			offsetPressedX = 0.001;
 			offsetPressedY = 0.001;
@@ -186,7 +186,8 @@ class insDialogMethod
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
 			soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush",0.09,1.0};
-			shadow = 0;			
+			shadow = 0;
+			default = true;
 		};
 
 		class BtnClose
@@ -283,7 +284,7 @@ class insDialogMethod
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
 			soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush",0.09,1.0};
-			action = "closeDialog 0; [] call UAMTins_fnc_insDialogCreateHelo;";
+			action = "closeDialog 0; [] call UAMTins_fnc_insDialogHeloCreate;";
 			onLoad = "if (getMissionConfigValue 'insEnableHeli' == 'false') then {(_this # 0) ctrlEnable false;};";
 		};
 		class BtnHaLo
@@ -315,7 +316,7 @@ class insDialogMethod
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
 			soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush",0.09,1.0};
-			action = "closeDialog 0; [] call UAMTins_fnc_insDialogCreateHALO;";
+			action = "closeDialog 0; [] call UAMTins_fnc_insDialogHALOCreate;";
 			onLoad = "if (getMissionConfigValue 'insEnableHALO' == 'false') then {(_this # 0) ctrlEnable false;};";
 		};
 		

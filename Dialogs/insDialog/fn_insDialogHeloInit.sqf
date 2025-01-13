@@ -7,6 +7,6 @@ params ["_display"];
 (_display) displayAddEventhandler ['KeyDown', {											
 													//Add new function for ESC key
 													if ((_this select 1) isEqualTo 1) then {
-														call UAMTins_fnc_insDialogCloseHALO;
+														call UAMTins_fnc_insDialogHeloClose;
 													};
 												}];

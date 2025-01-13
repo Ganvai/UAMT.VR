@@ -19,3 +19,4 @@
 #include "insDialog\insDialogHelo.hpp"
 #include "insDialog\insDialogHALO.hpp"
 #include "insDialog\insDialogTime.hpp"
+#include "insDialog\insDialogCrate.hpp"
