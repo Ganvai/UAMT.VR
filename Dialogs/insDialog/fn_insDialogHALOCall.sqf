@@ -13,8 +13,10 @@ _result = false;
 _result = ["You are ordering an insertion via HALO. Do you acknowledge?", "Confirm HALO Insertion", true, true] call BIS_fnc_guiMessage;
 if (!_result) exitWith {};
 
+missionNameSpace setVariable ["insertionActual","HALO",true];
+
 _haloDir = getMarkerPos "insHALODirMrk";
 
-[_haloPos,_haloDir,side player]remoteExec ["UAMTins_fnc_insDialogHALOControl",2];
+[_haloPos,_haloDir,side player] remoteExec ["UAMTins_fnc_insDialogHALOControl",2];
 
 call UAMTins_fnc_insDialogHALOClose;

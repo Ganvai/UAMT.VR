@@ -5,7 +5,6 @@ class insDialog
 	{
 		file = "Dialogs\insDialog";
 		class insDialogCallDialog{};
-		class insDialogReset{};
 		
 		class insDialogHALOCreate{};
 		class insDialogHALOCall{};
@@ -26,5 +25,7 @@ class insDialog
 		class insDialogDCSaveBackpack{};
 		class insDialogDCgetBackpack{};
 		class insDialogDChelp{};
+		
+		class insDialogEditCancel{};
 	}; 
 };

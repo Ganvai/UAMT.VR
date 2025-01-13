@@ -1,6 +1,6 @@
 if (!isServer) exitWith {};
 
-params ["_insHeloArray","_heloMarkers",["_side",west]];
+params ["_insHeloArray",["_side",west]];
 
 _insHeloVeh = [];
 
@@ -17,6 +17,31 @@ if (getMissionConfigValue "supportMessages" == "true") then {
 	};
 };
 
+// Create Task for Players
+private _title = "Board Helicopter";
+private _description = "Board Insertion Helicopter to start the Mission. ALL Soldiers have to be on one of the helicopters.";
+private _waypoint = "";
+
+[true, "task00boardVehicle", [_description, _title, _waypoint], ((_insHeloArray select 0) select 0), true] call BIS_fnc_taskCreate;
+
+_heloMarkers = [];
+
+{
+	_markerName = format ["Insertion Helo %1",(_forEachIndex + 1)];
+	createMarker [_markerName, _x select 0];
+	_markerName setMarkerType "hd_dot";
+	_markerName setMarkerText _markerName;
+	
+	_heloMarkers pushback _markerName;
+}forEach _insHeloArray;
+
+_introSequence = "none";
+if (getMissionConfigValue "insIntro" == "true") then {
+	_introSequence = "scripts\UAMTScripts\insertion\insIntroHelis.sqf"
+};
+
+[[_insHeloArray,getMissionConfigValue "insHeloDoors",side player,_introSequence,getMissionConfigValue "supportMessages",getMissionConfigValue "supportControlName",getMissionConfigValue "supportCustomAudio"],"scripts\UAMTScripts\insertion\heloExecute.sqf"] remoteExec ["execVM",2];
+
 waitUntil {sleep 1; {vehicle _x in _insHeloVeh} count (call BIS_fnc_listPlayers) == count(call BIS_fnc_listPlayers) || missionNameSpace getVariable ["insertionCancel",false]};
 
 {
@@ -25,12 +50,14 @@ waitUntil {sleep 1; {vehicle _x in _insHeloVeh} count (call BIS_fnc_listPlayers)
 
 if (missionNameSpace getVariable ["insertionCancel",false]) exitWith {
 	["task00boardVehicle",true,true] call BIS_fnc_deleteTask;
-
-	missionNameSpace setVariable ["insertionCancel",false,true];
 	
 	{
-		deleteMarker _x;
-	} forEach insHeloLZs;
+		_waypoints = _x select 2;
+		
+		{
+			deleteMarker _x;
+		}forEach _waypoints;
+	}forEach _insHeloArray;
 
 	{
 		// save current heli
@@ -53,7 +80,7 @@ if (missionNameSpace getVariable ["insertionCancel",false]) exitWith {
 		_veh lock true;
 	}forEach _insHeloVeh;
 	
-	["<t color='#ff0000' size='2' font='RobotoCondensed' shadow = '2' >Helicopter Insertion was cancelled!</t>", "PLAIN", 0.6, true, true]remoteExec ["titletext"];
+	missionNameSpace setVariable ["insControlCancelled",true,true];
 };
 
 missionstarted = true;

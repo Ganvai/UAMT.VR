@@ -49,7 +49,7 @@ if (getMissionConfigValue "insFeature" == "true") then {
 	
 	[ 
 		missionNameSpace getVariable [(getMissionConfigValue "insMethodObj"),objNull], 
-		"select Insertion", 
+		"Setup/Edit Insertion", 
 		"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_takeOff1_ca.paa", 
 		"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_takeOff1_ca.paa", 
 		"_this distance _target < 3 && !missionstarted", 

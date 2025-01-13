@@ -1,6 +1,6 @@
 class insDialogCrate
 {
-	idd = 99104;
+	idd = 99105;
 	
 	class ControlsBackground
 	{
@@ -92,7 +92,7 @@ class insDialogCrate
 		class BtnClose
 		{
 			type = 1;
-			idc = 9911101;
+			idc = 9910501;
 			x = safeZoneX + safeZoneW * 0.64635417;
 			y = safeZoneY + safeZoneH * 0.23518519;
 			w = safeZoneW * 0.04635417;
@@ -124,7 +124,7 @@ class insDialogCrate
 		class BtnHelp
 		{
 			type = 1;
-			idc = 9911102;
+			idc = 9910502;
 			x = safeZoneX + safeZoneW * 0.5953125;
 			y = safeZoneY + safeZoneH * 0.23518519;
 			w = safeZoneW * 0.04635417;
@@ -156,7 +156,7 @@ class insDialogCrate
 		class BtnStore
 		{
 			type = 1;
-			idc = 9911103;
+			idc = 9910503;
 			x = safeZoneX + safeZoneW * 0.40208334;
 			y = safeZoneY + safeZoneH * 0.37592593;
 			w = safeZoneW * 0.1953125;
@@ -188,7 +188,7 @@ class insDialogCrate
 		class BtnGetBackpack
 		{
 			type = 1;
-			idc = 9911103;
+			idc = 9910503;
 			x = safeZoneX + safeZoneW * 0.40208334;
 			y = safeZoneY + safeZoneH * 0.50092593;
 			w = safeZoneW * 0.1953125;

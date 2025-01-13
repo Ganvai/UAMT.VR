@@ -23,7 +23,7 @@ if (missionNameSpace getVariable ["insertionActual",""] == "") then {
 		"insHALOMrk" setMarkerAlphaLocal 1;
 		"insHALODirMrk" setMarkerAlphaLocal 1;
 		
-		_dir = sliderPosition 9900303;
+		_dir = sliderPosition 9910303;
 		"insHALODirMrk" setMarkerPosLocal (_pos getPos [2000,_dir]);
 		"insHALODirMrk" setMarkerDirLocal (_dir + 180);
 	};

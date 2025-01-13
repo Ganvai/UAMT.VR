@@ -145,7 +145,7 @@ class insDialogHALO
 		class BtnHelp
 		{
 			type = 1;
-			idc = 9910405;
+			idc = 9910305;
 			x = safeZoneX + safeZoneW * 0.59;
 			y = safeZoneY + safeZoneH * 0.24;
 			w = safeZoneW * 0.04635417;

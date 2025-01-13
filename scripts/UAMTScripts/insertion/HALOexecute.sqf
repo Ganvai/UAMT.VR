@@ -69,9 +69,7 @@ waitUntil {sleep 1; ({(_x in _haloVeh)} count (call BIS_fnc_listPlayers) == coun
 	_haloVeh animate [_x,0];
 }forEach _haloVehDoors;
 
-if (missionNameSpace getVariable ["insertionCancel",false]) exitWith {deleteVehicle _haloCrate;};
-
-missionNameSpace setVariable ["insHaloExecute",true,true];
+if (missionNameSpace getVariable ["insertionCancel",false]) exitWith {missionNameSpace setVariable ["insExecuteCancelled",true,true]};
 
 if (_pilotTalking == "true") then {
 	if (_uamtAudio == "true") then {

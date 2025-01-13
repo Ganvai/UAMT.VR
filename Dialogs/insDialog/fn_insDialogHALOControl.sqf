@@ -24,7 +24,7 @@ _haloVeh lock false;
 _grpHalo setBehaviour "CARELESS";
 
 private _title = "Board HALO Aircraft";
-private _description = "Board the Aircraft for HALO Jump to start the Mission.";
+private _description = "Board the Aircraft for HALO Jump to start the Mission. ALL soldiers must be in the HALO aircraft.";
 private _waypoint = "";
 
 [true, "task00boardVehicle", [_description, _title, _waypoint], _haloVeh, true] call BIS_fnc_taskCreate;
@@ -67,14 +67,12 @@ deleteMarker _haloMarker;
 
 if (missionNameSpace getVariable ["insertionCancel",false]) exitWith {
 	["task00boardVehicle",true,true] call BIS_fnc_deleteTask;
+	["taskinsParachute",true,true] call BIS_fnc_deleteTask;
 
 	missionNameSpace setVariable ["insertionCancel",false,true];
 	
 	deleteMarker "insHALOMrk";
 	deleteMarker "insHALODirMrk";
-	deleteMarker "HALO Aircraft";
-	
-	_haloVeh lock true;
 
 	{
 		_haloVeh animateDoor [_x,0];
@@ -87,7 +85,9 @@ if (missionNameSpace getVariable ["insertionCancel",false]) exitWith {
 		};
 	} forEach (crew _haloVeh);
 	
-	["<t color='#ff0000' size='2' font='RobotoCondensed' shadow = '2' >HALO Insertion was cancelled!</t>", "PLAIN", 0.6, true, true]remoteExec ["titletext"];
+	_haloVeh lock true;
+	
+	missionNameSpace setVariable ["insControlCancelled",true,true];
 };
 
 missionNameSpace setVariable ["missionStarted",true,true];
