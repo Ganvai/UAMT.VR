@@ -10,7 +10,7 @@ _firezoneCheck = false;
 
 {	
 	_fireZoneCheck = _vlsTargetPos inArea _x;
-}forEach vlsNoFireZones;
+}forEach getMissionConfigValue "vlsNoFireZones";
 
 if (_fireZoneCheck) exitWith {
 	["Target is in No Fire Zone!", "Error"] call BIS_fnc_guiMessage;

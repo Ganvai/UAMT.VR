@@ -1,7 +1,7 @@
 params ["_ammoID"];
 
-if (vlsStatus > 0) exitWith {
-	switch vlsStatus do {
+if ((missionNameSpace getVariable ["vlsStatus",0]) > 0) exitWith {
+	switch (missionNameSpace getVariable ["vlsStatus",0]) do {
 		case 1 : {["No VLS Call available. Another Element is currently ordering a VLS Strike", "Error"] call BIS_fnc_guiMessage;};
 		case 2 : {["No VLS Call available. VLS strike in progress", "Error"] call BIS_fnc_guiMessage;};
 		case 3 : {["No VLS Call available. Readying missile array after firemission.", "Error"] call BIS_fnc_guiMessage;};
@@ -11,12 +11,12 @@ if (vlsStatus > 0) exitWith {
 _checkAmmo = false;
 
 if (_ammoID == 0) then {
-	if (vlsHERounds > 0) then {
+	if ((missionNameSpace getVariable ["vlsHERounds",0]) > 0) then {
 		_checkAmmo = true;
 	};
 }
 else {
-	if (vlsClusterRounds > 0) then {
+	if ((missionNameSpace getVariable ["vlsClusterRounds",0]) > 0) then {
 		_checkAmmo = true;
 	};
 };
@@ -53,7 +53,7 @@ _firezoneCheck = false;
 
 {	
 	_fireZoneCheck = _vlsTargetPos inArea _x;
-}forEach vlsNoFireZones;
+}forEach getMissionConfigValue "vlsNoFireZones";
 
 if (_fireZoneCheck) exitWith {
 	cutText ["<t color='#ff0000' size='2' shadow = '2'>Coordinates for Cruise Missile Strike are in No Fire Zone!</t>", "PLAIN", 2, true, true];

@@ -366,10 +366,10 @@ if (getMissionConfigValue "artiFeature" == "true") then {
 //
 //------------------------------------------------------------------
 //------------------------------------------------------------------
-if (vlsFeature) then {
+if (getMissionConfigValue "vlsFeature" == "true") then {
 
 	// VLS Terminal
-	_condition = { missionNameSpace getVariable ["vlsStatus",4] < 4 && ((vlsRolesCMDR findIf {_x == vehicleVarName player;} > -1) || (vlsRolesCMDR findIf {_x == groupID group player;} > -1) || (vlsRolesCMDR findIf {_x == player getVariable "loadout";} > -1)) };
+	_condition = { missionNameSpace getVariable ["vlsStatus",4] < 4 && (((getMissionConfigValue "vlsRolesCMDR") findIf {_x == vehicleVarName player;} > -1) || ((getMissionConfigValue "vlsRolesCMDR") findIf {_x == groupID group player;} > -1) || ((getMissionConfigValue "vlsRolesCMDR") findIf {_x == player getVariable "loadout";} > -1)) };
 
 	_modifierFunc = {
 		params ["_target", "_player", "_params", "_actionData"];
@@ -392,35 +392,35 @@ if (vlsFeature) then {
 	
 	// Cruise Missile Menu
 	_condition = {};
-	if (vlsNeedsLaser) then {
-		if (vlsAllowDrones) then {
+	if (getMissionConfigValue "vlsNeedsLaser" == "true") then {
+		if (getMissionConfigValue "vlsAllowDrones" == "true") then {
 			_condition = {
 							missionNameSpace getVariable ["vlsStatus",4] < 4 &&
-								(( vlsEquipment findIf {currentWeapon player ==  _x } > -1 && isLaserOn player ) || ( [player,"GUNNER"] isEqualTo UAVControl getConnectedUAV player && isLaserOn getConnectedUAV player ) )  && 
-							((vlsRoles findIf {_x == vehicleVarName player;} > -1) || (vlsRoles findIf {_x == groupID group player;} > -1) || (vlsRoles findIf {_x == player getVariable "loadout";} > -1))
+								(( (getMissionConfigValue "vlsEquipment") findIf {currentWeapon player ==  _x } > -1 && isLaserOn player ) || ( [player,"GUNNER"] isEqualTo UAVControl getConnectedUAV player && isLaserOn getConnectedUAV player ) )  && 
+							(((getMissionConfigValue "vlsRoles") findIf {_x == vehicleVarName player;} > -1) || ((getMissionConfigValue "vlsRoles") findIf {_x == groupID group player;} > -1) || ((getMissionConfigValue "vlsRoles") findIf {_x == player getVariable "loadout";} > -1))
 			};		
 		}
 		else {
 			_condition = {
 							missionNameSpace getVariable ["vlsStatus",4] < 4 &&
-								( vlsEquipment findIf {currentWeapon player ==  _x } > -1 && isLaserOn player ) && 
-							((vlsRoles findIf {_x == vehicleVarName player;} > -1) || (vlsRoles findIf {_x == groupID group player;} > -1) || (vlsRoles findIf {_x == player getVariable "loadout";} > -1))
+								( (getMissionConfigValue "vlsEquipment") findIf {currentWeapon player ==  _x } > -1 && isLaserOn player ) && 
+							(((getMissionConfigValue "vlsRoles") findIf {_x == vehicleVarName player;} > -1) || ((getMissionConfigValue "vlsRoles") findIf {_x == groupID group player;} > -1) || ((getMissionConfigValue "vlsRoles") findIf {_x == player getVariable "loadout";} > -1))
 			};		
 		};
 	}
 	else {
-		if (vlsAllowDrones) then {
+		if (getMissionConfigValue "vlsAllowDrones" == "true") then {
 			_condition = {
 							missionNameSpace getVariable ["vlsStatus",4] < 4 &&
-								(( vlsEquipment findIf {currentWeapon player ==  _x } > -1) || ( [player,"GUNNER"] isEqualTo UAVControl getConnectedUAV player && isLaserOn getConnectedUAV player ) )  && 
-							((vlsRoles findIf {_x == vehicleVarName player;} > -1) || (vlsRoles findIf {_x == groupID group player;} > -1) || (vlsRoles findIf {_x == player getVariable "loadout";} > -1))
+								(( (getMissionConfigValue "vlsEquipment") findIf {currentWeapon player ==  _x } > -1) || ( [player,"GUNNER"] isEqualTo UAVControl getConnectedUAV player && isLaserOn getConnectedUAV player ) )  && 
+							(((getMissionConfigValue "vlsRoles") findIf {_x == vehicleVarName player;} > -1) || ((getMissionConfigValue "vlsRoles") findIf {_x == groupID group player;} > -1) || ((getMissionConfigValue "vlsRoles") findIf {_x == player getVariable "loadout";} > -1))
 			};		
 		}
 		else {
 			_condition = {
 							missionNameSpace getVariable ["vlsStatus",4] < 4 &&
-								( vlsEquipment findIf {currentWeapon player ==  _x } > -1) && 
-							((vlsRoles findIf {_x == vehicleVarName player;} > -1) || (vlsRoles findIf {_x == groupID group player;} > -1) || (vlsRoles findIf {_x == player getVariable "loadout";} > -1))
+								( (getMissionConfigValue "vlsEquipment") findIf {currentWeapon player ==  _x } > -1) && 
+							(((getMissionConfigValue "vlsRoles") findIf {_x == vehicleVarName player;} > -1) || ((getMissionConfigValue "vlsRoles") findIf {_x == groupID group player;} > -1) || ((getMissionConfigValue "vlsRoles") findIf {_x == player getVariable "loadout";} > -1))
 			};		
 		};
 	};
@@ -452,7 +452,7 @@ if (vlsFeature) then {
 		params ["_target", "_player", "_params", "_actionData"];
 			
 		// Modify the action - index 1 is the display name, 2 is the icon...
-		_actionData set [1, format ["HE Missile (%1 left)",vlsHERounds]];
+		_actionData set [1, format ["HE Missile (%1 left)",missionNameSpace getVariable ["vlsHERounds",0]]];
 	};
 	
 	_vlsHE = ["HE Missile","HE Missile","A3\ui_f\data\map\markers\military\dot_CA.paa",{[0] spawn UAMTvls_fnc_vlsCall;},_condition,{},[],"",0,[false, false, false, false, false],_modifierFunc] call ace_interact_menu_fnc_createAction;
@@ -466,21 +466,20 @@ if (vlsFeature) then {
 		params ["_target", "_player", "_params", "_actionData"];
 			
 		// Modify the action - index 1 is the display name, 2 is the icon...
-		_actionData set [1, format ["Cluster Missile (%1 left)",vlsClusterRounds]];
+		_actionData set [1, format ["Cluster Missile (%1 left)",missionNameSpace getVariable ["vlsClusterRounds",0]]];
 	};
 	
 	_vlsCluster = ["Cluster Missile","Cluster Missile","A3\ui_f\data\map\markers\military\dot_CA.paa",{[1] spawn UAMTvls_fnc_vlsCall;},_condition,{},[],"",0,[false, false, false, false, false],_modifierFunc] call ace_interact_menu_fnc_createAction;
 	[(typeOf player), 1, ["ACE_SelfActions","Request VLS Strike"], _vlsCluster] call ace_interact_menu_fnc_addActionToClass;
 	
-	
 	//Deactivate current UAV Terminals to connect to the vls Turret
-	player disableUAVConnectability [vlsName, true];
+	player disableUAVConnectability [(missionNamespace getVariable [(getMissionConfigValue "vlsName"), objNull]), true];
 	
 	//Add an Eventhandler that disables the connect ability every time the terminal changes (needed for new picked up terminals)
 	player addEventHandler ["SlotItemChanged", {
 		params ["_unit", "_name", "_slot", "_assigned", "_weapon"];
 			if (_slot == 612) then {
-				player disableUAVConnectability [vlsName, true];
+				player disableUAVConnectability [(missionNamespace getVariable [(getMissionConfigValue "vlsName"), objNull]), true];
 			};
 	}];
 };

@@ -154,29 +154,6 @@ if (getMissionConfigValue "insFeature" == "true") then {
 //------------------------------------------------------------------
 
 //------------------------------------------------------------------
-// 			Supply Points
-//------------------------------------------------------------------
-
-if (getMissionConfigValue "supplyPointFeature" == "true") then {
-	supplyPointFeature = true;
-
-	supplyPoints = getMissionConfigValue "supplyPoints";
-	
-	{
-		_obj = missionNamespace getVariable [_x select 0, objNull];
-		_x set [0, _obj];
-	} forEach supplyPoints;
-	
-	
-	publicVariable "supplyPoints";
-
-}
-else {
-	supplyPointFeature = false;
-};
-publicVariable "supplyPointFeature";
-
-//------------------------------------------------------------------
 //				Helicopter Transport Feature
 //------------------------------------------------------------------
 if ( getMissionConfigValue "chtFeature" == "true" ) then {
@@ -217,11 +194,6 @@ if (getMissionConfigValue "artiFeature" == "true") then {
 //------------------------------------------------------------------
 
 if ( getMissionConfigValue "vlsFeature" == "true" ) then {
-	vlsFeature = true;
-	publicVariable "vlsFeature";
-
-	vlsName = missionNamespace getVariable [(getMissionConfigValue "vlsName"), objNull];
-	publicVariable "vlsName";
 
 	// Availability VLS - 0 = Available, 1 = In Use, 2 = In Firemission, 3 = in Cooldown
 	missionNameSpace setVariable ["vlsStatus",getMissionConfigValue "vlsStatus",true];
@@ -229,57 +201,19 @@ if ( getMissionConfigValue "vlsFeature" == "true" ) then {
 	missionNameSpace setVariable ["vlsHERounds",getMissionConfigValue "vlsHERounds",true];
 
 	missionNameSpace setVariable ["vlsClusterRounds",getMissionConfigValue "vlsClusterRounds",true];
-
-	vlsDelay = getMissionConfigValue "vlsDelay";
-	publicVariable "vlsDelay";
-
-	vlsCooldown = getMissionConfigValue "vlsCooldown";
-	publicVariable "vlsCooldown";
 	
-	vlsRoles = getMissionConfigValue "vlsRoles";
-	publicVariable "vlsRoles";
-
-	vlsRolesCMDR = getMissionConfigValue "vlsRolesCMDR";
-	publicVariable "vlsRolesCMDR";
-	
-	vlsEquipment = getMissionConfigValue "vlsEquipment";
-	publicVariable "vlsEquipment";
-
-	if ( getMissionConfigValue "vlsNeedsLaser" == "true" ) then {
-		vlsNeedsLaser = true;
-	}
-	else {
-		vlsNeedsLaser = false;
-	};
-	publicVariable "vlsNeedsLaser";
-	
-	if ( getMissionConfigValue "vlsAllowDrones" == "true" ) then {
-		vlsAllowDrones = true;
-	}
-	else {
-		vlsAllowDrones = false;
-	};
-	publicVariable "vlsAllowDrones";
-	
-	vlsNoFireZones = getMissionConfigValue "vlsNoFireZones";
-	publicVariable "vlsNoFireZones";
-
-	vlsMissile = objNull;
-	publicVariable "vlsMissile";
-	
+	_vlsName = missionNamespace getVariable [(getMissionConfigValue "vlsName"), objNull];
 	//Preparing the VLS Turret
-	vlsName setVehicleReceiveRemoteTargets false;
-	vlsName setVehicleAmmo 0;
-	vlsName setVehicleRadar 2;
-	vlsName disableAI "AUTOTARGET";
-	vlsName disableAI "AUTOCOMBAT";
+	_vlsName setVehicleReceiveRemoteTargets false;
+	_vlsName setVehicleRadar 2;
+	_vlsName disableAI "AUTOTARGET";
+	_vlsName disableAI "AUTOCOMBAT";
+	_vlsName disableAI "FIREWEAPON";
 	
-	["Item_B_UavTerminal", "init", {},true,[],true] call CBA_fnc_addClassEventHandler;
+	_vlsName lockDriver true;
+	_vlsName lockTurret [[0],true];
 	
-	vlsName lockDriver true;
-	vlsName lockTurret [[0],true];
-	
-	vlsName addEventHandler ["Fired", {
+	_vlsName addEventHandler ["Fired", {
 		params [
 			"_unit", 
 			"_weapon", 
@@ -295,12 +229,7 @@ if ( getMissionConfigValue "vlsFeature" == "true" ) then {
 		
 		missionNameSpace setVariable ["vlsMissile",_projectile,true];
 	}];
-}
-else {
-	vlsFeature = false;
-	publicVariable "vlsFeature";
 };
-
 
 //------------------------------------------------------------------
 //					CAS Feature

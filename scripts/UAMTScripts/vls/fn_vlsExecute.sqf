@@ -4,9 +4,11 @@ params ["_targetPos","_side","_ammoID",["_createMarker",true]];
 
 missionNameSpace setVariable ["vlsStatus",2,true];
 
-_audioMessages = supportMessages;
-_customAudio = supportCustomAudio;
-_supportControlName = supportControlName;
+_vlsObj = missionNameSpace getVariable [(getMissionConfigValue "vlsName"),objNull];
+
+_audioMessages = getMissionConfigValue "supportMessages";
+_customAudio = getMissionConfigValue "supportCustomAudio";
+_supportControlName = getMissionConfigValue "supportControlName";
 
 if (_createMarker) then {
 	createMarker ["vlsMrk",_targetPos];
@@ -15,10 +17,10 @@ if (_createMarker) then {
 	"vlsMrk" setMarkerText "VLS Target";
 };
 
-if (_audioMessages) then {
+if (_audioMessages == "true") then {
 	_msg = format ["Coordinates recieved. Preparing missile launch."];
 
-	if (_customAudio) then {
+	if (_customAudio == "true") then {
 		[_msg,_supportControlName,"msg_vlsPrepare",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 	}
 	else {
@@ -28,7 +30,7 @@ if (_audioMessages) then {
 	sleep 3.5;
 };
 
-vlsName setVehicleAmmo 1;
+_vlsObj setVehicleAmmo 1;
 
 _ammo  = "magazine_Missiles_Cruise_01_x18";
 if (_ammoID == 1) then {
@@ -40,13 +42,13 @@ else {
 	missionNameSpace setVariable ["vlsHERounds",(missionNameSpace getVariable "vlsHERounds") - 1,true];
 };
 
-if ( _ammo != vlsName currentMagazineTurret [0] ) then {
-	vlsName loadMagazine [[0],"weapon_VLS_01",_ammo];
+if ( _ammo != _vlsObj currentMagazineTurret [0] ) then {
+	_vlsObj loadMagazine [[0],"weapon_VLS_01",_ammo];
 
-	if (_audioMessages) then {
+	if (_audioMessages == "true") then {
 		_msg = format ["Reloading Missile Array. Time to launch: 2.5 mike!"];
 
-		if (_customAudio) then {
+		if (_customAudio == "true") then {
 			[_msg,_supportControlName,"msg_vlsReload",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 		}
 		else {
@@ -57,12 +59,12 @@ if ( _ammo != vlsName currentMagazineTurret [0] ) then {
 
 sleep 1;
 
-waitUntil {sleep 1; weaponState [vlsName,[0]] #6 == 0 && weaponState [vlsName,[0]] #5 == 0 };
+waitUntil {sleep 1; weaponState [_vlsObj,[0]] #6 == 0 && weaponState [_vlsObj,[0]] #5 == 0 };
 
-if (_audioMessages) then {
+if (_audioMessages == "true") then {
 	
 	_msg = format ["All units be advised: Missile away!"];
-	if (_customAudio) then {
+	if (_customAudio == "true") then {
 		[_msg,_supportControlName,"msg_vlsAway",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 	}
 	else {
@@ -72,20 +74,21 @@ if (_audioMessages) then {
 	sleep 3.5;
 };
 
-sleep vlsDelay;
+sleep (getMissionConfigValue "vlsDelay");
 
 _target = createVehicle ["Land_HelipadEmpty_F",_targetPos];
 
 sleep  5;
 
-vlsName setVehicleReceiveRemoteTargets true;
+_vlsObj setVehicleReceiveRemoteTargets true;
 _side reportRemoteTarget [_target,1000];
-vlsName doWatch _target;
-vlsName fireAtTarget [_target];
+_vlsObj doWatch _target;
+_vlsObj enableAI "FIREWEAPON";
+_vlsObj fireAtTarget [_target];
 
-vlsName setVehicleAmmo 0;
+waitUntil {missionNameSpace getVariable ["vlsMissile",objNull] != objNull };
 
-waitUntil { sleep 0.5; missionNameSpace getVariable ["vlsMissile",objNull] != objNull };
+_vlsObj disableAI "FIREWEAPON";
 
 waitUntil { sleep 0.5; (missionNameSpace getVariable ["vlsMissile",objNull] distance2D _target < 1000 || getPos (missionNameSpace getVariable ["vlsMissile",objNull]) select 2 > 1000) };
 
@@ -95,8 +98,8 @@ if ((getPos (missionNameSpace getVariable ["vlsMissile",objNull])) select 2 > 10
 	_error = true;
 };
 
-if (_audioMessages) then {
-	if (_customAudio) then {
+if (_audioMessages == "true") then {
+	if (_customAudio == "true") then {
 		["Missile distance to target: 1000 meters",_supportControlName,"msg_vls1000",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 	}
 	else {
@@ -107,8 +110,8 @@ if (_audioMessages) then {
 waitUntil {sleep 0.5; !alive (missionNameSpace getVariable ["vlsMissile",objNull]) || (missionNameSpace getVariable ["vlsMissile",objNull]) distance2D _target > 2000 || _error};
 
 if (!alive (missionNameSpace getVariable ["vlsMissile",objNull]) && !_error) then {
-	if (_audioMessages) then {
-		if (_customAudio) then {
+	if (_audioMessages == "true") then {
+		if (_customAudio == "true") then {
 			["Missile Impact",_supportControlName,"msg_vlsimpact",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 		}
 		else {
@@ -117,8 +120,8 @@ if (!alive (missionNameSpace getVariable ["vlsMissile",objNull]) && !_error) the
 	};
 }
 else {
-	if (_audioMessages) then {
-		if (_customAudio) then {
+	if (_audioMessages == "true") then {
+		if (_customAudio == "true") then {
 			["Missile Guidance Error. Executing Selfdestruct.",_supportControlName,"msg_vlsSelfDestruct",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 		}
 		else {
@@ -133,13 +136,13 @@ missionNameSpace setVariable ["vlsStatus",3,true];
 
 sleep 5;
 
-if ( vlsHERounds > 0 || vlsClusterRounds > 0 ) then {
-	sleep (10 + vlsCooldown);
+if ( (missionNameSpace getVariable "vlsHERounds") > 0 || (missionNameSpace getVariable "vlsClusterRounds") > 0 ) then {
+	sleep (10 + getMissionConfigValue "vlsCooldown");
 
-	if (_audioMessages) then {
+	if (_audioMessages == "true") then {
 		_msg = format ["Be advised: VLS array is reloaded. Standing by for new coordinates."];
 
-		if (_customAudio) then {
+		if (_customAudio == "true") then {
 			[_msg,_supportControlName,"msg_vlsAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 		}
 		else {
@@ -148,10 +151,10 @@ if ( vlsHERounds > 0 || vlsClusterRounds > 0 ) then {
 	};
 }
 else {
-	if (_audioMessages) then {
+	if (_audioMessages == "true") then {
 		_msg = format ["Be advised: VLS is bingo ammo. No more missile strikes available."];
 
-		if (_customAudio) then {
+		if (_customAudio == "true") then {
 			[_msg,_supportControlName,"msg_vlsEnd",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 		}
 		else {
@@ -160,7 +163,7 @@ else {
 	};
 };
 
-vlsName setVehicleReceiveRemoteTargets false;
+_vlsObj setVehicleReceiveRemoteTargets false;
 
 deleteVehicle _target;
 deleteMarker "vlsMrk";

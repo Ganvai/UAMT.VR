@@ -1,5 +1,5 @@
-if (vlsStatus > 0) exitWith {
-	switch vlsStatus do {
+if ((missionNameSpace getVariable ["vlsStatus",0]) > 0) exitWith {
+	switch (missionNameSpace getVariable ["vlsStatus",0]) do {
 		case 1 : {["VLS not available. Another Element is currently requesting a VLS Strike", "Error"] call BIS_fnc_guiMessage;};
 		case 2 : {["VLS not available. VLS strike in progress", "Error"] call BIS_fnc_guiMessage;};
 		case 3 : {["VLS not available. Readying missile array after firemission.", "Error"] call BIS_fnc_guiMessage;};
@@ -18,9 +18,9 @@ createMarker ["vlsMrk",[0,0,0]];
 "vlsMrk" setMarkerType "mil_destroy_noShadow";
 "vlsMrk" setMarkerText "VLS Target";
 
-_menuEntry = format ["Cruise Missile HE (%1 Missiles)",vlsHERounds];
+_menuEntry = format ["Cruise Missile HE (%1 Missiles)",(missionNameSpace getVariable ["vlsHERounds",0])];
 lbAdd [9900501,_menuEntry];
-_menuEntry = format ["Cruise Missile Cluster (%1 Missiles)",vlsClusterRounds];
+_menuEntry = format ["Cruise Missile Cluster (%1 Missiles)",(missionNameSpace getVariable ["vlsClusterRounds",0])];
 lbAdd [9900501,_menuEntry];
 
 lbSetCurSel [9900501,0];
@@ -31,7 +31,7 @@ lbSetCurSel [9900501,0];
 
 	{	
 		_fireZoneCheck = _pos inArea _x;
-	}forEach vlsNoFireZones;
+	}forEach getMissionConfigValue "vlsNoFireZones";
 
 	if (_fireZoneCheck) exitWith {
 		["Target is in No Fire Zone!", "Error"] call BIS_fnc_guiMessage;

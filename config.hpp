@@ -478,9 +478,8 @@ vlsStatus = 0;					// The Status manages the accessebility of the function.
 								// 3 : Cooldown -> The Support was executed and is now in Cooldown before it is avialable again
 								// 4 : Not available -> The support is not available until the Missionmaker sets the Status manually to 0
 								//						-> The function will not be shown in the players ace selfinteract menu until its under 4
-								//					vlsStatus = 0;
-								//					publicVariable "vlsStatus";
-								//		IF YOU DON'T WANT ANY VLS use vlsFeature instead!
+								//					missionNameSpace setVariable ["vlsStatus",4,true];
+								//		IF YOU DON'T WANT ANY VLS set vlsFeature to false instead!
 
 vlsHERounds = 100;				// Count of Cruise Missiles that can be fired.
 vlsClusterRounds = 100;			// Count of Cluster Missiles that can be fired.
