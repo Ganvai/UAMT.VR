@@ -47,8 +47,7 @@ params ["_deliveryPos","_dir","_heliClass","_pilotClass","_spawnDistance",["_sid
 
 // Set Status of sdp Function for Dialog
 if (_UAMT) then {
-	supplyDropStatus = 2;
-	publicVariable "supplyDropStatus";
+	missionNameSpace setVariable ["supplyDropStatus",2,true];
 };
 
 // Create Markers
@@ -57,8 +56,8 @@ if (_createMarker) then {
 	_markerText = "Supply Drop";
 	
 	if (_UAMT) then {
-		_markerName = format ["supplyDropMrk%1",supplyDropCount];
-		_markerText = format ["Supply Drop %1",supplyDropCount];
+		_markerName = format ["supplyDropMrk%1",(missionNameSpace getVariable ["supplyDropCount",0])];
+		_markerText = format ["Supply Drop %1",(missionNameSpace getVariable ["supplyDropCount",0])];
 	};
 	
 	createMarker [_markerName,[0,0,0]];
@@ -73,8 +72,8 @@ _SignalClass = "SmokeShellGreen";
 _ChuteClass = "B_Parachute_02_F";
 
 //Calculate Coordinates for Spawn and Despawn with Approach Vektor Position
-_supplyDropSpawn =  _deliveryPos getPos [_spawnDistance, _dir];
-_supplyDropDeSpawn =  _deliveryPos getPos [_spawnDistance, _dir + 180];
+_supplyDropSpawn =  _deliveryPos getPos [_spawnDistance, _dir + 180];
+_supplyDropDeSpawn =  _deliveryPos getPos [_spawnDistance, _dir];
 
 // Whether it'll have a smoke grenade or a chemlight for signal
 if ((dayTime > 04.30) and (dayTime < 19.30)) then {_SignalClass = "SmokeShellGreen"};
@@ -82,7 +81,7 @@ if ((dayTime > 04.30) and (dayTime < 19.30)) then {_SignalClass = "SmokeShellGre
 // Spawning the Vehicle
 _supplyDropVehicle = createVehicle [_heliClass, _supplyDropSpawn, [], 0, "FLY"];
 _supplyDropVehicle setPos [(getpos _supplyDropVehicle # 0),(getpos _supplyDropVehicle # 1), 150];
-_supplyDropVehicle setDir (_dir + 180);
+_supplyDropVehicle setDir _dir;
 _supplyDropVehicle AllowDamage _damage;
 
 // Spawning the Pilot
@@ -131,15 +130,14 @@ if (not canMove _supplyDropVehicle) exitWith {
 	
 	//If sdpDialog function handle respawn
 	if (_UAMT) then {
-		if (supplyDropCount < supplyDropMax) then {
+		if ((missionNameSpace getVariable ["supplyDropCount",0]) < (getMissionConfigValue "supplyDropMax")) then {
 			// Do this when there are still Supply Drop Calls left
 			
 			//Change Status for Dialog Message
-			supplyDropStatus = 3;
-			publicVariable "supplyDropStatus";
+			missionNameSpace setVariable ["supplyDropStatus",3,true];
 			
 			//Calculate Cooldown
-			_cooldown = supplyDropDelay + supplyDropDelayPenalty;
+			_cooldown = (getMissionConfigValue "supplyDropDelay") + (getMissionConfigValue "supplyDropDelayPenalty");
 			
 			// Audio Message for respawn time
 			if (_audio) then {
@@ -162,8 +160,7 @@ if (not canMove _supplyDropVehicle) exitWith {
 			sleep _cooldown;
 			
 			// Make Dialog accessible after respawn
-			supplyDropStatus = 0;
-			publicVariable "supplyDropStatus";
+			missionNameSpace setVariable ["supplyDropStatus",0,true];
 			
 			// Send Audio Message
 			if (_audio) then {
@@ -179,8 +176,7 @@ if (not canMove _supplyDropVehicle) exitWith {
 			// Do this when no supply Drop available anymore
 
 			// Make Dialog accessible
-			supplyDropStatus = 0;
-			publicVariable "supplyDropStatus";
+			missionNameSpace setVariable ["supplyDropStatus",0,true];
 
 			if (_audio) then {
 				if (_customAudio) then {
@@ -219,8 +215,36 @@ clearBackpackCargoGlobal _Box;
 // Fill the Supply Crate with items from _customLoad Array or attach Supply Point Function
 // custom load array should be format [[itemClass,itemCount],[itemClass,itemCount]]
 if (count _customLoad == 0) then {
-	_supplyPointInitPath = format ["%1supplyPointInit.sqf",supplyPath];
-	[[_box, 2, 0],_supplyPointInitPath] remoteExec ["execVM"];
+	_boxes = [missionConfigFile >> "CfgFactionEquipment", "supplyCrates", []] call BIS_fnc_returnConfigEntry;
+	
+	_supplyPoint = _Box;
+	
+	_supplyPointDist = 2;
+	_supplyPointDir = 0;
+	_supplyPointBoxName = "";
+	_supplyPointBoxType = "";
+	_supplyPointBoxVar = "";
+	_boxNumber = 0;
+	
+	{
+		_boxNumber = _boxNumber + 1;
+		_actionName = format ["SupplyBox %1", _boxNumber];
+		_supplyPointBoxName = _x select 0;
+		_supplyPointBoxType = _x select 1;
+		_supplyPointBoxVar = _x select 2;
+
+		_statement = {
+			params ["_target", "_player", "_actionParams"];
+			_actionParams params ["_supplyPoint", "_supplyPointDist", "_supplyPointDir", "_supplyPointBoxType", "_supplyPointBoxVar"];
+			
+			[_supplyPoint,_supplyPointDist,_supplyPointDir,_supplyPointBoxType,_supplyPointBoxVar] remoteExec ["UAMT_fnc_spawnSupplyCrate",2];
+			//[_supplyPoint,_supplyPointDist,_supplyPointDir,_supplyPointBoxType,_supplyPointBoxVar] call UAMT_fnc_spawnSupplyCrate;
+		};
+		
+		_boxMenu = [_actionName, _supplyPointBoxName, "", _statement, {true}, {}, [_supplyPoint, _supplyPointDist, _supplyPointDir, _supplyPointBoxType, _supplyPointBoxVar]] call ace_interact_menu_fnc_createAction;		
+		[_supplyPoint, 0, ["ACE_MainActions"], _boxMenu] call ace_interact_menu_fnc_addActionToObject;
+		
+	}forEach _boxes;
 }
 else {
 	{
@@ -289,15 +313,14 @@ if (not canMove _supplyDropVehicle) exitWith {
 	};
 	
 	if (_UAMT) then {
-		if (supplyDropCount < supplyDropMax) then {
+		if ((missionNameSpace getVariable ["supplyDropCount",0]) < (getMissionConfigValue "supplyDropMax")) then {
 			// If there are still supply drops available
 			
 			// Set status for Dialog Message
-			supplyDropStatus = 3;
-			publicVariable "supplyDropStatus";
+			missionNameSpace setVariable ["supplyDropStatus",3,true];
 			
 			// Calculate respawn time
-			_cooldown = supplyDropDelay + supplyDropDelayPenalty;
+			_cooldown = (getMissionConfigValue "supplyDropDelay") + (getMissionConfigValue "supplyDropDelayPenalty");
 			
 			if (_audio) then {
 
@@ -319,8 +342,7 @@ if (not canMove _supplyDropVehicle) exitWith {
 			sleep _cooldown;
 			
 			// Respawn done. Make Dialog available again
-			supplyDropStatus = 0;
-			publicVariable "supplyDropStatus";
+			missionNameSpace setVariable ["supplyDropStatus",0,true];
 			
 			if (_audio) then {
 				if (_customAudio) then {
@@ -334,8 +356,7 @@ if (not canMove _supplyDropVehicle) exitWith {
 		else {
 			// If no more Supply Drops are available
 			
-			supplyDropStatus = 0;
-			publicVariable "supplyDropStatus";
+			missionNameSpace setVariable ["supplyDropStatus",0,true];
 
 			if (_audio) then {
 				if (_customAudio) then {
@@ -364,15 +385,14 @@ if (_audio) then {
 
 // If function was called from spdDialog
 if (_UAMT) then {
-	if (supplyDropCount < supplyDropMax) then {
+	if ((missionNameSpace getVariable ["supplyDropCount",0]) < (getMissionConfigValue "supplyDropMax")) then {
 		// If there are still Supply Drops available
 		
 		// Set Status for Dialog message
-		supplyDropStatus = 3;
-		publicVariable "supplyDropStatus";
+		missionNameSpace setVariable ["supplyDropStatus",3,true];
 	
 		// Set cooldown
-		_cooldown = supplyDropDelay;
+		_cooldown = getMissionConfigValue "supplyDropDelay";
 		
 		if (_audio) then {
 
@@ -394,8 +414,7 @@ if (_UAMT) then {
 		sleep _cooldown;
 		
 		// Make dialog available again
-		supplyDropStatus = 0;
-		publicVariable "supplyDropStatus";
+		missionNameSpace setVariable ["supplyDropStatus",0,true];
 		
 		if (_audio) then {
 			if (_customAudio) then {
@@ -408,8 +427,7 @@ if (_UAMT) then {
 	}
 	else {
 		// If this was the last supply drop
-		supplyDropStatus = 0;
-		publicVariable "supplyDropStatus";
+		missionNameSpace setVariable ["supplyDropStatus",0,true];
 
 		if (_audio) then {
 			if (_customAudio) then {

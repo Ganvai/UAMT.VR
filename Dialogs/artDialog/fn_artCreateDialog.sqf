@@ -1,5 +1,5 @@
 if (missionNameSpace getVariable ["artiStatus",0] > 0) exitWith {
-	switch artiStatus do {
+	switch (missionNameSpace getVariable ["artiStatus",0]) do {
 		case 1 : {["No Artillery Strike available. Someone else is currently ordering a strike.", "Error"] call BIS_fnc_guiMessage;};
 		case 2 : {["No Artillery Strike available. Artillery is executing a strike", "Error"] call BIS_fnc_guiMessage;};
 		case 3 : {["No Artillery Strike available. Artillery is reloading and will be available shortly", "Error"] call BIS_fnc_guiMessage;};
@@ -16,7 +16,7 @@ _map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.297,safeZoneY + safeZoneH * 0
 _lbControl = _display displayCtrl 9900101;
 {
 	_lbControl lbAdd (_x select 0);
-} forEach fullArti;
+} forEach (missionNameSpace getVariable "fullArti");
 
 _lbControl lbSetCurSel 0;
 
@@ -68,7 +68,7 @@ createMarkerLocal ["artMrkRadius",[0,0,0]];
 	_mrkSize = 0;
 	
 	//If Ammo is viable for Fire Zone Check make Firezone Check
-	if ((((fullArti select lbCurSel (findDisplay 99001 displayCtrl 9900101)) select 2) select lbCurSel (findDisplay 99001 displayCtrl 9900102)) select 3 == "true") then {
+	if (((((missionNameSpace getVariable "fullArti") select lbCurSel (findDisplay 99001 displayCtrl 9900101)) select 2) select lbCurSel (findDisplay 99001 displayCtrl 9900102)) select 3 == "true") then {
 		{	
 			if (_pos inArea _x) exitWith {_fireZoneCheck = 1;};
 			
@@ -80,7 +80,7 @@ createMarkerLocal ["artMrkRadius",[0,0,0]];
 			};
 			
 			if (_pos distance2D (getMarkerPos _x) < ((sliderPosition (findDisplay 99001 displayCtrl 9900107)) + _mrkSize)) exitWith {_fireZoneCheck = 2;};
-		}forEach artiNoFireZones;
+		}forEach (getMissionConfigValue "artiNoFireZones");
 	};
 	
 	//If Position is in No-Fire zone and Ammo not allowed
@@ -103,10 +103,10 @@ createMarkerLocal ["artMrkRadius",[0,0,0]];
 	{
 		_obj = missionNamespace getVariable [_x, objNull];
 		_artiArr pushback _obj;
-	} forEach ((fullArti select lbCurSel (findDisplay 99001 displayCtrl 9900101)) select 1);
+	} forEach (((missionNameSpace getVariable "fullArti") select lbCurSel (findDisplay 99001 displayCtrl 9900101)) select 1);
 	
 	//Check if position is in Range
-	_isInRange = _pos inRangeOfArtillery [_artiArr, (((fullArti select lbCurSel (findDisplay 99001 displayCtrl 9900101)) select 2) select lbCurSel (findDisplay 99001 displayCtrl 9900102)) select 0];
+	_isInRange = _pos inRangeOfArtillery [_artiArr, ((((missionNameSpace getVariable "fullArti") select lbCurSel (findDisplay 99001 displayCtrl 9900101)) select 2) select lbCurSel (findDisplay 99001 displayCtrl 9900102)) select 0];
 
 	//If not in Range exit function
 	if (!_isInRange) exitWith {

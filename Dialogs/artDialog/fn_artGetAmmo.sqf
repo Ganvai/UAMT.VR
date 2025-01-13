@@ -4,7 +4,7 @@ _lbControl = findDisplay 99001 displayCtrl 9900102;
 
 lbClear _lbControl;
 
-_ammoArray = (fullArti select _lbCurSel) select 2;
+_ammoArray = ((missionNameSpace getVariable "fullArti") select _lbCurSel) select 2;
 
 {
 	_entry = format ["%1 - %2 Rounds",_x select 1,_x select 2];

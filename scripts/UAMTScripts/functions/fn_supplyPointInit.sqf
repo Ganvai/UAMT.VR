@@ -2,8 +2,13 @@ params ["_supplyPoints"];
 
 {
 	_boxes = [missionConfigFile >> "CfgFactionEquipment", "supplyCrates", []] call BIS_fnc_returnConfigEntry;
-
-	_supplyPoint = missionNamespace getVariable [_x select 0, objNull];
+	
+	_supplyPoint = _x select 0;
+	
+	if ( typeName _supplyPoint == "STRING") then {
+		_supplyPoint = missionNamespace getVariable [(_x select 0), objNull];
+	};
+	
 	_supplyPointDist = _x select 1;
 	_supplyPointDir = _x select 2;
 	_supplyPointBoxName = "";

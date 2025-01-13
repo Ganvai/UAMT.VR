@@ -2,7 +2,7 @@ params ['_newValue'];
 
 _mrkSize = 0;
 
-if ((((fullArti select lbCurSel 9900101) select 2) select lbCurSel 9900102) select 3 == "true") then {
+if (((((missionNameSpace getVariable "fullArti") select lbCurSel 9900101) select 2) select lbCurSel 9900102) select 3 == "true") then {
 	{	
 		if ((getMarkerSize _x) select 0 >= (getMarkerSize _x) select 1) then {
 			_mrkSize = (getMarkerSize _x) select 0;
@@ -12,7 +12,7 @@ if ((((fullArti select lbCurSel 9900101) select 2) select lbCurSel 9900102) sele
 		};
 
 		if (getMarkerPos "artMrkRadius" distance2D getMarkerPos _x < _newValue + _mrkSize) exitWith {["Dispersion radius is overlapping with No Fire Zone.", "Error"] spawn BIS_fnc_guiMessage;};
-	}forEach artiNoFireZones;
+	}forEach (getMissionConfigValue "artiNoFireZones");
 };
 
 

@@ -1,7 +1,5 @@
 if (missionNameSpace getVariable ["chtStatus",0] > 0) exitWith {
-	switch artiStatus do {
-		case 1 : {["Cannot call Helicopter. Someone else is currently ordering a helicopter transport. Wait until the call is finished.", "Error"] call BIS_fnc_guiMessage;};
-	};
+	["Cannot call Helicopter. Someone else is currently ordering a helicopter transport. Wait until the call is finished.", "Error"] call BIS_fnc_guiMessage;
 };
 
 missionNameSpace setVariable ["chtStatus",1,true];

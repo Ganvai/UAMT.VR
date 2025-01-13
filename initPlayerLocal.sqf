@@ -265,10 +265,10 @@ _reset_loadout = ["Reset Loadout","Reset Loadout","a3\modules_f\data\iconrespawn
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 
-if (supplyDropFeature) then {
+if (getMissionConfigValue "supplyDropFeature" == "true") then {
 
 	_supplyDropCon = {
-		supplyDropStatus < 4 && ((supplyDropRoles findIf {_x == vehicleVarName player;} > -1) || (supplyDropRoles findIf {_x == groupID group player;} > -1) || (supplyDropRoles findIf {_x == player getVariable "loadout";} > -1))
+		missionNameSpace getVariable ["supplyDropStatus",0] < 4 && (((getMissionConfigValue "supplyDropRoles") findIf {_x == vehicleVarName player;} > -1) || ((getMissionConfigValue "supplyDropRoles") findIf {_x == groupID group player;} > -1) || ((getMissionConfigValue "supplyDropRoles") findIf {_x == player getVariable "loadout";} > -1))
 	};
 	
 	_modifierFunc = {
@@ -276,7 +276,7 @@ if (supplyDropFeature) then {
 			
 		// Getting the Status suffix for the Aactionname
 		_status = "";
-		switch supplyDropStatus do {
+		switch (missionNameSpace getVariable ["supplyDropStatus",0]) do {
 			case 1 : {_status = " (Call in Progress)";};
 			case 2 : {_status = " (in Progress)";};
 			case 3 : {_status = " (Preparing new Supply Drop)";};
@@ -284,7 +284,7 @@ if (supplyDropFeature) then {
 		};
 		
 		// Modify the action - index 1 is the display name, 2 is the icon...
-		_actionData set [1, format ["Supply Drop (%1 left)%2",supplyDropMax - supplyDropCount,_status]];
+		_actionData set [1, format ["Supply Drop (%1 left)%2",((getMissionConfigValue "supplyDropMax") - (missionNameSpace getVariable ["supplyDropCount",0])),_status]];
 	};
 	
 	_supplyDropMenu = ["SupplyDrop","Supply Drop","a3\missions_f_oldman\data\img\holdactions\holdaction_box_ca.paa",{ [] spawn sdpDialog_fnc_sdpCreateDialog }, _supplyDropCon,{},[],"",0,[false, false, false, false, false],_modifierFunc] call ace_interact_menu_fnc_createAction;
@@ -300,10 +300,10 @@ if (supplyDropFeature) then {
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 	
-if (chtFeature) then {
+if (getMissionConfigValue "chtFeature" == "true") then {
 
 	// CAS Terminal
-	_condition = { ((chtRoles findIf {_x == vehicleVarName player;} > -1) || (chtRoles findIf {_x == groupID group player;} > -1) || (chtRoles findIf {_x == player getVariable "loadout";} > -1)) };
+	_condition = { (((getMissionConfigValue "chtRoles") findIf {_x == vehicleVarName player;} > -1) || ((getMissionConfigValue "chtRoles") findIf {_x == groupID group player;} > -1) || ((getMissionConfigValue "chtRoles") findIf {_x == player getVariable "loadout";} > -1)) };
 
 	_modifierFunc = {
 		params ["_target", "_player", "_params", "_actionData"];
@@ -332,10 +332,10 @@ if (chtFeature) then {
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 
-if (artiFeature) then {
+if (getMissionConfigValue "artiFeature" == "true") then {
 
 	_artiCondition = {
-		missionNameSpace getVariable ["artiStatus",4] < 4 && ((artiRoles findIf {_x == vehicleVarName player;} > -1) || (artiRoles findIf {_x == groupID group player;} > -1) || (artiRoles findIf {_x == player getVariable "loadout";} > -1))
+		missionNameSpace getVariable ["artiStatus",4] < 4 && (((getMissionConfigValue "artiRoles") findIf {_x == vehicleVarName player;} > -1) || ((getMissionConfigValue "artiRoles") findIf {_x == groupID group player;} > -1) || ((getMissionConfigValue "artiRoles") findIf {_x == player getVariable "loadout";} > -1))
 	};
 
 	_modifierFunc = {

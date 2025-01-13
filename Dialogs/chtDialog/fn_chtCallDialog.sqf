@@ -31,7 +31,7 @@ if (_dropOff isEqualTo [0,0,0]) exitWith {
 };
 
 _result = false;
-private _result = ["You are calling a Helicopter Transport? Do you acknowledge?", "Confirm CAS Firemission?", true, true] call BIS_fnc_guiMessage;
+private _result = ["You are calling a Helicopter Transport? Do you acknowledge?", "Confirm Helicopter Transport Call?", true, true] call BIS_fnc_guiMessage;
 
 if (!_result) exitWith {};
 

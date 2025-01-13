@@ -1,22 +1,23 @@
 params ["_targetPos", "_artIndex", "_ammoIndex", "_rounds", "_pattern", "_radius","_side",["_createMarker",true]];
 
-_audioMessages = supportMessages;
-_customAudio = supportCustomAudio;
-_supportControlName = supportControlName;
+_audioMessages = getMissionConfigValue "supportMessages";
+_customAudio = getMissionConfigValue "supportCustomAudio";
+_supportControlName = getMissionConfigValue "supportControlName";
 
 //Firemode Code Variable for Pattern Fire Modes
 _fireMode = {};
 _artiETA = 0;
 
+_fullArti = missionNameSpace getVariable "fullArti";
 //Needed Resources from Artillery Config
-_artillery = (fullArti select _artIndex) select 1;
-_artiAmmo = (((fullArti select _artIndex) select 2) select _ammoIndex) select 0;
+_artillery = (_fullArti select _artIndex) select 1;
+_artiAmmo = (((_fullArti select _artIndex) select 2) select _ammoIndex) select 0;
 
 // Remove Ammo from Ammopool for Artillery
-_artiAmmoRemaining = (((fullArti select _artIndex) select 2) select _ammoIndex) select 2;
+_artiAmmoRemaining = (((_fullArti select _artIndex) select 2) select _ammoIndex) select 2;
 _artiNewAmmoCount = _artiAmmoRemaining - _rounds;
-(((fullArti select _artIndex) select 2) select _ammoIndex) set [2,_artiNewAmmoCount];
-publicVariable "FullArti";
+(((_fullArti select _artIndex) select 2) select _ammoIndex) set [2,_artiNewAmmoCount];
+missionNameSpace setVariable ["fullArti",_fullArti,true];
 
 // Set ArtiStatus for Interface Control
 missionNameSpace setVariable ["artiStatus",2,true];
@@ -50,10 +51,10 @@ _artiArr = [];
 _artiETA = _artiArr select 0 getArtilleryETA [_targetPos, _artiAmmo];
 
 // Confirm Firemission Message
-if (_audioMessages) then {
+if (_audioMessages == "true") then {
 	_artiMessage = format ["All Units be advised: Artillery Coordinates recieved. Starting Firemission. Splash ETA: %1 Seconds", round _artiETA];
 
-	if (_customAudio) then {
+	if (_customAudio == "true") then {
 		[_artiMessage,_supportControlName,"msg_ArtilleryStarting",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 	}
 	else {
@@ -139,8 +140,8 @@ else {
 };
 
 // Send All Rounds Out Messsage
-if (_audioMessages) then {
-	if (_customAudio) then {
+if (_audioMessages == "true") then {
+	if (_customAudio == "true") then {
 		["Be advised: All rounds out.",_supportControlName,"msg_ArtilleryRounds",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 	}
 	else {
@@ -150,11 +151,11 @@ if (_audioMessages) then {
 	sleep 3;
 };
 
-if (_audioMessages) then {
+if (_audioMessages == "true") then {
 	if (time < (_timer + _artiETA)) then {
 		waitUntil {sleep 1; time > _timer + _artiETA};
 		
-		if (_customAudio) then {
+		if (_customAudio == "true") then {
 			["Be advised: Splash.",_supportControlName,"msg_ArtillerySplash",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 		}
 		else {
@@ -172,17 +173,17 @@ if (_createMarker) then {
 	deleteMarker _mrkRadName;
 };
 
-_cooldown = artiCooldown;
+_cooldown = getMissionConfigValue "artiCooldown";
 
 
-if (_audioMessages) then {
+if (_audioMessages == "true") then {
 
 	// Calculate Minutes for ETA message
-	_cooldownMike = ceil (artiCooldown / 60);
+	_cooldownMike = ceil (getMissionConfigValue "artiCooldown" / 60);
 	
 	_msg = format ["All Units: Fire Mission done. Preparing new Strike. ETA: %1 mike.",_cooldownMike];
 
-	if (_customAudio) then {
+	if (_customAudio == "true") then {
 		[_msg,_supportControlName,"msg_ArtilleryEnd",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 	}
 	else {
@@ -192,8 +193,8 @@ if (_audioMessages) then {
 
 sleep _cooldown;
 
-if (_audioMessages) then {
-	if (_customAudio) then {
+if (_audioMessages == "true") then {
+	if (_customAudio == "true") then {
 		["Be advised: New Artillery Strike is available.",_supportControlName,"msg_ArtilleryAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 	}
 	else {

@@ -1,16 +1,16 @@
 params ["_heliclass","_heliIndex","_pickupPos", "_destPos","_pickUpPosText","_dropOffPosText","_chtNumber","_player"];
 
-_audioMessages = supportMessages;
-_customAudio = supportCustomAudio;
-_supportControlName = supportControlName;
+_audioMessages = getMissionConfigValue "supportMessages";
+_customAudio = getMissionConfigValue "supportCustomAudio";
+_supportControlName = getMissionConfigValue "supportControlName";
 
 _heliPassengers = [];
 
 _side = side _player;
 
-_spawnPos = getMarkerPos chtSpawn;
+_spawnPos = getMarkerPos (getMissionConfigValue "chtSpawn");
 
-_despawnPos = getMarkerPos chtDespawn;
+_despawnPos = getMarkerPos (getMissionConfigValue "chtDespawn");
 
 _chtPickUpMrkName = format ["chtPickUpMrk%1",_chtNumber];
 createMarker [_chtPickUpMrkName,_pickupPos];
@@ -53,7 +53,7 @@ _heliVeh setPos _spawnPos;
 
 if (getMissionConfigValue "chtDamage" == "false") then {
 	_heliVeh allowDamage false;
-	{_x allowDamage false;} forEach _crew;
+	{_x allowDamage false;} forEach _heliCrew;
 };
 
 // AI Behaviour
@@ -66,10 +66,10 @@ if (getMissionConfigValue "chtDamage" == "false") then {
 	_x setskill ["Courage",1.0];
 }forEach _heliCrew;
 
-if (_audioMessages) then {
+if (_audioMessages == "true") then {
 	_msg = "This is Helo Airtaxi. Pickup location recieved. We are on our way.";
 
-	if (_customAudio) then {
+	if (_customAudio == "true") then {
 		[_msg,"Pilot","msg_transportConfirm",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 	}
 	else {
@@ -84,10 +84,10 @@ _wp1 setWaypointBehaviour "CARELESS";
 
 waitUntil {sleep  1;(velocity  _heliVeh select 2) > -0.2 &&	(getPosATL _heliVeh select 2) <  0.5};
 
-if (_audioMessages) then {
+if (_audioMessages == "true") then {
 	_msg = "Helo Airtaxi touchdown. Board the chopper. Give the orders when everybody is on board.";
 
-	if (_customAudio) then {
+	if (_customAudio == "true") then {
 		[_msg,"Pilot","msg_transportPickup",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 	}
 	else {
@@ -124,7 +124,7 @@ if (!canMove _heliVeh) exitWith {
 };
 
 if (count (crew _heliVeh) == _crew) then {
-	["The Transport Helicopter is at it the Pickup Zone but it can only wait for another five Minutes. If no personal is there, it will return to base.","TOC","Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_player];
+	["The Transport Helicopter is at the Pickup Zone but it can only wait for another five Minutes. If no personal is there, it will return to base.","TOC","Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_player];
 };
 
 waitUntil {sleep 1; time - _timer > 900 || count (crew _heliVeh) > _crew || !canMove _heliVeh};
@@ -132,7 +132,7 @@ waitUntil {sleep 1; time - _timer > 900 || count (crew _heliVeh) > _crew || !can
 if  (time - _timer > getMissionConfigValue "chtTimeOut"  && count (crew _heliVeh) == _crew && canMove _heliVeh) exitWith {
 
 	if (count (crew _heliVeh) == _crew) then {
-		["Nobody showed up. The Transport Helicopter is returning to base.","TOC","Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_player];
+		["Nobody showed up. Transport Helicopter is returning to base.","TOC","Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_player];
 	};
 	
 	deleteVehicle _pad1;
@@ -170,10 +170,10 @@ if (!canMove _heliVeh) exitWith {
 
 _heliPassengers = crew _heliVeh arrayIntersect allPlayers;
 
-if (_audioMessages) then {
-	_msg = "All ground personal on board. Ge ready for Lif-Off.";
+if (_audioMessages == "true") then {
+	_msg = "All ground personal on board. Get ready for Lift-Off.";
 
-	if (_customAudio) then {
+	if (_customAudio == "true") then {
 		[_msg,"Pilot","msg_transportLiftOff",_side] remoteExec ["UAMT_fnc_quickMsg",_heliPassengers];
 	}
 	else {
@@ -200,10 +200,10 @@ if (!canMove _heliVeh) exitWith {
 	[_heliVeh,_heliIndex,_side]call chtDialog_fnc_chtDestroyed;
 };
 
-if (_audioMessages) then {
+if (_audioMessages == "true") then {
 	_msg = "Touchdown on designated Coordinates. Everybody get out. Good luck out there.";
 
-	if (_customAudio) then {
+	if (_customAudio == "true") then {
 		[_msg,"Pilot","msg_transportArrival",_side] remoteExec ["UAMT_fnc_quickMsg",_heliPassengers];
 	}
 	else {
@@ -228,10 +228,10 @@ if (!canMove _heliVeh) exitWith {
 	[_heliVeh,_heliIndex,_side]call chtDialog_fnc_chtDestroyed;
 };
 
-if (_audioMessages) then {
+if (_audioMessages == "true") then {
 	_msg = "Everybody is out. We are on our way back.";
 
-	if (_customAudio) then {
+	if (_customAudio == "true") then {
 		[_msg,"Pilot","msg_transportBack",_side] remoteExec ["UAMT_fnc_quickMsg",_heliPassengers];
 	}
 	else {
@@ -259,10 +259,10 @@ if (!canMove _heliVeh) exitWith {
 deleteVehicleCrew _heliVeh;
 deleteVehicle _heliVeh;
 
-if (_audioMessages) then {
+if (_audioMessages == "true") then {
 	_msg = "All personal be advised: Transport helicopter is back at base.";
 
-	if (_customAudio) then {
+	if (_customAudio == "true") then {
 		[_msg,"TOC","msg_transportAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 	}
 	else {
@@ -272,10 +272,10 @@ if (_audioMessages) then {
 
 sleep 5;
 
-if (_audioMessages) then {
+if (_audioMessages == "true") then {
 	_msg = "Preparing Helicopter for new transport request.";
 
-	if (_customAudio) then {
+	if (_customAudio == "true") then {
 		[_msg,"TOC","msg_transportRefuel",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 	}
 	else {
@@ -292,10 +292,10 @@ _heliTempArray = missionNameSpace getVariable "chtHeliArray";
 
 missionNameSpace setVariable ["chtHeliArray",_heliTempArray,true];
 
-if (_audioMessages) then {
+if (_audioMessages == "true") then {
 	_msg = "All personal be advised: Transport helicopter is fueled up and standing by.";
 
-	if (_customAudio) then {
+	if (_customAudio == "true") then {
 		[_msg,"TOC","msg_transportAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 	}
 	else {

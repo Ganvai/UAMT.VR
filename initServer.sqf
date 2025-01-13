@@ -154,29 +154,6 @@ if (getMissionConfigValue "insFeature" == "true") then {
 //------------------------------------------------------------------
 
 //------------------------------------------------------------------
-//			Audio Config
-//------------------------------------------------------------------
-
-if ( getMissionConfigValue "supportMessages" == "true" ) then {
-	supportMessages = true;
-}
-else {
-	supportMessages = false;
-};
-publicVariable "supportMessages";
-
-if ( getMissionConfigValue "supportCustomAudio" == "true" ) then {
-	supportCustomAudio = true;
-}
-else {
-	supportCustomAudio = false;
-};
-publicVariable "supportCustomAudio";
-
-supportControlName = getMissionConfigValue "supportControlName";;
-publicVariable "supportControlName";
-
-//------------------------------------------------------------------
 // 			Supply Points
 //------------------------------------------------------------------
 
@@ -200,90 +177,18 @@ else {
 publicVariable "supplyPointFeature";
 
 //------------------------------------------------------------------
-// 			Supply Drops
-//------------------------------------------------------------------
-if (getMissionConfigValue "supplyDropFeature" == "true") then {
-	supplyDropFeature = true;
-
-	supplyDropStatus = getMissionConfigValue "supplyDropStatus";
-	publicVariable "supplyDropStatus";
-	
-	supplyDropRoles = getMissionConfigValue "supplyDropRoles";
-	publicVariable "supplyDropRoles";
-
-	supplyDropVehicle = getMissionConfigValue "supplyDropVehicle";
-	publicVariable "supplyDropVehicle";
-
-	supplyDropPilot = getMissionConfigValue "supplyDropPilot";
-	publicVariable "supplyDropPilot";
-
-	supplyDropDist = getMissionConfigValue "supplyDropDist";
-	publicVariable "supplyDropDist";
-
-	supplyDropMax = getMissionConfigValue "supplyDropMax";
-	publicVariable "supplyDropMax";
-
-	supplyDropDelay = getMissionConfigValue "supplyDropDelay";
-	publicVariable "supplyDropDelay";
-
-	supplyDropDelayPenalty = getMissionConfigValue "supplyDropDelayPenalty";
-	publicVariable "supplyDropDelayPenalty";
-	
-	supplyDropCount = 0;
-	publicVariable "supplyDropCount";
-	
-	if ( getMissionConfigValue "supplyDropDamage" == "true" ) then {
-		supplyDropDamage = true;
-	}
-	else {
-		supplyDropDamage = false;
-	};
-	publicVariable "supplyDropDamage";
-
-}
-else {
-	supplyDropFeature = false;
-};
-publicVariable "supplyDropFeature";
-
-//------------------------------------------------------------------
 //				Helicopter Transport Feature
 //------------------------------------------------------------------
 if ( getMissionConfigValue "chtFeature" == "true" ) then {
-	chtFeature = true;
-	publicVariable "chtFeature";
 
 	// Form Helicopter Array
-	_chtClasses = getMissionConfigValue "chtClasses";
+	_chtHelis = getMissionConfigValue "chtHelis";
 	_chtHeliArray = [];
 	{
 		_chtHeliArray pushback [_x,true];
-	} forEach _chtClasses;
+	} forEach _chtHelis;
 	
 	missionNameSpace setVariable ["chtHeliArray",_chtHeliArray,true];
-	
-	chtRoles = getMissionConfigValue "chtRoles";
-	publicVariable "chtRoles";
-
-	chtSpawn = getMissionConfigValue "chtSpawn";
-	publicVariable "chtSpawn";
-
-	chtDespawn = getMissionConfigValue "chtDespawn";
-	publicVariable "chtDespawn";
-
-	chtCivil = getMissionConfigValue "chtCivil";
-	publicVariable "chtCivil";
-
-	chtDamage = getMissionConfigValue "chtDamage";
-	publicVariable "chtDamage";
-	
-	missionNameSpace setVariable  ["chtStatus",getMissionConfigValue "chtStatus",true];
-	
-	missionNameSpace setVariable ["chtCount",0,true];
-}
-else {
-	chtFeature = false;
-	publicVariable "chtFeature";
 };
 
 //------------------------------------------------------------------
@@ -299,26 +204,11 @@ else {
 //------------------------------------------------------------------
 
 if (getMissionConfigValue "artiFeature" == "true") then {
-
-	artiFeature = true;
-	publicVariable "artiFeature";
 	
-	fullArti = getMissionConfigValue "artillery";
-	publicVariable "fullArti";
-	
-	artiRoles = getMissionConfigValue "artiRoles";
-	publicVariable "artiRoles";
-	
-	artiCooldown = getMissionConfigValue "artiCooldown";
-	publicVariable "artiCooldown";
-
-	artiNoFireZones = getMissionConfigValue "artiNoFireZones";
-	publicVariable "artiNoFireZones";
+	missionNameSpace setVariable ["fullArti",(getMissionConfigValue "artillery"),true];
 	
 	// Availability Artillery - 0 = Available, 1 = In Use, 2 = In Firemission, 3 = in Cooldown
 	missionNameSpace setVariable ["artiStatus",getMissionConfigValue "artiStatus",true];
-	
-	missionNameSpace setVariable ["artiStrikeCount",0,true];
 };
 
 

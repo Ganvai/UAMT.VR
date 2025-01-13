@@ -31,9 +31,10 @@ if (_pattern == -1) exitWith {
 //-------------------------------------------------------------------------------------------------------------
 _fireZoneCheck = 0;
 _mrkSize = 0;
+_fullArti = missionNameSpace getVariable "fullArti";
 
 //If Ammo is viable for Fire Zone Check make Firezone Check
-if ((((fullArti select lbCurSel 9900101) select 2) select lbCurSel 9900102) select 3 == "true") then {
+if ((((_fullArti select lbCurSel 9900101) select 2) select lbCurSel 9900102) select 3 == "true") then {
 	{	
 		if (_targetPos inArea _x) exitWith {_fireZoneCheck = 1;};
 		
@@ -45,7 +46,7 @@ if ((((fullArti select lbCurSel 9900101) select 2) select lbCurSel 9900102) sele
 		};
 		
 		if (_targetPos distance2D (getMarkerPos _x) < (_radius + _mrkSize)) exitWith {_fireZoneCheck = 2;};
-	}forEach artiNoFireZones;
+	}forEach (getMissionConfigValue "artiNoFireZones");
 };
 
 //If Position is in No-Fire zone and Ammo not allowed
@@ -59,9 +60,9 @@ if (_fireZoneCheck > 0) exitWith {
 };
 
 
-_artName = (fullArti select _artIndex) select 0;
+_artName = (_fullArti select _artIndex) select 0;
 
-_ammoName = (((fullArti select _artIndex) select 2) select _ammoIndex) select 1;
+_ammoName = (((_fullArti select _artIndex) select 2) select _ammoIndex) select 1;
 
 _patternName = "";
 switch _pattern do {

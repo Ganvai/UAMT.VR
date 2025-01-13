@@ -1,5 +1,6 @@
 params ['_lbCurSel'];
 
+_fullArti = missionNameSpace getVariable "fullArti";
 _sliderControl = findDisplay 99001 displayCtrl 9900103;
 
 _fullArtiIndex = lbCurSel _sliderControl;
@@ -7,12 +8,12 @@ _ammoArtiIndex = _lbCurSel;
 
 _sliderOld = sliderPosition _sliderControl;
 
-_ammoCount = (((fullArti select _fullArtiIndex) select 2) select _ammoArtiIndex) select 2;
-_ammoClass = (((fullArti select _fullArtiIndex) select 2) select _ammoArtiIndex) select 0;
+_ammoCount = (((_fullArti select _fullArtiIndex) select 2) select _ammoArtiIndex) select 2;
+_ammoClass = (((_fullArti select _fullArtiIndex) select 2) select _ammoArtiIndex) select 0;
 
 _magSize = getNumber (configFile >> "CfgMagazines" >> _ammoClass >> "count");
 
-_artCount = count ((fullArti select _fullArtiIndex) select 1);
+_artCount = count ((_fullArti select _fullArtiIndex) select 1);
 
 _magsShots = _magSize * _artCount;
 

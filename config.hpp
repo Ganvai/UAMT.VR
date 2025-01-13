@@ -337,7 +337,7 @@ chtStatus = 0;			// The Status manages the accessebility of the function.
 							//					publicVariable "artiStatus";
 							//		IF YOU DON'T WANT ANY Artillery use artiFeature instead!
 							
-chtClasses[] = {"B_Heli_Light_01_F","B_Heli_Light_01_F","B_Heli_Transport_01_F"};	// Helicopters available for Transport. If you want several Helicopters of one type, just give another one in this array (see example Heli_Light).
+chtHelis[] = {"B_Heli_Light_01_F","B_Heli_Light_01_F","B_Heli_Transport_01_F"};	// Helicopter Classes available for Transport. If you want several Helicopters of one class, just give another one in this array (see example Heli_Light).
 chtRoles[] = {JTAC,Groupleader};	// Roles that can call in Heli Transport
 chtSpawn = "chtSpawnMrk";		// Location the Helicopter will spawn. Place a marker and configure its name here.
 chtDespawn = "chtDespawnMrk";	// Location the Helicopter will despawn. Place a marker and configure its name here.

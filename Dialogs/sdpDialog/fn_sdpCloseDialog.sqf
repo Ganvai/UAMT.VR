@@ -3,5 +3,4 @@ deleteMarkerLocal "sdpMrk";
 deleteMarkerLocal "sdpDirMrk";
 onMapSingleClick "";
 
-supplyDropStatus = 0;
-publicVariable "supplyDropStatus";
+missionNameSpace setVariable ["supplyDropStatus",0,true];
