@@ -236,61 +236,15 @@ if ( getMissionConfigValue "vlsFeature" == "true" ) then {
 //------------------------------------------------------------------
 
 if ( getMissionConfigValue "casFeature" == "true" ) then {
-	casFeature = true;
-	publicVariable "casFeature";
 
 	// Availability CAS - 0 = Available, 1 = In Use, 2 = In Firemission, 3 = in Cooldown, 4 = Not available, will not show in Menu
 	missionNameSpace setVariable ["casStatus",getMissionConfigValue "casStatus",true];
-	
-	casClass = getMissionConfigValue "casClass";
-	publicVariable "casClass";
 	
 	missionNameSpace setVariable ["casMGruns",getMissionConfigValue "casMGruns",true];
 
 	missionNameSpace setVariable ["casMisRuns",getMissionConfigValue "casMisRuns",true];
 
 	missionNameSpace setVariable ["casBombRuns",getMissionConfigValue "casBombRuns",true];
-
-	casDelay = getMissionConfigValue "casDelay";
-	publicVariable "casDelay";
-
-	casCooldown = getMissionConfigValue "casCooldown";
-	publicVariable "casCooldown";
-
-	casPenalty = getMissionConfigValue "casPenalty";
-	publicVariable "casPenalty";
-
-	casRoles = getMissionConfigValue "casRoles";
-	publicVariable "casRoles";
-
-	casRolesCMDR = getMissionConfigValue "casRolesCMDR";
-	publicVariable "casRolesCMDR";
-	
-	casEquipment = getMissionConfigValue "casEquipment";
-	publicVariable "casEquipment";
-
-	if ( getMissionConfigValue "casNeedsLaser" == "true" ) then {
-		casNeedsLaser = true;
-	}
-	else {
-		casNeedsLaser = false;
-	};
-	publicVariable "casNeedsLaser";
-	
-	if ( getMissionConfigValue "casAllowDrones" == "true" ) then {
-		casAllowDrones = true;
-	}
-	else {
-		casAllowDrones = false;
-	};
-	publicVariable "casAllowDrones";
-	
-	casNoFireZones = getMissionConfigValue "casNoFireZones";
-	publicVariable "casNoFireZones";
-}
-else {
-	casFeature = false;
-	publicVariable "casFeature";
 };
 
 
@@ -299,50 +253,11 @@ else {
 //------------------------------------------------------------------
 
 if ( getMissionConfigValue "hfsFeature" == "true" ) then {
-	hfsFeature = true;
-	publicVariable "hfsFeature";
 
 	// Availability HFS - 0 = Available, 1 = In Use, 2 = In Firemission, 3 = in Cooldown
 	missionNameSpace setVariable ["hfsStatus",getMissionConfigValue "hfsStatus",true];
 	
-	hfsArray = getMissionConfigValue "hfsArray";
-	publicVariable "hfsArray";
-
-	hfsDuration = getMissionConfigValue "hfsDuration";
-	publicVariable "hfsDuration";
-
-	hfsDistance = getMissionConfigValue "hfsDistance";
-	publicVariable "hfsDistance";
-
-	hfsDelay = getMissionConfigValue "hfsDelay";
-	publicVariable "hfsDelay";
-
-	hfsCooldown = getMissionConfigValue "hfsCooldown";
-	publicVariable "hfsCooldown";
-
-	hfsPenalty = getMissionConfigValue "hfsPenalty";
-	publicVariable "hfsPenalty";
-
-	if ( getMissionConfigValue "hfsRespawn" == "true" ) then {
-		hfsRespawn = true;
-	}
-	else {
-		hfsRespawn = false;
-	};
-	publicVariable "hfsRespawn";
-	
-	hfsRoles = getMissionConfigValue "hfsRoles";
-	publicVariable "hfsRoles";
-
-	hfsRolesCMDR = getMissionConfigValue "hfsRolesCMDR";
-	publicVariable "hfsRolesCMDR";
-	
-	hfsNoFireZones = getMissionConfigValue "hfsNoFireZones";
-	publicVariable "hfsNoFireZones";	
-}
-else {
-	hfsFeature = false;
-	publicVariable "hfsFeature";
+	missionNameSpace setVariable ["hfsArray",getMissionConfigValue "hfsArray",true];
 };
 
 

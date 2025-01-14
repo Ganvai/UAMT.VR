@@ -17,9 +17,9 @@
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 
-devMode = true;
+_devMode = true;
 
-if (!devMode) then {
+if (!_devMode) then {
 	titleText ["Preparing Mission...", "BLACK FADED", 1];
 };
 
@@ -50,7 +50,7 @@ if (getMissionConfigValue "modcheck" == "true") then {
 //
 //------------------------------------------------------------------
 //------------------------------------------------------------------
-if (!devMode) then {
+if (!_devMode) then {
 	if (getMissionConfigValue "iJName" != "") then {
 		
 		[] spawn {
@@ -85,7 +85,7 @@ if (!devMode) then {
 //------------------------------------------------------------------
 
 if (getMissionConfigValue "missionstartedfeat" == "true") then {
-	if (missionstarted) then {
+	if (missionNameSpace getVariable ["missionStarted",false]) then {
 		
 		_center = getPos base;
 		_spawnPos = [0,0,0];
@@ -491,10 +491,10 @@ if (getMissionConfigValue "vlsFeature" == "true") then {
 //
 //------------------------------------------------------------------
 //------------------------------------------------------------------
-if (casFeature) then {
+if (getMissionConfigValue "casFeature" == "true") then {
 	
 	// CAS Terminal
-	_condition = { missionNameSpace getVariable ["casStatus",4] < 4 && ((casRolesCMDR findIf {_x == vehicleVarName player;} > -1) || (casRolesCMDR findIf {_x == groupID group player;} > -1) || (casRolesCMDR findIf {_x == player getVariable "loadout";} > -1)) };
+	_condition = { missionNameSpace getVariable ["casStatus",4] < 4 && (((getMissionConfigValue "casRolesCMDR") findIf {_x == vehicleVarName player;} > -1) || ((getMissionConfigValue "casRolesCMDR") findIf {_x == groupID group player;} > -1) || ((getMissionConfigValue "casRolesCMDR") findIf {_x == player getVariable "loadout";} > -1)) };
 
 	_modifierFunc = {
 		params ["_target", "_player", "_params", "_actionData"];
@@ -517,35 +517,35 @@ if (casFeature) then {
 	
 	// CAS Menu  entry
 	_condition = {};
-	if (casNeedsLaser) then {
-		if (casAllowDrones) then {
+	if (getMissionConfigValue "casNeedsLaser" == "true") then {
+		if (getMissionConfigValue "casAllowDrones" == "true") then {
 			_condition = {
 							missionNameSpace getVariable ["casStatus",4] < 4 &&
-							(( casEquipment findIf {currentWeapon player ==  _x } > -1 && isLaserOn player ) || ( [player,"GUNNER"] isEqualTo UAVControl getConnectedUAV player && isLaserOn getConnectedUAV player ) )  &&
-							((casRoles findIf {_x == vehicleVarName player;} > -1) || (casRoles findIf {_x == groupID group player;} > -1) || (casRoles findIf {_x == player getVariable "loadout";} > -1))
+							(( (getMissionConfigValue "casEquipment") findIf {currentWeapon player ==  _x } > -1 && isLaserOn player ) || ( [player,"GUNNER"] isEqualTo UAVControl getConnectedUAV player && isLaserOn getConnectedUAV player ) )  &&
+							(((getMissionConfigValue "casRolesCMDR") findIf {_x == vehicleVarName player;} > -1) || ((getMissionConfigValue "casRolesCMDR") findIf {_x == groupID group player;} > -1) || ((getMissionConfigValue "casRolesCMDR") findIf {_x == player getVariable "loadout";} > -1))
 			};		
 		}
 		else {
 			_condition = {
 							missionNameSpace getVariable ["casStatus",4] < 4 &&
-							( casEquipment findIf {currentWeapon player ==  _x } > -1 && isLaserOn player ) &&
-							((casRoles findIf {_x == vehicleVarName player;} > -1) || (casRoles findIf {_x == groupID group player;} > -1) || (casRoles findIf {_x == player getVariable "loadout";} > -1))
+							( (getMissionConfigValue "casEquipment") findIf {currentWeapon player ==  _x } > -1 && isLaserOn player ) &&
+							(((getMissionConfigValue "casRolesCMDR") findIf {_x == vehicleVarName player;} > -1) || ((getMissionConfigValue "casRolesCMDR") findIf {_x == groupID group player;} > -1) || ((getMissionConfigValue "casRolesCMDR") findIf {_x == player getVariable "loadout";} > -1))
 			};		
 		};
 	}
 	else {
-		if (casAllowDrones) then {
+		if (getMissionConfigValue "casAllowDrones" == "true") then {
 			_condition = {
 							missionNameSpace getVariable ["casStatus",4] < 4 &&
-							(( casEquipment findIf {currentWeapon player ==  _x } > -1) || ( [player,"GUNNER"] isEqualTo UAVControl getConnectedUAV player && isLaserOn getConnectedUAV player ) )  &&
-							((casRoles findIf {_x == vehicleVarName player;} > -1) || (casRoles findIf {_x == groupID group player;} > -1) || (casRoles findIf {_x == player getVariable "loadout";} > -1))
+							(( (getMissionConfigValue "casEquipment") findIf {currentWeapon player ==  _x } > -1) || ( [player,"GUNNER"] isEqualTo UAVControl getConnectedUAV player && isLaserOn getConnectedUAV player ) )  &&
+							(((getMissionConfigValue "casRolesCMDR") findIf {_x == vehicleVarName player;} > -1) || ((getMissionConfigValue "casRolesCMDR") findIf {_x == groupID group player;} > -1) || ((getMissionConfigValue "casRolesCMDR") findIf {_x == player getVariable "loadout";} > -1))
 			};	
 		}
 		else {
 			_condition = {
 							missionNameSpace getVariable ["casStatus",4] < 4 &&
-							( casEquipment findIf {currentWeapon player ==  _x } > -1)  &&
-							((casRoles findIf {_x == vehicleVarName player;} > -1) || (casRoles findIf {_x == groupID group player;} > -1) || (casRoles findIf {_x == player getVariable "loadout";} > -1))
+							( (getMissionConfigValue "casEquipment") findIf {currentWeapon player ==  _x } > -1)  &&
+							(((getMissionConfigValue "casRolesCMDR") findIf {_x == vehicleVarName player;} > -1) || ((getMissionConfigValue "casRolesCMDR") findIf {_x == groupID group player;} > -1) || ((getMissionConfigValue "casRolesCMDR") findIf {_x == player getVariable "loadout";} > -1))
 			};		
 		};
 	};
@@ -577,7 +577,7 @@ if (casFeature) then {
 		params ["_target", "_player", "_params", "_actionData"];
 			
 		// Modify the action - index 1 is the display name, 2 is the icon...
-		_actionData set [1, format ["Machine Gun (%1 left)",casMGruns]];
+		_actionData set [1, format ["Machine Gun (%1 left)",(missionNameSpace getVariable ["casMGruns",0])]];
 	};
 	
 	_casMG = ["Machine Gun","Machine Gun","A3\ui_f\data\map\markers\military\dot_CA.paa",{[0] spawn UAMTcas_fnc_casCall;},_condition,{},[],"",0,[false, false, false, false, false],_modifierFunc] call ace_interact_menu_fnc_createAction;
@@ -591,7 +591,7 @@ if (casFeature) then {
 		params ["_target", "_player", "_params", "_actionData"];
 			
 		// Modify the action - index 1 is the display name, 2 is the icon...
-		_actionData set [1, format ["Missiles (%1 left)",casMisRuns]];
+		_actionData set [1, format ["Missiles (%1 left)",(missionNameSpace getVariable ["casMisRuns",0])]];
 	};
 	
 	_casMis = ["Missiles","Missiles","A3\ui_f\data\map\markers\military\dot_CA.paa",{[1] spawn UAMTcas_fnc_casCall;},_condition,{},[],"",0,[false, false, false, false, false],_modifierFunc] call ace_interact_menu_fnc_createAction;
@@ -606,11 +606,11 @@ if (casFeature) then {
 			
 		// Modify the action - index 1 is the display name, 2 is the icon...
 		_count = 0;
-		if (casMGRuns > casMisRuns) then {
-			_count = casMisRuns;
+		if (missionNameSpace getVariable ["casMGruns",0] > missionNameSpace getVariable ["casMisRuns",0]) then {
+			_count = missionNameSpace getVariable ["casMisRuns",0];
 		}
 		else {
-			_count = casMGRuns;
+			_count = missionNameSpace getVariable ["casMGruns",0];
 		};
 		
 		_actionData set [1, format ["MG + Missiles (%1 left)",_count]];
@@ -627,7 +627,7 @@ if (casFeature) then {
 		params ["_target", "_player", "_params", "_actionData"];
 			
 		// Modify the action - index 1 is the display name, 2 is the icon...
-		_actionData set [1, format ["Bomb (%1 left)",casBombRuns]];
+		_actionData set [1, format ["Bomb (%1 left)",(missionNameSpace getVariable ["casBombRuns",0])]];
 	};
 	
 	_casBomb = ["Bomb","Bomb","A3\ui_f\data\map\markers\military\dot_CA.paa",{[3] spawn UAMTcas_fnc_casCall;},_condition,{},[],"",0,[false, false, false, false, false],_modifierFunc] call ace_interact_menu_fnc_createAction;
@@ -642,10 +642,10 @@ if (casFeature) then {
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 
-if (hfsFeature) then {
+if (getMissionConfigValue "hfsFeature" == "true") then {
 
 	// HFS Terminal
-	_condition = { missionNameSpace getVariable ["hfsStatus",4] < 4 && ((hfsRolesCMDR findIf {_x == vehicleVarName player;} > -1) || (hfsRolesCMDR findIf {_x == groupID group player;} > -1) || (hfsRolesCMDR findIf {_x == player getVariable "loadout";} > -1)) };
+	_condition = { missionNameSpace getVariable ["hfsStatus",4] < 4 && (((getMissionConfigValue "hfsRolesCMDR") findIf {_x == vehicleVarName player;} > -1) || ((getMissionConfigValue "hfsRolesCMDR") findIf {_x == groupID group player;} > -1) || ((getMissionConfigValue "hfsRolesCMDR") findIf {_x == player getVariable "loadout";} > -1)) };
 
 	_modifierFunc = {
 		params ["_target", "_player", "_params", "_actionData"];
@@ -669,7 +669,7 @@ if (hfsFeature) then {
 	//Heli Fire Support Menu
 	_condition = {
 		 missionNameSpace getVariable ["hfsStatus",4] < 4 && 
-		((hfsRoles findIf {_x == vehicleVarName player;} > -1) || (hfsRoles findIf {_x == groupID group player;} > -1) || (hfsRoles findIf {_x == player getVariable "loadout";} > -1))
+		(((getMissionConfigValue "hfsRoles") findIf {_x == vehicleVarName player;} > -1) || ((getMissionConfigValue "hfsRoles") findIf {_x == groupID group player;} > -1) || ((getMissionConfigValue "hfsRoles") findIf {_x == player getVariable "loadout";} > -1))
 	};
 	
 	_modifierFunc = {
@@ -708,7 +708,7 @@ if (hfsFeature) then {
 			_params params ["_hfsIndex","_hfsName"];
 			
 			// Modify the action - index 1 is the display name, 2 is the icon...
-			_actionData set [1, format ["%1 %2 (%3 left)",((hfsArray select _hfsIndex) select 1),_hfsName,((hfsArray select _hfsIndex) select 2)]];
+			_actionData set [1, format ["%1 %2 (%3 left)",(((missionNameSpace getVariable ["hfsArray",[]]) select _hfsIndex) select 1),_hfsName,(((missionNameSpace getVariable ["hfsArray",[]]) select _hfsIndex) select 2)]];
 		};
 		
 		_function = {
@@ -722,7 +722,7 @@ if (hfsFeature) then {
 		[(typeOf player), 1, ["ACE_SelfActions","Heli Fire Support"], _hfsMenuEntry] call ace_interact_menu_fnc_addActionToClass;
 		
 		
-	}forEach hfsArray;
+	}forEach (missionNameSpace getVariable ["hfsArray",[]]);
 };
 
 
@@ -985,7 +985,7 @@ execVM "MissionSpecifics\MSInitPlayerLocal.sqf";
 //------------------------------------------------------------------
 //						Welcome Messages
 //------------------------------------------------------------------
-if (!devMode) then {
+if (!_devMode) then {
 	titleText ["Preparing Mission...", "BLACK IN", 0.2];
 
 

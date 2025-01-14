@@ -1,5 +1,5 @@
 if (missionNameSpace getVariable ["casStatus",0] > 0) exitWith {
-	switch casStatus do {
+	switch (missionNameSpace getVariable ["casStatus",0]) do {
 		case 1 : {["CAS not available. Another Element is currently requesting a CAS Strike", "Error"] call BIS_fnc_guiMessage;};
 		case 2 : {["CAS not available. CAS strike in progress", "Error"] call BIS_fnc_guiMessage;};
 		case 3 : {["CAS not available. Rerouting plane for new strike.", "Error"] call BIS_fnc_guiMessage;};
@@ -25,21 +25,21 @@ createMarkerLocal ["casDirMrk",[0,0,0]];
 
 _weaponsControl = _display displayCtrl 9900301;
 
-_line = format ["Machine Gun (%1 left)",casMGruns];
+_line = format ["Machine Gun (%1 left)",(missionNameSpace getVariable ["casMGruns",0])];
 _weaponsControl lbAdd _line;
 _weaponsControl lbSetData [1,"0"];
 
-_line = format ["Missiles (%1 left)",casMisRuns];
+_line = format ["Missiles (%1 left)",(missionNameSpace getVariable ["casMisRuns",0])];
 _weaponsControl lbAdd _line;
 _weaponsControl lbSetData [2,"1"];
 
 _mmgRuns = 0;
-if (casMisRuns > 0 && casMGruns > 0) then {
-	if (casMisRuns > casMGruns) then {
-		_mmgRuns = casMGruns;
+if (missionNameSpace getVariable ["casMisRuns",0] > 0 && missionNameSpace getVariable ["casMGruns",0] > 0) then {
+	if (missionNameSpace getVariable ["casMisRuns",0] > missionNameSpace getVariable ["casMGruns",0]) then {
+		_mmgRuns = missionNameSpace getVariable ["casMGruns",0];
 	}
 	else {
-		_mmgRuns = casMisRuns;
+		_mmgRuns = missionNameSpace getVariable ["casMisRuns",0];
 	};
 };
 
@@ -47,7 +47,7 @@ _line = format ["Miss + MG (%1 left)",_mmgRuns];
 _weaponsControl lbAdd _line;
 _weaponsControl lbSetData [3,"2"];
 
-_line = format ["Bombs (%1 left)",casBombRuns];
+_line = format ["Bombs (%1 left)",(missionNameSpace getVariable ["casBombRuns",0])];
 _weaponsControl lbAdd _line;
 _weaponsControl lbSetData [4,"3"];
 
@@ -57,7 +57,7 @@ _weaponsControl lbSetData [4,"3"];
 
 	{	
 		_fireZoneCheck = _pos inArea _x;
-	}forEach casNoFireZones;
+	}forEach getMissionConfigValue "casNoFireZones";
 
 	if (_fireZoneCheck) exitWith {
 		["Target is in No Fire Zone!", "Error"] call BIS_fnc_guiMessage;

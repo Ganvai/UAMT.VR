@@ -2,12 +2,14 @@ if (!isServer) exitWith {};
 
 params ["_hfsIndex","_side"];
 
-_audioMessages = supportMessages;
-_customAudio = supportCustomAudio;
-_supportControlName = supportControlName;
+_hfsArray = missionNameSpace getVariable ["hfsArray",0];
 
-if (_audioMessages) then {
-	if (_customAudio) then {
+_audioMessages = getMissionConfigValue "supportMessages";
+_customAudio = getMissionConfigValue "supportCustomAudio";
+_supportControlName = getMissionConfigValue "supportControlName";
+
+if (_audioMessages == "true") then {
+	if (_customAudio == "true") then {
 		["All Units: Helicopters were destroyed.",_supportControlName,"msg_hfsDestroyed",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 	}
 	else {
@@ -18,18 +20,18 @@ if (_audioMessages) then {
 };
 
 
-if (hfsRespawn) then {
+if (getMissionConfigValue "hfsRespawn" == "true") then {
 
 	missionNameSpace setVariable ["hfsStatus",3,true];
 	
-	_cooldown = hfsCooldown + hfsPenalty;
+	_cooldown = getMissionConfigValue "hfsCooldown" + getMissionConfigValue "hfsPenalty";
 	
-	if (_audioMessages) then {
+	if (_audioMessages == "true") then {
 		
 		_cooldownMike = ceil _cooldown / 60;
 		
 		_msg = format ["We will prepare a new Element. ETA:%1",_cooldownMike];
-		if (_customAudio) then {
+		if (_customAudio == "true") then {
 			[_msg,_supportControlName,"msg_hfsPrepareNew",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 		}
 		else {
@@ -39,18 +41,18 @@ if (hfsRespawn) then {
 		sleep 3;
 	};
 
-	_cooldown = hfsCooldown + hfsPenalty;
+	_cooldown = getMissionConfigValue "hfsCooldown" + getMissionConfigValue "hfsPenalty";
 		
 	sleep _cooldown;
 
 	missionNameSpace setVariable ["hfsStatus",0,true];
 	
-	if (_audioMessages) then {
-		if (_customAudio) then {
-			["All Units be advised: Helicopters are standing by for fire support.",_supportControlName,"msg_hfsAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+	if (_audioMessages == "true") then {
+		if (_customAudio == "true") then {
+			["All Units be advised: Helicopters are standing by for firesupport.",_supportControlName,"msg_hfsAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 		}
 		else {
-			["All Units be advised: Helicopters are standing by for fire support.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			["All Units be advised: Helicopters are standing by for firesupport.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 		};
 	};
 }
@@ -62,11 +64,13 @@ else {
 		if ((_x select 1) > 0) then {
 			_hfsStillAvailable = true;
 		};
-	} forEach hfsArray;
+	} forEach _hfsArray;
+	
+	missionNameSpace setVariable ["hfsArray",_hfsArray,true];
 	
 	if _hfsStillAvailable then {
-		if (_audioMessages) then {
-			if (_customAudio) then {
+		if (_audioMessages == "true") then {
+			if (_customAudio == "true") then {
 				["Remaining Helicopters are on standby.",_supportControlName,"msg_hfsRemainingStandBy",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 			}
 			else {
@@ -75,12 +79,12 @@ else {
 		};
 	}
 	else {
-		if (_audioMessages) then {
-			if (_customAudio) then {
-				["No rotary wing elements remaining. Helicopter fire support not available.",_supportControlName,"msg_hfsEnd",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		if (_audioMessages == "true") then {
+			if (_customAudio == "true") then {
+				["No rotary wing elements remaining. Helicopter firesupport not available.",_supportControlName,"msg_hfsEnd",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 			}
 			else {
-				["No rotary wing elements remaining. Helicopter fire support not available.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+				["No rotary wing elements remaining. Helicopter firesupport not available.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 			};
 		};
 	};

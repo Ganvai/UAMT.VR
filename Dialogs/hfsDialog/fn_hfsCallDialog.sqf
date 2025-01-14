@@ -7,7 +7,7 @@ if (_hfsTargetPos isEqualTo [0,0,0]) exitWith{
 };
 
 _result = false;
-private _result = ["You are sending Helicopter Fire Support to the designated coordinates. Do you confirm?", "Confirm Helicopter Fire Support?", true, true] call BIS_fnc_guiMessage;
+private _result = ["You are sending Helicopter Fire Support to the designated coordinates. Do you confirm?", "Confirm Helicopter Firesupport?", true, true] call BIS_fnc_guiMessage;
 
 if (!_result) exitWith {};
 

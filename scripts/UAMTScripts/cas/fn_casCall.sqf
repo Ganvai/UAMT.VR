@@ -1,7 +1,7 @@
 params ["_runID"];
 
-if (casStatus > 0) exitWith {
-	switch casStatus do {
+if (missionNameSpace getVariable ["casStatus",0] > 0) exitWith {
+	switch (missionNameSpace getVariable ["casStatus",0]) do {
 		case 1 : {["CAS not available. Another Element is currently requesting a CAS Strike", "Error"] call BIS_fnc_guiMessage;};
 		case 2 : {["CAS not available. CAS strike in progress", "Error"] call BIS_fnc_guiMessage;};
 		case 3 : {["CAS not available. Rerouting plane for new strike.", "Error"] call BIS_fnc_guiMessage;};
@@ -10,10 +10,10 @@ if (casStatus > 0) exitWith {
 
 _exit = false;
 switch _runID do {
-	case 0 : {if (casMGruns <= 0) then {_exit = true;};};
-	case 1 : {if (casMisRuns <= 0) then {_exit = true;};};
-	case 2 : {if (casMGruns <= 0 || casMisRuns <= 0) then {_exit = true;};};
-	case 3 : {if (casBombRuns <= 0) then {_exit = true;};};
+	case 0 : {if (missionNameSpace getVariable ["casMGruns",0] <= 0) then {_exit = true;};};
+	case 1 : {if (missionNameSpace getVariable ["casMisRuns",0] <= 0) then {_exit = true;};};
+	case 2 : {if (missionNameSpace getVariable ["casMGruns",0] <= 0 || missionNameSpace getVariable ["casMisRuns",0] <= 0) then {_exit = true;};};
+	case 3 : {if (missionNameSpace getVariable ["casBombRuns",0] <= 0) then {_exit = true;};};
 };
 
 if (_exit) exitWith {
@@ -49,7 +49,7 @@ _firezoneCheck = false;
 
 {	
 	_fireZoneCheck = _casTargetPos inArea _x;
-}forEach casNoFireZones;
+}forEach getMissionConfigValue "casNoFireZones";
 
 if (_fireZoneCheck) exitWith {
 	cutText ["<t color='#ff0000' size='2' shadow = '2'>Coordinates for CAS are in No Fire Zone!</t>", "PLAIN", 2, true, true];

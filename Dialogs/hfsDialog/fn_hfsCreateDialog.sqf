@@ -1,5 +1,5 @@
-if (hfsStatus > 0) exitWith {
-	switch hfsStatus do {
+if (missionNameSpace getVariable ["hfsStatus",0] > 0) exitWith {
+	switch (missionNameSpace getVariable ["hfsStatus",0]) do {
 		case 1 : {["Heli Fire Support not available. Another Element is currently requesting fire support.", "Error"] call BIS_fnc_guiMessage;};
 		case 2 : {["Heli Fire Support not available. Heli Fire Support deployed.", "Error"] call BIS_fnc_guiMessage;};
 		case 3 : {["Heli Fire Support not available. Refuelling and rearming Helicopters for new strike.", "Error"] call BIS_fnc_guiMessage;};
@@ -43,7 +43,7 @@ diag_log text format ["HFS Call - Marker Created - %1", profileName];
 		_display displayCtrl 9900401 lbAdd _hfsMenuName;
 		_display displayCtrl 9900401 lbSetValue [_forEachIndex,_forEachIndex];
 	};
-}forEach hfsArray;
+}forEach (missionNameSpace getVariable ["hfsArray",[]]);
 
 diag_log text format ["HFS Call - Heli Box Filled - %1", profileName];
 

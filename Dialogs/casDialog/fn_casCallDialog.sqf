@@ -19,7 +19,7 @@ _firezoneCheck = false;
 
 {	
 	_fireZoneCheck = _casTargetPos inArea _x;
-}forEach casNoFireZones;
+}forEach getMissionConfigValue "casNoFireZones";
 
 if (_fireZoneCheck) exitWith {
 	["Target is in No Fire Zone!", "Error"] call BIS_fnc_guiMessage;
@@ -29,10 +29,10 @@ _runName = "Machine Gun";
 _ammo = 1;
 
 switch _weaponID do {
-	case 0 : {_runName = "Machine Gun";_ammo = casMGruns;};
-	case 1 : {_runName = "Missiles";_ammo = casMisRuns;};
-	case 2 : {_runName = "Machine Gun and Missiles";if (casMGruns == 0 || casMisRuns == 0) then {_ammo = 0};};
-	case 3 : {_runName = "Bomb drop";_ammo = casBombRuns;};
+	case 0 : {_runName = "Machine Gun";_ammo = missionNameSpace getVariable ["casMGruns",0];};
+	case 1 : {_runName = "Missiles";_ammo = missionNameSpace getVariable ["casMisRuns",0];};
+	case 2 : {_runName = "Machine Gun and Missiles";if (missionNameSpace getVariable ["casMGruns",0] == 0 || missionNameSpace getVariable ["casMisRuns",0] == 0) then {_ammo = 0};};
+	case 3 : {_runName = "Bomb drop";_ammo = missionNameSpace getVariable ["casBombRuns",0];};
 };
 
 if (_ammo == 0) exitWith {

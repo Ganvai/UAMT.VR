@@ -4,18 +4,20 @@ params ["_pos","_dir","_side","_hfsIndex",["_createMarker",true]];
 
 missionNameSpace setVariable ["hfsStatus",2,true];
 
-_heloClass = (hfsArray select _hfsIndex) select 0;
-_heloCount = (hfsArray select _hfsIndex) select 1;
-_duration = hfsDuration;
-_audioMessages = supportMessages;
-_customAudio = supportCustomAudio;
-_supportControlName = supportControlName;
+_hfsArray = missionNameSpace getVariable ["hfsArray",0];
+
+_heloClass = (_hfsArray select _hfsIndex) select 0;
+_heloCount = (_hfsArray select _hfsIndex) select 1;
+_duration = getMissionConfigValue "hfsDuration";
+_audioMessages = getMissionConfigValue "supportMessages";
+_customAudio = getMissionConfigValue "supportCustomAudio";
+_supportControlName = getMissionConfigValue "supportControlName";
 _penalty = false;
 
-(hfsArray select _hfsIndex) set [2,(((hfsArray select _hfsIndex) select 2) - 1 )];
+(_hfsArray select _hfsIndex) set [2,(((_hfsArray select _hfsIndex) select 2) - 1 )];
 
 _heloCfg = configfile >> "cfgvehicles" >> _heloClass;
-_heloPos = _pos getPos [hfsDistance,_dir];
+_heloPos = _pos getPos [getMissionConfigValue "hfsDistance",_dir];
 _heloArr = [];
 _heloVehArr = [];
 _heloGrpArr = [];
@@ -32,8 +34,8 @@ if (_createMarker) then {
 	_hfsMrk setMarkerText "Heli Target";
 };
 
-if (_audioMessages) then {
-	if (_customAudio) then {
+if (_audioMessages == "true") then {
+	if (_customAudio == "true") then {
 		["Be advised: Helicopters are en route to your position.",_supportControlName,"msg_hfsEnRoute",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 	}
 	else {
@@ -41,7 +43,7 @@ if (_audioMessages) then {
 	};
 };
 
-sleep (2 + hfsDelay);
+sleep (2 + getMissionConfigValue "hfsDelay");
 
 // Spawning Helicopters
 for "_i" from 1 to _heloCount do {
@@ -60,34 +62,37 @@ for "_i" from 1 to _heloCount do {
 
 waitUntil {sleep 0.5; {_x distance2D _pos < 1000} count _heloVehArr > 0  || {canMove _x} count _heloVehArr == 0};
 
+_deleteArray = [];
 {
 	if (not canMove _x) then {
 		deleteMarker _hfsMrk;
 		deleteVehicleCrew _x;
 		_x setDamage 1;
 		
-		if (!hfsRespawn) then {
-			(hfsArray select _hfsIndex) set [1,(((hfsArray select _hfsIndex) select 1) - 1 )];
+		if (getMissionConfigValue "hfsRespawn" == "false") then {
+			(_hfsArray select _hfsIndex) set [1,(((_hfsArray select _hfsIndex) select 1) - 1 )];
 			
-			if (((hfsArray select _hfsIndex) select 1) == 0) then {
-				(hfsArray select _hfsIndex) set [2,0];
+			if (((_hfsArray select _hfsIndex) select 1) == 0) then {
+				(_hfsArray select _hfsIndex) set [2,0];
 			};
-			
-			publicVariable  "hfsArray";
 		};
 		
 		_penalty = true;
 		
-		_heloVehArr deleteAt _forEachIndex;
+		_deleteArray pushback _forEachIndex;
 	};
 } forEach _heloVehArr;
+
+_heloVehArr deleteAt _deleteArray;
+
+missionNameSpace setVariable ["hfsArray",_hfsArray,true];
 
 if ({alive _x} count _heloVehArr == 0) exitWith {
 	[_hfsIndex,_side] spawn UAMThfs_fnc_hfsDestroyed;
 };
 
-if (_audioMessages) then {
-	if (_customAudio) then {
+if (_audioMessages == "true") then {
+	if (_customAudio == "true") then {
 		["All units: Helicopters arriving at target area.",_supportControlName,"msg_hfsArrive",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 	}
 	else {
@@ -99,27 +104,31 @@ _timer = time;
 
 waitUntil {sleep 1; time - _timer > _duration || {canMove _x} count _heloVehArr == 0};
 
+_deleteArray = [];
+
 {
 	if (not canMove _x) then {
 		deleteMarker _hfsMrk;
 		deleteVehicleCrew _x;
 		_x setDamage 1;
 		
-		if (!hfsRespawn) then {
-			(hfsArray select _hfsIndex) set [1,(((hfsArray select _hfsIndex) select 1) - 1 )];
+		if (getMissionConfigValue "hfsRespawn" == "false") then {
+			(_hfsArray select _hfsIndex) set [1,(((_hfsArray select _hfsIndex) select 1) - 1 )];
 
-			if (((hfsArray select _hfsIndex) select 1) == 0) then {
-				(hfsArray select _hfsIndex) set [2,0];
+			if (((_hfsArray select _hfsIndex) select 1) == 0) then {
+				(_hfsArray select _hfsIndex) set [2,0];
 			};
-			
-			publicVariable  "hfsArray";
 		};
 		
 		_penalty = true;
 		
-		_heloVehArr deleteAt _forEachIndex;
+		_deleteArray pushback _forEachIndex;
 	};
 } forEach _heloVehArr;
+
+_heloVehArr deleteAt _deleteArray;
+
+missionNameSpace setVariable ["hfsArray",_hfsArray,true];
 
 if ({alive _x} count _heloVehArr == 0) exitWith {
 	[_hfsIndex,_side] spawn UAMThfs_fnc_hfsDestroyed;
@@ -127,8 +136,8 @@ if ({alive _x} count _heloVehArr == 0) exitWith {
 
 missionNameSpace setVariable ["hfsStatus",3,true];
 
-if (_audioMessages) then {
-	if (_customAudio) then {
+if (_audioMessages == "true") then {
+	if (_customAudio == "true") then {
 		["Be advised: Helicopter-Element is Bingo fuel and RTB.",_supportControlName,"msg_hfsBingo",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 	}
 	else {
@@ -167,27 +176,31 @@ if (_audioMessages) then {
 
 waituntil {sleep 1; {_x distance2D _heloPos < 100} count _heloVehArr > 0 || {canMove _x} count _heloVehArr == 0};
 
+_deleteArray = [];
+
 {
 	if (not canMove _x) then {
 		deleteMarker _hfsMrk;
 		deleteVehicleCrew _x;
 		_x setDamage 1;
 		
-		if (!hfsRespawn) then {
-			(hfsArray select _hfsIndex) set [1,(((hfsArray select _hfsIndex) select 1) - 1 )];
+		if (getMissionConfigValue "hfsRespawn" == "false") then {
+			(_hfsArray select _hfsIndex) set [1,(((_hfsArray select _hfsIndex) select 1) - 1 )];
 		
-			if (((hfsArray select _hfsIndex) select 1) == 0) then {
-				(hfsArray select _hfsIndex) set [2,0];
+			if (((_hfsArray select _hfsIndex) select 1) == 0) then {
+				(_hfsArray select _hfsIndex) set [2,0];
 			};
-			
-			publicVariable  "hfsArray";
 		};
 		
 		_penalty = true;
 		
-		_heloVehArr deleteAt _forEachIndex;
+		_deleteArray pushback _forEachIndex;
 	};
 } forEach _heloVehArr;
+
+_heloVehArr deleteAt _deleteArray;
+
+missionNameSpace setVariable ["hfsArray",_hfsArray,true];
 
 if ({alive _x} count _heloVehArr == 0) exitWith {
 	[_hfsIndex,_side] spawn UAMThfs_fnc_hfsDestroyed;
@@ -199,17 +212,17 @@ if ({alive _x} count _heloVehArr == 0) exitWith {
 	deleteGroup (_x select 2);
 } forEach _heloArr;
 
-_cooldown = hfsCooldown;
+_cooldown = getMissionConfigValue "hfsCooldown";
 if (_penalty) then {
-	_cooldown = _cooldown + hfsPenalty;
+	_cooldown = _cooldown + getMissionConfigValue "hfsPenalty";
 };
 
 sleep _cooldown;
 
 missionNameSpace setVariable ["hfsStatus",0,true];
 
-if (_audioMessages) then {
-	if (_customAudio) then {
+if (_audioMessages == "true") then {
+	if (_customAudio == "true") then {
 		["All Units be advised: Helicopters are standing by for fire support.",_supportControlName,"msg_hfsAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 	}
 	else {

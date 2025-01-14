@@ -25,17 +25,17 @@ if (_createMarker) then {
 };
 
 // Getting the global variable config values
-_planeClass = casClass;
-_audioMessages = supportMessages;
-_customAudio = supportCustomAudio;
-_supportControlName = supportControlName;
+_planeClass = getMissionConfigValue "casClass";
+_audioMessages = getMissionConfigValue "supportMessages";
+_customAudio = getMissionConfigValue "supportCustomAudio";
+_supportControlName = getMissionConfigValue "supportControlName";
 
-if (_audioMessages) then {
-	_delayMike = ceil (casDelay / 60);
+if (_audioMessages == "true") then {
+	_delayMike = ceil (getMissionConfigValue "casDelay" / 60);
 
 	_msg = format ["All Units be advised: CAS Aircraft is rerouted to your coordinates. ETA: %1 mike", _delayMike];
 
-	if (_customAudio) then {
+	if (_customAudio == "true") then {
 		[_msg,_supportControlName,"msg_CASReroute",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 	}
 	else {
@@ -88,7 +88,7 @@ _pitch = atan (_alt / _dis);
 _speed = 400 / 3.6;
 _duration = ([0,0] distance [_dis,_alt]) / _speed;
 
-sleep casDelay;
+sleep (getMissionConfigValue "casDelay");
 
 //--- Create plane
 _planePos = [_pos,_dis,_dir] call bis_fnc_relpos;
@@ -134,8 +134,8 @@ _ehFired = _plane addeventhandler [
 ];
 _plane setvariable ["ehFired",_ehFired];
 
-if (_audioMessages) then {
-	if (_customAudio) then {
+if (_audioMessages == "true") then {
+	if (_customAudio == "true") then {
 		["All Units be advised: CAS Aircraft is inbound.",_supportControlName,"msg_CASInbound",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 	}
 	else {
@@ -212,8 +212,8 @@ if (!canMove _plane) exitWith {
 		deleteMarker _mrkDirName;
 	};
 	
-	if (_audioMessages) then {
-		if (_customAudio) then {
+	if (_audioMessages == "true") then {
+		if (_customAudio == "true") then {
 			["All Units be advised: CAS Element was lost during Firemission.",_supportControlName,"msg_CASLostFire",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 		}
 		else {
@@ -223,8 +223,8 @@ if (!canMove _plane) exitWith {
 		sleep 5;
 	};
 	
-	if (casPenalty > 0 ) then {
-		_cooldown = casCooldown + casPenalty;
+	if (getMissionConfigValue "casPenalty" > 0 ) then {
+		_cooldown = getMissionConfigValue "casCooldown" + getMissionConfigValue "casPenalty";
 
 		missionNameSpace setVariable ["casStatus",3,true];
 		
@@ -232,8 +232,8 @@ if (!canMove _plane) exitWith {
 		
 		missionNameSpace setVariable ["casStatus",0,true];
 		
-		if (_audioMessages) then {
-			if (_customAudio) then {
+		if (_audioMessages == "true") then {
+			if (_customAudio == "true") then {
 				["Be advised: New CAS is available.",_supportControlName,"msg_CASAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 			}
 			else {
@@ -244,8 +244,8 @@ if (!canMove _plane) exitWith {
 	else {
 		missionNameSpace setVariable ["casStatus",0,true];
 
-		if (_audioMessages) then {
-			if (_customAudio) then {
+		if (_audioMessages == "true") then {
+			if (_customAudio == "true") then {
 				["No other CAS Aircrafts available. You are on your own now.",_supportControlName,"msg_CASNoCAS",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 			}
 			else {
@@ -267,8 +267,8 @@ if ({_x == "bomblauncher"} count _weaponTypes == 0) then {
 	};
 };
 
-if (_audioMessages) then {
-	if (_customAudio) then {
+if (_audioMessages == "true") then {
+	if (_customAudio == "true") then {
 		["CAS Firemission done. Aircraft is leaving the staging area.",_supportControlName,"msg_CASDone",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 	}
 	else {
@@ -291,16 +291,16 @@ if (canMove _plane) then {
 	{deletevehicle _x} foreach _crew;
 	deletegroup _group;
 
-	if (casMGruns > 0 || casMisRuns > 0 || casBombRuns > 0) then {
+	if (missionnamespace getVariable ["casMGruns",0] > 0 || missionnamespace getVariable ["casMisRuns",0] > 0 || missionnamespace getVariable ["casBombRuns",0] > 0) then {
 
 		missionNameSpace setVariable ["casStatus",3,true];
 
-		_cooldownMike = ceil (casCooldown / 60);
+		_cooldownMike = ceil (getMissionConfigValue "casCooldown" / 60);
 		
-		if (_audioMessages) then {
+		if (_audioMessages == "true") then {
 			_msg = format ["Be advised: CAS Aircraft is returning to holding pattern and preparing for new strike. ETA: %1 mike",_cooldownMike];
 			
-			if (_customAudio) then {
+			if (_customAudio == "true") then {
 				[_msg,_supportControlName,"msg_CASPrepare",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 			}
 			else {
@@ -310,12 +310,12 @@ if (canMove _plane) then {
 			sleep 10;
 		};
 		
-		sleep casCooldown;
+		sleep getMissionConfigValue "casCooldown";
 		
 		missionNameSpace setVariable ["casStatus",0,true];
 
-		if (_audioMessages) then {
-			if (_customAudio) then {
+		if (_audioMessages == "true") then {
+			if (_customAudio == "true") then {
 				["Be advised: New CAS is available.",_supportControlName,"msg_CASAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 			}
 			else {
@@ -327,8 +327,8 @@ if (canMove _plane) then {
 	
 		missionNameSpace setVariable ["casStatus",0,true];
 
-		if (_audioMessages) then {
-			if (_customAudio) then {
+		if (_audioMessages == "true") then {
+			if (_customAudio == "true") then {
 				["Be advised: Aircraft is bingo ammo and RTB. No more CAS Strikes available.",_supportControlName,"msg_CASLastCAS",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 			}
 			else {
@@ -338,8 +338,8 @@ if (canMove _plane) then {
 	};
 } 
 else {
-	if (_audioMessages) then {
-		if (_customAudio) then {
+	if (_audioMessages == "true") then {
+		if (_customAudio == "true") then {
 			["All Units be advised: CAS Element was lost on extraction.",_supportControlName,"msg_CASLostExtract",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 		}
 		else {
@@ -349,15 +349,15 @@ else {
 		sleep 5;
 	};
 	
-	if (casPenalty > 0 ) then {
-		_cooldown = casCooldown + casPenalty;
+	if (getMissionConfigValue "casPenalty" > 0 ) then {
+		_cooldown = getMissionConfigValue "casCooldown" + getMissionConfigValue "casPenalty";
 
 		missionNameSpace setVariable ["casStatus",3,true];
 		
 		sleep _cooldown;		
 		
-		if (_audioMessages) then {
-			if (_customAudio) then {
+		if (_audioMessages == "true") then {
+			if (_customAudio == "true") then {
 				["Be advised: New CAS is available.",_supportControlName,"msg_CASAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 			}
 			else {
@@ -369,8 +369,8 @@ else {
 
 		missionNameSpace setVariable ["casStatus",0,true];
 
-		if (_audioMessages) then {
-			if (_customAudio) then {
+		if (_audioMessages == "true") then {
+			if (_customAudio == "true") then {
 				["No other CAS Aircrafts available. You are on your own now.",_supportControlName,"msg_CASNoCAS",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 			}
 			else {
