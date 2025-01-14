@@ -356,30 +356,6 @@ class CfgSounds
 		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
 	};
 
-	class msg_HALOClimb1000 {
-		name = "msg_HALOClimb1000";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_HALOClimb1000.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
-		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
-	};
-
-	class msg_HALOClimb2000 {
-		name = "msg_HALOClimb2000";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_HALOClimb2000.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
-		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
-	};
-
-	class msg_HALOClimb2500 {
-		name = "msg_HALOClimb2500";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_HALOClimb2500.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
-		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
-	};
-
-	class msg_HALOClimb3000 {
-		name = "msg_HALOClimb3000";										// how the sound is referred to in the editor
-		sound[] = {"sounds\UAMTSounds\msg_HALOClimb3000.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
-		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
-	};
-
 	class msg_HALOClimbStart {
 		name = "msg_HALOClimbStart";										// how the sound is referred to in the editor
 		sound[] = {"sounds\UAMTSounds\msg_HALOClimbStart.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
