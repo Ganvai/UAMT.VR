@@ -5,7 +5,7 @@ params ["_supplyPoints"];
 	
 	_supplyPoint = _x select 0;
 	
-	if ( typeName _supplyPoint == "STRING") then {
+	if ( (typeName _supplyPoint) == "STRING") then {
 		_supplyPoint = missionNamespace getVariable [(_x select 0), objNull];
 	};
 	

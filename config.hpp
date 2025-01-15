@@ -288,7 +288,7 @@ supplyDropRoles[] 		= {TOC,s0_1, Groupleader, JTAC};	//Defines who has access to
 supplyDropStatus 		= 0;			// The supplyStatus manages the accessebility of the function.
 										// While 0 to 3 are Ingame Status, 4 is to manage by the Missionmaker
 										// 0 : Available -> Use this if you want it to be accessibel from the very beginning of the Mission
-										// 1 : Call -> Another player is calling the function and it is therefor not available for any other Player
+										// 1 : Call -> Another player is calling the function and it is therefor not available for any other Player (deprecated)
 										// 2 : Progress  -> The Supply Drop was called and is now being executed and it is therefor not available for any other player
 										// 3 : Cooldown -> The supply drop  was executed and is now in Cooldown before it is avialable again
 										// 4 : Not available -> The supply drop is not available until the Missionmaker sets the Status manually to 0
@@ -304,13 +304,13 @@ supplyDropVehicle		= "B_Heli_Transport_03_unarmed_F"; 	// Vehicle Class of Suppl
 
 supplyDropPilot			= "B_Helipilot_F";	// Class of the Pilot sitting in the Helo... leave it as it is, nobody will see this guy anyway.
 
-supplyDropDist 			= 2000;			// Gives the Minimum Distance from the delivery Position to where the Vehicle will spawn. 
+supplyDropDist 			= 1000;			// Gives the Minimum Distance from the delivery Position to where the Vehicle will spawn. 
 										// Adapt this depending in how large your Mission area is and how many people will be spread over the map. 
 										// 2000 to 5000m should be fine normally.
 										
 supplyDropDamage 		= false;		// Configure if the Supply Drop Helicopter can be damaged.
 
-supplyDropDelay 		= 10;			// Defines the delay until a new Supply Drop is available again. Balancing and "realism".
+supplyDropDelay 		= 1;			// Defines the delay until a new Supply Drop is available again. Balancing and "realism".
 
 supplyDropDelayPenalty 	= 10;			// Defines how much time is added as penalty when the Supply Drop Helicopter was destroyed on its mission. Balancing and "realism".
 

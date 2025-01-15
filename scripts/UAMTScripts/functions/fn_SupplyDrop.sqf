@@ -214,6 +214,9 @@ clearBackpackCargoGlobal _Box;
 // Fill the Supply Crate with items from _customLoad Array or attach Supply Point Function
 // custom load array should be format [[itemClass,itemCount],[itemClass,itemCount]]
 if (count _customLoad == 0) then {
+	_supplyPointArr = [[_box,2,0]];
+	[_supplyPointArr] remoteExec ["UAMT_fnc_supplyPointInit"];
+/*
 	_boxes = [missionConfigFile >> "CfgFactionEquipment", "supplyCrates", []] call BIS_fnc_returnConfigEntry;
 	
 	_supplyPoint = _Box;
@@ -244,6 +247,7 @@ if (count _customLoad == 0) then {
 		[_supplyPoint, 0, ["ACE_MainActions"], _boxMenu] call ace_interact_menu_fnc_addActionToObject;
 		
 	}forEach _boxes;
+*/
 }
 else {
 	{
