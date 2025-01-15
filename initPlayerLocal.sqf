@@ -501,7 +501,6 @@ if (getMissionConfigValue "casFeature" == "true") then {
 		// Getting the Status suffix for the Aactionname
 		_status = "";
 		switch (missionNameSpace getVariable ["casStatus",4]) do {
-			case 1 : {_status = " (Call in Progress)";};
 			case 2 : {_status = " (Executing Strike)";};
 			case 3 : {_status = " (Preparing new Strike)";};
 			default {_status = "";};
@@ -555,7 +554,6 @@ if (getMissionConfigValue "casFeature" == "true") then {
 		// Getting the Status suffix for the Aactionname
 		_status = "";
 		switch (missionNameSpace getVariable ["casStatus",4]) do {
-			case 1 : {_status = " (Call in Progress)";};
 			case 2 : {_status = " (Executing Strike)";};
 			case 3 : {_status = " (Preparing new Strike)";};
 			default {_status = "";};

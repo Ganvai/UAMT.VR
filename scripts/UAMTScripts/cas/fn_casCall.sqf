@@ -1,8 +1,7 @@
 params ["_runID"];
 
-if (missionNameSpace getVariable ["casStatus",0] > 0) exitWith {
+if (missionNameSpace getVariable ["casStatus",0] > 1) exitWith {
 	switch (missionNameSpace getVariable ["casStatus",0]) do {
-		case 1 : {["CAS not available. Another Element is currently requesting a CAS Strike", "Error"] call BIS_fnc_guiMessage;};
 		case 2 : {["CAS not available. CAS strike in progress", "Error"] call BIS_fnc_guiMessage;};
 		case 3 : {["CAS not available. Rerouting plane for new strike.", "Error"] call BIS_fnc_guiMessage;};
 	};

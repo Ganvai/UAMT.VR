@@ -1,4 +1,4 @@
-if (missionNameSpace getVariable ["casStatus",0] > 0) exitWith {
+if (missionNameSpace getVariable ["casStatus",0] > 1) exitWith {
 	switch (missionNameSpace getVariable ["casStatus",0]) do {
 		case 1 : {["CAS not available. Another Element is currently requesting a CAS Strike", "Error"] call BIS_fnc_guiMessage;};
 		case 2 : {["CAS not available. CAS strike in progress", "Error"] call BIS_fnc_guiMessage;};
@@ -6,22 +6,38 @@ if (missionNameSpace getVariable ["casStatus",0] > 0) exitWith {
 	};
 };
 
-missionNameSpace setVariable ["casStatus",1,true];
+[] spawn {
+	sleep 1;
+
+	if (findDisplay 99003 == displayNull) exitWith {
+		hint "Error when calling Terminal"; 
+		deleteMarkerLocal (player getVariable ["casStrikeMrkLocal",""]);
+		deleteMarkerLocal (player getVariable ["casStrikeDirMrkLocal",""]);
+		onMapSingleClick "";
+		missionNameSpace setVariable ["casStatus",0,true];
+	};
+};
 
 _display = createDialog ["casStrikeDialog"];
 
 _map = _display ctrlCreate ["RscMapControl", -1];
 _map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.316,safeZoneY + safeZoneH * 0.333,safeZoneW * 0.369,safeZoneH * 0.368];
 
-createMarkerLocal ["casStrikeMrk",[0,0,0]];
-"casStrikeMrk" setMarkerAlphaLocal 0;
-"casStrikeMrk" setMarkerTypeLocal "mil_destroy_noShadow";
-"casStrikeMrk" setMarkerTextLocal "CAS Target";
+_casStrikeMrkLocal = format ["CasStrike %1 - %2",clientowner,(missionnamespace getVariable ["casCount",0])];
+player setVariable ["casStrikeMrkLocal",_casStrikeMrkLocal];
 
-createMarkerLocal ["casDirMrk",[0,0,0]];
-"casDirMrk" setMarkerAlphaLocal 0;
-"casDirMrk" setMarkerTypeLocal "mil_arrow_noShadow";
-"casDirMrk" setMarkerTextLocal "CAS Approach Vector";
+createMarkerLocal [_casStrikeMrkLocal,[0,0,0]];
+_casStrikeMrkLocal setMarkerAlphaLocal 0;
+_casStrikeMrkLocal setMarkerTypeLocal "mil_destroy_noShadow";
+_casStrikeMrkLocal setMarkerTextLocal "CAS Target";
+
+_casStrikeDirMrkLocal = format ["CasStrikeDir %1 - %2",clientowner,(missionnamespace getVariable ["casCount",0])];
+player setVariable ["casStrikeDirMrkLocal",_casStrikeDirMrkLocal];
+
+createMarkerLocal [_casStrikeDirMrkLocal,[0,0,0]];
+_casStrikeDirMrkLocal setMarkerAlphaLocal 0;
+_casStrikeDirMrkLocal setMarkerTypeLocal "mil_arrow_noShadow";
+_casStrikeDirMrkLocal setMarkerTextLocal "CAS Approach Vector";
 
 _weaponsControl = _display displayCtrl 9900301;
 
@@ -63,21 +79,12 @@ _weaponsControl lbSetData [4,"3"];
 		["Target is in No Fire Zone!", "Error"] call BIS_fnc_guiMessage;
 	};
 	
-	"casStrikeMrk" setMarkerPosLocal _pos;
-	"casStrikeMrk" setMarkerAlphaLocal 1;
-	"casDirMrk" setMarkerAlphaLocal 1;
+	(player getVariable ["casStrikeMrkLocal",""]) setMarkerPosLocal _pos;
+	(player getVariable ["casStrikeMrkLocal",""]) setMarkerAlphaLocal 1;
+	(player getVariable ["casStrikeDirMrkLocal",""]) setMarkerAlphaLocal 1;
 	
 	_dir = sliderPosition 9900303;
-	"casDirMrk" setMarkerPosLocal (_pos getPos [500,_dir]);
-	"casDirMrk" setMarkerDirLocal (_dir + 180);
+	(player getVariable ["casStrikeDirMrkLocal",""]) setMarkerPosLocal (_pos getPos [500,_dir]);
+	(player getVariable ["casStrikeDirMrkLocal",""]) setMarkerDirLocal (_dir + 180);
 };
 
-sleep 2;
-
-if (findDisplay 99003 == displayNull) exitWith {
-	hint "Error when calling Terminal"; 
-	deleteMarkerLocal "casStrikeMrk";
-	deleteMarkerLocal "casDirMrk";
-	onMapSingleClick "";
-	missionNameSpace setVariable ["casStatus",0,true];
-};

@@ -5,7 +5,7 @@ if (missionNameSpace getVariable ["casStatus",0] >= 2) exitWith{
 };
 
 
-_casTargetPos = getMarkerPos "casStrikeMrk";
+_casTargetPos = getMarkerPos (player getVariable ["casStrikeMrkLocal",""]);
 
 if (_weaponID == -1) exitWith{
 	["No Weapons selected", "Error"] call BIS_fnc_guiMessage;
@@ -48,7 +48,7 @@ if (!_result) exitWith {};
 
 onMapSingleClick "";
 closeDialog 0;
-deleteMarkerLocal "casStrikeMrk";
-deleteMarkerLocal "casDirMrk";
+deleteMarkerLocal (player getVariable ["casStrikeMrkLocal",""]);
+deleteMarkerLocal (player getVariable ["casStrikeDirMrkLocal",""]);
 
 [[_casTargetPos,_dir, side player,_weaponID,true],UAMTcas_fnc_casExecute] remoteExec ["spawn",2];

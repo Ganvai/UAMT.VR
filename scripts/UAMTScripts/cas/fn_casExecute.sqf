@@ -7,20 +7,22 @@ missionNameSpace setVariable ["casStatus",2,true];
 _casCount = (missionnamespace getVariable ["casCount",0]) + 1;
 missionnamespace setVariable ["casCount",_casCount,true];
 
-_mrkName = format ["casStrikeMrk%1",_casCount];
-_mrkDirName = format ["casStrikeDirMrk%1",_casCount];
-
 if (_createMarker) then {
+	
+	_mrkName = format ["_USER_DEFINED casStrikeMrk%1",_casCount];
+	_mrkText = format ["CAS %1 Target",_casCount];
+	_mrkDirName = format ["_USER_DEFINED casStrikeDirMrk%1",_casCount];
+	_mrkDirText = format ["CAS %1 Approach Vektor",_casCount];
 
 	createMarker [_mrkName,_targetPos];
 	_mrkName setMarkerAlpha 1;
 	_mrkName setMarkerType "hd_destroy_noShadow";
-	_mrkName setMarkerText "CAS Target";
+	_mrkName setMarkerText _mrkText;
 
 	createMarker [_mrkDirName,(_targetPos getPos [500,_dir])];
 	_mrkDirName setMarkerAlpha 1;
 	_mrkDirName setMarkerType "hd_arrow_noShadow";
-	_mrkDirName setMarkerText "CAS Approach Vector";
+	_mrkDirName setMarkerText _mrkDirText;
 	_mrkDirName setMarkerDir (_dir + 180);
 };
 
@@ -206,11 +208,6 @@ waituntil {
 if (!canMove _plane) exitWith {
 
 	_plane setDamage 1;
-
-	if (_createMarker) then {
-		deleteMarker _mrkName;
-		deleteMarker _mrkDirName;
-	};
 	
 	if (_audioMessages == "true") then {
 		if (_customAudio == "true") then {
@@ -274,11 +271,6 @@ if (_audioMessages == "true") then {
 	else {
 		["CAS Firemission done. Aircraft is leaving the staging area.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 	};
-};
-
-if (_createMarker) then {
-	deleteMarker _mrkName;
-	deleteMarker _mrkDirName;
 };
 
 waituntil {_plane distance _pos > _dis || !canMove _plane};
