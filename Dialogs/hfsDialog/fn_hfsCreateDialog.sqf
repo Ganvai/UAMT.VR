@@ -1,33 +1,47 @@
-if (missionNameSpace getVariable ["hfsStatus",0] > 0) exitWith {
+if (missionNameSpace getVariable ["hfsStatus",0] > 1) exitWith {
 	switch (missionNameSpace getVariable ["hfsStatus",0]) do {
-		case 1 : {["Heli Fire Support not available. Another Element is currently requesting fire support.", "Error"] call BIS_fnc_guiMessage;};
 		case 2 : {["Heli Fire Support not available. Heli Fire Support deployed.", "Error"] call BIS_fnc_guiMessage;};
 		case 3 : {["Heli Fire Support not available. Refuelling and rearming Helicopters for new strike.", "Error"] call BIS_fnc_guiMessage;};
 	};
 };
 
-missionNameSpace setVariable ["hfsStatus",1,true];
+[] spawn {
+	sleep 1;
 
-diag_log text format ["HFS Call - Status set - %1", profileName];
+	if (findDisplay 99004 == displayNull) exitWith {
+		hint "Error when calling Terminal"; 
+		deleteMarkerLocal (player getVariable ["_hfsMrkLocal",""]);
+		deleteMarkerLocal (player getVariable ["_hfsDirMrkLocal",""]);
+		onMapSingleClick "";
+	};
+};
 
 _display = createDialog ["hfsDialog"];
-
-diag_log text format ["HFS Call - Dialog Created - %1", profileName];
 
 _map = _display ctrlCreate ["RscMapControl", -1];
 _map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.316,safeZoneY + safeZoneH * 0.333,safeZoneW * 0.369,safeZoneH * 0.368];
 
-diag_log text format ["HFS Call - Map Created - %1", profileName];
+_hfsCountLocal = (missionNameSpace getVariable ["hfsCount",0]) + 1;
 
-createMarkerLocal ["hfsMrk",[0,0,0]];
-"hfsMrk" setMarkerAlphaLocal 0;
-"hfsMrk" setMarkerTypeLocal "mil_destroy_noShadow";
-"hfsMrk" setMarkerTextLocal "Heli Target";
+_hfsMrkLocal = format ["hfsMrkLocal %1 %2",clientowner,_hfsCountLocal];
+player setVariable ["hfsMrkLocal",_hfsMrkLocal];
 
-createMarkerLocal ["hfsDirMrk",[0,0,0]];
-"hfsDirMrk" setMarkerAlphaLocal 0;
-"hfsDirMrk" setMarkerTypeLocal "mil_arrow_noShadow";
-"hfsDirMrk" setMarkerTextLocal "Heli Approach Vector";
+_hfsMrkLocalText = format ["Heli Target %1",_hfsCountLocal];
+
+createMarkerLocal [_hfsMrkLocal,[0,0,0]];
+_hfsMrkLocal setMarkerAlphaLocal 0;
+_hfsMrkLocal setMarkerTypeLocal "mil_destroy_noShadow";
+_hfsMrkLocal setMarkerTextLocal _hfsMrkLocalText;
+
+_hfsDirMrkLocal = format ["hfsDirMrkLocal %1 %2",clientowner,_hfsCountLocal];
+player setVariable ["hfsDirMrkLocal",_hfsDirMrkLocal];
+
+_hfsDirMrkLocalText = format ["Heli Approach Vector %1",_hfsCountLocal];
+
+createMarkerLocal [_hfsDirMrkLocal,[0,0,0]];
+_hfsDirMrkLocal setMarkerAlphaLocal 0;
+_hfsDirMrkLocal setMarkerTypeLocal "mil_arrow_noShadow";
+_hfsDirMrkLocal setMarkerTextLocal _hfsDirMrkLocalText;
 
 diag_log text format ["HFS Call - Marker Created - %1", profileName];
 
@@ -51,26 +65,18 @@ _display displayCtrl 9900401 lbSetCurSel 0;
 
 diag_log text format ["HFS Call - Heli Box Select 0 - %1", profileName];
 
-[_display displayCtrl 9900403] onMapSingleClick {
-	params ["_ctrl"];
+[_display displayCtrl 9900403,_hfsMrkLocal,_hfsDirMrkLocal] onMapSingleClick {
+	params ["_ctrl","_hfsMrkLocal","_hfsDirMrkLocal"];
 	
-	"hfsMrk" setMarkerPosLocal _pos;
-	"hfsMrk" setMarkerAlphaLocal 1;
+	_hfsMrkLocal setMarkerPosLocal _pos;
+	_hfsMrkLocal setMarkerAlphaLocal 1;
 	"hfsDirMrk" setMarkerAlphaLocal 1;
 	
 	_dir = sliderPosition _ctrl;
-	"hfsDirMrk" setMarkerPosLocal (_pos getPos [500,_dir]);
-	"hfsDirMrk" setMarkerDirLocal (_dir + 180);
+	_hfsDirMrkLocal setMarkerPosLocal (_pos getPos [500,_dir]);
+	_hfsDirMrkLocal setMarkerDirLocal (_dir + 180);
 };
 
 diag_log text format ["HFS Call - OnMapClick created - %1", profileName];
 
-sleep 1;
 
-if (findDisplay 99004 == displayNull) exitWith {
-	hint "Error when calling Terminal"; 
-	deleteMarkerLocal "hfsMrk";
-	deleteMarkerLocal "hfsDirMrk";
-	onMapSingleClick "";
-	missionNameSpace setVariable ["hfsStatus",0,true];
-};

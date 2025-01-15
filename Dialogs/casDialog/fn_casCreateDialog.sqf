@@ -1,6 +1,5 @@
 if (missionNameSpace getVariable ["casStatus",0] > 1) exitWith {
 	switch (missionNameSpace getVariable ["casStatus",0]) do {
-		case 1 : {["CAS not available. Another Element is currently requesting a CAS Strike", "Error"] call BIS_fnc_guiMessage;};
 		case 2 : {["CAS not available. CAS strike in progress", "Error"] call BIS_fnc_guiMessage;};
 		case 3 : {["CAS not available. Rerouting plane for new strike.", "Error"] call BIS_fnc_guiMessage;};
 	};
@@ -14,7 +13,6 @@ if (missionNameSpace getVariable ["casStatus",0] > 1) exitWith {
 		deleteMarkerLocal (player getVariable ["casStrikeMrkLocal",""]);
 		deleteMarkerLocal (player getVariable ["casStrikeDirMrkLocal",""]);
 		onMapSingleClick "";
-		missionNameSpace setVariable ["casStatus",0,true];
 	};
 };
 

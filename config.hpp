@@ -339,9 +339,9 @@ chtStatus = 0;			// The Status manages the accessebility of the function.
 							
 chtHelis[] = {"B_Heli_Light_01_F","B_Heli_Light_01_F","B_Heli_Transport_01_F"};	// Helicopter Classes available for Transport. If you want several Helicopters of one class, just give another one in this array (see example Heli_Light).
 chtRoles[] = {JTAC,Groupleader};	// Roles that can call in Heli Transport
-chtSpawn = "chtSpawnMrk";		// Location the Helicopter will spawn. Place a marker and configure its name here.
-chtDespawn = "chtDespawnMrk";	// Location the Helicopter will despawn. Place a marker and configure its name here.
-chtCivil = true;				// If true, Helicopters are on civil side, won't be attacked or react to hostile forces.
+chtSpawn = "chtSpawnMrk";		// Location the Helicopter will spawn. Place an empty marker and input its name here.
+chtDespawn = "chtDespawnMrk";	// Location the Helicopter will despawn. Place an empty marker and input its name here.
+chtCivil = false;				// If true, Helicopters are on civil side, won't be attacked or react to hostile forces.
 chtDamage = false;				// If false, Helicopter is invulnerable. Recommended as the AI Pilots sometimes do weird shit even without enemy in contact XD
 chtRespawn = 0;					// If larger then 0, helicopters respawn when they were destroyed after the given time (in seconds).
 chtCooldown  = 120;				// Time in seconds until a Helicopter is ready to fly again.

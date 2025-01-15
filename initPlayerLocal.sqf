@@ -305,21 +305,8 @@ if (getMissionConfigValue "chtFeature" == "true") then {
 	// CAS Terminal
 	_condition = { (((getMissionConfigValue "chtRoles") findIf {_x == vehicleVarName player;} > -1) || ((getMissionConfigValue "chtRoles") findIf {_x == groupID group player;} > -1) || ((getMissionConfigValue "chtRoles") findIf {_x == player getVariable "loadout";} > -1)) };
 
-	_modifierFunc = {
-		params ["_target", "_player", "_params", "_actionData"];
-			
-		// Getting the Status suffix for the Aactionname
-		_status = "";
-		if (missionNameSpace getVariable ["chtStatus",0] == 1) then {
-			_status = " (Call in Progress)";
-		};
-		
-		// Modify the action - index 1 is the display name, 2 is the icon...
-		_actionData set [1, format ["Heli Transport%1",_status]];
-	};
-
 	
-	_chtTerminal = ["Heli Transport","Heli Transport","a3\ui_f\data\igui\cfg\simpletasks\types\Heli_ca.paa",{[] spawn chtDialog_fnc_chtCreateDialog;},_condition,{},[],"",0,[false, false, false, false, false],_modifierFunc] call ace_interact_menu_fnc_createAction;
+	_chtTerminal = ["Heli Transport","Heli Transport","a3\ui_f\data\igui\cfg\simpletasks\types\Heli_ca.paa",{[] call chtDialog_fnc_chtCreateDialog;},_condition] call ace_interact_menu_fnc_createAction;
 	[(typeOf player), 1, ["ACE_SelfActions"], _chtTerminal] call ace_interact_menu_fnc_addActionToClass;
 	
 };
@@ -354,7 +341,7 @@ if (getMissionConfigValue "artiFeature" == "true") then {
 	};
 	
 	// Creating a Sub Menu Category Base with Logo
-	_artiMenuItem = ["Artillery","Artillery","\a3\ui_f\data\igui\cfg\simpletasks\types\destroy_ca.paa",{[] spawn artDialog_fnc_artCreateDialog;},_artiCondition,{},[],"",0,[false, false, false, false, false],_modifierFunc] call ace_interact_menu_fnc_createAction;
+	_artiMenuItem = ["Artillery","Artillery","\a3\ui_f\data\igui\cfg\simpletasks\types\destroy_ca.paa",{[] call artDialog_fnc_artCreateDialog;},_artiCondition,{},[],"",0,[false, false, false, false, false],_modifierFunc] call ace_interact_menu_fnc_createAction;
 	[(typeOf player), 1, ["ACE_SelfActions"], _artiMenuItem] call ace_interact_menu_fnc_addActionToClass;
 };
 
@@ -510,7 +497,7 @@ if (getMissionConfigValue "casFeature" == "true") then {
 		_actionData set [1, format ["CAS Terminal%1",_status]];
 	};
 	
-	_casTerminal = ["CAS Terminal","CAS Terminal","a3\Modules_F_Curator\Data\portraitCASGunMissile_ca.paa",{[] spawn casDialog_fnc_casCreateDialog;},_condition,{},[],"",0,[false, false, false, false, false],_modifierFunc] call ace_interact_menu_fnc_createAction;
+	_casTerminal = ["CAS Terminal","CAS Terminal","a3\Modules_F_Curator\Data\portraitCASGunMissile_ca.paa",{[] call casDialog_fnc_casCreateDialog;},_condition,{},[],"",0,[false, false, false, false, false],_modifierFunc] call ace_interact_menu_fnc_createAction;
 	[(typeOf player), 1, ["ACE_SelfActions"], _casTerminal] call ace_interact_menu_fnc_addActionToClass;	
 	
 	// CAS Menu  entry

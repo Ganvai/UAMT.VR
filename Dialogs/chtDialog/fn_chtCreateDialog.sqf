@@ -6,7 +6,6 @@
 		deleteMarkerLocal (player getVariable ["CHT_CallPUMrk",""]);
 		deleteMarkerLocal (player getVariable ["CHT_CallDOMrk",""]);
 		onMapSingleClick "";
-		missionNameSpace setVariable ["chtStatus",0,true];
 	};
 };
 

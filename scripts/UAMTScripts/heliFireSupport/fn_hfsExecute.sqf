@@ -25,13 +25,15 @@ _heloGrpArr = [];
 _hfsCount = (missionnamespace getVariable  ["hfsCount",0]) + 1;
 missionNameSpace setVariable ["hfsCount",_hfsCount,true];
 
-_hfsMrk = format ["hfsMrk%1",_hfsCount];
+
 
 if (_createMarker) then {
+	_hfsMrk = format ["hfsMrk%1",_hfsCount];
+	_hfsMrkText = format ["Heli Firesupport %1",_hfsCount];
 	createMarker [_hfsMrk,_pos];
-	_hfsMrk setMarkerAlpha 0;
+	_hfsMrk setMarkerAlpha 1;
 	_hfsMrk setMarkerType "hd_destroy_noShadow";
-	_hfsMrk setMarkerText "Heli Target";
+	_hfsMrk setMarkerText _hfsMrkText;
 };
 
 if (_audioMessages == "true") then {
@@ -65,7 +67,6 @@ waitUntil {sleep 0.5; {_x distance2D _pos < 1000} count _heloVehArr > 0  || {can
 _deleteArray = [];
 {
 	if (not canMove _x) then {
-		deleteMarker _hfsMrk;
 		deleteVehicleCrew _x;
 		_x setDamage 1;
 		
@@ -108,7 +109,6 @@ _deleteArray = [];
 
 {
 	if (not canMove _x) then {
-		deleteMarker _hfsMrk;
 		deleteVehicleCrew _x;
 		_x setDamage 1;
 		
@@ -180,7 +180,6 @@ _deleteArray = [];
 
 {
 	if (not canMove _x) then {
-		deleteMarker _hfsMrk;
 		deleteVehicleCrew _x;
 		_x setDamage 1;
 		
@@ -229,5 +228,3 @@ if (_audioMessages == "true") then {
 		["All Units be advised: Helicopters are standing by for fire support.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
 	};
 };
-
-deleteMarker _hfsMrk;

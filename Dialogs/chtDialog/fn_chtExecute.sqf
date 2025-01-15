@@ -31,7 +31,7 @@ while { count _destPos < 1 } do
 _chtNumber = (missionNameSpace getVariable ["chtCount",0]) + 1;
 missionNameSpace setVariable ["chtCount",_chtNumber,true];
 
-_chtPickUpMrkName = format ["chtPickUpMrk%1",_chtNumber];
+_chtPickUpMrkName = format ["_USER_DEFINED chtPickUpMrk%1",_chtNumber];
 _pickUpPosText = format ["Transport %1 - PickUp LZ",_chtNumber];
 _dropOffPosText = format ["Transport %1 - Drop Off LZ",_chtNumber];
 
@@ -40,7 +40,7 @@ _chtPickUpMrkName setMarkerAlpha 1;
 _chtPickUpMrkName setMarkerType "hd_pickup_noShadow";
 _chtPickUpMrkName setMarkerText _pickUpPosText;
 
-_chtDropOffMrkName = format ["chtDropOffMrk%1",_chtNumber];
+_chtDropOffMrkName = format ["_USER_DEFINED chtDropOffMrk%1",_chtNumber];
 createMarker [_chtDropOffMrkName,_destPos];
 _chtDropOffMrkName setMarkerAlpha 1;
 _chtDropOffMrkName setMarkerType "hd_end_noShadow";
@@ -232,9 +232,6 @@ if (_audioMessages == "true") then {
 		[_msg,"Pilot","Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_heliPassengers];
 	};
 };
-
-deleteMarker _chtPickUpMrkName;
-deleteMarker _chtDropOffMrkName;
 
 sleep 10;
 

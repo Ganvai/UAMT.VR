@@ -1,6 +1,4 @@
 closeDialog 0;
-deleteMarkerLocal "hfsMrk";
-deleteMarkerLocal "hfsDirMrk";
+deleteMarkerLocal (player getVariable ["_hfsMrkLocal",""]);
+deleteMarkerLocal (player getVariable ["_hfsDirMrkLocal",""]);
 onMapSingleClick "";
-
-missionNameSpace setVariable ["hfsStatus",0,true];

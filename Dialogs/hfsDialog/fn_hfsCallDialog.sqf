@@ -1,6 +1,6 @@
 params ["_heliIndex","_dir"];
 
-_hfsTargetPos = getMarkerPos "hfsMrk";
+_hfsTargetPos = getMarkerPos (player getVariable ["_hfsMrkLocal",""]);
 
 if (_hfsTargetPos isEqualTo [0,0,0]) exitWith{
 	["No Target position set!", "Error"] call BIS_fnc_guiMessage;
@@ -14,7 +14,7 @@ if (!_result) exitWith {};
 onMapSingleClick "";
 closeDialog 0;
 
-deleteMarkerLocal "hfsMrk";
-deleteMarkerLocal "hfsDirMrk";
+deleteMarkerLocal (player getVariable ["_hfsMrkLocal",""]);
+deleteMarkerLocal (player getVariable ["_hfsDirMrkLocal",""]);
 
 [[_hfsTargetPos,_dir, side player,_heliIndex,true],UAMThfs_fnc_hfsExecute] remoteExec ["spawn",2];
