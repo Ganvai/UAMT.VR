@@ -1,4 +1,4 @@
-if (missionNameSpace getVariable ["artiStatus",0] > 0) exitWith {
+if (missionNameSpace getVariable ["artiStatus",0] > 1) exitWith {
 	switch (missionNameSpace getVariable ["artiStatus",0]) do {
 		case 2 : {["No Artillery Strike available. Artillery is executing a strike", "Error"] call BIS_fnc_guiMessage;};
 		case 3 : {["No Artillery Strike available. Artillery is reloading and will be available shortly", "Error"] call BIS_fnc_guiMessage;};
