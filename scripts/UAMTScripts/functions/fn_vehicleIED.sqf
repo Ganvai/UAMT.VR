@@ -101,8 +101,6 @@ if ( _bombType == 0 ) then {
 	_vehicle addEventHandler ["ContainerOpened", {
 		params ["_container", "_unit"];
 		
-		["Bomb EH"]remoteExec ["hint"];
-		
 		if (_container in (missionNameSpace getVariable ["defusedTraps",[]])) then {} else {
 			[_container] spawn {
 				params ["_vehicle"];
@@ -128,8 +126,6 @@ if ( _bombType == 0 ) then {
 
 	_vehicle addEventHandler ["GetIn", {
 		params ["_vehicle", "_role", "_unit", "_turret"];
-		
-		["Bomb EH"]remoteExec ["hint"];
 		
 		if (_vehicle in (missionNameSpace getVariable ["defusedTraps",[]])) then {} else {
 		
@@ -161,8 +157,6 @@ if ( _bombType == 1 ) then {
 	_vehicle addEventHandler ["ContainerOpened", {
 		params ["_container", "_unit"];
 		
-		["Bomb EH"]remoteExec ["hint"];
-		
 		if (_container in (missionNameSpace getVariable ["defusedTraps",[]])) then {} else {
 			[_container] spawn {
 				params ["_vehicle"];
@@ -189,8 +183,6 @@ if ( _bombType == 1 ) then {
 
 	_vehicle addEventHandler ["GetIn", {
 		params ["_vehicle", "_role", "_unit", "_turret"];
-		
-		["Bomb EH"]remoteExec ["hint"];
 		
 		if (_vehicle in (missionNameSpace getVariable ["defusedTraps",[]])) then {} else {
 		
@@ -223,8 +215,6 @@ if ( _bombType == 2 ) then {
 	_vehicle addEventHandler ["ContainerOpened", {
 		params ["_container", "_unit"];
 		
-		["Bomb EH"]remoteExec ["hint"];
-		
 		if (_container in (missionNameSpace getVariable ["defusedTraps",[]])) then {} else {
 			[_container] spawn {
 				params ["_vehicle"];
@@ -251,8 +241,6 @@ if ( _bombType == 2 ) then {
 
 	_vehicle addEventHandler ["GetIn", {
 		params ["_vehicle", "_role", "_unit", "_turret"];
-		
-		["Bomb EH"]remoteExec ["hint"];
 		
 		if (_vehicle in (missionNameSpace getVariable ["defusedTraps",[]])) then {} else {
 		

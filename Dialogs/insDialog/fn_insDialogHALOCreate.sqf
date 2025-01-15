@@ -7,25 +7,27 @@ if (missionNameSpace getVariable ["insertionActual",""] == "") then {
 	_map = _display ctrlCreate ["RscMapControl", -1];
 	_map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.316,safeZoneY + safeZoneH * 0.333,safeZoneW * 0.369,safeZoneH * 0.368];
 
-	createMarkerLocal ["insHALOMrk",[0,0,0]];
-	"insHALOMrk" setMarkerAlphaLocal 0;
-	"insHALOMrk" setMarkerTypeLocal "mil_destroy_noShadow";
-	"insHALOMrk" setMarkerTextLocal "HALO Drop Pos";
+	_markerInsHALOLocal = format ["%1 insHALOMrk",clientowner];
+	player setVariable ["insHaloMrkLocal",_markerInsHALOLocal];
+	
+	createMarkerLocal [_markerInsHALOLocal,[0,0,0]];
+	_markerInsHALOLocal setMarkerTypeLocal "mil_destroy_noShadow";
+	_markerInsHALOLocal setMarkerTextLocal "HALO Drop Pos";
 
-	createMarkerLocal ["insHALODirMrk",[0,0,0]];
-	"insHALODirMrk" setMarkerAlphaLocal 0;
-	"insHALODirMrk" setMarkerTypeLocal "mil_arrow_noShadow";
-	"insHALODirMrk" setMarkerTextLocal "HALO Approach Vector";
+	_markerInsHALODirLocal = format ["%1 insHALODirMrk",clientowner];
+	player setVariable ["insHALODirMrkLocal",_markerInsHALODirLocal];
+	
+	createMarkerLocal [_markerInsHALODirLocal,[0,0,0]];
+	_markerInsHALODirLocal setMarkerTypeLocal "mil_arrow_noShadow";
+	_markerInsHALODirLocal setMarkerTextLocal "HALO Approach Vector";
 
 	[] onMapSingleClick {
 		
-		"insHALOMrk" setMarkerPosLocal _pos;
-		"insHALOMrk" setMarkerAlphaLocal 1;
-		"insHALODirMrk" setMarkerAlphaLocal 1;
+		(player getVariable "insHaloMrkLocal") setMarkerPosLocal _pos;
 		
 		_dir = sliderPosition 9910303;
-		"insHALODirMrk" setMarkerPosLocal (_pos getPos [2000,_dir]);
-		"insHALODirMrk" setMarkerDirLocal (_dir + 180);
+		(player getVariable "insHALODirMrkLocal") setMarkerPosLocal (_pos getPos [800,_dir]);
+		(player getVariable "insHALODirMrkLocal") setMarkerDirLocal (_dir + 180);
 	};
 }
 else {

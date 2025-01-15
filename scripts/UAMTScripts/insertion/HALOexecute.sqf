@@ -4,7 +4,7 @@ params ["_haloVeh","_haloVehDoors","_dropPos","_dir","_timeToTransit","_haloCrat
 
 // Setting height for HALO vehicle depending on if its a heli or a plane
 _height = 4000;
-_distance = 7000;
+_distance = 5000;
 if (_haloVeh isKindOf "plane") then {
 	_height = 7000;
 	_distance = 12000;
@@ -158,18 +158,17 @@ if (_haloVeh isKindOf "plane") then {
 
 // Move _noBoC crate
 if (!_BoC) then {
-	deleteVehicle _noBoCLight1;
-	deleteVehicle _noBoCLight2;
-
 	[_dropPos,_haloCrate] spawn {
 		params  ["_dropPos","_haloCrate"];
 		_centre = _dropPos getPos [(random 400), (random 360)];
 		_drop_point = [];
 		_max_distance = 30;
 		
+		_boxClass = typeOf _haloCrate;
+		
 		while { count _drop_point < 1 } do
 		{
-			_drop_point = _centre findEmptyPosition [20, _max_distance, "B_supplyCrate_F"];
+			_drop_point = _centre findEmptyPosition [20, _max_distance, _boxClass];
 			_max_distance = _max_distance + 20;
 		};
 
@@ -238,6 +237,7 @@ if (!_BoC) then {
 WaitUntil {sleep 0.1; (_dropPos distance2D _haloVeh < 300)};
 
 _Pilot MoveTo _despawnPos;
+deleteMarker "insHALODirMrk";
 
 WaitUntil {sleep 0.1; (_dropPos distance2D _haloVeh > 600)};
 

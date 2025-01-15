@@ -25,20 +25,21 @@ missionNameSpace setVariable ["artiStatus",2,true];
 _artCount = (missionnamespace getVariable ["artiStrikeCount",0]) + 1;
 missionnamespace setVariable ["artiStrikeCount",_artCount,true];
 
-_mrkName = format ["artMrk%1",_artCount];
-_mrkRadName = format ["artRadMrk%1",_artCount];
-
 if (_createMarker) then {
-	createMarkerLocal [_mrkName,_targetPos];
-	_mrkName setMarkerAlphaLocal 1;
-	_mrkName setMarkerTypeLocal "hd_destroy_noShadow";
-	_mrkName setMarkerTextLocal "Artillery Target";
+	
+	_mrkName = format ["_USER_DEFINED artMrk%1",_artCount];
+	_mrkRadName = format ["_USER_DEFINED artRadMrk%1",_artCount];
+	_mrkText = format ["Artillery Strike %1",_artCount];
+	
+	createMarker [_mrkName,_targetPos];
+	_mrkName setMarkerAlpha 1;
+	_mrkName setMarkerType "hd_destroy_noShadow";
+	_mrkName setMarkerText _mrkText;
 
-	createMarkerLocal [_mrkRadName,_targetPos];
-	_mrkRadName setMarkerAlphaLocal 1;
-	_mrkRadName setMarkershapeLocal "ELLIPSE";
-	_mrkRadName setMarkerTextLocal "Artillery Target";
-	_mrkRadName setMarkersizeLocal [_radius,_radius];
+	createMarker [_mrkRadName,_targetPos];
+	_mrkRadName setMarkerAlpha 1;
+	_mrkRadName setMarkershape "ELLIPSE";
+	_mrkRadName setMarkersize [_radius,_radius];
 };
 // Make Objects from the String Array of Artillery Classnames
 _artiArr = [];
@@ -92,7 +93,10 @@ for "_i" from 1 to _rounds do {
 	
 if (_pattern == 0) then {
 	// Rapid Fire Mode
-
+	
+	_artiCount = count _artiArr;
+	
+	
 	// Spawn Fire execution
 	0 = [_artiArr,_artiAmmo,_targetPos,_shotsArray] spawn {
 		
@@ -103,10 +107,11 @@ if (_pattern == 0) then {
 			_x setVehicleAmmo 1;
 			
 			// Execute Firemission
-			[_x, [_targetPos, _artiAmmo, _shotsArray select _forEachIndex]] remoteExec ["doArtilleryFire", _x];
+			if ((_shotsArray select _forEachIndex) > 0) then {
+				[_x, [_targetPos, _artiAmmo, (_shotsArray select _forEachIndex)]] remoteExec ["doArtilleryFire", _x];
+			};
 			
 		}forEach _artiArr;
-		
 	};
 	
 	sleep 10;
@@ -167,11 +172,6 @@ if (_audioMessages == "true") then {
 };
 
 missionNameSpace setVariable ["artiStatus",3,true];
-
-if (_createMarker) then {
-	deleteMarker _mrkName;
-	deleteMarker _mrkRadName;
-};
 
 _cooldown = getMissionConfigValue "artiCooldown";
 

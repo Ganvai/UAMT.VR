@@ -107,7 +107,7 @@ class insDialogHALO
 			sliderRange[] = {0, 360};
 			sliderPosition = 180;
 			thumb = "\A3\ui_f\data\GUI\Cfg\Slider\thumb_ca.paa";
-			onSliderPosChanged = "params ['_control', '_newValue'];	_insert = 0; switch _newValue do {case 0 : {_insert = 'NORTH';};case 360 : {_insert = 'NORTH';};case 90 : {_insert = 'EAST';};case 180 : {_insert = 'SOUTH';};case 270 : {_insert = 'WEST';};default {_insert = _newValue;};};_text = format ['Approach from: %1',_insert];ctrlSetText [9910302, _text];if (markerAlpha 'insHALOMrk' == 1) then {'insHALODirMrk' setMarkerPosLocal ((getMarkerPos 'insHALOMrk') getPos [2000,_newValue]);'insHALODirMrk' setMarkerAlphaLocal 1;'insHALODirMrk' setMarkerDirLocal (_newValue + 180);};";
+			onSliderPosChanged = "params ['_control', '_newValue'];	_insert = 0; switch _newValue do {case 0 : {_insert = 'NORTH';};case 360 : {_insert = 'NORTH';};case 90 : {_insert = 'EAST';};case 180 : {_insert = 'SOUTH';};case 270 : {_insert = 'WEST';};default {_insert = _newValue;};};_text = format ['Approach from: %1',_insert];ctrlSetText [9910302, _text];(player getVariable 'insHALODirMrkLocal') setMarkerPosLocal ((getMarkerPos (player getVariable 'insHaloMrkLocal')) getPos [800,_newValue]);(player getVariable 'insHALODirMrkLocal') setMarkerDirLocal (_newValue + 180);";
 		};
 		
 		class callStrike

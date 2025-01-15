@@ -184,7 +184,7 @@ if (getMissionConfigValue "artiFeature" == "true") then {
 	
 	missionNameSpace setVariable ["fullArti",(getMissionConfigValue "artillery"),true];
 	
-	// Availability Artillery - 0 = Available, 1 = In Use, 2 = In Firemission, 3 = in Cooldown
+	// Availability Artillery - 0 = Available, 1 = In Use (deprecated), 2 = In Firemission, 3 = in Cooldown
 	missionNameSpace setVariable ["artiStatus",getMissionConfigValue "artiStatus",true];
 };
 

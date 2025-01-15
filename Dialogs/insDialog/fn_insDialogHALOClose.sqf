@@ -1,5 +1,5 @@
 closeDialog 0;
-deleteMarkerLocal "insHALOMrk";
-deleteMarkerLocal "insHALODirMrk";
+deleteMarkerLocal (player getVariable "insHaloMrkLocal");
+deleteMarkerLocal (player getVariable "insHALODirMrkLocal");
 onMapSingleClick "";
 

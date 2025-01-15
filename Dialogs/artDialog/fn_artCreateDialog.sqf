@@ -1,14 +1,21 @@
 if (missionNameSpace getVariable ["artiStatus",0] > 0) exitWith {
 	switch (missionNameSpace getVariable ["artiStatus",0]) do {
-		case 1 : {["No Artillery Strike available. Someone else is currently ordering a strike.", "Error"] call BIS_fnc_guiMessage;};
 		case 2 : {["No Artillery Strike available. Artillery is executing a strike", "Error"] call BIS_fnc_guiMessage;};
 		case 3 : {["No Artillery Strike available. Artillery is reloading and will be available shortly", "Error"] call BIS_fnc_guiMessage;};
 	};
 };
 
-_display = createDialog ["artDialog"];
+[] spawn {
+	sleep 1;
 
-missionNameSpace setVariable ["artiStatus",1,true];
+	if (findDisplay 99001 == displayNull) then {
+		onMapSingleClick "";
+		deleteMarkerLocal (player getVariable "artMrkRadLocal");
+		deleteMarkerLocal (player getVariable "artMrkLocal");
+	};
+};
+
+_display = createDialog ["artDialog"];
 
 _map = _display ctrlCreate ["RscMapControl", -1];
 _map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.297,safeZoneY + safeZoneH * 0.329,safeZoneW * 0.406,safeZoneH * 0.333];
@@ -49,15 +56,21 @@ _lbControl lbSetCurSel 0;
 
 [0]call artDialog_fnc_artGetAmmo;
 
-createMarkerLocal ["artMrk",[0,0,0]];
-"artMrk" setMarkerAlphaLocal 0;
-"artMrk" setMarkerTypeLocal "mil_destroy_noShadow";
-"artMrk" setMarkerTextLocal "Artillery Target";
+_artMrkLocal = format ["artMrkLocal %1 - %2",clientowner,missionNameSpace getVariable ["artiStrikeCount",0]];
+player setVariable ["artMrkLocal",_artMrkLocal] ;
 
-createMarkerLocal ["artMrkRadius",[0,0,0]];
-"artMrkRadius" setMarkerAlphaLocal 0;
-"artMrkRadius" setMarkershapeLocal "ELLIPSE";
-"artMrkRadius" setMarkerTextLocal "Artillery Target";
+createMarkerLocal [_artMrkLocal,[0,0,0]];
+_artMrkLocal setMarkerAlphaLocal 0;
+_artMrkLocal setMarkerTypeLocal "mil_destroy_noShadow";
+_artMrkLocal setMarkerTextLocal "Artillery Target";
+
+_artMrkRadLocal = format ["artMrkRadLocal %1 - %2",clientowner,missionNameSpace getVariable ["artiStrikeCount",0]];
+player setVariable ["artMrkRadLocal",_artMrkRadLocal] ;
+
+createMarkerLocal [_artMrkRadLocal,[0,0,0]];
+_artMrkRadLocal setMarkerAlphaLocal 0;
+_artMrkRadLocal setMarkershapeLocal "ELLIPSE";
+_artMrkRadLocal setMarkerTextLocal "Artillery Target";
 
 [] onMapSingleClick {
 
@@ -113,20 +126,11 @@ createMarkerLocal ["artMrkRadius",[0,0,0]];
 		["Target Position is not in Range. Keep in mind that this could also mean the target is to close to the artillery.", "Error"] spawn BIS_fnc_guiMessage;
 	};	
 	
-	"artMrk" setMarkerPosLocal _pos;
-	"artMrk" setMarkerAlphaLocal 1;
-	"artMrkRadius" setMarkerPosLocal _pos;
+	(player getVariable "artMrkLocal") setMarkerPosLocal _pos;
+	(player getVariable "artMrkLocal") setMarkerAlphaLocal 1;
+	(player getVariable "artMrkRadLocal") setMarkerPosLocal _pos;
 	
 	//"artMrkRadius" setMarkerAlpha 1;
-	"artMrkRadius" setMarkerPosLocal _pos;
-	"artMrkRadius" setMarkersizeLocal [(sliderPosition (findDisplay 99001 displayCtrl 9900107)),(sliderPosition (findDisplay 99001 displayCtrl 9900107))];
-};
-
-sleep 2;
-
-if (findDisplay 99001 == displayNull) then {
-	onMapSingleClick "";
-	deleteMarkerLocal "artMrkRadius";
-	deleteMarkerLocal "artMrk";
-	missionNameSpace setVariable ["artiStatus",0,true];
+	(player getVariable "artMrkRadLocal") setMarkerPosLocal _pos;
+	(player getVariable "artMrkRadLocal") setMarkersizeLocal [(sliderPosition (findDisplay 99001 displayCtrl 9900107)),(sliderPosition (findDisplay 99001 displayCtrl 9900107))];
 };

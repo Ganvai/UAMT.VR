@@ -249,7 +249,7 @@ deleteVehicle _pad2;
 _wp1 = _heliGrp addWaypoint [_despawnPos, 0];
 _wp1 setWaypointType "MOVE";
 
-WaitUntil {sleep 1; (_despawnPos distance2D _heliVeh < 50) || !canMove _heliVeh};
+WaitUntil {sleep 1; (_despawnPos distance2D _heliVeh < 100) || !canMove _heliVeh};
 
 if (!canMove _heliVeh) exitWith {
 	waitUntil { sleep 1; {isPlayer _x} count (crew _heliVeh) == 0 };

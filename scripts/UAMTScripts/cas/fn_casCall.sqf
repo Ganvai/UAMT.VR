@@ -73,6 +73,6 @@ if (!_result) exitWith {
 	missionNameSpace setVariable ["casStatus",0,true];
 };
 
-_dir = getDir player;
+_dir = (getDir player) + 180;
 
 [[_casTargetPos,_dir, side player,_runID],UAMTcas_fnc_casExecute] remoteExec ["spawn",2];

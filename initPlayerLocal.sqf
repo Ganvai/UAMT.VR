@@ -344,7 +344,6 @@ if (getMissionConfigValue "artiFeature" == "true") then {
 		// Getting the Status suffix for the Aactionname
 		_status = "";
 		switch (missionNameSpace getVariable ["artiStatus",4]) do {
-			case 1 : {_status = " (Call in Progress)";};
 			case 2 : {_status = " (Executing Strike)";};
 			case 3 : {_status = " (Preparing new Strike)";};
 			default {_status = "";};
@@ -781,7 +780,6 @@ player addEventHandler ["WeaponChanged", {
 		
 	_weaponCursor = [configfile >> "CfgWeapons" >> _newWeapon ,"cursor",""] call BIS_fnc_returnConfigEntry;
 	_profCursors = [missionconfigfile >> "CfgLoadouts" >> (player getVariable "loadout"), "proficientWeapons",[]] call BIS_fnc_returnConfigEntry;
-	hint str _profCursors;
 	if (_weaponCursor in _profCursors) then {
 		//hint "Prof";
 		ace_common_SwayFactor = getMissionConfigValue "wPSwayPro";

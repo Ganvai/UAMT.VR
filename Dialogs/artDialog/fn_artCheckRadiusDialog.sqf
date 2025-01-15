@@ -11,18 +11,18 @@ if (((((missionNameSpace getVariable "fullArti") select lbCurSel 9900101) select
 			_mrkSize = (getMarkerSize _x) select 1;
 		};
 
-		if (getMarkerPos "artMrkRadius" distance2D getMarkerPos _x < _newValue + _mrkSize) exitWith {["Dispersion radius is overlapping with No Fire Zone.", "Error"] spawn BIS_fnc_guiMessage;};
+		if (getMarkerPos (player getVariable "artMrkRadLocal") distance2D getMarkerPos _x < _newValue + _mrkSize) exitWith {["Dispersion radius is overlapping with No Fire Zone.", "Error"] spawn BIS_fnc_guiMessage;};
 	}forEach (getMissionConfigValue "artiNoFireZones");
 };
 
 
 _text = format ['Radius: %1 m',_newValue];
 ctrlSetText [9900106, _text];
-'artMrkRadius' setMarkersize [_newValue,_newValue];
+(player getVariable "artMrkRadLocal") setMarkersize [_newValue,_newValue];
 
 if(_newValue > 0 && lbCurSel 9900105 > 0) then {
-	'artMrkRadius' setMarkerAlpha 1;
+	(player getVariable "artMrkRadLocal") setMarkerAlpha 1;
 }
 else {
-	'artMrkRadius' setMarkerAlpha 0;
+	(player getVariable "artMrkRadLocal") setMarkerAlpha 0;
 };

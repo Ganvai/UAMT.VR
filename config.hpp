@@ -369,7 +369,7 @@ artiRoles[] = {TOC, Groupleader, JTAC, s1}; // Defines the Roles that have Acces
 artiStatus 	= 0;			// The Status manages the accessebility of the function.
 							// While 0 to 3 are Ingame Status, 4 is to manage by the Missionmaker
 							// 0 : Available -> Use this if you want it to be accessibel from the very beginning of the Mission
-							// 1 : Call -> Another player is calling this Support and it is therefor not available for any other Player
+							// 1 : Call -> Another player is calling this Support and it is therefor not available for any other Player (deprecated)
 							// 2 : Progress  -> The Support was called and is now being executed and it is therefor not available for any other player
 							// 3 : Cooldown -> The Support was executed and is now in Cooldown before it is avialable again
 							// 4 : Not available -> The support is not available until the Missionmaker sets the Status manually to 0

@@ -1,10 +1,10 @@
 params ["_artIndex", "_ammoIndex", "_rounds", "_pattern", ["_radius",0]];
 
 if (missionNameSpace getVariable ["artiStatus",0] >= 2) exitWith {
-	["An artillery strike is already called and in progress. Wait until the Artilelry is available again.", "Error"] call BIS_fnc_guiMessage;
+	["An artillery strike is already called and in progress. Wait until the Artilelry is available again and coordinate your Strike with the other units.", "Error"] call BIS_fnc_guiMessage;
 };
 
-_targetPos = getMarkerPos "artMrk";
+_targetPos = getMarkerPos (player getVariable "artMrkLocal");
 
 if (_targetPos isEqualTo [0,0,0]) exitWith {
 	["No Target Set", "Error"] call BIS_fnc_guiMessage;
@@ -83,7 +83,7 @@ if (!_result) exitWith{};
 
 onMapSingleClick "";
 closeDialog 0;
-deleteMarkerLocal "artMrk";
-deleteMarkerLocal "artMrkRadius";
+deleteMarkerLocal (player getVariable "artMrkLocal");
+deleteMarkerLocal (player getVariable "artMrkRadLocal");
 
 [_targetPos,_artIndex,_ammoIndex,_rounds,_pattern,_radius,side player] spawn artDialog_fnc_artExecuteDialog;
