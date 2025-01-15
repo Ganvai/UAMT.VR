@@ -20,7 +20,8 @@ class insDialogMethod
 			colorBackground[] = {0.4,0.4,0.4,1};
 			colorText[] = {1,1,1,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
+
 			
 		};
 		class TitleText
@@ -36,7 +37,7 @@ class insDialogMethod
 			colorBackground[] = {0,0,0,0};
 			colorText[] = {0.2275,0.902,0.4118,1};
 			font = "PuristaSemiBold";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			shadow = 0;
 			
 		};
@@ -53,7 +54,7 @@ class insDialogMethod
 			colorBackground[] = {0.2353,0.9294,0.2667,1};
 			colorText[] = {0.7647,0.0706,0.7333,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			
 		};
 
@@ -70,7 +71,7 @@ class insDialogMethod
 			colorBackground[] = {0.2353,0.9294,0.2667,1};
 			colorText[] = {0.7647,0.0706,0.7333,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			
 		};
 		class DivLine_1
@@ -86,7 +87,7 @@ class insDialogMethod
 			colorBackground[] = {0.2353,0.9294,0.2667,1};
 			colorText[] = {0.7647,0.0706,0.7333,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			
 		};
 		class HL_Vehicle
@@ -102,7 +103,7 @@ class insDialogMethod
 			colorBackground[] = {0,0,0,0};
 			colorText[] = {0.2275,0.902,0.4118,1};
 			font = "PuristaSemiBold";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			onLoad = "if (getMissionConfigValue 'insEnableGroundV' == 'false') then {(_this # 0) ctrlsetTextColor [0.3,0.3,0.3,1]; (_this # 0) ctrlsetText 'Ground Vehicles (NA)';};";
 		};
 		class HL_HaLo
@@ -118,7 +119,7 @@ class insDialogMethod
 			colorBackground[] = {0,0,0,0};
 			colorText[] = {0.2275,0.902,0.4118,1};
 			font = "PuristaSemiBold";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			onLoad = "if (getMissionConfigValue 'insEnableHALO' == 'false') then {(_this # 0) ctrlsetTextColor [0.3,0.3,0.3,1]; (_this # 0) ctrlsetText 'HALO (NA)';};";
 		};
 		class HL_Helo
@@ -134,7 +135,7 @@ class insDialogMethod
 			colorBackground[] = {0,0,0,0};
 			colorText[] = {0.2275,0.902,0.4118,1};
 			font = "PuristaSemiBold";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			default = false;
 			onLoad = "if (getMissionConfigValue 'insEnableHeli' == 'false') then {(_this # 0) ctrlsetTextColor [0.3,0.3,0.3,1]; (_this # 0) ctrlsetText 'Helicopter (NA)';};";
 		};
@@ -166,7 +167,7 @@ class insDialogMethod
 			offsetPressedY = 0.001;
 			offsetX = 0;
 			offsetY = 0;
-			sizeEx = (((((safezoneW / safezoneH) min 0.001) / 0.001) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
@@ -199,7 +200,7 @@ class insDialogMethod
 			offsetPressedY = 0.005;
 			offsetX = 0.005;
 			offsetY = 0.005;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
@@ -232,7 +233,7 @@ class insDialogMethod
 			offsetPressedY = 0.005;
 			offsetX = 0.005;
 			offsetY = 0.005;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
@@ -264,7 +265,7 @@ class insDialogMethod
 			offsetPressedY = 0.005;
 			offsetX = 0.005;
 			offsetY = 0.005;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
@@ -296,7 +297,7 @@ class insDialogMethod
 			offsetPressedY = 0.005;
 			offsetX = 0.005;
 			offsetY = 0.005;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
@@ -319,7 +320,7 @@ class insDialogMethod
 			colorBackground[] = {0.102,0.102,0.102,1};
 			colorText[] = {0.902,0.7725,0.9961,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			
 		};
 		class TextHelo
@@ -336,7 +337,7 @@ class insDialogMethod
 			colorBackground[] = {0.102,0.102,0.102,1};
 			colorText[] = {0.902,0.7725,0.9961,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			
 		};
 		class TextVehicle
@@ -353,7 +354,7 @@ class insDialogMethod
 			colorBackground[] = {0.102,0.102,0.102,1};
 			colorText[] = {0.902,0.7725,0.9961,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			
 		};
 		

@@ -20,7 +20,7 @@ class doorKeypad
 			colorBackground[] = {0.102,0.102,0.102,0.6706};
 			colorText[] = {0.2078,0.051,0.6824,0};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			
 		};
 		class Background_solid
@@ -36,7 +36,7 @@ class doorKeypad
 			colorBackground[] = {0.2,0.2,0.2,1};
 			colorText[] = {0.2,0.2,0.2,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			shadow = 1;
 			
 		};
@@ -53,7 +53,7 @@ class doorKeypad
 			colorBackground[] = {0.302,0.302,0.302,1};
 			colorText[] = {0.302,0.302,0.302,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			shadow = 2;
 			
 		};
@@ -85,7 +85,7 @@ class doorKeypad
 			offsetPressedY = 0.001;
 			offsetX = 0.001;
 			offsetY = 0.001;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			shortcuts[] = {2,79};
 			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
@@ -118,7 +118,7 @@ class doorKeypad
 			offsetPressedY = 0.001;
 			offsetX = 0.001;
 			offsetY = 0.001;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			shortcuts[] = {3,80};
 			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
@@ -150,7 +150,7 @@ class doorKeypad
 			offsetPressedY = 0.001;
 			offsetX = 0.001;
 			offsetY = 0.001;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			shortcuts[] = {4,81};
 			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
@@ -182,7 +182,7 @@ class doorKeypad
 			offsetPressedY = 0.001;
 			offsetX = 0.001;
 			offsetY = 0.001;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			shortcuts[] = {5,75};
 			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
@@ -214,7 +214,7 @@ class doorKeypad
 			offsetPressedY = 0.001;
 			offsetX = 0.001;
 			offsetY = 0.001;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			shortcuts[] = {6,76};
 			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
@@ -246,7 +246,7 @@ class doorKeypad
 			offsetPressedY = 0.001;
 			offsetX = 0.001;
 			offsetY = 0.001;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			shortcuts[] = {7,77};
 			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
@@ -278,7 +278,7 @@ class doorKeypad
 			offsetPressedY = 0.001;
 			offsetX = 0.001;
 			offsetY = 0.001;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			shortcuts[] = {8,71};
 			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
@@ -310,7 +310,7 @@ class doorKeypad
 			offsetPressedY = 0.001;
 			offsetX = 0.001;
 			offsetY = 0.001;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			shortcuts[] = {9,72};
 			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
@@ -342,7 +342,7 @@ class doorKeypad
 			offsetPressedY = 0.001;
 			offsetX = 0.001;
 			offsetY = 0.001;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			shortcuts[] = {10,73};
 			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
@@ -374,7 +374,7 @@ class doorKeypad
 			offsetPressedY = 0.001;
 			offsetX = 0.001;
 			offsetY = 0.001;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
@@ -405,7 +405,7 @@ class doorKeypad
 			offsetPressedY = 0.001;
 			offsetX = 0.001;
 			offsetY = 0.001;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			shortcuts[] = {11,82};
 			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
@@ -437,7 +437,7 @@ class doorKeypad
 			offsetPressedY = 0.001;
 			offsetX = 0.001;
 			offsetY = 0.001;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
@@ -457,7 +457,7 @@ class doorKeypad
 			colorBackground[] = {0,0,0,1};
 			colorText[] = {1,1,1,1};
 			font = "TahomaB";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			
 		};
 		

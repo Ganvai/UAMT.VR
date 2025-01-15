@@ -18,7 +18,7 @@ class artDialog
 			colorBackground[] = {1,1,1,1};
 			colorText[] = {1,1,1,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			
 		};
 		class ArtHeadTitle
@@ -34,7 +34,7 @@ class artDialog
 			colorBackground[] = {1,1,1,0};
 			colorText[] = {0.5843,0.8902,0.349,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			
 		};
 		class ArtHeadLine
@@ -50,7 +50,7 @@ class artDialog
 			colorBackground[] = {0.5843,0.8902,0.349,1};
 			colorText[] = {0.5843,0.8902,0.349,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			
 		};
 		class ArtGroupTitle
@@ -114,7 +114,7 @@ class artDialog
 			colorBackground[] = {0.5843,0.8902,0.349,1};
 			colorText[] = {1,1,1,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			
 		};
 		class ArtPatternTitle
@@ -162,7 +162,7 @@ class artDialog
 			colorBackground[] = {0.5843,0.8902,0.349,1};
 			colorText[] = {0.5843,0.8902,0.349,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			
 		};
 		
@@ -187,7 +187,7 @@ class artDialog
 			colorText[] = {0.6,0.6,0.6,1};
 			font = "PuristaMedium";
 			maxHistoryDelay = 0;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			soundCollapse[] = {"\A3\ui_f\data\sound\RscCombo\soundCollapse",0.1,1.0};
 			soundExpand[] = {"\A3\ui_f\data\sound\RscCombo\soundExpand",0.1,1.0};
 			soundSelect[] = {"\A3\ui_f\data\sound\RscCombo\soundSelect",0.1,1.0};
@@ -222,7 +222,7 @@ class artDialog
 			colorText[] = {0.6,0.6,0.6,1};
 			font = "PuristaMedium";
 			maxHistoryDelay = 0;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			soundCollapse[] = {"\A3\ui_f\data\sound\RscCombo\soundCollapse",0.1,1.0};
 			soundExpand[] = {"\A3\ui_f\data\sound\RscCombo\soundExpand",0.1,1.0};
 			soundSelect[] = {"\A3\ui_f\data\sound\RscCombo\soundSelect",0.1,1.0};
@@ -278,7 +278,7 @@ class artDialog
 			colorText[] = {0.6,0.6,0.6,1};
 			font = "PuristaMedium";
 			maxHistoryDelay = 0;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			soundCollapse[] = {"\A3\ui_f\data\sound\RscCombo\soundCollapse",0.1,1.0};
 			soundExpand[] = {"\A3\ui_f\data\sound\RscCombo\soundExpand",0.1,1.0};
 			soundSelect[] = {"\A3\ui_f\data\sound\RscCombo\soundSelect",0.1,1.0};
@@ -370,7 +370,7 @@ class artDialog
 			offsetPressedY = 0.005;
 			offsetX = 0.005;
 			offsetY = 0.005;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
@@ -401,7 +401,7 @@ class artDialog
 			offsetPressedY = 0.005;
 			offsetX = 0.005;
 			offsetY = 0.005;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};

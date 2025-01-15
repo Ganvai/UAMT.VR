@@ -18,7 +18,7 @@ class hfsDialog
 			colorBackground[] = {1,1,1,1};
 			colorText[] = {1,1,1,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			
 		};
 		class titleCASStrike
@@ -34,7 +34,7 @@ class hfsDialog
 			colorBackground[] = {1,1,1,0};
 			colorText[] = {0.5843,0.8902,0.349,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			
 		};
 		class TitleBar
@@ -50,7 +50,7 @@ class hfsDialog
 			colorBackground[] = {0.5843,0.8902,0.349,1};
 			colorText[] = {0.5843,0.8902,0.349,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			
 		};
 		class titleBTNWeapon
@@ -66,7 +66,7 @@ class hfsDialog
 			colorBackground[] = {1,1,1,0};
 			colorText[] = {0.5843,0.8902,0.349,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			
 		};
 		class titleBTNDir
@@ -82,7 +82,7 @@ class hfsDialog
 			colorBackground[] = {1,1,1,0};
 			colorText[] = {0.5843,0.8902,0.349,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			
 		};
 		class mapFrame
@@ -98,7 +98,7 @@ class hfsDialog
 			colorBackground[] = {0.5843,0.8902,0.349,1};
 			colorText[] = {0.5843,0.8902,0.349,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			
 		};
 		
@@ -123,7 +123,7 @@ class hfsDialog
 			colorText[] = {0.5843,0.8902,0.349,1};
 			font = "PuristaMedium";
 			maxHistoryDelay = 0;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			soundCollapse[] = {"\A3\ui_f\data\sound\RscCombo\soundCollapse",0.1,1.0};
 			soundExpand[] = {"\A3\ui_f\data\sound\RscCombo\soundExpand",0.1,1.0};
 			soundSelect[] = {"\A3\ui_f\data\sound\RscCombo\soundSelect",0.1,1.0};
@@ -183,7 +183,7 @@ class hfsDialog
 			offsetPressedY = 0.005;
 			offsetX = 0.005;
 			offsetY = 0.005;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
@@ -215,7 +215,7 @@ class hfsDialog
 			offsetPressedY = 0.005;
 			offsetX = 0.005;
 			offsetY = 0.005;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};

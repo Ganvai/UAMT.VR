@@ -18,7 +18,7 @@ class insDialogHALO
 			colorBackground[] = {1,1,1,1};
 			colorText[] = {1,1,1,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			
 		};
 		class titleCASStrike
@@ -34,7 +34,7 @@ class insDialogHALO
 			colorBackground[] = {1,1,1,0};
 			colorText[] = {0.5843,0.8902,0.349,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			
 		};
 		class TitleBar
@@ -50,23 +50,23 @@ class insDialogHALO
 			colorBackground[] = {0.5843,0.8902,0.349,1};
 			colorText[] = {0.5843,0.8902,0.349,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			
 		};
 		class titleBTNDir
 		{
 			type = 0;
 			idc = 9910302;
-			x = safeZoneX + safeZoneW * 0.43;
+			x = safeZoneX + safeZoneW * 0.425;
 			y = safeZoneY + safeZoneH * 0.28645834;
 			w = safeZoneW * 0.1;
 			h = safeZoneH * 0.02777778;
 			style = 0;
-			text = "Approach from: NORTH";
+			text = "Approach from: SOUTH";
 			colorBackground[] = {1,1,1,0};
 			colorText[] = {0.5843,0.8902,0.349,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			
 		};
 		class mapFrame
@@ -82,7 +82,7 @@ class insDialogHALO
 			colorBackground[] = {0.5843,0.8902,0.349,1};
 			colorText[] = {0.5843,0.8902,0.349,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 		};
 		
 	};
@@ -107,7 +107,7 @@ class insDialogHALO
 			sliderRange[] = {0, 360};
 			sliderPosition = 180;
 			thumb = "\A3\ui_f\data\GUI\Cfg\Slider\thumb_ca.paa";
-			onSliderPosChanged = "params ['_control', '_newValue'];	_insert = 0; switch _newValue do {case 0 : {_insert = 'NORTH';};case 360 : {_insert = 'NORTH';};case 90 : {_insert = 'EAST';};case 180 : {_insert = 'SOUTH';};case 270 : {_insert = 'WEST';};default {_insert = _newValue;};};_text = format ['Approach from: : %1',_insert];ctrlSetText [9910302, _text];if (markerAlpha 'insHALOMrk' == 1) then {'insHALODirMrk' setMarkerPosLocal ((getMarkerPos 'insHALOMrk') getPos [2000,_newValue]);'insHALODirMrk' setMarkerAlphaLocal 1;'insHALODirMrk' setMarkerDirLocal (_newValue + 180);};";
+			onSliderPosChanged = "params ['_control', '_newValue'];	_insert = 0; switch _newValue do {case 0 : {_insert = 'NORTH';};case 360 : {_insert = 'NORTH';};case 90 : {_insert = 'EAST';};case 180 : {_insert = 'SOUTH';};case 270 : {_insert = 'WEST';};default {_insert = _newValue;};};_text = format ['Approach from: %1',_insert];ctrlSetText [9910302, _text];if (markerAlpha 'insHALOMrk' == 1) then {'insHALODirMrk' setMarkerPosLocal ((getMarkerPos 'insHALOMrk') getPos [2000,_newValue]);'insHALODirMrk' setMarkerAlphaLocal 1;'insHALODirMrk' setMarkerDirLocal (_newValue + 180);};";
 		};
 		
 		class callStrike
@@ -134,7 +134,7 @@ class insDialogHALO
 			offsetPressedY = 0.005;
 			offsetX = 0.005;
 			offsetY = 0.005;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
@@ -166,7 +166,7 @@ class insDialogHALO
 			offsetPressedY = 0.005;
 			offsetX = 0.005;
 			offsetY = 0.005;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
@@ -200,7 +200,7 @@ class insDialogHALO
 			offsetPressedY = 0.005;
 			offsetX = 0.005;
 			offsetY = 0.005;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};

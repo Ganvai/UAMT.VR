@@ -20,7 +20,7 @@ class LoadoutDialog
 			colorBackground[] = {0.4,0.4,0.4,1};
 			colorText[] = {1,1,1,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			
 		};
 		
@@ -37,7 +37,7 @@ class LoadoutDialog
 			colorBackground[] = {0,0,0,0};
 			colorText[] = {0.2275,0.902,0.4118,1};
 			font = "PuristaSemiBold";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			shadow = 0;
 			
 		};
@@ -55,7 +55,7 @@ class LoadoutDialog
 			colorBackground[] = {0.2353,0.9294,0.2667,1};
 			colorText[] = {0.7647,0.0706,0.7333,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			
 		};
 		
@@ -72,7 +72,7 @@ class LoadoutDialog
 			colorBackground[] = {0.2353,0.9294,0.2667,1};
 			colorText[] = {0.7647,0.0706,0.7333,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			
 		};
 		
@@ -89,7 +89,7 @@ class LoadoutDialog
 			colorBackground[] = {0.2353,0.9294,0.2667,1};
 			colorText[] = {0.7647,0.0706,0.7333,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			
 		};
 		
@@ -106,7 +106,7 @@ class LoadoutDialog
 			colorBackground[] = {0.2353,0.9294,0.2667,1};
 			colorText[] = {0.7647,0.0706,0.7333,1};
 			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			
 		};	
 	};
@@ -128,7 +128,7 @@ class LoadoutDialog
 			font = "PuristaSemiBold";
 			maxHistoryDelay = 0;
 			rowHeight = 0;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			soundSelect[] = {"\A3\ui_f\data\sound\RscListbox\soundSelect",0.09,1.0};
 			class ListScrollBar
 			{
@@ -166,7 +166,7 @@ class LoadoutDialog
 			offsetPressedY = 0.001;
 			offsetX = 0;
 			offsetY = 0;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
@@ -200,7 +200,7 @@ class LoadoutDialog
 			offsetPressedY = 0.001;
 			offsetX = 0;
 			offsetY = 0;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			sizeEx = "0.02 / (getResolution select 5)";
 			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};

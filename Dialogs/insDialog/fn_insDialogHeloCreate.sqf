@@ -38,11 +38,12 @@ if (missionNameSpace getVariable ["insertionActual",""] == "") then {
 		
 		_wpNumber = count ((_insHeloArray select _index) select 2);
 		
-		_markerName = format ["Heli %1 - WP %2",(_index + 1),(_wpNumber + 1)];
+		_markerName = format ["%1 Heli %2 - WP %3",clientowner,(_index + 1),(_wpNumber + 1)];
+		_markerText = format ["Heli %1 - WP %2",(_index + 1),(_wpNumber + 1)];
 		
 		createMarkerlocal [_markerName,_pos];
 		_markerName setMarkerTypeLocal "mil_dot_noShadow";
-		_markerName setMarkerTextLocal _markerName;
+		_markerName setMarkerTextLocal _markerText;
 		
 		((_insHeloArray select _index) select 2) pushback _markerName;
 		
