@@ -1,8 +1,14 @@
-if (missionNameSpace getVariable ["chtStatus",0] > 0) exitWith {
-	["Cannot call Helicopter. Someone else is currently ordering a helicopter transport. Wait until the call is finished.", "Error"] call BIS_fnc_guiMessage;
-};
+[] spawn {
+	sleep 1;
 
-missionNameSpace setVariable ["chtStatus",1,true];
+	if (findDisplay 99006 == displayNull) exitWith {
+		hint "Error when calling Terminal"; 
+		deleteMarkerLocal (player getVariable ["CHT_CallPUMrk",""]);
+		deleteMarkerLocal (player getVariable ["CHT_CallDOMrk",""]);
+		onMapSingleClick "";
+		missionNameSpace setVariable ["chtStatus",0,true];
+	};
+};
 
 _display = createDialog ["chtDialog"];
 
@@ -25,23 +31,24 @@ if (lbSize (_display displayCtrl 9900601)  == 0) exitWith {
 _display displayCtrl 9900601 lbSetCurSel 0;
 
 _chtNumber = (missionNameSpace getVariable ["chtCount",0]) + 1;
-
 player setVariable ["CHT_CallCount",_chtNumber];
 
-_chtPickUpMrkName = format ["chtPickUpMrk%1",_chtNumber];
+_chtPickUpMrkName = format ["chtPickUpMrk%1 %2",_chtNumber,clientowner];
+
 createMarkerLocal [_chtPickUpMrkName,[0,0,0]];
 _chtPickUpMrkName setMarkerAlphaLocal 0;
 _chtPickUpMrkName setMarkerTypeLocal "hd_pickup_noShadow";
-_pickupmrkText = format ["Transport Pickup %1",_chtNumber];
+_pickupmrkText = format ["Transport %1 Pickup",_chtNumber];
 _chtPickUpMrkName setMarkerTextLocal _pickupmrkText;
 
 _display displayCtrl 9900602 lbSetData [0,_chtPickUpMrkName];
 
-_chtDropOffMrkName = format ["chtDropOffMrk%1",_chtNumber];
+_chtDropOffMrkName = format ["chtDropOffMrk%1 %2",_chtNumber,clientowner];
+
 createMarkerLocal [_chtDropOffMrkName,[0,0,0]];
 _chtDropOffMrkName setMarkerAlphaLocal 0;
 _chtDropOffMrkName setMarkerTypeLocal "hd_end_noShadow";
-_dropoffmrkText = format ["Transport Drop-Off %1",_chtNumber];
+_dropoffmrkText = format ["Transport %1 Drop-Off",_chtNumber];
 _chtDropOffMrkName setMarkerTextLocal _dropoffmrkText;
 
 player setVariable ["CHT_CallPUMrk",_chtPickUpMrkName];
@@ -72,12 +79,4 @@ _display displayCtrl 9900602 lbSetData [1,_chtDropOffMrkName];
 	};
 };
 
-sleep 1;
 
-if (findDisplay 99006 == displayNull) exitWith {
-	hint "Error when calling Terminal"; 
-	deleteMarkerLocal _chtPickUpMrkName;
-	deleteMarkerLocal _chtDropOffMrkName;
-	onMapSingleClick "";
-	missionNameSpace setVariable ["chtStatus",0,true];
-};

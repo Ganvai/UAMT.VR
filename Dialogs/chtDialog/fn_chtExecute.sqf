@@ -1,4 +1,4 @@
-params ["_heliclass","_heliIndex","_pickupPos", "_destPos","_pickUpPosText","_dropOffPosText","_chtNumber","_player"];
+params ["_heliclass","_heliIndex","_pickupPos1", "_destPos1","_player"];
 
 _audioMessages = getMissionConfigValue "supportMessages";
 _customAudio = getMissionConfigValue "supportCustomAudio";
@@ -9,18 +9,40 @@ _heliPassengers = [];
 _side = side _player;
 
 _spawnPos = getMarkerPos (getMissionConfigValue "chtSpawn");
-
 _despawnPos = getMarkerPos (getMissionConfigValue "chtDespawn");
 
+_pickUpPos = [];
+_max_distance = 20;
+while { count _pickUpPos < 1 } do
+{
+	_pickUpPos = _pickupPos1 findEmptyPosition [10, _max_distance, _heliClass];
+	_max_distance = _max_distance + 10;
+};
+
+_destPos = [];
+_max_distance = 20;
+while { count _destPos < 1 } do
+{
+	_destPos = _destPos1 findEmptyPosition [10, _max_distance, _heliClass];
+	_max_distance = _max_distance + 10;
+};
+
+
+_chtNumber = (missionNameSpace getVariable ["chtCount",0]) + 1;
+missionNameSpace setVariable ["chtCount",_chtNumber,true];
+
 _chtPickUpMrkName = format ["chtPickUpMrk%1",_chtNumber];
+_pickUpPosText = format ["Transport %1 - PickUp LZ",_chtNumber];
+_dropOffPosText = format ["Transport %1 - Drop Off LZ",_chtNumber];
+
 createMarker [_chtPickUpMrkName,_pickupPos];
-_chtPickUpMrkName setMarkerAlpha 0;
+_chtPickUpMrkName setMarkerAlpha 1;
 _chtPickUpMrkName setMarkerType "hd_pickup_noShadow";
 _chtPickUpMrkName setMarkerText _pickUpPosText;
 
 _chtDropOffMrkName = format ["chtDropOffMrk%1",_chtNumber];
 createMarker [_chtDropOffMrkName,_destPos];
-_chtDropOffMrkName setMarkerAlpha 0;
+_chtDropOffMrkName setMarkerAlpha 1;
 _chtDropOffMrkName setMarkerType "hd_end_noShadow";
 _chtDropOffMrkName setMarkerText _dropOffPosText;
 
@@ -283,7 +305,7 @@ if (_audioMessages == "true") then {
 	};
 };	
 
-_cooldown = parseNumber getMissionConfigValue "chtCooldown";
+_cooldown = getMissionConfigValue "chtCooldown";
 
 sleep _cooldown;
 
