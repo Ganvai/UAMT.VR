@@ -107,7 +107,7 @@ class sdpDialog
 			sliderRange[] = {0, 360};
 			sliderPosition = 180;
 			thumb = "\A3\ui_f\data\GUI\Cfg\Slider\thumb_ca.paa";
-			onSliderPosChanged = "params ['_control', '_newValue'];	_insert = 0; switch _newValue do {case 0 : {_insert = 'NORTH';};case 360 : {_insert = 'NORTH';};case 90 : {_insert = 'EAST';};case 180 : {_insert = 'SOUTH';};case 270 : {_insert = 'WEST';};default {_insert = _newValue;};};_text = format ['Direction: %1',_insert];ctrlSetText [9900702, _text];if (markerAlpha 'sdpMrk' == 1) then {'sdpDirMrk' setMarkerPos ((getMarkerPos 'sdpMrk') getPos [500,_newValue]);'sdpDirMrk' setMarkerAlpha 1;'sdpDirMrk' setMarkerDir (_newValue + 180);};";
+			onSliderPosChanged = "params ['_control', '_newValue'];	_insert = 0; switch _newValue do {case 0 : {_insert = 'NORTH';};case 360 : {_insert = 'NORTH';};case 90 : {_insert = 'EAST';};case 180 : {_insert = 'SOUTH';};case 270 : {_insert = 'WEST';};default {_insert = _newValue;};};_text = format ['Direction: %1',_insert];ctrlSetText [9900702, _text];if (markerAlpha (player getVariable ['sdpMrkLocal','']) == 1) then {(player getVariable ['sdpDirMrkLocal','']) setMarkerPos ((getMarkerPos (player getVariable ['sdpMrkLocal',''])) getPos [500,_newValue]);(player getVariable ['sdpDirMrkLocal','']) setMarkerAlpha 1;(player getVariable ['sdpDirMrkLocal','']) setMarkerDir (_newValue + 180);};";
 		};
 		
 		class callStrike

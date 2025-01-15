@@ -1,8 +1,7 @@
 params ["_hfsIndex"];
 
-if (missionNameSpace getVariable ["hfsStatus",0] > 0) exitWith {
+if (missionNameSpace getVariable ["hfsStatus",0] > 1) exitWith {
 	switch (missionNameSpace getVariable ["hfsStatus",0]) do {
-		case 1 : {["Heli Fire Support not available. Another Element is currently requesting a Heli for fire support.", "Error"] call BIS_fnc_guiMessage;};
 		case 2 : {["Heli Fire Support not available. Heli Fire Support deployed.", "Error"] call BIS_fnc_guiMessage;};
 		case 3 : {["Heli Fire Support not available. Refuelling and rearming Helicopters for new strike.", "Error"] call BIS_fnc_guiMessage;};
 	};

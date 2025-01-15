@@ -50,15 +50,14 @@ if (_UAMT) then {
 	missionNameSpace setVariable ["supplyDropStatus",2,true];
 };
 
+_supplyDropCount = missionNameSpace getVariable ["supplyDropCount",0];
+missionNameSpace setVariable ["supplyDropCount",(_supplyDropCount + 1),true];
+
 // Create Markers
 if (_createMarker) then {
-	_markerName = "supplyDropMarker";
-	_markerText = "Supply Drop";
-	
-	if (_UAMT) then {
-		_markerName = format ["supplyDropMrk%1",(missionNameSpace getVariable ["supplyDropCount",0])];
-		_markerText = format ["Supply Drop %1",(missionNameSpace getVariable ["supplyDropCount",0])];
-	};
+
+	_markerName = format ["_USER_DEFINED supplyDropMrk%1",_supplyDropCount];
+	_markerText = format ["Supply Drop %1",_supplyDropCount];
 	
 	createMarker [_markerName,[0,0,0]];
 	_markerName setMarkerAlpha 0;
@@ -72,8 +71,8 @@ _SignalClass = "SmokeShellGreen";
 _ChuteClass = "B_Parachute_02_F";
 
 //Calculate Coordinates for Spawn and Despawn with Approach Vektor Position
-_supplyDropSpawn =  _deliveryPos getPos [_spawnDistance, _dir + 180];
-_supplyDropDeSpawn =  _deliveryPos getPos [_spawnDistance, _dir];
+_supplyDropSpawn =  _deliveryPos getPos [_spawnDistance, _dir];
+_supplyDropDeSpawn =  _deliveryPos getPos [_spawnDistance, _dir + 180];
 
 // Whether it'll have a smoke grenade or a chemlight for signal
 if ((dayTime > 04.30) and (dayTime < 19.30)) then {_SignalClass = "SmokeShellGreen"};
@@ -81,7 +80,7 @@ if ((dayTime > 04.30) and (dayTime < 19.30)) then {_SignalClass = "SmokeShellGre
 // Spawning the Vehicle
 _supplyDropVehicle = createVehicle [_heliClass, _supplyDropSpawn, [], 0, "FLY"];
 _supplyDropVehicle setPos [(getpos _supplyDropVehicle # 0),(getpos _supplyDropVehicle # 1), 150];
-_supplyDropVehicle setDir _dir;
+_supplyDropVehicle setDir (_dir + 180);
 _supplyDropVehicle AllowDamage _damage;
 
 // Spawning the Pilot
