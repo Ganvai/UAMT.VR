@@ -237,7 +237,7 @@ if ( getMissionConfigValue "vlsFeature" == "true" ) then {
 
 if ( getMissionConfigValue "casFeature" == "true" ) then {
 
-	// Availability CAS - 0 = Available, 1 = In Use, 2 = In Firemission, 3 = in Cooldown, 4 = Not available, will not show in Menu
+	// Availability CAS - 0 = Available, 1 = In Use (deprecated), 2 = In Firemission, 3 = in Cooldown, 4 = Not available, will not show in Menu
 	missionNameSpace setVariable ["casStatus",getMissionConfigValue "casStatus",true];
 	
 	missionNameSpace setVariable ["casMGruns",getMissionConfigValue "casMGruns",true];
