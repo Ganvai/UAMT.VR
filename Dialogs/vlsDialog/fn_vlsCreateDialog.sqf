@@ -1,8 +1,18 @@
-if ((missionNameSpace getVariable ["vlsStatus",0]) > 0) exitWith {
+if ((missionNameSpace getVariable ["vlsStatus",0]) > 1) exitWith {
 	switch (missionNameSpace getVariable ["vlsStatus",0]) do {
-		case 1 : {["VLS not available. Another Element is currently requesting a VLS Strike", "Error"] call BIS_fnc_guiMessage;};
 		case 2 : {["VLS not available. VLS strike in progress", "Error"] call BIS_fnc_guiMessage;};
 		case 3 : {["VLS not available. Readying missile array after firemission.", "Error"] call BIS_fnc_guiMessage;};
+	};
+};
+
+[] spawn {
+
+	sleep 1;
+
+	if (findDisplay 99005 == displayNull) exitWith {
+		hint "Error when calling Terminal"; 
+		deleteMarker (player getVariable ["vlsMrkLocal",""]);
+		onMapSingleClick "";
 	};
 };
 
@@ -11,12 +21,14 @@ createDialog "vlsDialog";
 _map = findDisplay 99005 ctrlCreate ["RscMapControl", -1];
 _map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.316,safeZoneY + safeZoneH * 0.333,safeZoneW * 0.369,safeZoneH * 0.368];
 
-missionNameSpace setVariable ["vlsStatus",1,true];
+_vlsMrkLocal = format ["VLSMrkLocal %1 %2",clientowner,((missionNameSpace getVariable ["vlsCount",0]) + 1)];
+player setVariable ["vlsMrkLocal",_vlsMrkLocal];
+_vlsMrkText = format ["VLS Target %1",((missionNameSpace getVariable ["vlsCount",0]) + 1)];
 
-createMarker ["vlsMrk",[0,0,0]];
-"vlsMrk" setMarkerAlpha 0;
-"vlsMrk" setMarkerType "mil_destroy_noShadow";
-"vlsMrk" setMarkerText "VLS Target";
+createMarkerLocal [_vlsMrkLocal,[0,0,0]];
+_vlsMrkLocal setMarkerAlphalocal 0;
+_vlsMrkLocal setMarkerTypelocal "mil_destroy_noShadow";
+_vlsMrkLocal setMarkerTextlocal _vlsMrkText;
 
 _menuEntry = format ["Cruise Missile HE (%1 Missiles)",(missionNameSpace getVariable ["vlsHERounds",0])];
 lbAdd [9900501,_menuEntry];
@@ -25,7 +37,9 @@ lbAdd [9900501,_menuEntry];
 
 lbSetCurSel [9900501,0];
 
-[] onMapSingleClick {
+[_vlsMrkLocal] onMapSingleClick {
+
+	params ["_vlsMrkLocal"];
 
 	_firezoneCheck = false;
 
@@ -37,15 +51,6 @@ lbSetCurSel [9900501,0];
 		["Target is in No Fire Zone!", "Error"] call BIS_fnc_guiMessage;
 	};
 	
-	"vlsMrk" setMarkerPos _pos;
-	"vlsMrk" setMarkerAlpha 1;
-};
-
-sleep 2;
-
-if (findDisplay 99005 == displayNull) exitWith {
-	hint "Error when calling Terminal"; 
-	deleteMarker "vlsMrk";
-	onMapSingleClick "";
-	missionNameSpace setVariable ["vlsStatus",0,true];
+	_vlsMrkLocal setMarkerPos _pos;
+	_vlsMrkLocal setMarkerAlpha 1;
 };

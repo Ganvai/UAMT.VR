@@ -1,6 +1,6 @@
 params ["_ammoIndex"];
 
-_vlsTargetPos = getMarkerPos "vlsMrk";
+_vlsTargetPos = getMarkerPos (player getVariable ["vlsMrkLocal",""]);
 
 if (_vlsTargetPos isEqualTo [0,0,0]) exitWith{
 	["No Target position set!", "Error"] call BIS_fnc_guiMessage;
@@ -21,7 +21,8 @@ private _result = ["You are calling a Cruise Missile Strike to the designated co
 
 if (!_result) exitWith {};
 
+[[_vlsTargetPos,side player,_ammoIndex,true],UAMTvls_fnc_vlsExecute] remoteExec ["spawn",2];
+
 onMapSingleClick "";
 closeDialog 0;
-
-[[_vlsTargetPos,side player,_ammoIndex,false],UAMTvls_fnc_vlsExecute] remoteExec ["spawn",2];
+deleteMarker (player getVariable ["vlsMrkLocal",""]);

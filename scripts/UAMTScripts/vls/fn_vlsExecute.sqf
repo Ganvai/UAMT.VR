@@ -1,20 +1,26 @@
 if (!isServer) exitWith {};
 
-params ["_targetPos","_side","_ammoID",["_createMarker",true]];
-
 missionNameSpace setVariable ["vlsStatus",2,true];
 
+params ["_targetPos","_side","_ammoID",["_createMarker",true]];
+
 _vlsObj = missionNameSpace getVariable [(getMissionConfigValue "vlsName"),objNull];
+
+_vlsCount = (missionNameSpace getVariable ["vlsCount",0]) + 1;
+missionNameSpace setVariable ["vlsCount",_vlsCount,true];
 
 _audioMessages = getMissionConfigValue "supportMessages";
 _customAudio = getMissionConfigValue "supportCustomAudio";
 _supportControlName = getMissionConfigValue "supportControlName";
 
 if (_createMarker) then {
-	createMarker ["vlsMrk",_targetPos];
-	"vlsMrk" setMarkerAlpha 0;
-	"vlsMrk" setMarkerType "hd_destroy_noShadow";
-	"vlsMrk" setMarkerText "VLS Target";
+	_vlsMrk = format ["_USER_DEFINED vlsMrk %1",_vlsCount];
+	_vlsMrkText = format ["VLS Target %1",_vlsCount];
+	
+	createMarker [_vlsMrk,_targetPos];
+	_vlsMrk setMarkerAlpha 1;
+	_vlsMrk setMarkerType "hd_destroy_noShadow";
+	_vlsMrk setMarkerText _vlsMrkText;
 };
 
 if (_audioMessages == "true") then {
@@ -166,7 +172,6 @@ else {
 _vlsObj setVehicleReceiveRemoteTargets false;
 
 deleteVehicle _target;
-deleteMarker "vlsMrk";
 missionNameSpace setVariable ["vlsMissile",objNull,true];
 
 missionNameSpace setVariable ["vlsStatus",0,true];

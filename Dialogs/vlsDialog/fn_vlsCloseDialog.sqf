@@ -1,5 +1,3 @@
 closeDialog 0;
-deleteMarker "vlsMrk";
+deleteMarker (player getVariable ["vlsMrkLocal",""]);
 onMapSingleClick "";
-
-missionNameSpace setVariable ["vlsStatus",0,true];
