@@ -578,7 +578,7 @@ hfsNoFireZones[] = {noFireZone_1};	// Areas where Heli Fire Support is prohibite
 //-----------------------------------------------------------------------
 //-----------------------------------------------------------------------
 //
-//				Random IED Feature
+//				Random Vehicle IED Feature
 //
 // Searches for Vehicles of the given Faction and randomly props them
 // with IEDs. 
@@ -591,16 +591,38 @@ hfsNoFireZones[] = {noFireZone_1};	// Areas where Heli Fire Support is prohibite
 // EODs can check all vehicles from the faction for IEDs and defuse them
 // if they find one.
 //
-// We have a function you can use in the vehicles init if you want to have 
-// more control over which vehicle is prepped. See more in:
+// We have a function you can use in the vehicles init if you want only 
+// specific cars or other objects rigged. See more in:
 // "scripts\UAMTScripts\functions\fn_vehicleIED.sqf"
+//
+// If you have cars that need to be NOT with IED put this into the cars init:
+// this setVariable ["IEDFree",true,true];
+//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
+rVifFeature = true;				// Activates the Random IED Feature
+rVifFactions[] = {"OPF_F","CIV_F"}; // Side of which vehicles shall be propped with IEDs. Available: "BLU_F","OPF_F","CIV_F","IND_F"
+rVifChance = 1;				// Chance a vehicle has an IED in %. 1 means every vehicle, 0 means never. Recommended 0.2.
+rVifBombType = 0;				// Bomb Type: 0 means normal Vehicle detonation. 1 is a medium sized explosion, 2 a very large one. Recommended 0.
+
+//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
+//
+//				Random IED Feature
+//
+// Searches units of the given Faction and randomly props them
+// with IEDs.
+//
+// We have a function you can use in the units init if you want to have trap
+// specific units with IEDs. See more in:
+// "scripts\UAMTScripts\functions\fn_iedUnit.sqf"
+//
+// If you have units that need to be NOT with IED put this into the units init:
+// this setVariable ["IEDFree",true,true];
 //-----------------------------------------------------------------------
 //-----------------------------------------------------------------------
 rifFeature = true;				// Activates the Random IED Feature
-rifFactions[] = {"OPF_F","CIV_F"}; // Side of which vehicles shall be propped with IEDs. Available: "BLU_F","OPF_F","CIV_F","IND_F"
-rifChance = 0.5;				// Chance a vehicle has an IED in %. 1 means every vehicle, 0 means never. Recommended 0.2.
-rifBombType = 0;				// Bomb Type: 0 means normal Vehicle detonation. 1 is a medium sized explosion, 2 a very large one. Recommended 0.
-
+rifFactions[] = {"OPF_F","IND_F"}; // Side of which vehicles shall be propped with IEDs. Available: "BLU_F","OPF_F","CIV_F","IND_F"
+rifChance = 1;				// Chance a vehicle has an IED in %. 1 means every vehicle, 0 means never. Recommended 0.2.
 
 
 //------------------------------------------------------------------

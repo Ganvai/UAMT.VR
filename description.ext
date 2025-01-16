@@ -520,6 +520,9 @@ class CfgFunctions
 			
 			//Vehicle IEDs
 			class vehicleIED{};
+			class vehicleIEDBlowUp{};
+			class iedUnit{};
+			class iedBlowUp{};		
 			
 			//Casualty Message Feature
 			class cFCivMessage{};

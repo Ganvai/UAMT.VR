@@ -786,6 +786,33 @@ player addEventHandler ["WeaponChanged", {
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 //
+//					Random IED Features
+//
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+if (getMissionConfigValue "rViFFeature" == "true") then {
+
+	{
+		_x addEventHandler ["ContainerOpened", {			
+			params ["_container", "_unit"];
+			[_container,getmissionConfigValue "rVifBombType"]remoteExec ["UAMT_fnc_vehicleIEDBlowUp",2];
+		}];
+	} forEach (missionNameSpace getVariable ["trappedVehicles",[]]);
+};
+
+if (getMissionConfigValue "riFFeature" == "true") then {
+	player addEventHandler ["InventoryOpened", {
+		params ["_unit", "_container"];
+
+		if (((cursorTarget in (missionNameSpace getVariable ["rifUnits",[]])) || getCorpse cursorTarget in (missionNameSpace getVariable ["rifUnits",[]])) && player distance2D cursorTarget < 4) then {
+			[cursorTarget] remoteExec ["UAMT_fnc_iedBlowUp",2];
+		};
+	}];
+};
+
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+//
 //					Player Performance
 //
 //------------------------------------------------------------------

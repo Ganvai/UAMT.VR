@@ -441,28 +441,65 @@ if (getMissionConfigValue "loadCargoFeature" == "true") then {
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 
-if (getMissionConfigValue "rifFeature" == "true") then {
-	_rifFactions = getMissionConfigValue "rifFactions";
-	_rifChance = getMissionConfigValue "rifChance";
-	_rifBombType = getMissionConfigValue "rifBombType";
+if (getMissionConfigValue "rVifFeature" == "true") then {
+
+	// Get Mission Config Values
+	_rVifFactions = getMissionConfigValue "rVifFactions";
+	_rVifChance = getMissionConfigValue "rVifChance";
+	_rVifBombType = getMissionConfigValue "rVifBombType";
 	
+	// Loop over all vehicles of type CAR in the mission
 	{
+		//get class of CAR
 		_vehClass = typeOf _x;
 		
+		// Get the faction the CAR belongs to
 		_fac = getText (configFile >> "CfgVehicles" >> _vehClass >> "faction");
 		
-		if (_fac in _rifFactions) then {
-
+		if (_fac in _rVifFactions && !(_x getvariable ["IEDFree",false])) then {
+			
+			// Get the random value 
 			_rnd = random 1;
 			
-			if (_rnd < _rifChance) then {
-				[_x,_rifBombType] call  UAMT_fnc_vehicleIED;
+			// Random Value vs configured chance
+			if (_rnd < _rVifChance) then {
+				[_x,_rVifBombType] call  UAMT_fnc_vehicleIED;
 			}
 			else {
 				[_x,3] call  UAMT_fnc_vehicleIED;
 			};
 		}
 	}forEach entities "CAR";
+};
+
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+//
+//				Random IED Feature
+//
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+if (getMissionConfigValue "rifFeature" == "true") then {
+
+	_iedFactions = getMissionConfigValue "rifFactions";
+	_iedChance = getMissionConfigValue "rifChance";
+	
+	_rifUnits = [];
+	
+	{
+		_vehClass = typeOf _x;
+		
+		_fac = getText (configFile >> "CfgVehicles" >> _vehClass >> "faction");
+		
+		if (_fac in _iedFactions && !(_x getvariable ["IEDFree",false])) then {
+
+			_rnd = random 1;
+			
+			if (_rnd < _iedChance) then {
+				[_x] call UAMT_fnc_iedUnit;
+			};
+		}		
+	}forEach entities "CAManBase";
 };
 
 
