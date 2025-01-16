@@ -17,7 +17,7 @@
 params ["_unit"];
 
 _iedUnits = missionNameSpace getVariable ["rifUnits",[]];
-_iedUnits pushbackUnique _vehicle;
+_iedUnits pushbackUnique _unit;
 missionNameSpace setVariable ["rifUnits",_iedUnits,true];
 
 _expl1 = "DemoCharge_F" createVehicle position _x;
