@@ -32,7 +32,7 @@
 // Call:
 // [[artilleryArray],_targetPos,_ammunition,_dispersionPattern,_radius,_innerRadius,_delay,_condition] call UAMT_fnc_artilleryFire;
 //
-// Parameters:
+// Attributes:
 // _artis : ARRAY of Objects / Artillery units you want to fire.
 // _target : Position [] or Markername "String" / The Target that is the center of the firepattern
 // _ammo : STRING / Ammo the artillery will shoot with - You find a list of common ammos at the

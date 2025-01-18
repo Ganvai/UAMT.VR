@@ -11,7 +11,7 @@
 //
 // [object,speaker,faction,text] call UAMT_fnc_addTalkingAction;
 //
-// Values:
+// Attributes:
 // object: Object that the Hold Action is attached to
 // speaker: String - name of the Unit speaking to you
 // faction: String - Defines the Color of the speakers name - available Options: BLU, IND, OPF, CIV

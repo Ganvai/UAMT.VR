@@ -32,7 +32,7 @@ switch (side _killer) do {
 _killerName = name _killer;
 
 //Building the Message string
-_finalMsg = format ["<t color='#%1' size='2' shadow = '2'>%2: </t><t color='#FFFFFF' size='2' shadow = '2'>%3<br/>Shooter reportet for Investigation: %4</t>",_idColor,_id,_msg,_killerName];
+_finalMsg = format ["<t color='#%1' size='1.5' shadow = '2'>%2: </t><t color='#FFFFFF' size='1.5' shadow = '2'>%3<br/>Shooter reportet for Investigation: %4</t>",_idColor,_id,_msg,_killerName];
 
 if (_sound == "Radio") then {
 

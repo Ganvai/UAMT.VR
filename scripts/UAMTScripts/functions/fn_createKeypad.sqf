@@ -29,7 +29,7 @@
 // You can lock any door of that building. Going in Eden Editor into Special States 
 // helps you finding the Door Numbers you want to lock.
 //
-// Parameters
+// Atttributes:
 // pad: Object / The Pad the Keypad will work from
 // code: String / The Code that will unlock all defined doors
 // doors: Array of Numbers / Optional / The Door numbers you want to lock with the Keypad

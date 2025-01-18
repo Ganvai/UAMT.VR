@@ -30,7 +30,7 @@ switch _idSide do {
 };
 
 //Building the Message string
-_finalMsg = format ["<t color='#%1' size='2' shadow = '2'>%2: </t><t color='#%3' size='2' shadow = '2'>%4</t>",_idColor,_id,_txtColor,_msg];
+_finalMsg = format ["<t color='#%1' size='1.5' shadow = '2'>%2: </t><t color='#%3' size='1.5' shadow = '2'>%4</t>",_idColor,_id,_txtColor,_msg];
 
 if (_sound == "Radio") then {
 

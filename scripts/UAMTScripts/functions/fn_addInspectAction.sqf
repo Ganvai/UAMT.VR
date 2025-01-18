@@ -9,7 +9,7 @@
 //
 // [object,ItemName,Text,Highlight,delete] call UAMT_fnc_addInspectAction;
 // 
-// Values:
+// Attributes:
 // object: Object the Hold Action is attached to
 // ItemName: String - Item Name shown in the Hold Action Popup
 // text: String - Text that is shown when completing the action

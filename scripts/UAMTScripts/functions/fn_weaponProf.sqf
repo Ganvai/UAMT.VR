@@ -1,6 +1,3 @@
-ace_common_SwayFactor = 0;
-setUnitRecoilCoefficient = 0;
-
 player addEventHandler ["WeaponChanged", {
 	params ["_object", "_oldWeapon", "_newWeapon", "_oldMode", "_newMode", "_oldMuzzle", "_newMuzzle", "_turretIndex"];
 	

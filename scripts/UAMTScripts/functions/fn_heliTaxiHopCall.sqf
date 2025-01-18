@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------
 //
-//		Transport Heli Simple
+//		Transport Heli Taxi Hop Call
 //
 // Makes one or more Helicopters fly to a position and land there.
 //

@@ -1,3 +1,39 @@
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//
+// 			Heli Taxi Call
+//
+// Spawns one (or more) Helicopter that flies to the _pickUpMrk, lands there,
+// waits until a player executes the "Start Heli" option and then
+// flies to the _destMrk, lands there and waits until every player
+// has left the vehicle. Then flies to the _despawnPosMrk where it gets
+// deleted.
+//
+// A control function that controls and submits fitting values to UAMT_fnc_heliTaxiFly 
+//	
+// Attributes:
+// _spawnPosMrk : <ARRAY POSAGL> or <STRING> or Array of POSAGL or Strings. Position where the Helicopter is spawned. Can be position AGL, a String for a Marker name 
+//					or an Array of several of these types. If multiple positions or markers are given, it spawns the amount of Helicopters. Must always be one of a type!
+//					Don't mix position arrays with marker Names!
+//
+// _pickUpMrk : SAME as _spawnPosMrk. Where the helicopter lands and waits for players to give starting orders.
+//				If multiple positions/markers are given, it needs to be of the same amount of _spawnPosMrk
+//
+// _destMrk:	SAME as _spawnPosMrk. Position where Helis land and wait until every player is out.
+//
+// _despawnPosMrk:	SAME as _spawnPosMrk. Position where the helicopter flies after all players left the vehicle at _destMrk. When reaching the position, it gets deleted
+//
+// _class: <STRING> Classname of Helicopter to spawn
+//
+// _voiceLines: <BOOL> If true, the function playes voicelines for the players to give information about their status. Needs UAMT sounds config for this. If not available,
+//
+// _marker: <BOOL> If true, markers for the helicopters will be drawn on the map.
+//
+// Call:
+// [_spawnPosMrk,_pickUpMrk,_destMrk,_despawnPosMrk,_class,_voiceLines,_marker] call UAMT_fnc_heliTaxiCall;
+//
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 params ["_spawnPosMrk","_pickUpMrk", "_destMrk","_despawnPosMrk", "_class", ["_voiceLines", true], ["_marker", true]];
 
 //Variables
@@ -13,7 +49,7 @@ _vehicleArr = [];
 
 
 //Bringing _spawnPosMrk into right format
-if (_spawnPosMrk isEqualType  []) then {
+if (_spawnPosMrk isEqualType []) then {
 	if (_spawnPosMrk select 0 isEqualType "") then {
 		{
 			_spawnPosArr pushback (getMarkerPos _x);
@@ -105,6 +141,7 @@ if (count _pickUpMrk != count _spawnPosMrk) exitWith {
 	diag_log text "ERROR in Transport Helicopter Call. Not the same amount of PickUp and Spawn Markers given.";
 };
 
+// Loop to spawn multiple Helicopters and send them flying.
 for "_i" from 0 to _amount do {
 
 	// Get all positions

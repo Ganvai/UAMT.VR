@@ -9,7 +9,7 @@
 // Call:
 // [[vehicles],_angleH,_angleV,_salvo,_firepause,_cond] call UAMT_fnc_ambientVehicleFire;
 //
-// PARAMETERS
+// Attributes
 // _vehicles : OBJECT or ARRAY of OBJECTS / the vehicles you want to let fire
 //
 // _angleH : NUMBER, Optional, default 90 / Horizontal Angle in which the turret is moved

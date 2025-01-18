@@ -1,3 +1,23 @@
+//----------------------------------------------------------------
+//----------------------------------------------------------------
+//
+//		Casualty Feature Friendly Message
+//
+// UAMT exclusive function. Only works with additional dependencies
+// in UAMT config and initServer with customised Event Handler
+//
+// Triggered by Eventhandler on friendly units und chooses a
+// random message to be played wenn a friendly unit is killed by a 
+// player
+//
+// Attributes:
+// _killer : <OBJECT> player who killed the civilian unit
+//
+// [_player] call UAMT_fnc_cFCivMessage;
+//
+//----------------------------------------------------------------
+//----------------------------------------------------------------
+
 if (!isServer) exitWith {};
 
 params ["_killer"];

@@ -1,3 +1,32 @@
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//
+// 			Heli Taxi Fly
+//
+// Makes a Helicopter fly to the _pickUpPos where it lands and waits until player activate a "Start Heli" addAction added to the vehicle. It then flies
+// to the _destPos where it lands and waits until all Players are out. If a _despawnPos is given, it then flies to this Position where it gets despawned.
+// If no despawnPos is given, it just stays at the _destPos.
+//
+// Is controlled by HeliTaxiCall that handles multiple Helicopters or different inputs (like Markernames instead of positions). HeliTaxiCall will also spawn helicopters.
+// This function is meant to be used for existing helicopters or as sub function from HeliTaxiCall.
+//
+//	
+// Attributes:
+//
+// _heliVeh : <OBJECT> Helicopter to fly
+// _heliGrp : <GROUP> Group of helicopter.
+// _pickUpPos : <POSAGL> First landing position to pick up players
+// _destPos : <POSAGL> Second landing position to drop off players
+// _despawnPos : <POSAGL> (OPTIONAL, Default : []) Position to fly after dropOff where helicopter despawns.
+// _pickUpMapMarker : <STRING> (OPTIONAL, Default : "") If Map markers for LZs where created, you can give them here and they will be deleted automatically after the helicopter dropped off the Players
+// _voiceLines: <BOOL> If true, the function playes voicelines for the players to give information about their status. Needs UAMT sounds config for this.
+//
+// Call:
+// [_heliVeh,_heliGrp,_pickupPos,_destPosMrk,_despawnPos,_pickUpMapMarker,_destMapMarker,_voiceLines] call UAMT_fnc_heliTaxiFly;
+//
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 params ["_heliVeh", "_heliGrp", "_pickupPos", "_destPos", ["_despawnPos",[]], ["_pickUpMapMarker",""], ["_destMapMarker",""], ["_voiceLines",true]];
 
 _crew = count (crew _heliVeh);
