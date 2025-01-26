@@ -505,6 +505,8 @@ class CfgFunctions
 			
 			class supplyDrop{};
 			
+			class welcomeMessage{};
+			
 			//Loadout Functions
 			class loadoutApply{};
 			class loadoutArsenal{};

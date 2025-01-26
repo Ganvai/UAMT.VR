@@ -17,7 +17,7 @@
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 
-_devMode = true;
+_devMode = false;
 
 if (!_devMode) then {
 	titleText ["Preparing Mission...", "BLACK FADED", 1];
@@ -102,9 +102,6 @@ if (getMissionConfigValue "missionstartedfeat" == "true") then {
 };
 
 waitUntil{!isNull(player)};
-
-_welcomemessage = getMissionConfigValue "WelcomeMessage";
-_missionControlCenterMessage = getMissionConfigValue "MissionControlCenterMessage";
 
 //------------------------------------------------------------------
 //------------------------------------------------------------------
@@ -1009,17 +1006,7 @@ if (!_devMode) then {
 
 	sleep 10;
 
-	if (_welcomemessage != "") then {
-		titleText [_welcomemessage, "PLAIN",1,true,true ];
-		sleep 10.5;
-	};
-
-	if (getMissionConfigValue "mCC" == "true") then {
-		if ((getMissionConfigValue "mccAccess" findIf {_x == _playerVar} > -1) || (getMissionConfigValue "mccAccess" findIf {_x == _playerGroupID} > -1)) then {
-			if (_MissionControlCenterMessage != "") then {
-				titleText [_MissionControlCenterMessage, "PLAIN",0.8,true,true ];
-				sleep 8.5;
-			};
-		};
+	if (getMissionConfigValue "welcomeMessage" == "true") then {
+		[] call UAMT_fnc_welcomeMessage;
 	};
 };

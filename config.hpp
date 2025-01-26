@@ -630,15 +630,12 @@ rifChance = 1;				// Chance a vehicle has an IED in %. 1 means every vehicle, 0 
 //
 //					Welcome  Message
 //
-// The Welcome Message is displayed on the start for every Player.
-// You can give the Player a short overview about your mission settings
-// and special Options.
-//
-// If you don't want to show the Messages, just give an empty String "".
+// Shows a GUI Welcome MEssage that gives an Overview over the 
+// Custom UAMT Features available in this Mission as well as a
+// referal to the UAMT Manual on the Map for further features
 //------------------------------------------------------------------
 //------------------------------------------------------------------
-WelcomeMessage = "<t color='#ffffff' size='1.7' font='RobotoCondensed' shadow = '1' >This Mission is powered by the UAMT. Use ACE Selfinteract (STRG+WIN), go to Base Menu for Arsenal, Loadouts and Teleport to a Group.<br/>You can read more about all Functions in the Manual on the Map Screen.</t>";
-MissionControlCenterMessage = "<t color='#ffffff' size='1.7' font='RobotoCondensed' shadow = '1' >Your Slot has access to the Mission Control Center. Depending on the Mission, you can start or end the Mission and have Access to debugging functions.<br/> Read more about that in the Manual on the Map Screen.</t>";
+welcomeMessage = true;
 
 //------------------------------------------------------------------
 //------------------------------------------------------------------
