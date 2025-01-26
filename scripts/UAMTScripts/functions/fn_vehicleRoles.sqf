@@ -1,3 +1,19 @@
+//----------------------------------------------------------------
+//----------------------------------------------------------------
+//
+//			Vehicle Roles
+//
+// Checks if a Unit Role is able to control a vehicle and if not,
+// throws the unit out of the vehicle
+//
+// UAMT exlusive feature. Only works together with several UAMT
+// specific dependencies in other files. Not to be used out of
+// UAMT context.
+//	
+// Is Still Work In Progress and not refined for Release
+//----------------------------------------------------------------
+//----------------------------------------------------------------
+
 player addEventHandler ["GetInMan", {
 	params ["_unit", "_role", "_vehicle", "_turret"];
 	

@@ -1,3 +1,17 @@
+//----------------------------------------------------------------
+//----------------------------------------------------------------
+//
+//			Supply Point Init
+//
+// Adds the ACE Functions to spawn Supply Crates to an Object
+//
+// UAMT exlusive feature. Only works together with several UAMT
+// specific dependencies in other files. Not to be used out of
+// UAMT context.
+//
+//----------------------------------------------------------------
+//----------------------------------------------------------------
+
 params ["_supplyPoints"];
 
 {

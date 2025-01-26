@@ -1,3 +1,17 @@
+//----------------------------------------------------------------
+//----------------------------------------------------------------
+//
+//			Spawn Supply Crate
+//
+// Spawns a Supply crate with the items in the given array
+//
+// UAMT exlusive feature. Only works together with several UAMT
+// specific dependencies in other files. Not to be used out of
+// UAMT context.
+//
+//----------------------------------------------------------------
+//----------------------------------------------------------------
+
 if (! isServer) exitWith {};
 
 params ["_boxSpawnObj","_distance","_direction","_boxType","_boxArr"];

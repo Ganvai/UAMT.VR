@@ -1,3 +1,19 @@
+//----------------------------------------------------------------
+//----------------------------------------------------------------
+//
+//			Vehicle IED Blow Up
+//
+// Detonates an IED rigged vehicle.
+//
+// From the UAMT Random Vehicle IED Feature.
+//
+// UAMT exlusive feature. Only works together with several UAMT
+// specific dependencies in other files. Not to be used out of
+// UAMT context.
+//	
+//----------------------------------------------------------------
+//----------------------------------------------------------------
+
 params ["_vehicle",["_bombType",0]];
 
 for "_i" from 1 to 4 do {
