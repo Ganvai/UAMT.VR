@@ -3,6 +3,50 @@
 //-------------------------------------------------------
 [pad_2,"1234",[1,4]] call UAMT_fnc_createKeypad;
 
+
+//-------------------------------------------------------
+// 		 Showcase Intel Feature
+//-------------------------------------------------------
+
+//Variables for Intel Feature
+missionNameSpace setVariable ["IntelMaxCounter",9,true];
+missionNameSpace setVariable ["IntelSecondaryArray",["marker_1","maker_2","marker_3"],true];
+
+// Loop over every OPFOR Unit in the Mission
+{
+	// Add an Eventhandler to every OPFOR Unit that has a chance to have an "Search Intel"-HoldAction if Killed
+	_x addEventHandler ["Killed", {
+		params ["_unit", "_killer", "_instigator", "_useEffects"];
+		
+		hint "Killed EH";
+		// Only add the Hold Action if the Unit was killed by a player
+		if (isPlayer _killer) then {
+			
+			// Random Chance
+			_chance = random 1;
+			hint str _chance;
+			
+			// Check if there is any Intel to be revealed
+			_IntelMainCounter = missionNameSpace getVariable ["IntelMainCounter",0];
+			_intelSecondaryArray = missionNameSpace getVariable ["IntelSecondaryArray",[]];
+			
+			hint str _IntelMainCounter;
+			// If Chance is High enough and there is still Intel left to be revealed:
+			if (_chance > 0 && _intelMainCounter <= (missionNameSpace getVariable ["IntelMaxCounter",0]) && count _intelSecondaryArray > 0) then {
+				hint "Add Intel Action";
+				// Remove Unit from Garbage Collector
+				removeFromRemainsCollector [_unit];
+				
+				//Add Intel Action to unit
+				[_unit] call UAMT_fnc_intelAddHoldAction;
+			};
+		};
+		
+		// Remove the Event Handler just to be a nice, clean Missionmaker
+		_unit removeEventHandler [_thisEvent,_thisEventHandler];
+	}];
+}forEach units opfor;
+
 //-------------------------------------------------------
 // 		 Showcase Ambient Vehicle Fire
 //-------------------------------------------------------

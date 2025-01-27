@@ -532,6 +532,10 @@ class CfgFunctions
 			class cFFriendlyMessage{};
 			class cFquickMessage{};
 			
+			// Intel Feature
+			class intelAddHoldAction{};
+			class intelReveal{};
+			
 		};
 	};
 	
