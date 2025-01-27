@@ -32,6 +32,8 @@ missionNameSpace setVariable ["IntelSecondaryArray",["marker_1","maker_2","marke
 			
 			hint str _IntelMainCounter;
 			// If Chance is High enough and there is still Intel left to be revealed:
+			
+			//TODO _chance > 0 Set value to something usefull - 0 is just for demo purposes
 			if (_chance > 0 && _intelMainCounter <= (missionNameSpace getVariable ["IntelMaxCounter",0]) && count _intelSecondaryArray > 0) then {
 				hint "Add Intel Action";
 				// Remove Unit from Garbage Collector
