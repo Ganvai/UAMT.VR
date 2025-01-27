@@ -17,10 +17,13 @@
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 
-_devMode = false;
+_devMode = true;
 
 if (!_devMode) then {
 	titleText ["Preparing Mission...", "BLACK FADED", 1];
+}
+else {
+	player allowDamage false;
 };
 
 // Generating Briefing Section
