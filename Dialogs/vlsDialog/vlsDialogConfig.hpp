@@ -8,5 +8,6 @@ class vlsDialog
 		class vlsCloseDialog {};
 		class vlsInitDialog {};
 		class vlsCallDialog {};
+		class vlsDialogHelp{};
 	}; 
 };

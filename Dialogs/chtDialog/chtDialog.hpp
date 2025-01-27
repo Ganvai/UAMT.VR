@@ -239,5 +239,39 @@ class chtDialog
 			shadow = 0;
 			action = "call chtDialog_fnc_chtCloseDialog;";
 		};
+
+		class BtnHelp
+		{
+			type = 1;
+			idc = 9900605;
+			x = safeZoneX + safeZoneW * 0.59;
+			y = safeZoneY + safeZoneH * 0.24;
+			w = safeZoneW * 0.04635417;
+			h = safeZoneH * 0.02222223;
+			style = 2;
+			text = "Help";
+			borderSize = 0;
+			colorBackground[] = {0.2,0.2,0.2,1};
+			colorBackgroundActive[] = {0.302,0.302,0.302,1};
+			colorBackgroundDisabled[] = {0.2,0.2,0.2,1};
+			colorBorder[] = {0,0,0,0};
+			colorDisabled[] = {0.2,0.2,0.2,1};
+			colorFocused[] = {0.2,0.2,0.2,1};
+			colorShadow[] = {0,0,0,1};
+			colorText[] = {0.5843,0.8902,0.349,1};
+			font = "PuristaMedium";
+			offsetPressedX = 0.005;
+			offsetPressedY = 0.005;
+			offsetX = 0.005;
+			offsetY = 0.005;
+			sizeEx = "0.02 / (getResolution select 5)";
+			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
+			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
+			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
+			soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush",0.09,1.0};
+			default = false;
+			shadow = 0;
+			action = "call chtDialog_fnc_chtDialogHelp;";
+		};	
 	};
 };

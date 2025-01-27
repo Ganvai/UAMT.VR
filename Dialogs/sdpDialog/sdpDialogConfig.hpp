@@ -8,5 +8,6 @@ class sdpDialog
 		class sdpCloseDialog {};
 		class sdpInitDialog {};
 		class sdpCallDialog {};
+		class sdpDialogHelp{};
 	}; 
 };

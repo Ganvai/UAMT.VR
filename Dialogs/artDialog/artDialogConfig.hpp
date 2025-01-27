@@ -12,5 +12,6 @@ class artDialog
 		class artManageRounds {};
 		class artExecuteDialog {};
 		class artCheckRadiusDialog {};
+		class artDialogHelp{};
 	}; 
 };

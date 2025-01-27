@@ -1,29 +1,29 @@
 params ["_artIndex", "_ammoIndex", "_rounds", "_pattern", ["_radius",0]];
 
 if (missionNameSpace getVariable ["artiStatus",0] >= 2) exitWith {
-	["An artillery strike is already called and in progress. Wait until the Artilelry is available again and coordinate your Strike with the other units.", "Error"] call BIS_fnc_guiMessage;
+	["An artillery strike is already called and in progress. Wait until the Artilelry is available again and coordinate your Strike with the other units.", "Error"] spawn BIS_fnc_guiMessage;
 };
 
 _targetPos = getMarkerPos (player getVariable "artMrkLocal");
 
 if (_targetPos isEqualTo [0,0,0]) exitWith {
-	["No Target Set", "Error"] call BIS_fnc_guiMessage;
+	["No Target Set", "Error"] spawn BIS_fnc_guiMessage;
 };
 
 if (_artIndex == -1) exitWith {
-	["No Artillery selected", "Error"] call BIS_fnc_guiMessage;
+	["No Artillery selected", "Error"] spawn BIS_fnc_guiMessage;
 };
 
 if (_ammoIndex == -1) exitWith {
-	["No Ammo selected", "Error"] call BIS_fnc_guiMessage;
+	["No Ammo selected", "Error"] spawn BIS_fnc_guiMessage;
 };
 
 if (_rounds == 0) exitWith {
-	["No Rounds given", "Error"] call BIS_fnc_guiMessage;
+	["No Rounds given", "Error"] spawn BIS_fnc_guiMessage;
 };
 
 if (_pattern == -1) exitWith {
-	["No Pattern selected", "Error"] call BIS_fnc_guiMessage;
+	["No Pattern selected", "Error"] spawn BIS_fnc_guiMessage;
 };
 
 //-------------------------------------------------------------------------------------------------------------
@@ -77,7 +77,7 @@ _resultText = format ["You are calling an Artillery Strike with %1 , %2 rounds o
 
 _result = false;
 
-private _result = [_resultText, "Confirm Artillery Firemission?", true, true] call BIS_fnc_guiMessage;
+private _result = [_resultText, "Confirm Artillery Firemission?", true, true] spawn BIS_fnc_guiMessage;
 
 if (!_result) exitWith{};
 

@@ -1,7 +1,7 @@
 if (missionNameSpace getVariable ["hfsStatus",0] > 1) exitWith {
 	switch (missionNameSpace getVariable ["hfsStatus",0]) do {
-		case 2 : {["Heli Fire Support not available. Heli Fire Support deployed.", "Error"] call BIS_fnc_guiMessage;};
-		case 3 : {["Heli Fire Support not available. Refuelling and rearming Helicopters for new strike.", "Error"] call BIS_fnc_guiMessage;};
+		case 2 : {["Heli Fire Support not available. Heli Fire Support deployed.", "Error"] spawn BIS_fnc_guiMessage;};
+		case 3 : {["Heli Fire Support not available. Refuelling and rearming Helicopters for new strike.", "Error"] spawn BIS_fnc_guiMessage;};
 	};
 };
 
@@ -70,7 +70,7 @@ diag_log text format ["HFS Call - Heli Box Select 0 - %1", profileName];
 	
 	_hfsMrkLocal setMarkerPosLocal _pos;
 	_hfsMrkLocal setMarkerAlphaLocal 1;
-	"hfsDirMrk" setMarkerAlphaLocal 1;
+	_hfsDirMrkLocal setMarkerAlphaLocal 1;
 	
 	_dir = sliderPosition _ctrl;
 	_hfsDirMrkLocal setMarkerPosLocal (_pos getPos [500,_dir]);

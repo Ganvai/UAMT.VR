@@ -24,7 +24,7 @@ _map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.316,safeZoneY + safeZoneH * 0
 
 if (lbSize (_display displayCtrl 9900601)  == 0) exitWith {
 	closeDialog 0;
-	["All Helicopters currently in use", "Error"] call BIS_fnc_guiMessage;
+	["All Helicopters currently in use", "Error"] spawn BIS_fnc_guiMessage;
 };
 
 _display displayCtrl 9900601 lbSetCurSel 0;

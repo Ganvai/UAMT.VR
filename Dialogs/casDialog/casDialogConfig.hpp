@@ -8,5 +8,6 @@ class casStrikeDialog
 		class casCloseDialog {};
 		class casInitDialog {};
 		class casCallDialog {};
+		class casDialogHelp{};
 	}; 
 };

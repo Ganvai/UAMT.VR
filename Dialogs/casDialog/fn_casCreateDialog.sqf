@@ -1,7 +1,7 @@
 if (missionNameSpace getVariable ["casStatus",0] > 1) exitWith {
 	switch (missionNameSpace getVariable ["casStatus",0]) do {
-		case 2 : {["CAS not available. CAS strike in progress", "Error"] call BIS_fnc_guiMessage;};
-		case 3 : {["CAS not available. Rerouting plane for new strike.", "Error"] call BIS_fnc_guiMessage;};
+		case 2 : {["CAS not available. CAS strike in progress", "Error"] spawn BIS_fnc_guiMessage;};
+		case 3 : {["CAS not available. Rerouting plane for new strike.", "Error"] spawn BIS_fnc_guiMessage;};
 	};
 };
 
@@ -74,7 +74,7 @@ _weaponsControl lbSetData [4,"3"];
 	}forEach getMissionConfigValue "casNoFireZones";
 
 	if (_fireZoneCheck) exitWith {
-		["Target is in No Fire Zone!", "Error"] call BIS_fnc_guiMessage;
+		["Target is in No Fire Zone!", "Error"] spawn BIS_fnc_guiMessage;
 	};
 	
 	(player getVariable ["casStrikeMrkLocal",""]) setMarkerPosLocal _pos;

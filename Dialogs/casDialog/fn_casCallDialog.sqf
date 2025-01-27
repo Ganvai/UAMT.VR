@@ -1,18 +1,18 @@
 params ["_weaponID","_dir"];
 
 if (missionNameSpace getVariable ["casStatus",0] >= 2) exitWith{
-	["A CAS Strike is currently in progress. Wait until CAS is available again.", "Error"] call BIS_fnc_guiMessage;
+	["A CAS Strike is currently in progress. Wait until CAS is available again.", "Error"] spawn BIS_fnc_guiMessage;
 };
 
 
 _casTargetPos = getMarkerPos (player getVariable ["casStrikeMrkLocal",""]);
 
 if (_weaponID == -1) exitWith{
-	["No Weapons selected", "Error"] call BIS_fnc_guiMessage;
+	["No Weapons selected", "Error"] spawn BIS_fnc_guiMessage;
 };
 
 if (_casTargetPos isEqualTo [0,0,0]) exitWith{
-	["No Target position set!", "Error"] call BIS_fnc_guiMessage;
+	["No Target position set!", "Error"] spawn BIS_fnc_guiMessage;
 };
 
 _firezoneCheck = false;
@@ -22,7 +22,7 @@ _firezoneCheck = false;
 }forEach getMissionConfigValue "casNoFireZones";
 
 if (_fireZoneCheck) exitWith {
-	["Target is in No Fire Zone!", "Error"] call BIS_fnc_guiMessage;
+	["Target is in No Fire Zone!", "Error"] spawn BIS_fnc_guiMessage;
 };
 	
 _runName = "Machine Gun";
@@ -36,13 +36,13 @@ switch _weaponID do {
 };
 
 if (_ammo == 0) exitWith {
-	["Out of Ammo", "Error"] call BIS_fnc_guiMessage;
+	["Out of Ammo", "Error"] spawn BIS_fnc_guiMessage;
 };
 
 _resultText = format ["You are calling a CAS Strike on the designated coordinates with %1. Do you acknowledge?",_runName];
 
 _result = false;
-private _result = [_resultText, "Confirm CAS Firemission?", true, true] call BIS_fnc_guiMessage;
+private _result = [_resultText, "Confirm CAS Firemission?", true, true] spawn BIS_fnc_guiMessage;
 
 if (!_result) exitWith {};
 

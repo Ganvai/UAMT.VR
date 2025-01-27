@@ -10,5 +10,6 @@ class chtDialog
 		class chtCallDialog {};
 		class chtExecute {};
 		class chtChangeMrkNamesDialog {};
+		class chtDialogHelp{};
 	}; 
 };

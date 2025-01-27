@@ -8,5 +8,6 @@ class hfsDialog
 		class hfsCloseDialog {};
 		class hfsInitDialog {};
 		class hfsCallDialog {};
+		class hfsDialogHelp{};
 	}; 
 };
