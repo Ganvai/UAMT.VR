@@ -21,7 +21,7 @@ _playerItems = flatten (getUnitLoadout player);
 _playerItems = (_playerItems arrayIntersect _playerItems) select {_x isEqualType "" && {_x != ""}};
 
 // get role-specific arsenal-items from config
-_arsenalItems = [_unitLoadOut,"arsenal",""] call UAMT_fnc_getCfgValue;
+_arsenalItems = [_unitLoadOut,"arsenal",""] call UAMT_fnc_loadoutGetValue;
 
 // combine them to one array
 { _playerItems pushBackUnique _x; } forEach _arsenalItems;
