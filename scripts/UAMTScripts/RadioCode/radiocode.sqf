@@ -51,7 +51,7 @@ _logEntry = format ["%1 | %2 | %3",_playerGrp,_playerName,_radiocode];
 //---------------------------------
 
 // Creating Log Entry
-[player,["Radio",["Radio Log",_logEntry]]] remoteExec ["createDiaryRecord",[0, -2]];
+[player,["Manual",["Radio Log",_logEntry]]] remoteExec ["createDiaryRecord",[0, -2]];
 
 // Send the Radio message to all recipients
 [[_radioCodeMessage],"scripts\UAMTScripts\RadioCode\radiomessage.sqf"] remoteExec ["execVM",missionNameSpace getVariable ["UAMT_RadioRecipients",[]],false];
