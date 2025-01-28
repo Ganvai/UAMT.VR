@@ -30,8 +30,8 @@ for "_i" from 1 to 10 do {
 };
 
 switch _bombtype do {
-	case 0: { [_vehicle,1] remoteExec ["setDamage",_vehicle]; };
+	case 0: { _demo = "DemoCharge_Remote_Ammo" createVehicle (getPos _vehicle); _demo setDamage 1; [_vehicle,1] remoteExec ["setDamage",_vehicle]; };
 	case 1: { "Bo_Mk82_MI08" createVehicle (getpos _vehicle); _vehicle setDamage 1; };
 	case 2: { "Bo_GBU12_LGB_MI10" createVehicle (getpos _vehicle); _vehicle setDamage 1; };
-	default { [_vehicle,1] remoteExec ["setDamage",_vehicle]; };
+	default { _demo = "DemoCharge_Remote_Ammo" createVehicle (getPos _vehicle); _demo setDamage 1; [_vehicle,1] remoteExec ["setDamage",_vehicle]; };
 };
