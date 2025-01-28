@@ -72,6 +72,7 @@ if (getMissionConfigValue "insFeature" == "true") then {
 	{
 		_vehicle = missionNameSpace getVariable [_x,objNull];
 		_vehicle lock true;
+		_vehicle setVariable ["IEDFree",true,true];
 		[_vehicle,0]remoteExec ["setFuel"];
 		
 		{
@@ -90,12 +91,14 @@ if (getMissionConfigValue "insFeature" == "true") then {
 	{
 		_vehicle = missionNameSpace getVariable [_x,objNull];
 		_vehicle lock true;
+		_vehicle setVariable ["IEDFree",true,true];
 		[_vehicle,0]remoteExec ["setFuel"];
 	}forEach getMissionConfigValue "insCarVeh";
 	
 	// Prepare HALO vehicle
 	_haloVeh = missionNameSpace getVariable ["insHALOVeh",objNull];
 	_haloVeh lock true;
+	_haloVeh setVariable ["IEDFree",true,true];
 	{
 		if (!isPlayer _x) then {
 			_x setCaptive true;

@@ -97,5 +97,7 @@ if (_bombType < 3) then {
 
 _vehicle addEventHandler ["GetIn", {
 	params ["_vehicle", "_role", "_unit", "_turret"];
-	[_vehicle,getmissionConfigValue "rVifBombType"] remoteExec ["UAMT_fnc_vehicleIEDBlowUp",2];
+	if (isPlayer _unit) then {
+		[_vehicle,getmissionConfigValue "rVifBombType"] remoteExec ["UAMT_fnc_vehicleIEDBlowUp",2];
+	};
 }];
