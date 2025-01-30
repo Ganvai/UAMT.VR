@@ -601,7 +601,7 @@ hfsNoFireZones[] = {noFireZone_1};	// Areas where Heli Fire Support is prohibite
 //-----------------------------------------------------------------------
 rVifFeature = true;				// Activates the Random IED Feature
 rVifFactions[] = {"OPF_F","CIV_F"}; // Side of which vehicles shall be propped with IEDs. Available: "BLU_F","OPF_F","CIV_F","IND_F"
-rVifChance = 1;				// Chance a vehicle has an IED in %. 1 means every vehicle, 0 means never. Recommended 0.2.
+rVifChance = 0.5;				// Chance a vehicle has an IED in %. 1 means every vehicle, 0 means never. Recommended 0.1.
 rVifBombType = 0;				// Bomb Type: 0 means normal Vehicle detonation. 1 is a medium sized explosion, 2 a very large one. Recommended 0.
 
 //-----------------------------------------------------------------------
@@ -622,7 +622,7 @@ rVifBombType = 0;				// Bomb Type: 0 means normal Vehicle detonation. 1 is a med
 //-----------------------------------------------------------------------
 rifFeature = true;				// Activates the Random IED Feature
 rifFactions[] = {"OPF_F","IND_F"}; // Side of which vehicles shall be propped with IEDs. Available: "BLU_F","OPF_F","CIV_F","IND_F"
-rifChance = 1;				// Chance a vehicle has an IED in %. 1 means every vehicle, 0 means never. Recommended 0.2.
+rifChance = 0.5;				// Chance a vehicle has an IED in %. 1 means every vehicle, 0 means never. Recommended 0.2.
 
 
 //------------------------------------------------------------------

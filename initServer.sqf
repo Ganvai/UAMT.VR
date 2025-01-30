@@ -487,8 +487,6 @@ if (getMissionConfigValue "rifFeature" == "true") then {
 	_iedFactions = getMissionConfigValue "rifFactions";
 	_iedChance = getMissionConfigValue "rifChance";
 	
-	_rifUnits = [];
-	
 	{
 		_vehClass = typeOf _x;
 		

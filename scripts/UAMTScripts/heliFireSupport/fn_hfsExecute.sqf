@@ -28,7 +28,7 @@ missionNameSpace setVariable ["hfsCount",_hfsCount,true];
 
 
 if (_createMarker) then {
-	_hfsMrk = format ["hfsMrk%1",_hfsCount];
+	_hfsMrk = format ["_USER_DEFINED hfsMrk%1",_hfsCount];
 	_hfsMrkText = format ["Heli Firesupport %1",_hfsCount];
 	createMarker [_hfsMrk,_pos];
 	_hfsMrk setMarkerAlpha 1;

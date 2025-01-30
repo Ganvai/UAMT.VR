@@ -10,8 +10,8 @@ if (missionNameSpace getVariable ["hfsStatus",0] > 1) exitWith {
 
 	if (findDisplay 99004 == displayNull) exitWith {
 		hint "Error when calling Terminal"; 
-		deleteMarkerLocal (player getVariable ["_hfsMrkLocal",""]);
-		deleteMarkerLocal (player getVariable ["_hfsDirMrkLocal",""]);
+		deleteMarkerLocal (player getVariable ["hfsMrkLocal",""]);
+		deleteMarkerLocal (player getVariable ["hfsDirMrkLocal",""]);
 		onMapSingleClick "";
 	};
 };

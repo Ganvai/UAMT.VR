@@ -21,7 +21,7 @@ private _result = ["You are calling a Cruise Missile Strike to the designated co
 
 if (!_result) exitWith {};
 
-[[_vlsTargetPos,side player,_ammoIndex,true],UAMTvls_fnc_vlsExecute] remoteExec ["spawn",2];
+[_vlsTargetPos,side player,_ammoIndex,true] remoteExec ["UAMTvls_fnc_vlsExecute",2];
 
 onMapSingleClick "";
 closeDialog 0;

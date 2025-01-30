@@ -46,11 +46,6 @@ if (_bombType < 3) then {
 
 			titleText ["<t color='#ff0000' size='2' font='RobotoCondensed' shadow = '2' >The vehicle is rigged with an IED</t>", "PLAIN", 1, true, true];
 			
-			// Add Vehicle to known Traps
-			_vehArr = missionNameSpace getVariable ["knownTraps",[]];
-			_vehArr pushback (_this select 0);
-			missionNameSpace setVariable ["knownTraps",_vehArr,true];
-			
 			//Add Defuse Action for EODs
 			[
 				_this select 0,
@@ -64,9 +59,9 @@ if (_bombType < 3) then {
 				{
 					titleText ["<t color='#ffffff' size='2' font='RobotoCondensed' shadow = '2' >IED Defused. Vehicle is clean.</t>", "PLAIN", 1, true, true];
 
-					_defArr = missionNameSpace getVariable ["defusedTraps",[]];
-					_defArr pushback (_this select 0);
-					missionNameSpace setVariable ["defusedTraps",_defArr,true];
+					_defArr = missionNameSpace getVariable ["trappedVehicles",[]];
+					_defArr = _defArr - [(_this select 0)];
+					missionNameSpace setVariable ["trappedVehicles",_defArr,true];
 
 					[_this select 0, _this select 2] remoteExecCall ["removeAction", 0];
 				},
@@ -76,7 +71,7 @@ if (_bombType < 3) then {
 				1000,
 				false,
 				false
-			] remoteExec ["BIS_fnc_holdActionAdd",0, true];
+			] remoteExec ["BIS_fnc_holdActionAdd",0, _this select 0];
 
 		}
 		else {
@@ -97,7 +92,7 @@ if (_bombType < 3) then {
 
 _vehicle addEventHandler ["GetIn", {
 	params ["_vehicle", "_role", "_unit", "_turret"];
-	if (isPlayer _unit) then {
+	if (isPlayer _unit && _vehicle in (missionNameSpace getVariable ["trappedVehicles",[]])) then {
 		[_vehicle,getmissionConfigValue "rVifBombType"] remoteExec ["UAMT_fnc_vehicleIEDBlowUp",2];
 	};
 }];

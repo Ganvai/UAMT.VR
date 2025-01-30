@@ -59,8 +59,7 @@ if (_createMarker) then {
 	_markerName = format ["_USER_DEFINED supplyDropMrk%1",_supplyDropCount];
 	_markerText = format ["Supply Drop %1",_supplyDropCount];
 	
-	createMarker [_markerName,[0,0,0]];
-	_markerName setMarkerAlpha 0;
+	createMarker [_markerName,_deliveryPos];
 	_markerName setMarkerType "mil_destroy_noShadow";
 	_markerName setMarkerText _markerText;
 };
