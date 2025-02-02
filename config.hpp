@@ -90,13 +90,6 @@ wPSwayPro			= 0.6;			// Weapon Sway with proficient weapons. 1 is default.
 wPRecoilPro			= 0.6;			// Recoil with proficient weapons. 1 is default.
 wPSwayDef			= 0.9;			// Weapon Sway with all Weapon Classes that are not in wPNonProWeapons. Default Arma Value is 1.
 wPRecoilDef			= 0.9;			// Recoil with with all Weapon Classes that are not in wPNonProWeapons. Default Arma Value is 1.
-wPSwayNonPro		= 1.2;			// Sway with non proficient weapons. 1 is default.
-wPRecoilNonPro		= 1.2;			// Recoil with non proficient weapons. 1 is default.
-
-// Array of Weapon-Classes that the Non Pro Values get attached to IF they are NOT set as proficient Weapons in CFGLoadouts.
-// All Weapon Cursors in Arma Vanilla: ["arfile","mg","smg","missile","rocket","sgun","srifle","mortar","laserDesignator","esd"].
-// Important. The function is case sensitiv, so keep an eye on that D in laserDesignator
-wPNonProWeapons		= ["mg","smg","missile","rocket","sgun","srifle"]; 
 
 //------------------------------------------------------------------
 //------------------------------------------------------------------

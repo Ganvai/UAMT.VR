@@ -86,4 +86,9 @@ titleText ["<t color='#ffffff' size='2'>This is an ACE Arsenal. Don't forget to 
 
 UAMT_ARSENAL_DISPLAY_ID = ["ace_arsenal_displayClosed", { 
 	[player, true, false] call ace_arsenal_fnc_removeVirtualItems;
+	_profWeaponsArr = [];
+	_profWeaponsArr pushback (primaryWeapon player);
+	_profWeaponsArr pushback (secondaryWeapon player);
+	_profWeaponsArr pushback (handgunWeapon player);
+	player setVariable ["profWeapons",_profWeaponsArr,true];
 	["ace_arsenal_displayClosed", UAMT_ARSENAL_DISPLAY_ID] call CBA_fnc_removeEventHandler; } ] call CBA_fnc_addEventHandler;

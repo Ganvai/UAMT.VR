@@ -48,3 +48,11 @@ if (isplayer _unit) then {
 	};		
 	[] spawn { sleep 0.6; player action ["WeaponOnBack", player]; };
 };
+
+// Check all Weapons in for Weapon Proficiency
+
+_profWeaponsArr = [];
+_profWeaponsArr pushback (primaryWeapon player);
+_profWeaponsArr pushback (secondaryWeapon player);
+_profWeaponsArr pushback (handgunWeapon player);
+player setVariable ["profWeapons",_profWeaponsArr,true];

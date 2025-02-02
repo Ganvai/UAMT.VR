@@ -758,28 +758,19 @@ if (getMissionConfigValue "supplyPointFeature" == "true") then {
 //------------------------------------------------------------------
 if (getMissionConfigValue "supplyPointFeature" == "true") then {
 
-player addEventHandler ["WeaponChanged", {
-	params ["_object", "_oldWeapon", "_newWeapon", "_oldMode", "_newMode", "_oldMuzzle", "_newMuzzle", "_turretIndex"];
+	player addEventHandler ["WeaponChanged", {
+		params ["_object", "_oldWeapon", "_newWeapon", "_oldMode", "_newMode", "_oldMuzzle", "_newMuzzle", "_turretIndex"];
 		
-	_weaponCursor = [configfile >> "CfgWeapons" >> _newWeapon ,"cursor",""] call BIS_fnc_returnConfigEntry;
-	_profCursors = [missionconfigfile >> "CfgLoadouts" >> (player getVariable "loadout"), "proficientWeapons",[]] call BIS_fnc_returnConfigEntry;
-	if (_weaponCursor in _profCursors) then {
-		//hint "Prof";
-		ace_common_SwayFactor = getMissionConfigValue "wPSwayPro";
-		player setUnitRecoilCoefficient (getMissionConfigValue "wPRecoilPro");
-	}
-	else {	
-		if (_weaponCursor in (getMissionConfigValue "wPNonProWeapons")) then {
-			//hint "Non Prof";
-			ace_common_SwayFactor = getMissionConfigValue "wPSwayNonPro";;
-			player setUnitRecoilCoefficient (getMissionConfigValue "wPRecoilNonPro");
+		_profWeapons = player getVariable ["profWeapons",[]];
+		
+		if (_newWeapon in _profWeapons) then {
+			ace_common_SwayFactor = getMissionConfigValue "wPSwayPro";
+			player setUnitRecoilCoefficient (getMissionConfigValue "wPRecoilPro");
 		}
-		else {
-			//hint "Default";
+		else {	
 			ace_common_SwayFactor = getMissionConfigValue "wPSwayDef";
-			player setUnitRecoilCoefficient (getMissionConfigValue "wPRecoilDef");		
+			player setUnitRecoilCoefficient (getMissionConfigValue "wPRecoilDef");
 		};		
-	};
 	}];
 };
 
@@ -805,8 +796,6 @@ if (getMissionConfigValue "rViFFeature" == "true") then {
 if (getMissionConfigValue "riFFeature" == "true") then {
 	player addEventHandler ["InventoryOpened", {
 		params ["_unit", "_container"];
-		
-		hint str _container;
 
 		if (_container in (missionNameSpace getVariable ["rifUnits",[]])) then {
 			[_container] remoteExec ["UAMT_fnc_iedBlowUp",2];
