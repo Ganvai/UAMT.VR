@@ -13,45 +13,136 @@ else {
 
 // Gather all Roles and Weapons
 {
+	// Setup all Temp Variables
+	_magCargo = [];
+	_weaponTempMagWell = [];
+
 	_role = _x getVariable "loadout";
+	_profWeapons = _x getVariable ["profWeapons",[]];
 	
-	private _loadoutArray = [_role] call UAMT_fnc_loadoutCreate;
-	private _allRoleItems = flatten _loadoutArray;
-	_allRoleItems = (_allRoleItems arrayIntersect _allRoleItems) select {_x isEqualType "" && {_x != ""}};
+	_allRoleItems = [missionConfigFile >> "CfgLoadouts" >> _role, "itemsUniform", []] call BIS_fnc_returnConfigEntry;
+	_allRoleItems append ([missionConfigFile >> "CfgLoadouts" >> _role, "itemsVest", []] call BIS_fnc_returnConfigEntry);
+	_allRoleItems append ([missionConfigFile >> "CfgLoadouts" >> _role, "itemsBackPack", []] call BIS_fnc_returnConfigEntry);
 	
-	_allArsenalItems = [""]; //TODO  Function for getting all Role Config Items from CfGEquipment
-	_primaryMags = [];
+	_allArsenalItems = [_role,"arsenal",""] call UAMT_fnc_loadoutGetValue;
 	
-	// Add 
-	if (_profWeapons select 0 != "")
-		_primary = (_profWeapons select 0);
-		_primaryMuzzles = [configFile >> "CfGWeapons" >> _primary, "muzzles",["this"]] call BIS_fnc_returnConfigEntry;
-		{
-			_primaryMagWell = compatibleMagazines [_primary,_x];
-		}forEach _primaryMuzzles;
+	// Add Magazines for Primary Weapon
+	if (_profWeapons select 0 != "") then {
+		_weaponTemp = (_profWeapons select 0);
+		
+		_weaponTempMuzzles = [configFile >> "CfGWeapons" >> _weaponTemp, "muzzles",["this"]] call BIS_fnc_returnConfigEntry;
+		
+		_weaponTempMagWell = compatibleMagazines _weaponTemp;
 		
 		{
-			if (_x in _allRoleItems || _x in _allArsenalItems) then {
-				
+			if (_x in _allRoleItems) exitWith {
+				_cargo pushback [_x,3];
+				_allRoleItems = _allRoleItems - _x;
 			};
-		}forEach _primaryMagWell;
+
+			if (_x in _allArsenalItems) exitWith {
+					_cargo pushback [_x,3];
+			};
+
+			_stdMags = [configFile >> "CfGWeapons" >> _weaponTemp, "magazines"] call BIS_fnc_returnConfigEntry;
+			{
+				_cargo pushback [_x,3];
+			}forEach _stdMags;
+
+		}forEach _weaponTempMagWell;
+	};
+
+	// Add Magazines for Secondary Weapon
+	if (_profWeapons select 1 != "") then {
+		_weaponTemp = (_profWeapons select 1);
 		
+		_weaponTempMuzzles = [configFile >> "CfGWeapons" >> _weaponTemp, "muzzles",["this"]] call BIS_fnc_returnConfigEntry;
+		
+		_weaponTempMagWell = compatibleMagazines _weaponTemp;
+		
+		{
+			if (_x in _allRoleItems) exitWith {
+				_cargo pushback [_x,3];
+				_allRoleItems = _allRoleItems - _x;
+			};
+
+			if (_x in _allArsenalItems) exitWith {
+					_cargo pushback [_x,3];
+			};
+
+			_stdMags = [configFile >> "CfGWeapons" >> _weaponTemp, "magazines"] call BIS_fnc_returnConfigEntry;
+			{
+				_cargo pushback [_x,3];
+			}forEach _stdMags;
+
+		}forEach _weaponTempMagWell;
+	};
+
+	// Add Magazines for Handgun
+	if (_profWeapons select 2 != "") then {
+		_weaponTemp = (_profWeapons select 2);
+		
+		_weaponTempMuzzles = [configFile >> "CfGWeapons" >> _weaponTemp, "muzzles",["this"]] call BIS_fnc_returnConfigEntry;
+		
+		_weaponTempMagWell = compatibleMagazines _weaponTemp;
+		
+		{
+			if (_x in _allRoleItems) exitWith {
+				_cargo pushback [_x,3];
+				_allRoleItems = _allRoleItems - _x;
+			};
+
+			if (_x in _allArsenalItems) exitWith {
+					_cargo pushback [_x,3];
+			};
+
+			_stdMags = [configFile >> "CfGWeapons" >> _weaponTemp, "magazines"] call BIS_fnc_returnConfigEntry;
+			{
+				_cargo pushback [_x,3];
+			}forEach _stdMags;
+
+		}forEach _weaponTempMagWell;
+	};
+
+	// Fill all other Items into the crate
+	{
+		_item = _x select 0;
+		_count = _x select 1;
+		_cargo pushback [_item,(ceil (_count / 2))];
+	}forEach _allRoleItems;
 	
-		
-	};
-
-	if (_profWeapons select 1 != "")
-		_secondary = (_profWeapons select 1);
-	};
-
-	if (_profWeapons select 2 != "")
-		_handgun = _profWeapons select 2 ;
-	};
-
-
 }forEach _players;
 
+// Add Throwables to Cargo
+_throwables = [missionConfigFile >> "CfgFactionEquipment", "throwablesStd", []] call BIS_fnc_returnConfigEntry;
+_throwables append ([missionConfigFile >> "CfgFactionEquipment", "throwablesExt", []] call BIS_fnc_returnConfigEntry);
 
+{
+	_cargo pushback [(_x select 0),(ceil (((_x select 1) * (count _players)) / 2))];
+}forEach _throwables;
+
+// Add Medic Items to Cargo
+_medicItems = [missionConfigFile >> "CfgFactionEquipment", "san_t3_u", []] call BIS_fnc_returnConfigEntry;
+_medicItems append ([missionConfigFile >> "CfgFactionEquipment", "san_t3_v", []] call BIS_fnc_returnConfigEntry);
+_medicItems append ([missionConfigFile >> "CfgFactionEquipment", "san_t3_b", []] call BIS_fnc_returnConfigEntry);
+_medicItems append ([missionConfigFile >> "CfgFactionEquipment", "san_t2_u", []] call BIS_fnc_returnConfigEntry);
+_medicItems append ([missionConfigFile >> "CfgFactionEquipment", "san_t2_v", []] call BIS_fnc_returnConfigEntry);
+_medicItems append ([missionConfigFile >> "CfgFactionEquipment", "san_t2_b", []] call BIS_fnc_returnConfigEntry);
+_medicItems append ([missionConfigFile >> "CfgFactionEquipment", "san_t1_u", []] call BIS_fnc_returnConfigEntry);
+_medicItems append ([missionConfigFile >> "CfgFactionEquipment", "san_t1_v", []] call BIS_fnc_returnConfigEntry);
+_medicItems append ([missionConfigFile >> "CfgFactionEquipment", "san_t1_b", []] call BIS_fnc_returnConfigEntry);
+_medicItems append ([missionConfigFile >> "CfgFactionEquipment", "san_t0_u", []] call BIS_fnc_returnConfigEntry);
+_medicItems append ([missionConfigFile >> "CfgFactionEquipment", "san_t0_v", []] call BIS_fnc_returnConfigEntry);
+_medicItems append ([missionConfigFile >> "CfgFactionEquipment", "san_t0_b", []] call BIS_fnc_returnConfigEntry);
+
+{
+	_cargo pushback [(_x select 0),(ceil (((_x select 1) * (count _players)) / 2))];
+}forEach _medicItems;
+
+_cargo;
+
+
+/*
 // Gather all Roles with amount
 {
 	_role = _x;
@@ -77,18 +168,18 @@ else {
 	_index = -1;
 		
 	for "_i" from 0 to count _weapons do {
-		if (_weapon == ((_primaryWeapons select _i) select 0)) exitWith {
+		if (_weapon == ((_weaponTempWeapons select _i) select 0)) exitWith {
 			_index = _i;
 		};
 	};
 	
 	if (_index == -1) then {
-		_primaryWeapons pushback [_x,1];
+		_weaponTempWeapons pushback [_x,1];
 	}
 	else {
-		_primaryWeapons set [_index,[((_primaryWeapons select _index) select 0),(((_primaryWeapons select _index) select 1) + 1)]];
+		_weaponTempWeapons set [_index,[((_weaponTempWeapons select _index) select 0),(((_weaponTempWeapons select _index) select 1) + 1)]];
 	};
-}forEach _primaryWeaponsAll;
+}forEach _weaponTempWeaponsAll;
 
 // Gather all Primary Weapons with amount
 {
@@ -121,3 +212,4 @@ _weaponMuzzles =  _playerweapon Config entry muzzles;
 		_x pushback _cargo;
 	};
 }forEach _magazines;
+*/
