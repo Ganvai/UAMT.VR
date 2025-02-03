@@ -1,4 +1,4 @@
-params ["_method","_group"];
+params [["_method",1],"_group"];
 
 // Set Up Variables
 _cargo = [];
@@ -24,7 +24,11 @@ else {
 	_allRoleItems append ([missionConfigFile >> "CfgLoadouts" >> _role, "itemsVest", []] call BIS_fnc_returnConfigEntry);
 	_allRoleItems append ([missionConfigFile >> "CfgLoadouts" >> _role, "itemsBackPack", []] call BIS_fnc_returnConfigEntry);
 	
-	_allArsenalItems = [_role,"arsenal",""] call UAMT_fnc_loadoutGetValue;
+	_allRoleItems = _allRoleItems select {_x isEqualType []};
+	_allRoleItems = flatten _allRoleItems;
+	_allRoleItems = ( _allRoleItems arrayIntersect _allRoleItems ) select {_x isEqualType "" && {_x != ""}};
+	
+	_allArsenalItems = [missionConfigFile >> "CfgLoadouts" >> _role, "arsenal", []] call BIS_fnc_returnConfigEntry;
 	
 	// Add Magazines for Primary Weapon
 	if (_profWeapons select 0 != "") then {
