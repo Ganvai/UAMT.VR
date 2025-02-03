@@ -213,40 +213,15 @@ clearBackpackCargoGlobal _Box;
 // Fill the Supply Crate with items from _customLoad Array or attach Supply Point Function
 // custom load array should be format [[itemClass,itemCount],[itemClass,itemCount]]
 if (count _customLoad == 0) then {
-	_supplyPointArr = [[_box,2,0]];
-	[_supplyPointArr] remoteExec ["UAMT_fnc_supplyPointInit"];
-/*
-	_boxes = [missionConfigFile >> "CfgFactionEquipment", "supplyCrates", []] call BIS_fnc_returnConfigEntry;
-	
-	_supplyPoint = _Box;
-	
-	_supplyPointDist = 2;
-	_supplyPointDir = 0;
-	_supplyPointBoxName = "";
-	_supplyPointBoxType = "";
-	_supplyPointBoxVar = "";
-	_boxNumber = 0;
-	
+	_cargo = [getMissionConfigValue "supplyDropCargo",group player] call UAMT_fnc_supplyDropContents;
 	{
-		_boxNumber = _boxNumber + 1;
-		_actionName = format ["SupplyBox %1", _boxNumber];
-		_supplyPointBoxName = _x select 0;
-		_supplyPointBoxType = _x select 1;
-		_supplyPointBoxVar = _x select 2;
-
-		_statement = {
-			params ["_target", "_player", "_actionParams"];
-			_actionParams params ["_supplyPoint", "_supplyPointDist", "_supplyPointDir", "_supplyPointBoxType", "_supplyPointBoxVar"];
-			
-			[_supplyPoint,_supplyPointDist,_supplyPointDir,_supplyPointBoxType,_supplyPointBoxVar] remoteExec ["UAMT_fnc_spawnSupplyCrate",2];
-			//[_supplyPoint,_supplyPointDist,_supplyPointDir,_supplyPointBoxType,_supplyPointBoxVar] call UAMT_fnc_spawnSupplyCrate;
+		if (getNumber (configFile >> "CfgVehicles" >> _x select 0 >> "isbackpack") == 1) then {
+			_Box addBackpackCargoGlobal [_x select 0,_x select 1];
+		}
+		else {
+			_Box addItemCargoGlobal [_x select 0,_x select 1];
 		};
-		
-		_boxMenu = [_actionName, _supplyPointBoxName, "", _statement, {true}, {}, [_supplyPoint, _supplyPointDist, _supplyPointDir, _supplyPointBoxType, _supplyPointBoxVar]] call ace_interact_menu_fnc_createAction;		
-		[_supplyPoint, 0, ["ACE_MainActions"], _boxMenu] call ace_interact_menu_fnc_addActionToObject;
-		
-	}forEach _boxes;
-*/
+	}forEach _cargo;	
 }
 else {
 	{

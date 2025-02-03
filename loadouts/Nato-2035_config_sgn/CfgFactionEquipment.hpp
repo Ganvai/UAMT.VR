@@ -574,7 +574,7 @@ class CfgLoadouts {
 		
 		// [classname, suppressor, pointer, optics, muzzle 1's magazine and ammunition, muzzle 2's magazine and ammunition, bipod]
 		primary[] 	= {"arifle_MX_F","","ACE_DBAL_A3_Green","optic_Aco",{"30Rnd_65x39_caseless_mag",1},{},""}; // Array in format weapon-Array
-		handgun[] 	= {"hgun_ACPC2_F","","","",{"16Rnd_9x21_Mag",1},{},""};										// Array  in format weapon-Array
+		handgun[] 	= {"hgun_ACPC2_F","","","",{"9Rnd_45ACP_Mag",1},{},""};										// Array  in format weapon-Array
 		secondary[] = {"","","","",{},{},""};												// Array  in format weapon-Array
 				
 		map 	= "ItemMap"; 	// String ItemMap
@@ -595,7 +595,7 @@ class CfgLoadouts {
 		itemsVest[] 	= {			
 			{"30Rnd_65x39_caseless_mag",4},
 			{"30Rnd_65x39_caseless_mag_Tracer",2},
-			{"16Rnd_9x21_Mag",2},
+			{"9Rnd_45ACP_Mag",2},
 			"throwablesStd"
 		}; 
 		
@@ -634,7 +634,7 @@ class CfgLoadouts {
 		itemsVest[] 	= {
 			{"30Rnd_65x39_caseless_mag",5},
 			{"30Rnd_65x39_caseless_mag_Tracer",2},
-			{"16Rnd_9x21_Mag",2},
+			{"9Rnd_45ACP_Mag",2},
 			"throwablesStd"
 		}; 
 		itemsBackPack[] = {
@@ -656,7 +656,7 @@ class CfgLoadouts {
 			"throwablesExt",
 			{"30Rnd_65x39_caseless_mag",4},
 			{"30Rnd_65x39_caseless_mag_Tracer",2},
-			{"16Rnd_9x21_Mag",2}			
+			{"9Rnd_45ACP_Mag",2}			
 		}; 
 		itemsBackPack[] = {
 			"invStd_b",
@@ -704,7 +704,7 @@ class CfgLoadouts {
 		itemsVest[] = {
 			"throwablesStd",			
 			{"130Rnd_338_Mag",1},			
-			{"16Rnd_9x21_Mag",2}			
+			{"9Rnd_45ACP_Mag",2}			
 		}; 
 		itemsBackPack[] = {
 			"invStd_b",
@@ -743,7 +743,7 @@ class CfgLoadouts {
 			"throwablesStd",			
 			{"100Rnd_65x39_caseless_mag",4},
 			{"100Rnd_65x39_caseless_mag_Tracer",2},		
-			{"16Rnd_9x21_Mag",2}			
+			{"9Rnd_45ACP_Mag",2}			
 		}; 		 	
 		arsenal[] = {
 			"equipment_ar",
@@ -858,7 +858,7 @@ class CfgLoadouts {
 			"throwablesStd",			
 			{"30Rnd_65x39_caseless_mag",4},
 			{"30Rnd_65x39_caseless_mag_Tracer",2},		
-			{"16Rnd_9x21_Mag",2}			
+			{"9Rnd_45ACP_Mag",2}			
 		}; 		
 		itemsBackPack[] = {
 			"invStd_b",
@@ -891,7 +891,7 @@ class CfgLoadouts {
 			"throwablesExt",
 			{"30Rnd_65x39_caseless_mag",4},
 			{"30Rnd_65x39_caseless_mag_Tracer",2},
-			{"16Rnd_9x21_Mag",2}			
+			{"9Rnd_45ACP_Mag",2}			
 		}; 
 		itemsBackPack[] = {
 			"invStd_b",
@@ -966,7 +966,7 @@ class CfgLoadouts {
 			"throwablesExt",
 			{"30Rnd_65x39_caseless_mag",4},
 			{"30Rnd_65x39_caseless_mag_Tracer",2},
-			{"16Rnd_9x21_Mag",2}			
+			{"9Rnd_45ACP_Mag",2}			
 		}; 
 		itemsBackPack[] = {
 		};
@@ -1035,7 +1035,7 @@ class CfgLoadouts {
 			"throwablesExt",
 			{"30Rnd_65x39_caseless_mag",4},
 			{"30Rnd_65x39_caseless_mag_Tracer",2},
-			{"16Rnd_9x21_Mag",2}			
+			{"9Rnd_45ACP_Mag",2}			
 		}; 		
 	};
 	
@@ -1056,7 +1056,7 @@ class CfgLoadouts {
 			"throwablesExt",
 			{"30Rnd_65x39_caseless_mag",4},
 			{"30Rnd_65x39_caseless_mag_Tracer",2},
-			{"16Rnd_9x21_Mag",2}			
+			{"9Rnd_45ACP_Mag",2}			
 		}; 
     };
 	
@@ -1090,7 +1090,7 @@ class CfgLoadouts {
 		};		
 		itemsVest[] 	= {
 			{"7Rnd_408_Mag",5},			
-			{"16Rnd_9x21_Mag",2}
+			{"9Rnd_45ACP_Mag",2}
 		};		
 		itemsBackPack[] = {
 			"invStd_b",
@@ -1123,7 +1123,7 @@ class CfgLoadouts {
 			"throwablesExt",
 			{"30Rnd_65x39_caseless_mag",4},
 			{"30Rnd_65x39_caseless_mag_Tracer",2},			
-			{"16Rnd_9x21_Mag",2}
+			{"9Rnd_45ACP_Mag",2}
 		};		
 		itemsBackPack[] = {
 			"invStd_b",
@@ -1145,7 +1145,7 @@ class CfgLoadouts {
 		vests[] 	= {"V_RebreatherB"};												
         backpack[]  = {"B_AssaultPack_blk"};	
 		primary[] 	= {"arifle_SDAR_F","","","",{"20Rnd_556x45_UW_mag",20},{},""}; 
-		handgun[] 	= {"hgun_P07_F","muzzle_snds_L","","",{"16Rnd_9x21_Mag",16},{},""};			
+		handgun[] 	= {"hgun_P07_F","muzzle_snds_L","","",{"9Rnd_45ACP_Mag",16},{},""};			
 		itemsUniform[] 	= {
 			"invStd_u",			
 			"san_t1_u",
@@ -1157,7 +1157,7 @@ class CfgLoadouts {
 			"throwablesStd",
 			"throwablesExt",
 			{"20Rnd_556x45_UW_mag",2},			
-			{"16Rnd_9x21_Mag",2}
+			{"9Rnd_45ACP_Mag",2}
 		}; 
 	};
 
@@ -1176,7 +1176,7 @@ class CfgLoadouts {
 			"throwablesStd",
 			"throwablesExt",
 			{"20Rnd_556x45_UW_mag",2},			
-			{"16Rnd_9x21_Mag",2},
+			{"9Rnd_45ACP_Mag",2},
 			{"ACE_Clacker",1},
 			{"DemoCharge_Remote_Mag",2}
 		}; 		
@@ -1191,7 +1191,7 @@ class CfgLoadouts {
 			"throwablesStd",
 			"throwablesExt",
 			{"20Rnd_556x45_UW_mag",2},			
-			{"16Rnd_9x21_Mag",2},
+			{"9Rnd_45ACP_Mag",2},
 			{"ACE_surgicalKit",1},
 			{"ACE_fieldDressing",20},
 			{"ACE_elasticBandage",10},
@@ -1218,7 +1218,7 @@ class CfgLoadouts {
 		vests[] 	= {"V_TacVest_blk"};												
         backpack[]  = {""};	
 		primary[] 	= {"SMG_01_F","","","optic_Holosight_smg",{"30Rnd_45ACP_Mag_SMG_01",30},{},""}; 
-		handgun[] 	= {"hgun_P07_F","","","",{"16Rnd_9x21_Mag",16},{},""};
+		handgun[] 	= {"hgun_P07_F","","","",{"9Rnd_45ACP_Mag",16},{},""};
 		terminal= "terminal_t2";
 		nvgs 	= "ACE_NVG_Wide";
 		itemsUniform[] 	= {
@@ -1227,7 +1227,7 @@ class CfgLoadouts {
 		itemsVest[] = {
 			"san_t0_u",
 			{"30Rnd_45ACP_Mag_SMG_01",2},			
-			{"16Rnd_9x21_Mag",2},
+			{"9Rnd_45ACP_Mag",2},
 			{"ACE_HandFlare_Green",2},			
 			{"SmokeShellGreen",2}
 		};
@@ -1270,14 +1270,14 @@ class CfgLoadouts {
 		vests[] 	= {"V_BandollierB_rgr"};												
         backpack[]  = {""};	
 		primary[] 	= {"arifle_MXC_F","","","",{"30Rnd_65x39_caseless_mag",30},{},""}; 
-		handgun[] 	= {"hgun_P07_F","","","",{"16Rnd_9x21_Mag",16},{},""};				
+		handgun[] 	= {"hgun_P07_F","","","",{"9Rnd_45ACP_Mag",16},{},""};				
 		itemsUniform[] 	= {
 			"invStd_u",
 			"san_t0_u"
 		}; 			
 		itemsVest[] = {			
 			{"30Rnd_65x39_caseless_mag",2},			
-			{"16Rnd_9x21_Mag",2},
+			{"9Rnd_45ACP_Mag",2},
 			{"ACE_HandFlare_Green",2},			
 			{"SmokeShellGreen",2}
 		};

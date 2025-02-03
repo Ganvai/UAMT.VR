@@ -2,6 +2,7 @@ params [["_method",1],"_group"];
 
 // Set Up Variables
 _cargo = [];
+_players = [];
 
 // Get Players depending on Method
 if (_method == 1) then {
@@ -41,7 +42,7 @@ else {
 		{
 			if (_x in _allRoleItems) exitWith {
 				_cargo pushback [_x,3];
-				_allRoleItems = _allRoleItems - _x;
+				_allRoleItems = _allRoleItems - [_x];
 			};
 
 			if (_x in _allArsenalItems) exitWith {
@@ -67,7 +68,7 @@ else {
 		{
 			if (_x in _allRoleItems) exitWith {
 				_cargo pushback [_x,3];
-				_allRoleItems = _allRoleItems - _x;
+				_allRoleItems = _allRoleItems - [_x];
 			};
 
 			if (_x in _allArsenalItems) exitWith {
@@ -93,7 +94,7 @@ else {
 		{
 			if (_x in _allRoleItems) exitWith {
 				_cargo pushback [_x,3];
-				_allRoleItems = _allRoleItems - _x;
+				_allRoleItems = _allRoleItems - [_x];
 			};
 
 			if (_x in _allArsenalItems) exitWith {
@@ -110,9 +111,7 @@ else {
 
 	// Fill all other Items into the crate
 	{
-		_item = _x select 0;
-		_count = _x select 1;
-		_cargo pushback [_item,(ceil (_count / 2))];
+		_cargo pushback [_x,3];
 	}forEach _allRoleItems;
 	
 }forEach _players;

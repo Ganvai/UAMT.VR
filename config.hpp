@@ -278,6 +278,7 @@ supplyDropRoles[] 		= {TOC,s0_1, Groupleader, JTAC};	//Defines who has access to
 										// If this feature is mission critical, it is always best practice to also give the player variable of, for example the Groupleader
 										// When using GroupID, every Player in the specific group can call it in.
 
+supplyDropCargo			= 1;			// How the Cargo Crate is filled. 1: With contents for all Players | 2: Cargo only for the Group that is calling the Supply Drop
 supplyDropStatus 		= 0;			// The supplyStatus manages the accessebility of the function.
 										// While 0 to 3 are Ingame Status, 4 is to manage by the Missionmaker
 										// 0 : Available -> Use this if you want it to be accessibel from the very beginning of the Mission

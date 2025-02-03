@@ -504,6 +504,7 @@ class CfgFunctions
 			class noVisSafePos{};
 			
 			class supplyDrop{};
+			class supplyDropContents{};
 			
 			class welcomeMessage{};
 			
