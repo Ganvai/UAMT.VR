@@ -67,6 +67,32 @@ if (getMissionConfigValue "insFeature" == "true") then {
 		false 
 	] remoteExec ["BIS_fnc_holdActionAdd", 0, missionNameSpace getVariable [(getMissionConfigValue "insMethodObj"),objNull]];
 
+	if (getMissionConfigValue "insTimeFeat" == "true") then {
+		_TempinsTimeObj = getMissionConfigValue "insTimeObj";
+		insTimeObj = missionNamespace getVariable [_TempinsTimeObj, objNull];
+		publicVariable "insTimeObj";
+
+		[ 
+			insTimeObj, 
+			"select Time", 
+			"\a3\ui_f_orange\Data\CfgOrange\Missions\action_fragment_back_ca.paa", 
+			"\a3\ui_f_orange\Data\CfgOrange\Missions\action_fragment_back_ca.paa", 
+			"_this distance _target < 3 && !missionstarted", 
+			"_caller distance _target < 3 && !missionstarted", 
+			{}, 
+			{}, 
+			{  
+				_timeDialog = createDialog "timeDialog";
+				insTimeObj say3D "msg_time";
+			}, 
+			{}, 
+			[], 
+			1, 
+			0, 
+			false, 
+			false 
+		] remoteExec ["BIS_fnc_holdActionAdd", 0, insTimeObj];
+	};
 	
 	// Prepare all Insertion Helicopters
 	{
