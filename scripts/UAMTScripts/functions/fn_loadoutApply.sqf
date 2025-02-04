@@ -53,6 +53,9 @@ if (isplayer _unit) then {
 
 _profWeaponsArr = [];
 _profWeaponsArr pushback (primaryWeapon player);
+_profWeaponsArr pushback ((primaryWeaponMagazine player) select 0);
 _profWeaponsArr pushback (secondaryWeapon player);
+_profWeaponsArr pushback (secondaryWeaponMagazine player);
 _profWeaponsArr pushback (handgunWeapon player);
+_profWeaponsArr pushback (handgunMagazine player);
 player setVariable ["profWeapons",_profWeaponsArr,true];

@@ -15,103 +15,33 @@ else {
 // Gather all Roles and Weapons
 {
 	// Setup all Temp Variables
-	_magCargo = [];
-	_weaponTempMagWell = [];
+	_player = _x;
 
-	_role = _x getVariable "loadout";
-	_profWeapons = _x getVariable ["profWeapons",[]];
+	_role = _player getVariable "loadout";
+	_profWeapons = _player getVariable ["profWeapons",[]];
+	_primaryArr = [missionConfigFile >> "CfgLoadouts" >> _role, "primary", []] call BIS_fnc_returnConfigEntry;
 	
 	_allRoleItems = [missionConfigFile >> "CfgLoadouts" >> _role, "itemsUniform", []] call BIS_fnc_returnConfigEntry;
 	_allRoleItems append ([missionConfigFile >> "CfgLoadouts" >> _role, "itemsVest", []] call BIS_fnc_returnConfigEntry);
 	_allRoleItems append ([missionConfigFile >> "CfgLoadouts" >> _role, "itemsBackPack", []] call BIS_fnc_returnConfigEntry);
 	
 	_allRoleItems = _allRoleItems select {_x isEqualType []};
-	_allRoleItems = flatten _allRoleItems;
-	_allRoleItems = ( _allRoleItems arrayIntersect _allRoleItems ) select {_x isEqualType "" && {_x != ""}};
 	
-	_allArsenalItems = [missionConfigFile >> "CfgLoadouts" >> _role, "arsenal", []] call BIS_fnc_returnConfigEntry;
-	
-	// Add Magazines for Primary Weapon
-	if (_profWeapons select 0 != "") then {
-		_weaponTemp = (_profWeapons select 0);
+	if (primaryWeapon _player in _profWeapons) then {
+		_cargo pushback [(_profWeapons select 1),3];
 		
-		_weaponTempMuzzles = [configFile >> "CfGWeapons" >> _weaponTemp, "muzzles",["this"]] call BIS_fnc_returnConfigEntry;
-		
-		_weaponTempMagWell = compatibleMagazines _weaponTemp;
-		
+		_magWell = compatibleMagazines (_primaryArr select 0);
+		_magType = [configFile >> "CfgMagazines" >> ((_primaryArr select 4) select 0), "type",0] call BIS_fnc_returnConfigEntry;
 		{
-			if (_x in _allRoleItems) exitWith {
-				_cargo pushback [_x,3];
-				_allRoleItems = _allRoleItems - [_x];
+			if ((_x select 0) in _magWell && ([configFile >> "CfgMagazines" >> (_x select 0), "type"] call BIS_fnc_returnConfigEntry) == _magType) then {
+				_allRoleItems deleteAt _forEachIndex;
 			};
-
-			if (_x in _allArsenalItems) exitWith {
-					_cargo pushback [_x,3];
-			};
-
-			_stdMags = [configFile >> "CfGWeapons" >> _weaponTemp, "magazines"] call BIS_fnc_returnConfigEntry;
-			{
-				_cargo pushback [_x,3];
-			}forEach _stdMags;
-
-		}forEach _weaponTempMagWell;
-	};
-
-	// Add Magazines for Secondary Weapon
-	if (_profWeapons select 1 != "") then {
-		_weaponTemp = (_profWeapons select 1);
-		
-		_weaponTempMuzzles = [configFile >> "CfGWeapons" >> _weaponTemp, "muzzles",["this"]] call BIS_fnc_returnConfigEntry;
-		
-		_weaponTempMagWell = compatibleMagazines _weaponTemp;
-		
-		{
-			if (_x in _allRoleItems) exitWith {
-				_cargo pushback [_x,3];
-				_allRoleItems = _allRoleItems - [_x];
-			};
-
-			if (_x in _allArsenalItems) exitWith {
-					_cargo pushback [_x,3];
-			};
-
-			_stdMags = [configFile >> "CfGWeapons" >> _weaponTemp, "magazines"] call BIS_fnc_returnConfigEntry;
-			{
-				_cargo pushback [_x,3];
-			}forEach _stdMags;
-
-		}forEach _weaponTempMagWell;
-	};
-
-	// Add Magazines for Handgun
-	if (_profWeapons select 2 != "") then {
-		_weaponTemp = (_profWeapons select 2);
-		
-		_weaponTempMuzzles = [configFile >> "CfGWeapons" >> _weaponTemp, "muzzles",["this"]] call BIS_fnc_returnConfigEntry;
-		
-		_weaponTempMagWell = compatibleMagazines _weaponTemp;
-		
-		{
-			if (_x in _allRoleItems) exitWith {
-				_cargo pushback [_x,3];
-				_allRoleItems = _allRoleItems - [_x];
-			};
-
-			if (_x in _allArsenalItems) exitWith {
-					_cargo pushback [_x,3];
-			};
-
-			_stdMags = [configFile >> "CfGWeapons" >> _weaponTemp, "magazines"] call BIS_fnc_returnConfigEntry;
-			{
-				_cargo pushback [_x,3];
-			}forEach _stdMags;
-
-		}forEach _weaponTempMagWell;
+		}forEach _allRoleItems;
 	};
 
 	// Fill all other Items into the crate
 	{
-		_cargo pushback [_x,3];
+		_cargo pushback [_x select 0,ceil ((_x select 1) / 2)];
 	}forEach _allRoleItems;
 	
 }forEach _players;

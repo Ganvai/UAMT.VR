@@ -88,7 +88,10 @@ UAMT_ARSENAL_DISPLAY_ID = ["ace_arsenal_displayClosed", {
 	[player, true, false] call ace_arsenal_fnc_removeVirtualItems;
 	_profWeaponsArr = [];
 	_profWeaponsArr pushback (primaryWeapon player);
+	_profWeaponsArr pushback ((primaryWeaponMagazine player) select 0);
 	_profWeaponsArr pushback (secondaryWeapon player);
+	_profWeaponsArr pushback (secondaryWeaponMagazine player);
 	_profWeaponsArr pushback (handgunWeapon player);
+	_profWeaponsArr pushback (handgunMagazine player);
 	player setVariable ["profWeapons",_profWeaponsArr,true];
 	["ace_arsenal_displayClosed", UAMT_ARSENAL_DISPLAY_ID] call CBA_fnc_removeEventHandler; } ] call CBA_fnc_addEventHandler;
