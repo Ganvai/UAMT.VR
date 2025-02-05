@@ -249,11 +249,9 @@ if (getMissionConfigValue "allowLoadouts" == "true") then {
 	[(typeOf player), 1, ["ACE_SelfActions","Base Menu"], _loadout_action] call ace_interact_menu_fnc_addActionToClass;
 };
 
-_reset_loadout = ["Reset Loadout","Reset Loadout","a3\modules_f\data\iconrespawn_ca.paa",{ 
-	// _loadoutPath = format ["loadouts\%1\%2.sqf", factionVariable, player getVariable "loadout"];
-	// null = [] execVM _loadoutPath;
-	private _loadoutArray = missionnamespace getVariable format ["UAMT_%1Array", (player getVariable "loadout")];
-	player setUnitLoadout _loadoutArray;
+_reset_loadout = ["Reset Loadout","Reset Loadout","a3\modules_f\data\iconrespawn_ca.paa",{ 	
+	private _loadoutArr = [(player getVariable ["loadout", ""])] call UAMT_fnc_loadoutCreate;
+	[player,_loadoutArr] spawn UAMT_fnc_loadoutApply;
 },_conBaseMenu] call ace_interact_menu_fnc_createAction;
 [(typeOf player), 1, ["ACE_SelfActions","Base Menu"], _reset_loadout] call ace_interact_menu_fnc_addActionToClass;
 
