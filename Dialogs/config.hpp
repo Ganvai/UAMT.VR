@@ -11,7 +11,8 @@
 #include "hfsDialog\hfsDialog.hpp" 
 #include "vlsDialog\vlsDialog.hpp" 
 #include "chtDialog\chtDialog.hpp" 
-#include "sdpDialog\sdpDialog.hpp" 
+#include "sdpDialog\sdpDialog.hpp"
+#include "sppDialog\sppDialog.hpp"
 
 //Insertion Feature
 #include "insDialog\insDialogMethod.hpp"
