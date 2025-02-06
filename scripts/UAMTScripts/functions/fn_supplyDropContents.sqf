@@ -31,10 +31,10 @@ else {
 		_cargo pushback [(_profWeapons select 1),3];
 		
 		_magWell = compatibleMagazines (_primaryArr select 0);
-		_magType = [configFile >> "CfgMagazines" >> ((_primaryArr select 4) select 0), "type",0] call BIS_fnc_returnConfigEntry;
+		_magType = [configFile >> "CfgMagazines" >> ((_primaryArr select 4) select 0), "ammo",0] call BIS_fnc_returnConfigEntry;
 		{
-			if ((_x select 0) in _magWell && ([configFile >> "CfgMagazines" >> (_x select 0), "type"] call BIS_fnc_returnConfigEntry) == _magType) then {
-				_allRoleItems deleteAt _forEachIndex;
+			if ((_x select 0) in _magWell && ([configFile >> "CfgMagazines" >> (_x select 0), "ammo"] call BIS_fnc_returnConfigEntry) == _magType) then {
+				_allRoleItems = _allRoleItems - [_x];
 			};
 		}forEach _allRoleItems;
 	};
