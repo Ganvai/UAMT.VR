@@ -468,6 +468,7 @@ class CfgFunctions
 	#include "Dialogs\chtDialog\chtDialogConfig.hpp"
 	#include "Dialogs\sdpDialog\sdpDialogConfig.hpp"
 	#include "Dialogs\insDialog\insDialogConfig.hpp"
+	#include "Dialogs\sppDialog\sppDialogConfig.hpp"
 	
 	class UAMT
 	{

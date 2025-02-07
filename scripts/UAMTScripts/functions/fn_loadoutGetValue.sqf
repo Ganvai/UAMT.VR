@@ -21,24 +21,37 @@ private _ret = []; // return array
 private _cfgEntry = ([missionConfigFile >> "CfgLoadouts" >> _unitLoadOut, _value, _default] call BIS_fnc_returnConfigEntry);	
 
 // check all entrys from CfgLoadouts
-{
-	// entry is string -> check CfgFactionEquipment for items
-	if (_x isEqualType "") then {
-		private _cfgFaction = ([missionConfigFile >> "CfgFactionEquipment", _x, _default] call BIS_fnc_returnConfigEntry);		
-		if (_cfgFaction isEqualType []) then {
-			_ret append _cfgFaction;
-		} else {
-			if (_x != "") then {
-				_ret pushBack _x;
-			};
-		};				
-	};		
-	
-	// entry is array -> add it
-	if (_x isEqualType []) then {			
-		_ret pushBack _x;
-	};
-} forEach _cfgEntry;
+
+if (_cfgEntry isEqualType "") then {
+	private _cfgFaction = ([missionConfigFile >> "CfgFactionEquipment", _x, _default] call BIS_fnc_returnConfigEntry);		
+	if (_cfgFaction isEqualType []) then {
+		_ret append _cfgFaction;
+	} else {
+		if (_x != "") then {
+			_ret pushBack _x;
+		};
+	};				
+}
+else {
+	{
+		// entry is string -> check CfgFactionEquipment for items
+		if (_x isEqualType "") then {
+			private _cfgFaction = ([missionConfigFile >> "CfgFactionEquipment", _x, _default] call BIS_fnc_returnConfigEntry);		
+			if (_cfgFaction isEqualType []) then {
+				_ret append _cfgFaction;
+			} else {
+				if (_x != "") then {
+					_ret pushBack _x;
+				};
+			};				
+		};		
+		
+		// entry is array -> add it
+		if (_x isEqualType []) then {			
+			_ret pushBack _x;
+		};
+	} forEach _cfgEntry;
+};
 
 // check for magazine & Explosives
 {

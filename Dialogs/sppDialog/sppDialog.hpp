@@ -180,18 +180,18 @@ class sppDialog
 			shadow = 0;
 			
 		};
-		class GrpFilt
+		class GroupFilt
 		{
 			type = 4;
 			idc = 101;
-			x = safeZoneX + safeZoneW * 0.39270834;
+			x = safeZoneX + safeZoneW * 0.29375;
 			y = safeZoneY + safeZoneH * 0.29074075;
 			w = safeZoneW * 0.090625;
 			h = safeZoneH * 0.02222223;
 			style = 16;
 			arrowEmpty = "\A3\ui_f\data\GUI\RscCommon\RscCombo\arrow_combo_ca.paa";
 			arrowFull = "\A3\ui_f\data\GUI\RscCommon\RscCombo\arrow_combo_active_ca.paa";
-			colorBackground[] = {0.2,0.2,0.2,1};
+			colorBackground[] = {0.1,0.1,0.1,1};
 			colorDisabled[] = {0.2,0.2,0.2,1};
 			colorSelect[] = {0.5843,0.8902,0.349,1};
 			colorSelectBackground[] = {0,0,0,1};
@@ -218,14 +218,14 @@ class sppDialog
 		{
 			type = 4;
 			idc = 102;
-			x = safeZoneX + safeZoneW * 0.29375;
+			x = safeZoneX + safeZoneW * 0.39270834;
 			y = safeZoneY + safeZoneH * 0.29074075;
 			w = safeZoneW * 0.090625;
 			h = safeZoneH * 0.02222223;
 			style = 16;
 			arrowEmpty = "\A3\ui_f\data\GUI\RscCommon\RscCombo\arrow_combo_ca.paa";
 			arrowFull = "\A3\ui_f\data\GUI\RscCommon\RscCombo\arrow_combo_active_ca.paa";
-			colorBackground[] = {0.2,0.2,0.2,1};
+			colorBackground[] = {0.1,0.1,0.1,1};
 			colorDisabled[] = {0.2,0.2,0.2,1};
 			colorSelect[] = {0.5843,0.8902,0.349,1};
 			colorSelectBackground[] = {0,0,0,1};
@@ -246,7 +246,7 @@ class sppDialog
 				border = "\A3\ui_f\data\gui\cfg\scrollbar\border_ca.paa";
 				
 			};
-			
+			onLBSelChanged = "call sppDialog_fnc_arsenalList";
 		};
 		class FrameToolbox
 		{
@@ -287,20 +287,21 @@ class sppDialog
 			};
 			values[] = 
 			{
-				"All",
-				"Clo",
-				"Wea",
-				"Amm",
-				"Gre",
-				"Exp",
-				"Att",
-				"Med",
-				"Mis"				
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8				
 			};
 			rows = 1;
-			columns = 9;			
+			columns = 9;
+			onToolBoxSelChanged = "call sppDialog_fnc_arsenalList";
 		};
-		class ArsenalLB
+		class ArsenalLB: ctrlListbox
 		{
 			type = 5;
 			idc = 104;
@@ -310,12 +311,16 @@ class sppDialog
 			h = safeZoneH * 0.3675926;
 			style = 16;
 			colorBackground[] = {0.2,0.2,0.2,1};
+			colorSelectBackground[] = {0,0,0,1};
+			colorSelectBackground2[] = {0,0,0,1};
 			colorDisabled[] = {0.2,0.2,0.2,1};
 			colorSelect[] = {0.5843,0.8902,0.349,1};
 			colorText[] = {0.702,0.702,0.702,1};
+			colorPicture[] = {1,1,1,1};
 			font = "PuristaMedium";
 			maxHistoryDelay = 0;
 			rowHeight = 0;
+			wholeHeight = 0.3;
 			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
 			soundSelect[] = {"\A3\ui_f\data\sound\RscListbox\soundSelect",0.09,1.0};
 			class ListScrollBar
