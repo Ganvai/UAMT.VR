@@ -279,67 +279,6 @@ class CfgFactionEquipment {
 		{"B_IR_Grenade",2}
 	};
 	
-	//------------------------------------------------------------------
-	//------------------------------------------------------------------
-	//
-	// 		Supply Crates
-	//
-	// While most of the Supply Crates from Supply Points or Supply Drops
-	// are filled automatically, you have the chance to add additional
-	// Items to each crate by giving the items here.
-	//
-	// The Items will be added in addition to what the crate will
-	// automatically filled into the crate.
-	//
-	// There are some Supply Crates that don't have an automatic fill.
-	// These crates need the arrays here, otherwise they will be empty.
-	// These crates are marked here with "EXCLUSIVE"
-	//------------------------------------------------------------------
-	//------------------------------------------------------------------
-
-	supplyCrates[] = {
-		{"Primary Ammo Std","ACE_Box_Ammo",{"Rifleman","Grenadier","MGAssistant","AT","ATAssistant","AA","AAAssistant","ATLight","EOD","Engineer","JTAC","Medic","Doc","Squadleader","Groupleader"}},
-		{"Heavy Ammo","ACE_Box_Ammo",{"MG","autorifle","DM"}},
-		{"Grenades","ACE_Box_82mm_Mo_HE","SupplyPoint_GrenadeCrate"},
-		{"AT Ammo","ACE_Box_Chemlights","SupplyPoint_ATCrate"},
-		{"AA Ammo","ACE_Box_Chemlights","SupplyPoint_AACrate"},
-		{"AT-Light","ACE_Box_Chemlights","SupplyPoint_ATLightCrate"},
-		{"Medic Supplies","ACE_medicalSupplyCrate","SupplyPoint_MedicCrate"},
-		{"Explosives","ACE_Box_82mm_Mo_HE","SupplyPoint_ExplosivesCrate"},
-		{"UAV","Box_NATO_Equip_F","SupplyPoint_UAVCrate"},
-		{"Empty Box","Box_NATO_Equip_F","10_sp_empty.sqf"},
-		{"Emtpy Transport Box","B_supplyCrate_F","11_sp_emptyLarge.sqf"}
-	};
-	
-	// Additional Items for the Ammo Supply Crate (Ammo for Standard Rifle and Handguns)
-	ammo_SupplyCrate[] = {};
-	
-	// Additional Items for the Heavy Ammo Supply Crate (Ammo for MG, Autorifle, DM)
-	heavyAmmo_SupplyCrate[] = {};
-	
-	// Additional Items for the Grenades Supply Crate (throwablesStd, throwablesExt)
-	// Recommended to give UGL Ammo for Grenadier here
-	grenades_SupplyCrate[] = {
-		"1Rnd_HE_Grenade_shell",
-		"1Rnd_Smoke_Grenade_shell",
-		"ACE_40mm_Flare_ir"	
-	};
-
-	
-	// JTAC Supply Crate
-	// All Contents for the JTAC Supply Crate. 
-	uav_SupplyCrate[] = {
-		"ACE_UAVBattery",
-		"B_UavTerminal",
-		"B_UAV_01_backpack_F"		
-	};
-	
-	// Explosives Supply Crate
-	// All contents for the Explosive Supply Crate.
-	explosives_SupplyCrate[] = {
-		"ATMine_Range_Mag"
-	};
-	
 	
 	
 	//------------------------------------------------------------------
@@ -577,13 +516,6 @@ class CfgLoadouts {
 		handgun[] 	= {"hgun_ACPC2_F","","","",{"9Rnd_45ACP_Mag",1},{},""};										// Array  in format weapon-Array
 		secondary[] = {"","","","",{},{},""};												// Array  in format weapon-Array
 		
-		// ALternative Weapons with different Ammotype/Magazines. Array is {"WeaponClass","MagazineClass"}
-		// Needs only one Variant of the Weapon here. All other Weaponvariants can be stored in Arsenal.
-		primaryAlternatives[] = {
-								{"SMG_01_F","30Rnd_45ACP_Mag_SMG_01"},
-								{"arifle_SPAR_01_snd_F","30Rnd_556x45_Stanag_Sand"},
-		};
-		
 		map 	= "ItemMap"; 	// String ItemMap
 		terminal= "terminal_t1"; 	// String
 		radio 	= "ItemRadio"; 	// String
@@ -618,6 +550,10 @@ class CfgLoadouts {
 		arsenal[] = {
 			"equipment_ar",
 			"facewear_Arm",
+			"SMG_01_F",
+			"30Rnd_45ACP_Mag_SMG_01",
+			"arifle_SPAR_01_snd_F",
+			"30Rnd_556x45_Stanag_Sand",
 			"arifle_MX_Black_F",
 			"arifle_MX_khk_F",
 			"arifle_MXC_F",
@@ -710,10 +646,6 @@ class CfgLoadouts {
 	//------------------------------------------------------------------------
     class MG: DefaultLoadout {
 		primary[] 	= {"MMG_02_sand_F","","ACE_DBAL_A3_Green","optic_Hamr",{"130Rnd_338_Mag",130},{},"bipod_01_F_snd"};
-		primaryAlternatives[] 	= {
-									{"MMG_01_tan_F","150Rnd_93x64_Mag"},
-									{"LMG_Mk200_F","200Rnd_65x39_cased_Box"},
-		};
 		backpack[]  = {"backpack_med"};	
 		itemsVest[] = {
 			"invStd_v",
@@ -732,7 +664,9 @@ class CfgLoadouts {
 			"facewear_Arm",
 			//Weapons
 			"MMG_02_camo_F",
-			"MMG_02_black_F"
+			"MMG_02_black_F",
+			"MMG_01_tan_F","150Rnd_93x64_Mag",
+			"LMG_Mk200_F","200Rnd_65x39_cased_Box"
 		};		
 	};
 	
@@ -751,7 +685,7 @@ class CfgLoadouts {
 			"facewear_Arm",
 			//Weapons
 			"150Rnd_93x64_Mag",
-			"200Rnd_65x39_cased_Box"
+			"200Rnd_65x39_cased_Box",
 		};				
 	};
 
@@ -930,14 +864,6 @@ class CfgLoadouts {
 			"ACE_Cellphone"
 		};	
 		ace_isEOD = true;
-		
-		// Define Items that will be available in the Explosives Supply Crate from Supply Points and Drops.
-		// Can be ammo or weapon or weapon attachement.
-		eodItemsExplosiveSupplyCrate[] = {
-			"ACE_Clacker",
-			"DemoCharge_Remote_Mag",
-			"SatchelCharge_Remote_Mag"
-		};
 	};
 	
 	//------------------------------------------------------------------------
@@ -987,15 +913,7 @@ class CfgLoadouts {
 			{"30Rnd_65x39_caseless_mag_Tracer",2},
 			{"9Rnd_45ACP_Mag",2}			
 		}; 
-		itemsBackPack[] = {
-		};
-
-		// Define Items that will be available in the UAVs Supply Crate from Supply Points and Drops.
-		// Can be ammo or weapon or weapon attachement.
-		jtacSupplyCrate[] = {
-			"ACE_UAVBattery",
-			"B_UavTerminal"
-		};
+		itemsBackPack[] = {};
 	};
 	
 	//------------------------------------------------------------------------
@@ -1009,15 +927,6 @@ class CfgLoadouts {
 		};
 		
 		ace_isMedic = 1; 		// 0 | 1 | 2
-		
-		// Define Items that will be available in the Medic Supply Crate from Supply Points and Drops.
-		// Can be ammo or weapon or weapon attachement.
-		medicAddSupplyCrate[] = {
-			"ace_marker_flags_green",
-			"ace_marker_flags_red",
-			"ace_marker_flags_yellow",
-			"ace_marker_flags_black"
-		};
 	};
 	
 	//------------------------------------------------------------------------
@@ -1031,13 +940,6 @@ class CfgLoadouts {
 		};
 		
 		ace_isMedic = 2; 		// 0 | 1 | 2
-
-		// Define Items that will be available in the Medic Supply Crate from Supply Points and Drops.
-		// Can be ammo or weapon or weapon attachement.
-		docAddSupplyCrate[] = {
-			"ACE_suture",
-			"ACE_surgicalKit"
-		};
 	};
 	
 	//------------------------------------------------------------------------
