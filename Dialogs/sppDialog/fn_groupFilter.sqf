@@ -7,7 +7,7 @@ _ctrlGroupFil = _display displayCtrl 101;
 
 lbClear _ctrlRoleFil;
 
-_groupArr = player getVariable ["sppGroups",[]];
+_groupArr = uiNamespace getVariable ["sppGroups",[]];
 _rolesArr = [];
 _allRoles = [missionConfigFile >> "CfgRoles" >> "roles"] call BIS_fnc_returnConfigEntry;
 _roleNameTag = "All Roles";

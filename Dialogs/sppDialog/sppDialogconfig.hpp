@@ -10,5 +10,11 @@ class sppDialog
 		class addArsenalItem {};
 		class arsenalList {};
 		class groupFilter {};
+		class updateLoad {};
+		class addItem {};
+		class updateInventory {};
+		class createBox {};
+		class getBoxCargo {};
+		class manageFocus {};
 	}; 
 };

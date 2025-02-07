@@ -99,7 +99,7 @@ _itemHM = createHashMap;
 	}forEach _tempItemArr;	
 }forEach _allRoles;
 
-player setVariable ["itemHM",_itemHM];
+uiNamespace setVariable ["itemHM",_itemHM];
 
 _itemHM;
 

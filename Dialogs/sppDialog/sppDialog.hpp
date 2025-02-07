@@ -332,7 +332,7 @@ class sppDialog
 				border = "\A3\ui_f\data\gui\cfg\scrollbar\border_ca.paa";
 				
 			};
-			
+			onLBSelChanged = "[108,_this select 1] call sppDialog_fnc_manageFocus";
 		};
 		class BoxSelect
 		{
@@ -340,16 +340,19 @@ class sppDialog
 			idc = 105;
 			x = safeZoneX + safeZoneW * 0.51666667;
 			y = safeZoneY + safeZoneH * 0.29074075;
-			w = safeZoneW * 0.090625;
+			w = safeZoneW * 0.117;
 			h = safeZoneH * 0.02222223;
 			style = 16;
 			arrowEmpty = "\A3\ui_f\data\GUI\RscCommon\RscCombo\arrow_combo_ca.paa";
 			arrowFull = "\A3\ui_f\data\GUI\RscCommon\RscCombo\arrow_combo_active_ca.paa";
-			colorBackground[] = {0.2,0.2,0.2,1};
+			colorBackground[] = {0.1,0.1,0.1,1};
 			colorDisabled[] = {0.2,0.2,0.2,1};
 			colorSelect[] = {0.5843,0.8902,0.349,1};
-			colorSelectBackground[] = {0,0,0,1};
+			colorSelectBackground[] = {0.3,0.3,0.3,1};
 			colorText[] = {0.702,0.702,0.702,1};
+			colorPicture[] = {1,1,1,1};
+			colorPictureSelect[] = {1,1,1,1};
+			colorPictureSelected[] = {1,1,1,1};
 			font = "PuristaMedium";
 			maxHistoryDelay = 0;
 			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
@@ -366,23 +369,39 @@ class sppDialog
 				border = "\A3\ui_f\data\gui\cfg\scrollbar\border_ca.paa";
 				
 			};
-			
+			onLBSelChanged = "call sppDialog_fnc_createBox";
+		};
+		class Weight
+		{
+			type = 0;
+			idc = 113;
+			x = safeZoneX + safeZoneW * 0.635;
+			y = safeZoneY + safeZoneH * 0.29074075;
+			w = safeZoneW * 0.03;
+			h = safeZoneH * 0.02222223;
+			style = 0;
+			text = "Weight: ";
+			colorBackground[] = {0.302,0.302,0.302,0};
+			colorText[] = {0.5843,0.8902,0.349,1};
+			font = "PuristaMedium";
+			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			tooltip = "Box is carriable";
 		};
 		class BoxStatus
 		{
 			type = 0;
 			idc = 106;
-			x = safeZoneX + safeZoneW * 0.64427084;
+			x = safeZoneX + safeZoneW * 0.668;
 			y = safeZoneY + safeZoneH * 0.29074075;
-			w = safeZoneW * 0.06197917;
+			w = safeZoneW * 0.035;
 			h = safeZoneH * 0.02222223;
 			style = 1;
 			text = "0lb";
-			colorBackground[] = {0.302,0.302,0.302,1};
+			colorBackground[] = {0.302,0.302,0.302,0};
 			colorText[] = {0.5843,0.8902,0.349,1};
 			font = "PuristaMedium";
 			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
-			
+			tooltip = "Box is carriable";
 		};
 		class BoxLoad
 		{
@@ -425,7 +444,7 @@ class sppDialog
 				border = "\A3\ui_f\data\gui\cfg\scrollbar\border_ca.paa";
 				
 			};
-			
+			onLBSelChanged = "[104,_this select 1] call sppDialog_fnc_manageFocus";
 		};
 		class PlusTen
 		{
@@ -457,7 +476,7 @@ class sppDialog
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
 			soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush",0.09,1.0};
 			shadow = 0;
-			
+			onButtonClick = "[10] call sppDialog_fnc_addItem";
 		};
 		class PlusOne
 		{
@@ -489,7 +508,7 @@ class sppDialog
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
 			soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush",0.09,1.0};
 			shadow = 0;
-			
+			onButtonClick = "[1] call sppDialog_fnc_addItem";
 		};
 		class MinusOne
 		{
@@ -521,7 +540,7 @@ class sppDialog
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
 			soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush",0.09,1.0};
 			shadow = 0;
-			
+			onButtonClick = "[-1] call sppDialog_fnc_addItem";
 		};
 		class MinusTen
 		{
@@ -553,25 +572,7 @@ class sppDialog
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
 			soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush",0.09,1.0};
 			shadow = 0;
-			
+			onButtonClick = "[-10] call sppDialog_fnc_addItem";
 		};
-		class Weight
-		{
-			type = 0;
-			idc = 0;
-			x = safeZoneX + safeZoneW * 0.61041667;
-			y = safeZoneY + safeZoneH * 0.29074075;
-			w = safeZoneW * 0.03333334;
-			h = safeZoneH * 0.02222223;
-			style = 0;
-			text = "Weight: ";
-			colorBackground[] = {0.302,0.302,0.302,0};
-			colorText[] = {0.5843,0.8902,0.349,1};
-			font = "PuristaMedium";
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
-			
-		};
-		
-	};
-	
+	};	
 };

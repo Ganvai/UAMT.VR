@@ -11,7 +11,7 @@ lbClear _ctrlArsenalLB;
 _role = _ctrlRoleFil lbData (lbCurSel _ctrlRoleFil);
 _typeIndex = _ctrlTypeFil lbValue (lbCurSel _ctrlTypeFil);
 
-_itemHM = player getVariable ["itemHM",[]];
+_itemHM = uiNamespace getVariable ["itemHM",[]];
 _type = [];
 
 _type = switch _typeIndex do {
