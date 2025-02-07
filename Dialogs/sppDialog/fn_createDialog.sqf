@@ -19,6 +19,14 @@ uiNamespace setVariable ["sppGroups",_groupArr];
 
 _display = createDialog ["sppDialog"];
 
+//Set Images for Buttons
+_ctrlPlusOne = _display displayCtrl 110;
+_ctrlPlusOne ctrlSetText getMissionPath "Dialogs\single_forward_ca.paa";
+
+_ctrlMinusOne = _display displayCtrl 111;
+_ctrlMinusOne ctrlSetText getMissionPath "Dialogs\single_back_ca.paa";
+
+
 _ctrlGroupFil = _display displayCtrl 101;
 _ctrlGroupFil lbAdd "All Groups";
 _ctrlGroupFil lbSetValue [0,999];

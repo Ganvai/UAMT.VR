@@ -23,7 +23,7 @@ switch (true) do {
 						};
 	case (loadAbs _currBox > ACE_maxWeightCarry && loadAbs _currBox < ACE_maxWeightDrag ) : {
 							_ctrlWeight ctrlSetTooltip "Box is dragable";
-							_ctrlWeight ctrlSetTextColor [0,0.8,0.8,1];
+							_ctrlWeight ctrlSetTextColor [1,1,0,1];
 						};
 	case (loadAbs _currBox > ACE_maxWeightDrag) : {
 							_ctrlWeight ctrlSetTooltip "Box is to heavy. Needs vehicle to be moved";

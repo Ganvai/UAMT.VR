@@ -117,38 +117,6 @@ class sppDialog
 			shadow = 0;
 			onButtonClick = "call sppDialog_fnc_closeSupplyPoint";
 		};
-		class BtnHelp
-		{
-			type = 1;
-			idc = 202;
-			x = safeZoneX + safeZoneW * 0.60520834;
-			y = safeZoneY + safeZoneH * 0.23611112;
-			w = safeZoneW * 0.04635417;
-			h = safeZoneH * 0.02222223;
-			style = 0+2;
-			text = "Help";
-			borderSize = 0;
-			colorBackground[] = {0.302,0.302,0.302,1};
-			colorBackgroundActive[] = {0.6,0.6,0.6,1};
-			colorBackgroundDisabled[] = {0.2,0.2,0.2,1};
-			colorBorder[] = {0.5843,0.8902,0.349,1};
-			colorDisabled[] = {0.2,0.2,0.2,1};
-			colorFocused[] = {0.2,0.2,0.2,1};
-			colorShadow[] = {0.5843,0.8902,0.349,1};
-			colorText[] = {0.5843,0.8902,0.349,1};
-			font = "PuristaMedium";
-			offsetPressedX = 0.001;
-			offsetPressedY = 0.001;
-			offsetX = 0;
-			offsetY = 0;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
-			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
-			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
-			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
-			soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush",0.09,1.0};
-			shadow = 0;
-			
-		};
 		class BtnExecute
 		{
 			type = 1;
@@ -259,7 +227,7 @@ class sppDialog
 			font = "PuristaMedium";
 			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
 			type = 6;
-			style= 2;
+			style= 48;
 			colorText[] = {0.95,0.95,0.95,1};
 			color[] = {0.95,0.95,0.95,1};
 			colorTextSelect[] = {0.95,0.95,0.95,1};
@@ -276,15 +244,15 @@ class sppDialog
 			shadow = 0;
 			strings[] =
 			{
-				"All",
-				"Clo",
-				"Wea",
-				"Amm",
-				"Gre",
-				"Exp",
-				"Att",
-				"Med",
-				"Mis"
+				"a3\ui_f_curator\data\displays\rscdisplaycurator\modemodules_ca.paa",
+				"a3\ui_f_curator\data\displays\rscdisplaycurator\modeunits_ca.paa",
+				"a3\ui_f\data\gui\rsc\rscdisplayarsenal\primaryweapon_ca.paa",
+				"a3\ui_f\data\gui\rsc\rscdisplayarsenal\cargomag_ca.paa",
+				"a3\ui_f\data\gui\rsc\rscdisplayarsenal\cargothrow_ca.paa",
+				"a3\ui_f\data\gui\rsc\rscdisplayarsenal\cargoput_ca.paa",
+				"a3\ui_f\data\gui\rsc\rscdisplayarsenal\itemoptic_ca.paa",
+				"a3\ui_f\data\igui\cfg\simpletasks\types\heal_ca.paa",
+				"a3\ui_f\data\gui\rsc\rscdisplayarsenal\cargomisc_ca.paa"
 			};
 			values[] = 
 			{
@@ -455,8 +423,9 @@ class sppDialog
 			y = safeZoneY + safeZoneH * 0.43055556;
 			w = safeZoneW * 0.01822917;
 			h = safeZoneH * 0.02222223;
-			style = 2;
-			text = "+10";
+			style = 48;
+			text = "\a3\ui_f_orange\Data\CfgOrange\Missions\action_fragment_back_ca.paa";
+			tooltip = "+ 10";
 			borderSize = 0;
 			colorBackground[] = {0.302,0.302,0.302,1};
 			colorBackgroundActive[] = {0.6,0.6,0.6,1};
@@ -465,7 +434,7 @@ class sppDialog
 			colorDisabled[] = {0.2,0.2,0.2,1};
 			colorFocused[] = {0.2,0.2,0.2,1};
 			colorShadow[] = {0.5843,0.8902,0.349,1};
-			colorText[] = {0.5843,0.8902,0.349,1};
+			colorText[] = {1,1,1,1};
 			font = "PuristaMedium";
 			offsetPressedX = 0.001;
 			offsetPressedY = 0.001;
@@ -487,8 +456,9 @@ class sppDialog
 			y = safeZoneY + safeZoneH * 0.45833334;
 			w = safeZoneW * 0.01822917;
 			h = safeZoneH * 0.02222223;
-			style = 2;
-			text = "+1";
+			style = 48;
+			text = "";
+			tooltip = "+ 1";
 			borderSize = 0;
 			colorBackground[] = {0.302,0.302,0.302,1};
 			colorBackgroundActive[] = {0.6,0.6,0.6,1};
@@ -497,7 +467,7 @@ class sppDialog
 			colorDisabled[] = {0.2,0.2,0.2,1};
 			colorFocused[] = {0.2,0.2,0.2,1};
 			colorShadow[] = {0.5843,0.8902,0.349,1};
-			colorText[] = {0.5843,0.8902,0.349,1};
+			colorText[] = {1,1,1,1};
 			font = "PuristaMedium";
 			offsetPressedX = 0.001;
 			offsetPressedY = 0.001;
@@ -519,8 +489,9 @@ class sppDialog
 			y = safeZoneY + safeZoneH * 0.49537038;
 			w = safeZoneW * 0.01822917;
 			h = safeZoneH * 0.02222223;
-			style = 2;
-			text = "-1";
+			style = 48;
+			text = "";
+			tooltip = "- 1";
 			borderSize = 0;
 			colorBackground[] = {0.302,0.302,0.302,1};
 			colorBackgroundActive[] = {0.6,0.6,0.6,1};
@@ -529,7 +500,7 @@ class sppDialog
 			colorDisabled[] = {0.2,0.2,0.2,1};
 			colorFocused[] = {0.2,0.2,0.2,1};
 			colorShadow[] = {0.5843,0.8902,0.349,1};
-			colorText[] = {0.5843,0.8902,0.349,1};
+			colorText[] = {1,1,1,1};
 			font = "PuristaMedium";
 			offsetPressedX = 0.001;
 			offsetPressedY = 0.001;
@@ -551,8 +522,9 @@ class sppDialog
 			y = safeZoneY + safeZoneH * 0.52314815;
 			w = safeZoneW * 0.01822917;
 			h = safeZoneH * 0.02222223;
-			style = 2;
-			text = "-10";
+			style = 48;
+			text = "\a3\ui_f_orange\Data\CfgOrange\Missions\action_fragment_ca.paa";
+			tooltip = "- 10";
 			borderSize = 0;
 			colorBackground[] = {0.302,0.302,0.302,1};
 			colorBackgroundActive[] = {0.6,0.6,0.6,1};
@@ -561,7 +533,7 @@ class sppDialog
 			colorDisabled[] = {0.2,0.2,0.2,1};
 			colorFocused[] = {0.2,0.2,0.2,1};
 			colorShadow[] = {0.5843,0.8902,0.349,1};
-			colorText[] = {0.5843,0.8902,0.349,1};
+			colorText[] = {1,1,1,1};
 			font = "PuristaMedium";
 			offsetPressedX = 0.001;
 			offsetPressedY = 0.001;
