@@ -1,6 +1,7 @@
 class sppDialog
 {
 	idd = 99100;
+	onLoad = "[_this select 0]execVM 'Dialogs\sppDialog\fn_initDialog.sqf';";
 	
 	class ControlsBackground
 	{
@@ -114,7 +115,7 @@ class sppDialog
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
 			soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush",0.09,1.0};
 			shadow = 0;
-			
+			onButtonClick = "call sppDialog_fnc_closeSupplyPoint";
 		};
 		class BtnHelp
 		{
@@ -178,7 +179,7 @@ class sppDialog
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
 			soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush",0.09,1.0};
 			shadow = 0;
-			
+			onButtonClick = "call sppDialog_fnc_getBox";
 		};
 		class GroupFilt
 		{

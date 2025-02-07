@@ -16,5 +16,8 @@ class sppDialog
 		class createBox {};
 		class getBoxCargo {};
 		class manageFocus {};
+		class getBox {};
+		class closeSupplyPoint {};
+		class initSupplyPoint {};
 	}; 
 };

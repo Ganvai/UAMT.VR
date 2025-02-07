@@ -14,7 +14,7 @@ if (_currBox isNotEqualTo objNull) then {
 	deleteVehicle _currBox;
 };
 
-_currBox = (_ctrlBox lbData (lbCurSel _ctrlBox)) createVehicle position player;
+_currBox = (_ctrlBox lbData (lbCurSel _ctrlBox)) createVehicle [0,0,-100];
 
 clearWeaponCargoGlobal _currBox; 
 clearMagazineCargoGlobal _currBox;
