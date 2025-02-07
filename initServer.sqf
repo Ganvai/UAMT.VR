@@ -183,6 +183,40 @@ if (getMissionConfigValue "insFeature" == "true") then {
 //------------------------------------------------------------------
 
 //------------------------------------------------------------------
+//						Supply Points
+//------------------------------------------------------------------
+if ( getMissionConfigValue "supplyPointFeature" == "true" ) then {
+	_sppArray = getMissionConfigValue "supplyPoints";
+	{
+		_supplyPoint = missionNameSpace getVariable [(_x select 0),objNull];
+		_sppDis = _x select 1;
+		_sppDir = _x select 2;
+
+		[ 
+			_supplyPoint, 
+			"open Supply Point", 
+			"\a3\missions_f_oldman\data\img\holdactions\holdAction_box_ca.paa", 
+			"\a3\missions_f_oldman\data\img\holdactions\holdAction_box_ca.paa", 
+			"_this distance _target < 6", 
+			"_caller distance _target < 6", 
+			{}, 
+			{}, 
+			{	
+				params ["_target", "_caller", "_actionId", "_arguments"];
+				_arguments params ["_supplyPoint","_sppDis","_sppDir"];
+				[_supplyPoint,_sppDis,_sppDir] call sppDialog_fnc_createDialog;
+			}, 
+			{}, 
+			[_supplyPoint,_sppDis,_sppDir], 
+			1, 
+			9999, 
+			false, 
+			false 
+		] remoteExec ["BIS_fnc_holdActionAdd", 0, _supplyPoint];
+	}forEach _sppArray;
+};
+
+//------------------------------------------------------------------
 //				Helicopter Transport Feature
 //------------------------------------------------------------------
 if ( getMissionConfigValue "chtFeature" == "true" ) then {

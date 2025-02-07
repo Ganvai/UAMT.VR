@@ -1,4 +1,9 @@
 disableSerialization;
+params ["_SupplyPoint","_sppDis","_sppDir"];
+
+uiNameSpace setVariable ["SupplyPoint",_SupplyPoint];
+uiNameSpace setVariable ["sppDis",_sppDis];
+uiNameSpace setVariable ["sppDir",_sppDir];
 
 // Get all items with fitting roles and config elements
 _itemHM = call sppDialog_fnc_getAllItems;

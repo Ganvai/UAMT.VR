@@ -255,7 +255,7 @@ supplyPoints[]		= {						//Defines Objects that offer Supply Crate Spawn. Is a m
 						90},	  				//Direction relative to the Object. For example, if you want to spawn the crate at the back of a Truck, this should be 180
 						{supplypointMobile,7,180}
 					};
-	
+
 
 
 //------------------------------------------------------------------

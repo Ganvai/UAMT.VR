@@ -67,7 +67,7 @@ _itemHM = createHashMap;
 			(_x call BIS_fnc_itemType) params ["_category", "_specificType"];
 			
 			_configMain = switch (true) do {
-				case (isclass (configfile >> "cfgweapons" >> _x)): {"CfGWeapons"};
+				case (isclass (configfile >> "CfGWeapons" >> _x)): {"CfGWeapons"};
 				case (isclass (configfile >> "CfgMagazines" >> _x)): {"CfgMagazines"};
 				case (isclass (configfile >> "CfgVehicles" >> _x)): {"CfgVehicles"};
 				case (isclass (configfile >> "CfgGlasses" >> _x)): {"CfgGlasses"};
@@ -75,7 +75,7 @@ _itemHM = createHashMap;
 			
 			_name 		= [configFile >> _configMain >> _x >> "displayName"] call BIS_fnc_returnConfigEntry;
 			_image		= [configFile >> _configMain >> _x >> "picture"] call BIS_fnc_returnConfigEntry;
-			_description = ([configFile >> _configMain >> _x >> "descriptionShort"] call BIS_fnc_returnConfigEntry) regexReplace ["<br[\W ]*\/>", "\n"];
+			_description = ([configFile >> _configMain >> _x,"descriptionShort",""] call BIS_fnc_returnConfigEntry) regexReplace ["<br[\W ]*\/>", "\n"];
 			
 			if (_specificType in ["Throw", "SmokeShell", "Flare"]) then {_specificType = "Grenade"};
 			

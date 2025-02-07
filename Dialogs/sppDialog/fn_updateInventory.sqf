@@ -24,7 +24,6 @@ if (_currBox isNotEqualTo objNull) then {
 		};
 		
 		if (_configMain != "nope") then {
-			diag_log format ["SPPDIALOG: Item: %1 | Config: %2",_item,_configMain];
 			
 			_name 		= [configFile >> _configMain >> _item >> "displayName"] call BIS_fnc_returnConfigEntry;
 			_image		= [configFile >> _configMain >> _item >> "picture"] call BIS_fnc_returnConfigEntry;
