@@ -212,7 +212,7 @@ class sppDialog
 				border = "\A3\ui_f\data\gui\cfg\scrollbar\border_ca.paa";
 				
 			};
-			
+			onLBSelChanged = "call sppDialog_fnc_groupFilter";
 		};
 		class RoleFilt
 		{

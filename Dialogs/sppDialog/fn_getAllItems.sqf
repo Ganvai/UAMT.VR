@@ -47,10 +47,10 @@ _itemHM = createHashMap;
 	_tempItemArr pushback ([missionConfigFile >> "CfgLoadouts" >> _role, "nvgs", ""] call BIS_fnc_returnConfigEntry);
 	_tempItemArr pushback ([missionConfigFile >> "CfgLoadouts" >> _role, "binocs", ""] call BIS_fnc_returnConfigEntry);
 	
-	_tempItemArr append ( [_role,"itemsUniform",[]] call UAMT_fnc_loadoutGetValue);
-	_tempItemArr append ( [_role,"itemsVest",[]] call UAMT_fnc_loadoutGetValue);
-	_tempItemArr append ( [_role,"itemsBackPack",[]] call UAMT_fnc_loadoutGetValue);
-	_tempItemArr append ( [_role,"arsenal",[]] call UAMT_fnc_loadoutGetValue);
+	{_tempItemArr pushBackUnique _x} forEach ( [_role,"itemsUniform",[]] call UAMT_fnc_loadoutGetValue);
+	{_tempItemArr pushBackUnique _x} forEach ( [_role,"itemsVest",[]] call UAMT_fnc_loadoutGetValue);
+	{_tempItemArr pushBackUnique _x} forEach ( [_role,"itemsBackPack",[]] call UAMT_fnc_loadoutGetValue);
+	{_tempItemArr pushBackUnique _x} forEach ( [_role,"arsenal",""] call UAMT_fnc_loadoutGetValue);
 	
 	_tempItemArr = flatten _tempItemArr;
 	_tempItemArr = _tempItemArr select {_x isEqualType "" && {_x != ""}};
@@ -74,17 +74,26 @@ _itemHM = createHashMap;
 			};
 			
 			_name 		= [configFile >> _configMain >> _x >> "displayName"] call BIS_fnc_returnConfigEntry;
-			_image		= [configFile >> _configMain >> _x >> "picture"] call BIS_fnc_returnConfigEntry;	
-
+			_image		= [configFile >> _configMain >> _x >> "picture"] call BIS_fnc_returnConfigEntry;
+			_description = ([configFile >> _configMain >> _x >> "descriptionShort"] call BIS_fnc_returnConfigEntry) regexReplace ["<br[\W ]*\/>", "\n"];
+			
+			if (_specificType in ["Throw", "SmokeShell", "Flare"]) then {_specificType = "Grenade"};
+			
+			if (_specificType == "AccessoryBipod" && {_x isKindOf ["CBA_MiscItem", configFile >> "CfgWeapons"]}) then {_specificType = "Item"};
+			
 			if ([configFile >> _configMain >> _x, "ACE_isMedicalItem",0] call BIS_fnc_returnConfigEntry == 1) then {
 				_specificType = "Medikit";
 			};
 			
 			if ([configFile >> _configMain >> _x, "ACE_isTool",0] call BIS_fnc_returnConfigEntry == 1) then {
-				_specificType = "UnknownEquipment";
+				_specificType = "Item";
+			};
+
+			if ([configFile >> _configMain >> _x, "ace_explosives_placeable",0] call BIS_fnc_returnConfigEntry == 1) then {
+				_specificType = "Mine";
 			};
 			
-			_itemArray = [_x,_name,_image,_specificType,[_role]];
+			_itemArray = [_x,_name,_image,_specificType,[_role],_description];
 			_itemHM set [_x,_itemArray];
 		};	
 	}forEach _tempItemArr;	

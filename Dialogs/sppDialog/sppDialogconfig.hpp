@@ -9,5 +9,6 @@ class sppDialog
 		class getAllItems {};
 		class addArsenalItem {};
 		class arsenalList {};
+		class groupFilter {};
 	}; 
 };

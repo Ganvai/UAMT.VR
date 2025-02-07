@@ -916,7 +916,8 @@ class CfgLoadouts {
 			"san_t1_b",
 			{"ACE_M26_Clacker",1},
 			{"DemoCharge_Remote_Mag",2},
-			{"ACE_VMM3",1}
+			{"ACE_VMM3",1},
+			{"ACE_DefusalKit",1}
 		};
 		arsenal[] = {
 			"equipment_ar",
