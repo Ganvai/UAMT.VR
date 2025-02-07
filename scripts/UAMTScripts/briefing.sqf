@@ -2,6 +2,7 @@
 	Here you find an extended explanation of what tags you can use:
 	https://community.bistudio.com/wiki/FXY_File_Format#Arma_3
 */
+if ((getUserInfo getPlayerID player) isEqualTo []) exitWith {};
 
 _Manual = player createDiarySubject ["Manual","Mission Features"];
 
