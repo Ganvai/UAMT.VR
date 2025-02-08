@@ -31,14 +31,6 @@ else {
 
 
 //------------------------------------------------------------------
-//						Loadouts
-//------------------------------------------------------------------
-if (getMissionConfigValue "supplyPointFeature" == "true") then {
-	_createSupplyCrates = format ["loadouts\%1\createSupplyCrates.sqf",getMissionConfigValue "factionPath"];
-	execVM _createSupplyCrates;
-};
-
-//------------------------------------------------------------------
 //------------------------------------------------------------------
 //
 //						Insertion Feature
