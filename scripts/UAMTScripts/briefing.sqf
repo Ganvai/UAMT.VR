@@ -19,13 +19,16 @@ _diary = player createDiaryRecord ["Manual", ["Credits", "
 This Mission was build with the UAMT (Ultimate Arma MilSim Template). The template was created by Jan, Smargun and Spiderman from 'The Old Boys' | TOB.<br/>
 Although we spend a year working on this, it would have been way longer if there wouldn't have been so many creators who explored things first, published their work and shared it with the community.<br/>
 <br/>
-Tons of Thanks go out to these legends and the whole Arma Community:<br/>
-Supply Drop Scripts based on Script by NekyWaiWai.<br/>
-Ambient Fly By Scripts based on scripts by Spiderman and Smartgun from TOB and R3vo.<br/>
-Foggy Breath Script by Xeno.<br/>
-Ground Fog Script by Unknown.<br/>
-Ambient Vehicle Fire function by IndeedPete.<br/>
-Timer Function by Enigx.<br/>
+Tons of Thanks go out to these legends:<br/>
+- Kaylor K-Town Renslow for the unendlessly helpful Arma Dialog Creator that has helped with every GUI in this template.<br/>
+- R3vo for his indispensably 3den Enhanced.<br/>
+- NekyWaiWai (Supply Drop Script based on his tutorial).<br/>
+- Xeno (Foggy Breath Script).<br/>
+- The unknown guy who wrote made the Ground Fog Script.<br/>
+- Indeed Pete (Ambience Vehicle Fire was based on his original).<br/>
+- Enigx (Timer Function based on his script).<br/>
+- The whole crowd at official Arma Discord that helped with every nag in this mess.<br/>
+- The Legend that used this template to make another awesome Mission for the Arma Community and still left these Credits in!<br/>
 "]];
 
 //------------------------------------------------------------------
@@ -500,8 +503,9 @@ _supportFunctions = "";
 
 if (getMissionConfigValue "supplyPointFeature" == "true") then {
 	_supplyPointText = "<font face='PuristaMedium' size=16 color='#fc9700'>Supply Points</font><br/>
-There are Supply Points on the map where you can spawn unlimited supply crates. These crates hold supplies for the available roles. To use a Supply Point go to it and use the ACE-Interaction (WIN) and then select a crate from the List. The crate will spawn in front of the supply point.<br/>
-You can load these crates onto vehicles via ACE-Cargo or (if activated) the loadinVehicle feature from the template.<br/>
+At the Supply Point Players can pack their supply crates with Items that are available for their teams. They can filter by Groups, Roles, or item type and even choose the kind of supply Box.<br/>
+To carry and drag supply boxes, ACE is used and therefor the ACE weight applies. The Supply Point Interface will show you if a box can be carried, dragged or if it is to heavy to be moved by a human.<br/>
+All boxes created at the Supply point can be loaded into vehicles via a simple action when a vehicle with enough cargo space is close to the box.<br/>
 Don't spawn to many crates at once, because they will glitch into each other, jump wildly around the area and Arma you.";
 
 	_supportFunctions = _supplyPointText;
@@ -509,7 +513,8 @@ Don't spawn to many crates at once, because they will glitch into each other, ju
 
 if (getMissionConfigValue "supplyDropFeature" == "true") then {
 	_featureText = "<br/><br/><font face='PuristaMedium' size=16 color='#fc9700'>Supply Drop</font><br/>
-The Supply Drop will call a Helicopter that will drop a Supply Box via parachute. At the Supply Box, you can spawn multiple supply crates via ACE-Interaction (WIN).<br/>
+The supply drop will deliver a large supply crate with all items for the roles that are in the game so they can stock up. It won't deliver items that are not available in the arsenal or that are for roles,t hat are not present in the field.<br/>
+The Supply Drop is meant for undoing misstakes in preparation, but for resupplying what you took into the field.<br/>
 When calling in a Supply Drop, you should choose an open and safe position. As this is a parachute drop, they won't land exactly at the chosen position<br/><br/>Who can call in Supply Drops:<br/>";
 
 	_featureGroups = [];
@@ -685,7 +690,7 @@ Resets your loadout to the mission default. Usefull to rearm or when you need to
 if (getMissionConfigValue "allowArmory" == "true") then {
 	_mainFeaturesText = _mainFeaturesText + "<br/><br/><font face='PuristaMedium' size=14 color='#fc9700'>3. Armory</font><br/>
 The Armory is an ACE Arsenal where you can choose the equipment available for your selected role/loadout.<br/>
-<font face='PuristaMedium' size=14 color='#ff0000'>It is ACE Arsenal, you need to refill/change the magazines for your weapon, when you change it, by yourself!</font>";
+<font face='PuristaMedium' size=14 color='#ff0000'>It is an ACE Arsenal, you need to refill/change the magazines for your weapon, when you change it, by yourself!</font>";
 };
 
 if (getMissionConfigValue "allowLoadouts" == "true") then {
@@ -695,9 +700,9 @@ An Interface where you can choose  your loadout. Every loadout has a specific ac
 
 if (getMissionConfigValue "weaponProficiency" == "true") then {
 	_mainFeaturesText = _mainFeaturesText  + "<br/><br/><font face='PuristaMedium' size=16 color='#fc9700'>Weapon Proficiency</font><br/>
-In this Mission features a more extensive Role-System. The Loadouts with their specific arsenal and abilities, as well as all the Support Functions that are limited to roles or players are one side. Weapon Proficiency is the other.<br/>
-Every role is proficient with the attached weapon class fitting to the role. Riflemans with Assault Rifles, MG-Gunners with MGs and autorifles, AT-Rifleman with Launchers and so on.<br/>
-If you are handling the weaponclass you are proficient with, you have more control over the weapon, meaning less recoil and less weapon sway.";
+Weapon Proficiency means that you handle your Weapon better than any other weapon on the battlefield. It gives you a bonus for recoil and sway on all Weapons YOU take for YOUR ROLE out of the ARMORY or you get from your loadout.<br/>
+Other Weapons from enemies, or even Weapons you take from your friends, don't have the bonus.<br/>
+This is the Arma Version of the 'This is My Rifle'-Prayer. Don't you dare to betray your rifle!";
 };
 
 if (getMissionConfigValue "loadCargoFeature" == "true") then {
