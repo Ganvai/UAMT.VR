@@ -16,16 +16,46 @@ if (!(isNull objectParent player)) exitWith {
 // Get Player Role
 _unitLoadOut = player getVariable ["loadout", "DefaultLoadout"];
 
-// create array from current loadout
-_playerItems = flatten (getUnitLoadout player);
-_playerItems = (_playerItems arrayIntersect _playerItems) select {_x isEqualType "" && {_x != ""}};
+_roleItems = [];
+_roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "helmet",""] call BIS_fnc_returnConfigEntry );
+_roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "facewear",""] call BIS_fnc_returnConfigEntry );
+_roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "uniforms",""] call BIS_fnc_returnConfigEntry );
+_roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "vests",""] call BIS_fnc_returnConfigEntry );
+_roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "backpack",""] call BIS_fnc_returnConfigEntry );
+_roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "primary",""] call BIS_fnc_returnConfigEntry );
+_roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "handgun",""] call BIS_fnc_returnConfigEntry );
+_roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "secondary",""] call BIS_fnc_returnConfigEntry );
+_roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "map",""] call BIS_fnc_returnConfigEntry );
+_roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "terminal",""] call BIS_fnc_returnConfigEntry );
+_roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "radio",""] call BIS_fnc_returnConfigEntry );
+_roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "compass",""] call BIS_fnc_returnConfigEntry );
+_roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "watch",""] call BIS_fnc_returnConfigEntry );
+_roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "nvgs",""] call BIS_fnc_returnConfigEntry );
+_roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "binocs",""] call BIS_fnc_returnConfigEntry );
+_roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "itemsUniform",""] call BIS_fnc_returnConfigEntry );
+_roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "itemsVest",""] call BIS_fnc_returnConfigEntry );
+_roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "itemsBackPack",""] call BIS_fnc_returnConfigEntry );
+_roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "arsenal",""] call BIS_fnc_returnConfigEntry );
 
-// get role-specific arsenal-items from config
-_arsenalItems = [_unitLoadOut,"arsenal",""] call UAMT_fnc_loadoutGetValue;
+_roleItems = flatten _roleItems;
+_roleItems = _roleItems - [""];
 
-// combine them to one array
-{ _playerItems pushBackUnique _x; } forEach _arsenalItems;
+_arsenalItems = [];
+{
+	// entry is string -> check CfgFactionEquipment for items
+	if (_x isEqualType "") then {
+		private _cfgFaction = ([missionConfigFile >> "CfgFactionEquipment", _x, ""] call BIS_fnc_returnConfigEntry);		
+		if (_cfgFaction isEqualType []) then {
+			_arsenalItems append _cfgFaction;
+		} else {
+			if (_x != "") then {
+				_arsenalItems pushBack _x;
+			};
+		};				
+	};		
+}forEach _roleItems;
 
+_arsenalItems = flatten _arsenalItems;
 
 //------------------------------------------------------------------
 //						TOC
