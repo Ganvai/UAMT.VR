@@ -15,10 +15,20 @@ if (missionNameSpace getVariable ["artiStatus",0] > 1) exitWith {
 	};
 };
 
-_display = createDialog ["artDialog"];
+_display = "";
+_map = "";
 
-_map = _display ctrlCreate ["RscMapControl", -1];
-_map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.297,safeZoneY + safeZoneH * 0.329,safeZoneW * 0.406,safeZoneH * 0.333];
+if (getMissionConfigValue "paperInterface" == "true") then {
+	_display = createDialog ["artDialogPaper"];
+	_map = _display ctrlCreate ["RscMapControl", -1];
+	_map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.496,safeZoneY + safeZoneH * 0.142,safeZoneW * 0.343,safeZoneH * 0.705];
+
+}
+else {
+	_display = createDialog ["artDialogTablet"];
+	_map = _display ctrlCreate ["RscMapControl", -1];
+	_map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.232,safeZoneY + safeZoneH * 0.253,safeZoneW * 0.533,safeZoneH * 0.464];
+};
 
 _lbControl = _display displayCtrl 9900101;
 {

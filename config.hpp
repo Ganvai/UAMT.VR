@@ -51,6 +51,7 @@ loadCargoFeature = true;			// Activate Load Cargo Feature. Adds a function to Su
 endAllDead = false;					// When activated ends the Mission when every player is dead or uncontious. Can be nice to add extra punishment but think 
 									// twice before using it in longer missions.
 
+paperInterface = true;				// Switches the User Interface from Tablet to Clipboard and paper map. Works better for "olden times" settings.
 
 //------------------------------------------------------------------
 //------------------------------------------------------------------

@@ -16,10 +16,20 @@ if (missionNameSpace getVariable ["casStatus",0] > 1) exitWith {
 	};
 };
 
-_display = createDialog ["casStrikeDialog"];
+_display = "";
+_map = "";
 
-_map = _display ctrlCreate ["RscMapControl", -1];
-_map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.316,safeZoneY + safeZoneH * 0.333,safeZoneW * 0.369,safeZoneH * 0.368];
+if (getMissionConfigValue "paperInterface" == "true") then {
+	_display = createDialog ["casDialogPaper"];
+	_map = _display ctrlCreate ["RscMapControl", -1];
+	_map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.496,safeZoneY + safeZoneH * 0.142,safeZoneW * 0.343,safeZoneH * 0.705];
+
+}
+else {
+	_display = createDialog ["casDialogTablet"];
+	_map = _display ctrlCreate ["RscMapControl", -1];
+	_map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.232,safeZoneY + safeZoneH * 0.253,safeZoneW * 0.533,safeZoneH * 0.464];
+};
 
 _casStrikeMrkLocal = format ["CasStrike %1 - %2",clientowner,(missionnamespace getVariable ["casCount",0])];
 player setVariable ["casStrikeMrkLocal",_casStrikeMrkLocal];

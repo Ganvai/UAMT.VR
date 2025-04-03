@@ -22,10 +22,20 @@ if ((missionNameSpace getVariable ["supplyDropCount",0]) >= (getMissionConfigVal
 	};
 };
 
-_display = createDialog ["sdpDialog"];
+_display = "";
+_map = "";
 
-_map = _display ctrlCreate ["RscMapControl", -1];
-_map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.316,safeZoneY + safeZoneH * 0.333,safeZoneW * 0.369,safeZoneH * 0.368];
+if (getMissionConfigValue "paperInterface" == "true") then {
+	_display = createDialog ["sdpDialogPaper"];
+	_map = _display ctrlCreate ["RscMapControl", -1];
+	_map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.496,safeZoneY + safeZoneH * 0.142,safeZoneW * 0.343,safeZoneH * 0.705];
+
+}
+else {
+	_display = createDialog ["sdpDialogTablet"];
+	_map = _display ctrlCreate ["RscMapControl", -1];
+	_map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.232,safeZoneY + safeZoneH * 0.253,safeZoneW * 0.533,safeZoneH * 0.464];
+};
 
 _sdpMrkLocal = format ["sdpMrkLocal %1 %2",clientowner,((missionNameSpace getVariable ["supplyDropCount",0]) + 1)];
 player setVariable ["sdpMrkLocal",_sdpMrkLocal];

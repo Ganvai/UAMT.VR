@@ -16,10 +16,20 @@ if ((missionNameSpace getVariable ["vlsStatus",0]) > 1) exitWith {
 	};
 };
 
-createDialog "vlsDialog";
+_display = "";
+_map = "";
 
-_map = findDisplay 99005 ctrlCreate ["RscMapControl", -1];
-_map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.316,safeZoneY + safeZoneH * 0.333,safeZoneW * 0.369,safeZoneH * 0.368];
+if (getMissionConfigValue "paperInterface" == "true") then {
+	_display = createDialog ["vlsDialogPaper"];
+	_map = _display ctrlCreate ["RscMapControl", -1];
+	_map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.496,safeZoneY + safeZoneH * 0.142,safeZoneW * 0.343,safeZoneH * 0.705];
+
+}
+else {
+	_display = createDialog ["vlsDialogTablet"];
+	_map = _display ctrlCreate ["RscMapControl", -1];
+	_map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.232,safeZoneY + safeZoneH * 0.253,safeZoneW * 0.533,safeZoneH * 0.464];
+};
 
 _vlsMrkLocal = format ["VLSMrkLocal %1 %2",clientowner,((missionNameSpace getVariable ["vlsCount",0]) + 1)];
 player setVariable ["vlsMrkLocal",_vlsMrkLocal];
