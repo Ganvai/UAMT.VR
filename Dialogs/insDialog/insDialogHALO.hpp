@@ -9,18 +9,18 @@ class insDialogHALO
 		{
 			type = 0;
 			idc = 0;
-			x = safeZoneX + safeZoneW * 0.171875;
-			y = safeZoneY + safeZoneH * -0.01736111;
-			w = safeZoneW * 0.65625;
-			h = safeZoneH * 1.03472223;
-			style = 0+48;
-			text = "Dialogs\Military_Interface.paa";
-			colorBackground[] = {1,1,1,1};
+			x = safeZoneX + safeZoneW * 0.1;
+			y = safeZoneY + safeZoneH * 0.1;
+			w = safeZoneW * 0.8;
+			h = safeZoneH * 0.8;
+			style = 48;
+			text = "Dialogs\MilitaryInterfaceTablet.paa";
+			colorBackground[] = {0,0,0,0};
 			colorText[] = {1,1,1,1};
 			font = "PuristaMedium";
-			sizeEx = "0.02 / (getResolution select 5)";
-			
+			sizeEx = "0.02 / (getResolution select 5)";			
 		};
+		
 		class titleCASStrike
 		{
 			type = 0;

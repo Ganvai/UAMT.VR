@@ -8,18 +8,18 @@ class insDialogEdit
 		{
 			type = 0;
 			idc = 0;
-			x = safeZoneX + safeZoneW * 0.18847657;
-			y = safeZoneY + safeZoneH * -0.00868055;
-			w = safeZoneW * 0.62402344;
-			h = safeZoneH * 1.04340278;
-			style = 0+48;
-			text = "Dialogs\Military_Interface.paa";
-			colorBackground[] = {0.3608,0.4824,0.3451,0};
+			x = safeZoneX + safeZoneW * 0.1;
+			y = safeZoneY + safeZoneH * 0.1;
+			w = safeZoneW * 0.8;
+			h = safeZoneH * 0.8;
+			style = 48;
+			text = "Dialogs\MilitaryInterfaceTablet.paa";
+			colorBackground[] = {0,0,0,0};
 			colorText[] = {1,1,1,1};
 			font = "PuristaMedium";
-			sizeEx = "0.02 / (getResolution select 5)";
-			
+			sizeEx = "0.02 / (getResolution select 5)";			
 		};
+		
 		class Title
 		{
 			type = 0;
