@@ -1,6 +1,6 @@
 _insMethod = missionNameSpace getVariable "insertionActual";
 
-_msg = format ["You are about to cancel the Insertion by %1. Do you acknowledge?",_insMethod];
+_msg = format ["You are about to cancel the actual setup Insertion. Are you sure you want to cancel it?",_insMethod];
 
 _result = false;
 _result = [_msg, "Confirm Insertion CANCEL", true, true] call BIS_fnc_guiMessage;

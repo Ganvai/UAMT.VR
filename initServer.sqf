@@ -41,7 +41,7 @@ if (getMissionConfigValue "insFeature" == "true") then {
 	
 	[ 
 		missionNameSpace getVariable [(getMissionConfigValue "insMethodObj"),objNull], 
-		"Setup/Edit Insertion", 
+		"Setup/Cancel Insertion", 
 		"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_takeOff1_ca.paa", 
 		"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_takeOff1_ca.paa", 
 		"_this distance _target < 3 && !missionstarted", 
@@ -73,8 +73,13 @@ if (getMissionConfigValue "insFeature" == "true") then {
 			"_caller distance _target < 3 && !missionstarted", 
 			{}, 
 			{}, 
-			{  
-				_timeDialog = createDialog "timeDialog";
+			{
+				if (getMissionConfigValue "paperInterface" == "true") then {
+					_display = createDialog ["timeDialogGeneric"];
+				}
+				else {
+					_display = createDialog ["timeDialog"];
+				};
 				insTimeObj say3D "msg_time";
 			}, 
 			{}, 

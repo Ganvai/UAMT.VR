@@ -2,10 +2,20 @@ closeDialog 0;
 
 if (missionNameSpace getVariable ["insertionActual",""] == "") then {
 
-	_display = createDialog ["insDialogHelo"];
+	_display = "";
+	_map = "";
 
-	_map = _display ctrlCreate ["RscMapControl", -1];
-	_map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.316,safeZoneY + safeZoneH * 0.333,safeZoneW * 0.369,safeZoneH * 0.368];
+	if (getMissionConfigValue "paperInterface" == "true") then {
+		_display = createDialog ["insDialogHeloPaper"];
+		_map = _display ctrlCreate ["RscMapControl", -1];
+		_map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.496,safeZoneY + safeZoneH * 0.142,safeZoneW * 0.343,safeZoneH * 0.705];
+
+	}
+	else {
+		_display = createDialog ["insDialogHelo"];
+		_map = _display ctrlCreate ["RscMapControl", -1];
+		_map ctrlMapSetPosition [safeZoneX + safeZoneW * 0.316,safeZoneY + safeZoneH * 0.333,safeZoneW * 0.369,safeZoneH * 0.368];
+	};
 
 	_insHeloArray = [];
 	{

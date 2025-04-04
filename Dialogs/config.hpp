@@ -35,3 +35,10 @@
 #include "insDialog\insDialogHelo.hpp"
 #include "insDialog\insDialogHALO.hpp"
 #include "insDialog\insDialogCrate.hpp"
+
+#include "insDialog\insDialogMethodGeneric.hpp"
+#include "insDialog\insDialogEditGeneric.hpp"
+#include "insDialog\insDialogCrateGeneric.hpp"
+#include "insDialog\insDialogHeloPaper.hpp"
+#include "insDialog\insDialogHALOPaper.hpp"
+

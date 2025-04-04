@@ -3,8 +3,13 @@ if (getMissionConfigValue "supportCustomAudio" == "true") then {
 };
 
 if (missionNameSpace getVariable ["insertionActual",""] == "") then {
-	createDialog "insDialogMethod";
+	if (getMissionConfigValue "paperInterface" == "true") then {
+		_display = createDialog ["insDialogMethodGeneric"];
+	}
+	else {
+		_display = createDialog ["insDialogMethod"];
+	};
 }
 else {
-	createDialog "insDialogEdit";
+	[] spawn UAMTins_fnc_insDialogEditCancel;
 };
