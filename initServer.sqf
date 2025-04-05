@@ -75,10 +75,10 @@ if (getMissionConfigValue "insFeature" == "true") then {
 			{}, 
 			{
 				if (getMissionConfigValue "paperInterface" == "true") then {
-					_display = createDialog ["timeDialogGeneric"];
+					_display = createDialog ["timeDialogPaper"];
 				}
 				else {
-					_display = createDialog ["timeDialog"];
+					_display = createDialog ["timeDialogTablet"];
 				};
 				insTimeObj say3D "msg_time";
 			}, 

@@ -206,8 +206,8 @@ class insDialogMethod
 			soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush",0.09,1.0};
 			shadow = 0;
 			action = "closeDialog 0;";
-			
 		};
+		
 		class BtnVehicle
 		{
 			type = 1;

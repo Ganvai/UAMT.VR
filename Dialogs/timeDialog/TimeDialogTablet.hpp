@@ -1,4 +1,4 @@
-class TimeDialog
+class timeDialogTablet
 {
 	idd = 112233;
 	name = "Time-Dialog";
@@ -7,70 +7,71 @@ class TimeDialog
 	
 	class ControlsBackground
 	{
-		class Background: RscText
-		{
-			type = 0;
-			idc = -1;
-			x = safeZoneX + safeZoneW * 0.385;
-			y = safeZoneY + safeZoneH * 0.2;
-			w = safeZoneW * 0.23;
-			h = safeZoneH * 0.39;
-			style = 0;
-			text = "";
-			colorBackground[] = {0.102,0.102,0.102,0.6706};
-			colorText[] = {0.2078,0.051,0.6824,0};
-			font = "PuristaMedium";
-			sizeEx = "0.02 / (getResolution select 5)";
-		};
-
-		class Background_solid
+		class Background
 		{
 			type = 0;
 			idc = 0;
-			x = safeZoneX + safeZoneW * 0.39;
-			y = safeZoneY + safeZoneH * 0.21;
-			w = safeZoneW * 0.22;
-			h = safeZoneH * 0.37;
-			style = 0+80;
-			text = "";
-			colorBackground[] = {0.2,0.2,0.2,1};
-			colorText[] = {0.2,0.2,0.2,1};
+			x = safeZoneX + safeZoneW * 0.1;
+			y = safeZoneY + safeZoneH * 0.1;
+			w = safeZoneW * 0.8;
+			h = safeZoneH * 0.8;
+			style = 48;
+			text = "Dialogs\MilitaryInterfaceTablet.paa";
+			colorBackground[] = {0,0,0,0};
+			colorText[] = {1,1,1,1};
 			font = "PuristaMedium";
-			sizeEx = "0.02 / (getResolution select 5)";
-			shadow = 1;
-		};		
-		
+			sizeEx = "0.02 / (getResolution select 5)";			
+		};
+
 		class TitleText
 		{
 			type = 0;
 			idc = -1;
-			x = safeZoneX + safeZoneW * 0.4;
-			y = safeZoneY + safeZoneH * 0.215;
-			w = safeZoneW * 0.2;
-			h = safeZoneH * 0.03;
+			x = safeZoneX + safeZoneW * 0.30364584;
+			y = safeZoneY + safeZoneH * 0.25;
+			w = safeZoneW * 0.39270834;
+			h = safeZoneH * 0.02962963;
 			style = 2;
-			text = "Change Time";
+			text = "Set Deployment Time";
 			colorBackground[] = {0,0,0,0};
-			colorText[] = {0.8,0.8,0.8,1};
+			colorText[] = {0.2275,0.902,0.4118,1};
 			font = "PuristaSemiBold";
-			sizeEx = "0.03 / (getResolution select 5)";
+			sizeEx = "0.02 / (getResolution select 5)";
 			shadow = 0;
+			
 		};
-		
 		class TitleLine
 		{
 			type = 0;
 			idc = -1;
-			x = safeZoneX + safeZoneW * 0.395;
-			y = safeZoneY + safeZoneH * 0.252;
-			w = safeZoneW * 0.21;
-			h = safeZoneH * 0.001;
+			x = safeZoneX + safeZoneW * 0.30364584;
+			y = safeZoneY + safeZoneH * 0.29074075;
+			w = safeZoneW * 0.39270834;
+			h = safeZoneH * 0.00092593;
 			style = 0;
 			text = "";
-			colorBackground[] = {0.4,0.4,0.4,1};
-			colorText[] = {0,0,0,1};
+			colorBackground[] = {0.2353,0.9294,0.2667,1};
+			colorText[] = {0.7647,0.0706,0.7333,1};
 			font = "PuristaMedium";
 			sizeEx = "0.02 / (getResolution select 5)";
+			
+		};
+		class textline
+		{
+			type = 0;
+			idc = -1;
+			x = safeZoneX + safeZoneW * 0.30364584;
+			y = safeZoneY + safeZoneH * 0.38;
+			w = safeZoneW * 0.39270834;
+			h = safeZoneH * 0.02962963;
+			style = 2;
+			text = "Choose a new time to conduct the Mission.";
+			colorBackground[] = {0,0,0,0};
+			colorText[] = {0.702,0.702,0.702,1};
+			font = "PuristaSemiBold";
+			sizeEx = "0.02 / (getResolution select 5)";
+			shadow = 0;
+			
 		};
 	};
 	
@@ -108,52 +109,69 @@ class TimeDialog
 			shadow = 0;			
 		};
 
+		class BtnExecute
+		{
+			type = 1;
+			idc = 9910404;
+			x = safeZoneX + safeZoneW * 0.43066407;
+			y = safeZoneY + safeZoneH * 0.72048612;
+			w = safeZoneW * 0.13867188;
+			h = safeZoneH * 0.03645834;
+			style = 2;
+			borderSize = 0;
+			colorBackground[] = {0.2,0.2,0.2,1};
+			colorBackgroundActive[] = {0.302,0.302,0.302,1};
+			colorBackgroundDisabled[] = {0.2,0.2,0.2,1};
+			colorBorder[] = {0,0,0,0};
+			colorDisabled[] = {0.2,0.2,0.2,1};
+			colorFocused[] = {0.2,0.2,0.2,1};
+			colorShadow[] = {0,0,0,1};
+			colorText[] = {0.5843,0.8902,0.349,1};
+			font = "PuristaMedium";
+			offsetPressedX = 0.005;
+			offsetPressedY = 0.005;
+			offsetX = 0.005;
+			offsetY = 0.005;
+			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
+			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
+			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
+			soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush",0.09,1.0};
+			sizeEx = "0.02 / (getResolution select 5)";
+			text = "Set new Time";
+			action = execVM "Dialogs\timeDialog\setTime.sqf";
+		};
+		
 		class BtnClose
 		{
 			type = 1;
 			idc = 300;
-			x = safeZoneX + safeZoneW * 0.575;
-			y = safeZoneY + safeZoneH * 0.223;
-			w = safeZoneW * 0.03;
-			h = safeZoneH * 0.02;
-			style = 2;
-			text = "Close";
+			x = safeZoneX + safeZoneW * 0.64635417;
+			y = safeZoneY + safeZoneH * 0.25462963;
+			w = safeZoneW * 0.04635417;
+			h = safeZoneH * 0.02222223;
+			style = 0+2;
+			text = "Exit";
 			borderSize = 0;
-			colorBackground[] = {0.302,0.302,0.302,1};
-			colorBackgroundActive[] = {0.6,0.6,0.6,1};
+			colorBackground[] = {0.2,0.2,0.2,1};
+			colorBackgroundActive[] = {0.302,0.302,0.302,1};
 			colorBackgroundDisabled[] = {0.2,0.2,0.2,1};
-			colorBorder[] = {0.5843,0.8902,0.349,1};
+			colorBorder[] = {0,0,0,0};
 			colorDisabled[] = {0.2,0.2,0.2,1};
 			colorFocused[] = {0.2,0.2,0.2,1};
-			colorShadow[] = {0.1,0.1,0.1,1};
-			colorText[] = {0.8,0.8,0.8,1};
+			colorShadow[] = {0,0,0,1};
+			colorText[] = {0.5843,0.8902,0.349,1};
 			font = "PuristaMedium";
 			offsetPressedX = 0.005;
 			offsetPressedY = 0.005;
-			offsetX = 0.001;
-			offsetY = 0.001;
-			sizeEx = "0.015 / (getResolution select 5)";
+			offsetX = 0.005;
+			offsetY = 0.005;
+			sizeEx = "0.02 / (getResolution select 5)";
 			soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1.0};
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
 			soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush",0.09,1.0};
 			shadow = 0;
 			action = "closeDialog 0;";
-			default = false;
-		};
-
-		class BtnExecute: BtnClose
-		{
-			type = 1;
-			idc = 200;
-			x = safeZoneX + safeZoneW * 0.45;
-			y = safeZoneY + safeZoneH * 0.5;
-			w = safeZoneW * 0.1;
-			h = safeZoneH * 0.035;
-			sizeEx = "0.02 / (getResolution select 5)";
-			text = "Set new Time";
-			action = execVM "Dialogs\timeDialog\setTime.sqf";
-			default = false;
 		};
 		
 		class ComboTime: BtnExecute
@@ -161,7 +179,7 @@ class TimeDialog
 			type = 4;
 			idc = 112;
 			x = safeZoneX + safeZoneW * 0.425;
-			y = safeZoneY + safeZoneH * 0.35;
+			y = safeZoneY + safeZoneH * 0.42;
 			w = safeZoneW * 0.15;
 			h = safeZoneH * 0.035;
 			style = 16;

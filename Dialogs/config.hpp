@@ -5,7 +5,10 @@
 
 #include "loadoutDialog\LoadoutDialog.hpp" 
 #include "teleportDialog\TeleportDialog.hpp"
-#include "timeDialog\timeDialog.hpp"
+
+#include "timeDialog\timeDialogTablet.hpp"
+#include "timeDialog\timeDialogPaper.hpp"
+
 #include "doorkeypad\doorkeypad.hpp"
 
 //Support Feature Dialogs
