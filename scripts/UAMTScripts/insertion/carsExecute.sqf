@@ -2,30 +2,40 @@ if (!isServer) exitWith {};
 
 params ["_side"];
 
-insControl = 2;
-publicVariable "insControl";
+_supportMessages = getMissionConfigValue "supportMessages";
+_supportControlName = getMissionConfigValue "supportControlName";
+_supportCustomAudio = getMissionConfigValue "supportCustomAudio";
 
-_customAudio = insCustomAudio;
+missionNameSpace setVariable ["insertionActual","GroundVehicles",true];
+
+_insCarVehStrings = getMissionConfigValue "insCarVeh";
+_insCarVeh = [];
+
+{
+	_insCarVeh pushback (missionNameSpace getVariable [_x,objnull]);
+}forEach _insCarVehStrings;
 
 _carMarkers = [];
 
 private _title = "Get into Vehicles";
-private _description = "Get into the vehicles to start the mission.";
+private _description = "Get into the vehicles to start the mission. Once all Players are in the vehicles, the vehicles will be fuelled up and the mission will start.";
 private _waypoint = "";
 
-[true, "task00boardVehicle", [_description, _title, _waypoint], insCarVeh select 0, true] call BIS_fnc_taskCreate;
+[true, "task00boardVehicle", [_description, _title, _waypoint], _insCarVeh select 0, true] call BIS_fnc_taskCreate;
 
-if (_customAudio) then {
-	["Vehicles are fueled up and ready to go.","TOC","msg_carsReady",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
-}
-else {
-	["Vehicles are fueled up and ready to go.","TOC","Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+if (_supportMessages == "true") then {
+	if (_supportCustomAudio == "true") then {
+		["Vehicles are fueled up and ready to go.",_supportControlName,"msg_carsReady",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+	}
+	else {
+		["Vehicles are fueled up and ready to go.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+	};
 };
 
-for "_i" from 0 to ((count insCarVeh) - 1) do{
+for "_i" from 0 to ((count _insCarVeh) - 1) do{
 
 	_markerName = format ["Insertion Car %1",(_i + 1)];
-	_tempMarker = createMarker [_markerName, insCarVeh select _i];
+	_tempMarker = createMarker [_markerName, _insCarVeh select _i];
 	_tempMarker setMarkerType "hd_dot";
 	_tempMarker setMarkerText _markerName;
 	
@@ -35,33 +45,30 @@ for "_i" from 0 to ((count insCarVeh) - 1) do{
 {
 	_x lock false;
 	[_x,1]remoteExec ["setFuel"];
-}forEach insCarVeh;
+}forEach _insCarVeh;
 
-waitUntil {sleep 1; {vehicle _x in insCarVeh} count (call BIS_fnc_listPlayers) == count(call BIS_fnc_listPlayers) || insertionCancel};
+waitUntil {sleep 1; {vehicle _x in _insCarVeh} count (call BIS_fnc_listPlayers) == count(call BIS_fnc_listPlayers) || missionNameSpace getVariable ["insertionCancel",false]};
 
 {
 	deleteMarker _x;
 } forEach _carMarkers;
 
-if (insertionCancel) exitWith {
+if (missionNameSpace getVariable ["insertionCancel",false]) exitWith {
 	["task00boardVehicle",true,true] call BIS_fnc_deleteTask;
 
-	insertionCancel = false;
-	publicVariable "insertionCancel";
+	missionNameSpace setVariable ["insertionCancel",false,true];
 	
-	insControl = 0;
-	publicVariable "insControl";
+	missionNameSpace setVariable ["insertionActual","",true];
 
 	{
 		_x lock true;
 		[_x,0]remoteExec ["setFuel"];
-	}forEach insCarVeh;
+	}forEach _insCarVeh;
 	
 	["<t color='#ff0000' size='2' font='RobotoCondensed' shadow = '2' >Ground Vehicle Insertion was cancelled!</t>", "PLAIN", 0.6, true, true]remoteExec ["titletext"];
 };
 
-missionstarted = true;
-publicVariable "missionstarted";
+missionNameSpace setVariable ["missionstarted",true,true];
 
 ["task00boardVehicle", "SUCCEEDED"] call BIS_fnc_taskSetState;
 ["taskInsPrep", "SUCCEEDED"] call BIS_fnc_taskSetState;
@@ -69,7 +76,7 @@ publicVariable "missionstarted";
 ["taskInsPrepMethod", "SUCCEEDED"] call BIS_fnc_taskSetState;
 ["taskInsPrepTime", "SUCCEEDED"] call BIS_fnc_taskSetState;
 
-if (insIntro) then {
+if (getMissionConfigValue "insIntro" == "true") then {
 	
 	_line1 = getMissionConfigValue "introM";
 	_line2 = getMissionConfigValue "backgroundM";
