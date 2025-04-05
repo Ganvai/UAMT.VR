@@ -1,4 +1,4 @@
-class insDialogMethodGeneric
+class insDialogMethodPaper
 {
 	idd = 99101;
 	name = "Insertion-Dialog Main";
@@ -39,8 +39,8 @@ class insDialogMethodGeneric
 			font = "TahomaB";
 			sizeEx = "0.02 / (getResolution select 5)";
 			shadow = 0;
-			
 		};
+		
 		class TitleLine: TitleText
 		{
 			y = safeZoneY + safeZoneH * 0.245;
@@ -202,7 +202,7 @@ class insDialogMethodGeneric
 			y = safeZoneY + safeZoneH * 0.37;
 			w = safeZoneW * 0.1;
 			h = safeZoneH * 0.3;
-			style = 16;
+			style = 16+512;
 			lineSpacing = 0.8;
 			text = "High Altitude Low Opening - Parachute jump from aircraft in a height of 6000 to 7000 meters above ground. A slow but relatively silent approach with low visibility in low light conditions. While it is the most silent option, it is very dangerous and needs more coordination of your group.";
 			colorBackground[] = {0.102,0.102,0.102,0};

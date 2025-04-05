@@ -52,10 +52,10 @@ else {
 		{},  
 		{
 			if (getMissionConfigValue "paperInterface" == "true") then {
-				_display = createDialog ["insDialogCrate"];
+				_display = createDialog ["insDialogCratePaper"];
 			}
 			else {
-				_display = createDialog ["insDialogCrateGeneric"];
+				_display = createDialog ["insDialogCrate"];
 			};
 		},
 		{},  
