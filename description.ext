@@ -504,6 +504,8 @@ class CfgFunctions
 			
 			class noVisSafePos{};
 			
+			class randomHold{};
+			
 			class supplyDrop{};
 			class supplyDropContents{};
 			

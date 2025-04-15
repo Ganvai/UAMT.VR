@@ -30,8 +30,10 @@
 // _smoke : BOOLEAN, Option, default true / Drops four smoke grenades around the helicopter before
 //											the units disembark
 //
+// _code : CODE, Optional, default NONE / Applies code to every unit that is spawned. 
+//
 // EXAMPLES:
-// ["O_Heli_Light_02_dynamicLoadout_F",["O_Soldier_F","O_Soldier_F","O_Soldier_F"],east,"_spawnMarker",[5736.49,6995.88,0],player] call UAMT_fnc_heliReInfLand;
+// ["O_Heli_Light_02_dynamicLoadout_F",["O_Soldier_F","O_Soldier_F","O_Soldier_F"],east,"_spawnMarker",[5736.49,6995.88,0],player,false,{hint str _this}] call UAMT_fnc_heliReInfLand;
 //
 // Spawns a Kasatka helicopter that will fly from Spawn Marker to the drop position and drop three 
 // CSAT Rifleman soldiers. The soldiers will stalk the player after they were dropped.
@@ -45,7 +47,7 @@
 //-----------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------
 
-params ["_heli","_unitsArr","_side","_spawnPos","_dropPos","_target",["_smoke",true]];
+params ["_heli","_unitsArr","_side","_spawnPos","_dropPos","_target",["_smoke",true],"_code"];
 
 if (typeName _spawnPos == "STRING") then {
 	_spawnPos = getMarkerPos _spawnPos;
@@ -55,8 +57,8 @@ if (typeName _dropPos == "STRING") then {
 	_dropPos = getMarkerPos _dropPos;
 };
 
-[_heli,_unitsArr,_side,_spawnPos,_dropPos,_target,_smoke] spawn {
-	params["_helicopter","_unitsArr","_side","_spawnPos","_dropPos","_target","_smoke"];
+[_heli,_unitsArr,_side,_spawnPos,_dropPos,_target,_smoke,_code] spawn {
+	params["_helicopter","_unitsArr","_side","_spawnPos","_dropPos","_target","_smoke","_code"];
 	
 	_dir = _spawnPos getDir _dropPos;
 
@@ -101,6 +103,7 @@ if (typeName _dropPos == "STRING") then {
 	{
 		_x assignAsCargo _heliVeh; 
 		_x moveInCargo _heliVeh;
+		_x call _code;
 	} foreach units _grpParatroopers;
 
 	//Suspending until the Vehicle reached the Drop Position
@@ -111,7 +114,7 @@ if (typeName _dropPos == "STRING") then {
 	if (_smoke) then {
 		for "_i" from 1 to 4 do {
 			_pos = _heliVeh getPos [20, (70 * _i)];
-			_smoke = createVehicle ["SmokeShell", [0,0,0], [], 0, "NONE"];
+			_smoke = createVehicle ["SmokeShell", _pos, [], 0, "NONE"];
 			_smoke setPos _pos;
 		};	
 		sleep 10;
@@ -138,6 +141,9 @@ if (typeName _dropPos == "STRING") then {
 	else {
 		if  (typeName _target == "STRING") then {
 			_targetPos = getMarkerPos _target;
+		}
+		else {
+			_targetPos = _target;
 		};
 		_wp1 = _grpParatroopers addWaypoint [_targetPos, -1,-1];
 		_wp1 setWaypointType "SAD";

@@ -43,7 +43,7 @@
 //-----------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------
 
-params ["_heli","_unitsArr","_side","_spawnPos","_dropPos","_target"];
+params ["_heli","_unitsArr","_side","_spawnPos","_dropPos","_target","_code"];
 
 if (typeName _spawnPos == "STRING") then {
 	_spawnPos = getMarkerPos _spawnPos;
@@ -53,8 +53,8 @@ if (typeName _dropPos == "STRING") then {
 	_dropPos = getMarkerPos _dropPos;
 };
 
-[_heli,_unitsArr,_side,_spawnPos,_dropPos,_target] spawn {
-	params["_helicopter","_unitsArr","_side","_spawnPos","_dropPos","_target"];
+[_heli,_unitsArr,_side,_spawnPos,_dropPos,_target,_code] spawn {
+	params["_helicopter","_unitsArr","_side","_spawnPos","_dropPos","_target","_code"];
 	
 	_dir = _spawnPos getDir _dropPos;
 
@@ -104,6 +104,7 @@ if (typeName _dropPos == "STRING") then {
 	{
 		_x assignAsCargo _heli; 
 		_x moveInCargo _heli;
+		_x call _code;
 	} foreach units _grpParatroopers;
 
 	//Suspending until the Vehicle reached the Drop Position
@@ -175,6 +176,9 @@ if (typeName _dropPos == "STRING") then {
 	else {
 		if  (typeName _target == "STRING") then {
 			_targetPos = getMarkerPos _target;
+		}
+		else {
+			_targetPos = _target;
 		};
 		_wp1 = _grpParatroopers addWaypoint [_targetPos, -1,-1];
 		_wp1 setWaypointType "SAD";

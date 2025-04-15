@@ -2,8 +2,9 @@ params ['_lbCurSel'];
 
 _fullArti = missionNameSpace getVariable "fullArti";
 _sliderControl = findDisplay 99001 displayCtrl 9900103;
+_artControl = findDisplay 99001 displayCtrl 9900101;
 
-_fullArtiIndex = lbCurSel _sliderControl;
+_fullArtiIndex = lbCurSel _artControl;
 _ammoArtiIndex = _lbCurSel;
 
 _sliderOld = sliderPosition _sliderControl;
