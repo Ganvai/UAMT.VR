@@ -477,6 +477,8 @@ class CfgFunctions
 		{
 			file = "scripts\UAMTScripts\functions";
 			
+			class ambush{};
+			
 			class addTalkingAction{};
 			
 			class addTalkingActionDead{};
