@@ -14,9 +14,9 @@ factionPath = "Nato-2035_config_sgn";
 // To be easily edited, we recommend just commenting out the Roles
 // you don't want in your faction.
 //
-// Roles format is {"Role-Name","unitLoadout"}
+// Roles format is {"Role-Name","Loadout Class"}
 // "Role-Name" 		-> STRING -> display Role Name in Loadout-Dialog; special characters and space allowed
-// "unitLoadout" 	-> STRING -> equals loadout-variable from init field of the unit; no space, no special characters
+// "Loadout Class" 	-> STRING -> Loadout Class that is to be applied
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 
