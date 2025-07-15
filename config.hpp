@@ -318,7 +318,7 @@ supplyDropDelayPenalty 	= 10;			// Defines how much time is added as penalty whe
 //
 //-----------------------------------------------------------------------
 //-----------------------------------------------------------------------
-chtFeature = true;				// Activates the Heli Fire Support Feature. This permanently deactivates this feature for the mission and it won't be accessible even if you set it to true later.
+chtFeature = true;		// Activates the Heli Fire Support Feature. This permanently deactivates this feature for the mission and it won't be accessible even if you set it to true later.
 
 chtStatus = 0;			// The Status manages the accessebility of the function.
 							// While 0 to 3 are Ingame Status, 4 is to manage by the Missionmaker
