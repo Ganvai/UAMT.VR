@@ -30,7 +30,7 @@
 // _smoke : BOOLEAN, Option, default true / Drops four smoke grenades around the helicopter before
 //											the units disembark
 //
-// _code : CODE, Optional, default NONE / Applies code to every unit that is spawned. 
+// _code : CODE, Optional, default NONE / Applies code to every unit that is spawned. Can be used to change loadouts.
 //
 // EXAMPLES:
 // ["O_Heli_Light_02_dynamicLoadout_F",["O_Soldier_F","O_Soldier_F","O_Soldier_F"],east,"_spawnMarker",[5736.49,6995.88,0],player,false,{hint str _this}] call UAMT_fnc_heliReInfLand;
@@ -47,7 +47,7 @@
 //-----------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------
 
-params ["_heli","_unitsArr","_side","_spawnPos","_dropPos","_target",["_smoke",true],"_code"];
+params ["_heli","_unitsArr","_side","_spawnPos","_dropPos","_target",["_smoke",true],["_code",""]];
 
 if (typeName _spawnPos == "STRING") then {
 	_spawnPos = getMarkerPos _spawnPos;
@@ -103,7 +103,9 @@ if (typeName _dropPos == "STRING") then {
 	{
 		_x assignAsCargo _heliVeh; 
 		_x moveInCargo _heliVeh;
-		_x call _code;
+		if (_code isNotEqualTo "") then {
+			_x call _code;
+		};
 	} foreach units _grpParatroopers;
 
 	//Suspending until the Vehicle reached the Drop Position

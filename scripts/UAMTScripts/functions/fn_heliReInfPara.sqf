@@ -27,7 +27,7 @@
 //															If _target is a player, the group will chase
 //															this player over the map.
 //
-//
+// _code : CODE - Optional, Default "" / Applies code to every unit that is spawned. Can be used to change loadouts.
 //
 // EXAMPLES:
 // ["O_Heli_Light_02_dynamicLoadout_F",["O_Soldier_F","O_Soldier_F","O_Soldier_F"],east,"_spawnMarker",[5736.49,6995.88,0],player] call UAMT_fnc_heliReInfPara;
@@ -43,7 +43,7 @@
 //-----------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------
 
-params ["_heli","_unitsArr","_side","_spawnPos","_dropPos","_target","_code"];
+params ["_heli","_unitsArr","_side","_spawnPos","_dropPos","_target",["_code",""]];
 
 if (typeName _spawnPos == "STRING") then {
 	_spawnPos = getMarkerPos _spawnPos;
@@ -104,7 +104,9 @@ if (typeName _dropPos == "STRING") then {
 	{
 		_x assignAsCargo _heli; 
 		_x moveInCargo _heli;
-		_x call _code;
+		if (_code isNotEqualTo "") then {
+			_x call _code;
+		};
 	} foreach units _grpParatroopers;
 
 	//Suspending until the Vehicle reached the Drop Position
