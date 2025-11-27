@@ -51,7 +51,7 @@ loadCargoFeature = true;			// Activate Load Cargo Feature. Adds a function to Su
 endAllDead = false;					// When activated ends the Mission when every player is dead or uncontious. Can be nice to add extra punishment but think 
 									// twice before using it in longer missions.
 
-paperInterface = true;				// Switches the User Interface from Tablet to Clipboard and paper map. Works better for "olden times" settings.
+paperInterface = false;				// Switches the User Interface from Tablet to Clipboard and paper map. Works better for "olden times" settings.
 
 //------------------------------------------------------------------
 //------------------------------------------------------------------
@@ -135,7 +135,7 @@ aceDmgCnfg = 1; 	// Unit Damage Threshhold for ACE Medical
 //------------------------------------------------------------------
 supportMessages = true;			// Activate/Deactivate audio messages for all UAMT support functions. Not recommended as important informations for players will be lost.
 supportControlName = "TOC";		//The Name that is shown in Radio Messages from all Support Functions from UAMT. Something like TOC, Oberkommando, CO or whatever you come up with.
-supportCustomAudio = false;		//Plays Custom Audio messages. If you don't like them, set it to false. It will still send Status Reports,
+supportCustomAudio = true;		//Plays Custom Audio messages. If you don't like them, set it to false. It will still send Status Reports,
 									//but just with generic radio chatter sound. And no, there will be no translations to other languages. English was hard enough XD.
 
 //------------------------------------------------------------------
