@@ -39,23 +39,23 @@ if (_sound == "Radio") then {
 	// If you give no Custom sound, the Function will play something that resembles a Radio Message
 	
 	// Plays a Pling
-	playSound "TacticalPing3";
+	playSound ["TacticalPing3",true];
 	sleep 0.3;
 	
 	//Showing the formated Message
 	titleText [_finalMsg, "PLAIN DOWN", 0.5, true, true];
 	
 	// Plays Radio Chatter
-	_radioSound = playSound "RadioAmbient2";
+	_radioSound = playSound ["RadioAmbient2",true];
 	sleep 2.6;
 	deleteVehicle _radioSound;
 	
 	// Plays a Pling
-	playSound "TacticalPing4";
+	playSound ["TacticalPing4",true];
 }
 else {
 	// Plays the given Sound Class that has to be defined in CfgSounds
-	playSound _sound;
+	playSound [_sound,true];
 	// Needed to skip the Subtitles. If custom sound the Subtitle duration should be set to 0
 	sleep 0.1;
 
