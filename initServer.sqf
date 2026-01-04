@@ -214,6 +214,13 @@ if ( getMissionConfigValue "supplyPointFeature" == "true" ) then {
 };
 
 //------------------------------------------------------------------
+//				Supply Drop Feature
+//------------------------------------------------------------------
+if ( getMissionConfigValue "supplyDropFeature" == "true" ) then {
+	missionNameSpace setVariable ["supplyDropStatus",getMissionConfigValue "supplyDropStatus",true];
+};
+
+//------------------------------------------------------------------
 //				Helicopter Transport Feature
 //------------------------------------------------------------------
 if ( getMissionConfigValue "chtFeature" == "true" ) then {
