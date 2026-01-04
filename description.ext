@@ -582,4 +582,15 @@ class CfgFunctions
 			class hfsScripted {};
 		};
 	};
+
+	class UAMTafb
+	{
+		tag="UAMTafb";
+		class UAMTafbFunctions
+		{
+			file = "scripts\UAMTScripts\AmbienceScripts";
+			
+			class ambientFlyByExecute{};
+		};
+	};
 };

@@ -16,9 +16,7 @@
 
 if (!isServer) exitWith {};
 
-_AFBPHeightPlane = getMissionConfigValue "AFBPHeight";
-_AFBPHeight = 50;
-_speed = 20;
+_AFBHeightPlane = getMissionConfigValue "AFBPHeight";
 _AFBmaxTime = getMissionConfigValue "AFBmaxTime";
 _AFBmidTime = getMissionConfigValue "AFBmidTime";
 _AFBminTime = getMissionConfigValue "AFBminTime";
@@ -27,75 +25,34 @@ _vehicles = getMissionConfigValue "AFBVehicles";
 _rndMax = getMissionConfigValue "AFBAmount";
 
 
-while {sleep 1, true} do {
+while {true} do {
 	_wait = random [_AFBminTime, _AFBmidTime, _AFBmaxTime];
 	
 	sleep _wait;
 	
 	_players = allPlayers - entities "HeadlessClient_F";
 	
-	_target = selectRandom _players;
+	_targetPos = position (selectRandom _players);
 	
-	_Vehicle = selectRandom _Vehicles;
+	_vehicle = selectRandom _vehicles;
 
-	_AFBPHeight = 50;
+	_AFBHeight = 50;
 	_speed = 50;
 	
 	if (_Vehicle isKindOf "plane") then {
-		_AFBPHeight = _AFBPHeightPlane;
+		_AFBHeight = _AFBHeightPlane;
 		_speed = 300;
 	};
 	
-	_startPos = _target getPos [_distance,random 360];
-	_playerPos = _target getPos [random [10,50,100],random 360];
-	_dir = _startPos getDir _playerPos;
-	_endPos = _playerPos getPos [_distance,_dir];
+	_dir = random 360;
+	_startPos = _targetPos getPos [_distance,_dir];
+	_endPos = _startPos getPos [(_distance * 2),(_dir + 180)];
+
 	_amount = round random [1,(_rndMax / 2),_rndMax];
 	
 	for "_i" from 1 to _amount do {
-		[_Vehicle,_startPos,_AFBPHeight,_dir,_speed,_endPos] spawn 
-		{
-			params ["_Vehicle","_startPos","_AFBPHeight","_dir","_speed","_endPos"];
-			// Spawning the Vehicle
-			_AFBVehicle = createVehicle [_Vehicle, _startPos, [], 0, "FLY"];
-			_AFBVehicle setPos [(getpos _AFBVehicle # 0),(getpos _AFBVehicle # 1), _AFBPHeight];
-			_AFBVehicle setDir _dir;
-			_AFBVehicle AllowDamage false;
-
-			// Spawning the Pilot
-			_Pilot = CreateAgent ["B_Fighter_Pilot_F", [0,0,0], [], 0, "NONE"];
-			_Pilot MoveInDriver _AFBVehicle;
-			_Pilot setRank "SERGEANT";
-			_Pilot SetBehaviour "CARELESS";
-			_Pilot setCombatMode "BLUE";
-			group _Pilot setSpeedMode "FULL";
-			_Pilot disableAI "FSM";
-			
-
-			//Setting the Flight Height for the Vehicle
-			_AFBVehicle flyInHeight _AFBPHeight;
-
-			_Pilot setCaptive true;
-			
-			//Give Speed - IFA DEBUG
-			private _vel = velocity _AFBVehicle;
-			private _dir = direction _AFBVehicle;
-			_AFBVehicle setVelocity [
-				(_vel select 0) + (sin _dir * _speed), 
-				(_vel select 1) + (cos _dir * _speed), 
-				(_vel select 2)
-			];
-
-			//Setting the Waypoint for the Supply Drop Delivery
-			_Pilot MoveTo _endPos;
-			
-			//Suspending until the Vehicle reached the Despawn Position
-			WaitUntil {sleep 2; (_endPos distance2D _AFBVehicle < 200)};
-
-			//Deleting Crew and Vehicle
-			DeleteVehicleCrew _AFBVehicle;
-			DeleteVehicle _AFBVehicle;	
-		};
+	
+		[_vehicle,_startPos,_endPos,_AFBHeight] spawn UAMTafb_fnc_ambientFlyByExecute;
 		
 		sleep 2;
 	};
