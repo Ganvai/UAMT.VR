@@ -13,7 +13,7 @@
 // Attributes:
 // _killer : <OBJECT> player who killed the civilian unit
 //
-// [_player] call UAMT_fnc_cFCivMessage;
+// [_killer] call UAMT_fnc_cFCivMessage;
 //
 //----------------------------------------------------------------
 //----------------------------------------------------------------
@@ -29,20 +29,20 @@ _message = floor (random 4);
 
 switch _message do {
 	case 0 : {
-				_messageText = "Fuck this. You are shooting our own troops.";
-				_messageAudio = "cFFriendlyMsg_0";
+				_messageText = "Watch your shots. Friendly Fire.";
+				_messageAudio = "msg_friendlyFire_1";
 			};
 	case 1 : {
-				_messageText = "God damit, stop shooting our own guys.";
-				_messageAudio = "cFFriendlyMsg_1";
+				_messageText = "Goddammit! Stop shooting our own guys.";
+				_messageAudio = "msg_friendlyFire_2";
 			};
 	case 2 : {
-				_messageText = "Friendly fire. I repeat: Friendly fire. Watch your shots!";
-				_messageAudio = "cFFriendlyMsg_2";
+				_messageText = "Stop shooting. Friendly fire. I repeat: Friendly fire.";
+				_messageAudio = "msg_friendlyFire_3";
 			};
 	case 3 : {
 				_messageText = "What the fuck is going on there? Someone of you just shot a friendly.";
-				_messageAudio = "cFFriendlyMsg_3";
+				_messageAudio = "msg_friendlyFire_4";
 			};
 };
 
@@ -52,4 +52,6 @@ if (getMissionConfigValue "supportCustomAudio" == "false") then {
 		_messageAudio = "Radio";
 };
 
-[_messageText,_killer,_id,_messageAudio] remoteExec  ["UAMT_fnc_cFquickMessage"];
+_messageText = format ["%1 Suspect: %2",_messageText, (name _killer)];
+
+[_messageText,_id,_messageAudio,side _killer,1,"fffff","PLAIN DOWN"] call UAMT_fnc_quickMsg;

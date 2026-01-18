@@ -29,19 +29,19 @@ _message = floor (random 4);
 switch _message do {
 	case 0 : {
 				_messageText = "A civilian got shot. Position marked for further Investigations.";
-				_messageAudio = "cFCivMsg_0";
+				_messageAudio = "msg_CivCas_1";
 			};
 	case 1 : {
-				_messageText = "God damit, whats happening there? If you keep shooting Civilians we have to abort the mission.";
-				_messageAudio = "cFCivMsg_1";
+				_messageText = "Goddammit, whats happening there? If you keep shooting Civilians we have to abort the mission.";
+				_messageAudio = "msg_CivCas_2";
 			};
 	case 2 : {
-				_messageText = "You got a dead civilian there. We have to report this. This is unacceptable. Watch your shots.";
-				_messageAudio = "cFCivMsg_2";
+				_messageText = "You've got a dead civilian there. This is unacceptable. Watch your shots.";
+				_messageAudio = "msg_CivCas_3";
 			};
 	case 3 : {
-				_messageText = "What the fuck is going on there. We will have to investigate this.";
-				_messageAudio = "cFCivMsg_3";
+				_messageText = "What the fuck is going on there. We will investigate this.";
+				_messageAudio = "msg_CivCas_4";
 			};
 };
 
@@ -51,4 +51,6 @@ if (getMissionConfigValue "supportCustomAudio" == "false") then {
 		_messageAudio = "Radio";
 };
 
-[_messageText,_killer,_id,_messageAudio] remoteExec  ["UAMT_fnc_cFquickMessage"];
+_messageText = format ["%1 Suspect: %2",_messageText, (name _killer)];
+
+[_messageText,_id,_messageAudio,side _killer,1,"fffff","PLAIN DOWN"] call UAMT_fnc_quickMsg;
