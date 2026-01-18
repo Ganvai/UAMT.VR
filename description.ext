@@ -410,6 +410,62 @@ class CfgSounds
 		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
 	};
 
+	//--------------------------------------------------------------------------
+	// Civilian Casualties
+	//--------------------------------------------------------------------------
+
+	class msg_civCas_1 {
+		name = "msg_civCas_1";										// how the sound is referred to in the editor
+		sound[] = {"sounds\UAMTSounds\civCasualties\msg_civCas_1.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
+	};
+
+	class msg_civCas_2 {
+		name = "msg_civCas_2";										// how the sound is referred to in the editor
+		sound[] = {"sounds\UAMTSounds\civCasualties\msg_civCas_2.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
+	};
+
+	class msg_civCas_3 {
+		name = "msg_civCas_3";										// how the sound is referred to in the editor
+		sound[] = {"sounds\UAMTSounds\civCasualties\msg_civCas_3.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
+	};
+
+	class msg_civCas_4 {
+		name = "msg_civCas_4";										// how the sound is referred to in the editor
+		sound[] = {"sounds\UAMTSounds\civCasualties\msg_civCas_4.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
+	};
+
+	
+	//--------------------------------------------------------------------------
+	// Friendly Fire
+	//--------------------------------------------------------------------------
+
+	class msg_friendlyFire_1 {
+		name = "msg_friendlyFire_1";										// how the sound is referred to in the editor
+		sound[] = {"sounds\UAMTSounds\FriendlyFire\msg_friendlyFire_1.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
+	};
+
+	class msg_friendlyFire_2 {
+		name = "msg_friendlyFire_2";										// how the sound is referred to in the editor
+		sound[] = {"sounds\UAMTSounds\FriendlyFire\msg_friendlyFire_2.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
+	};
+
+	class msg_friendlyFire_3 {
+		name = "msg_friendlyFire_3";										// how the sound is referred to in the editor
+		sound[] = {"sounds\UAMTSounds\FriendlyFire\msg_friendlyFire_3.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
+	};
+
+	class msg_friendlyFire_4 {
+		name = "msg_friendlyFire_4";										// how the sound is referred to in the editor
+		sound[] = {"sounds\UAMTSounds\FriendlyFire\msg_friendlyFire_4.ogg", 1, 1}; 	// filename, volume, pitch, distance (optional)
+		titles[] = {0, ""}; 												// subtitle delay in seconds, subtitle text
+	};
 };
 
 class CfgDebriefing
@@ -485,8 +541,6 @@ class CfgFunctions
 			
 			class addInspectAction{};
 			
-			class quickMsg{};
-			
 			class timer{};
 			
 			class AmbientVehicleFire{};
@@ -530,10 +584,11 @@ class CfgFunctions
 			class iedBlowUp{};	
 			class iedRush{};
 			
-			//Casualty Message Feature
+			//Quick Message Features
+			class quickMsg{};
+			class quickMsgPlay{};
 			class cFCivMessage{};
 			class cFFriendlyMessage{};
-			class cFquickMessage{};
 			
 			// Intel Feature
 			class intelAddHoldAction{};
@@ -580,17 +635,6 @@ class CfgFunctions
 			class hfsExecute {};
 			class hfsDestroyed {};
 			class hfsScripted {};
-		};
-	};
-
-	class UAMTafb
-	{
-		tag="UAMTafb";
-		class UAMTafbFunctions
-		{
-			file = "scripts\UAMTScripts\AmbienceScripts";
-			
-			class ambientFlyByExecute{};
 		};
 	};
 };

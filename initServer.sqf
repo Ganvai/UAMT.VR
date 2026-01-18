@@ -29,6 +29,41 @@ else {
 	missionNameSpace setVariable ["missionStarted",true,true];
 };
 
+//------------------------------------------------------------------
+//						Quick Message Feature
+//------------------------------------------------------------------
+
+//Create the Variable that handles the message queue
+missionNameSpace setVariable ["UAMTQMqueue",[],true];
+
+// Create the Queue Manager that runs for the whole mission on the server
+[] spawn {	
+	while {true} do {
+	
+		// Wait until an entry is added to the global sound queue
+		waitUntil {sleep 0.5; count (missionNameSpace getVariable ["UAMTQMqueue",[]]) > 0};
+		
+		// Get all values from the new queue entry
+		_queueMsg = +((missionNameSpace getVariable ["UAMTQMqueue",[]]) select 0);
+		
+		diag_log _queueMsg;
+		// get the length ascertained by the queue manager
+		_length = _queueMsg select 7;
+		
+		// delete the length entry from the array to avoid any backwards compatibility issues
+		_queueMsg deleteAt 7;
+		
+		// play the message on all clients
+		_queueMsg remoteExec ["UAMT_fnc_quickMsgPlay"];
+		
+		// Delete the entry in the queue from the global queue array
+		(missionNameSpace getVariable "UAMTQMqueue") deleteAt 0;
+		
+		// Sleep until the message was played and add additional 2 seconds to it
+		sleep (_length + 1);
+	};
+};
+
 
 //------------------------------------------------------------------
 //------------------------------------------------------------------
@@ -370,6 +405,53 @@ if (getMissionConfigValue "cFcivil" == "true") then {
 			};
 		}];
 	}forEach units civilian;
+	
+	{ alive (_x getVariable ["agentObject", objNull]) } count agents;
+
+	{
+		_agent = agent _x;
+		_agent addEventHandler ["Killed", {
+			params ["_unit", "_killer", "_instigator", "_useEffects"];
+
+			if (isPlayer _killer) then {
+				
+				_id = format ["civscriptid%1",_unit];
+				_text = format ["Civilian casualty. Suspected Shooter: %1.", name  _killer];
+				
+				_mrkr = createMarker [_id,getPosASL _unit];
+				_mrkr setMarkerShape "ICON";
+				_mrkr setMarkerType "hd_warning";
+				_mrkr setMarkerText _text;
+				_mrkr setMarkerColor "colorRed";
+				_mrkr setMarkerAlpha 0.5;
+				
+				[_killer] remoteExec ["UAMT_fnc_cFCivMessage",2];
+			};
+		}];
+	}forEach agents;
+	
+	["CAManBase", "init", {
+		if (side (_this select 0) == civilian) then {
+			(_this select 0) addEventHandler ["Killed", {
+				params ["_unit", "_killer", "_instigator", "_useEffects"];
+
+				if (isPlayer _killer) then {
+					
+					_id = format ["civscriptid%1",_unit];
+					_text = format ["Civilian casualty. Suspected Shooter: %1.", name  _killer];
+					
+					_mrkr = createMarker [_id,getPosASL _unit];
+					_mrkr setMarkerShape "ICON";
+					_mrkr setMarkerType "hd_warning";
+					_mrkr setMarkerText _text;
+					_mrkr setMarkerColor "colorRed";
+					_mrkr setMarkerAlpha 0.5;
+					
+					[_killer] remoteExec ["UAMT_fnc_cFCivMessage",2];
+				};
+			}];		
+		};
+	}] call CBA_fnc_addClassEventHandler;
 };
 
 if (getMissionConfigValue "cFfriendlies" == "true") then {
