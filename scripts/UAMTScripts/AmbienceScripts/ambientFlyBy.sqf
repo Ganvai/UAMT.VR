@@ -52,7 +52,7 @@ while {true} do {
 	
 	for "_i" from 1 to _amount do {
 	
-		[_vehicle,_startPos,_endPos,_AFBHeight] spawn UAMTafb_fnc_ambientFlyByExecute;
+		[_vehicle,_startPos,_endPos,_AFBHeight,_speed] spawn UAMTafb_fnc_ambientFlyByExecute;
 		
 		sleep 2;
 	};
