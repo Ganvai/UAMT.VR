@@ -92,10 +92,10 @@ if (_audioMessages == "true") then {
 	_msg = "This is Helo Airtaxi. Pickup location recieved. We are on our way.";
 
 	if (_customAudio == "true") then {
-		[_msg,"Pilot","msg_transportConfirm",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		[_msg,"Pilot","msg_transportConfirm",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		[_msg,"Pilot","Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		[_msg,"Pilot","Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 };
 
@@ -110,10 +110,10 @@ if (_audioMessages == "true") then {
 	_msg = "Helo Airtaxi touchdown. Board the chopper. Give the orders when everybody is on board.";
 
 	if (_customAudio == "true") then {
-		[_msg,"Pilot","msg_transportPickup",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		[_msg,"Pilot","msg_transportPickup",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		[_msg,"Pilot","Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		[_msg,"Pilot","Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 };
 
@@ -282,10 +282,10 @@ if (_audioMessages == "true") then {
 	_msg = "All personal be advised: Transport helicopter is back at base.";
 
 	if (_customAudio == "true") then {
-		[_msg,"TOC","msg_transportAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		[_msg,"TOC","msg_transportAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		[_msg,"TOC","Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		[_msg,"TOC","Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 };
 
@@ -295,10 +295,10 @@ if (_audioMessages == "true") then {
 	_msg = "Preparing Helicopter for new transport request.";
 
 	if (_customAudio == "true") then {
-		[_msg,"TOC","msg_transportRefuel",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		[_msg,"TOC","msg_transportRefuel",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		[_msg,"TOC","Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		[_msg,"TOC","Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 };	
 
@@ -315,9 +315,9 @@ if (_audioMessages == "true") then {
 	_msg = "All personal be advised: Transport helicopter is fueled up and standing by.";
 
 	if (_customAudio == "true") then {
-		[_msg,"TOC","msg_transportAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		[_msg,"TOC","msg_transportAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		[_msg,"TOC","Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		[_msg,"TOC","Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 };

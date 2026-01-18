@@ -103,10 +103,10 @@ sleep _timeToTransit;
 
 if (_pilotTalking == "true") then {
 	if (_uamtAudio == "true") then {
-		["Okay, listen up. We will now start our climb to the jump height of 3000 meters. This will be a rapid pressure change, so be ready to pop your ears.","Pilot","msg_HALOClimbStart",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["Okay, listen up. We will now start our climb to the jump height of 3000 meters. This will be a rapid pressure change, so be ready to pop your ears.","Pilot","msg_HALOClimbStart",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		["Okay, listen up. We will now start our climb to the jump height of 3000 meters. This will be a rapid pressure change, so be ready to pop your ears.","Pilot","Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["Okay, listen up. We will now start our climb to the jump height of 3000 meters. This will be a rapid pressure change, so be ready to pop your ears.","Pilot","Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 };
 

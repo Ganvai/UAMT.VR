@@ -11,10 +11,10 @@ if (_audioMessages == "true") then {
 	_msg = "All personal be advised: Transport Helicopter was destroyed.";
 
 	if (_customAudio == "true") then {
-		[_msg,"TOC","msg_transportDestroyed",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		[_msg,"TOC","msg_transportDestroyed",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		[_msg,"TOC","Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		[_msg,"TOC","Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 };	
 
@@ -26,10 +26,10 @@ if (getMissionConfigValue "chtRespawn" > 0) then {
 		_msg = "Preparing Helicopter for new transport request.";
 
 		if (_customAudio == "true") then {
-			[_msg,"TOC","msg_transportRefuel",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			[_msg,"TOC","msg_transportRefuel",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		}
 		else {
-			[_msg,"TOC","Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			[_msg,"TOC","Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		};
 	};	
 
@@ -45,10 +45,10 @@ if (getMissionConfigValue "chtRespawn" > 0) then {
 		_msg = "All personal be advised: Transport helicopter is fueled up and standing by.";
 
 		if (_customAudio == "true") then {
-			[_msg,"TOC","msg_transportAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			[_msg,"TOC","msg_transportAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		}
 		else {
-			[_msg,"TOC","Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			[_msg,"TOC","Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		};
 	};
 };

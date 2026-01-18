@@ -17,10 +17,10 @@ if (_audioMessages) then {
 	_msg = format ["All Units be advised: CAS is rerouted to your coordinates. ETA: %1 mike", _delayMike];
 
 	if (_customAudio) then {
-		[_msg,_supportControlName,"msg_CASReroute",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		[_msg,_supportControlName,"msg_CASReroute",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		[_msg,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		[_msg,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 };
 
@@ -105,10 +105,10 @@ _plane setvariable ["ehFired",_ehFired];
 
 if (_audioMessages) then {
 	if (_customAudio) then {
-		["All Units be advised: CAS Aircraft is inbound.",_supportControlName,"msg_CASInbound",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["All Units be advised: CAS Aircraft is inbound.",_supportControlName,"msg_CASInbound",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		["All Units be advised: CAS Aircraft is inbound.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["All Units be advised: CAS Aircraft is inbound.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 };
 
@@ -175,10 +175,10 @@ waituntil {
 if (!alive _plane) exitWith {
 	if (_audioMessages) then {
 		if (_customAudio) then {
-			["All Units be advised: CAS Element was lost during Firemission.",_supportControlName,"msg_CASLostFire",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			["All Units be advised: CAS Element was lost during Firemission.",_supportControlName,"msg_CASLostFire",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		}
 		else {
-			["All Units be advised: CAS Element was lost during Firemission.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			["All Units be advised: CAS Element was lost during Firemission.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		};
 
 		sleep 2;
@@ -199,10 +199,10 @@ if ({_x == "bomblauncher"} count _weaponTypes == 0) then {
 
 if (_audioMessages) then {
 	if (_customAudio) then {
-		["CAS Firemission done. Aircraft is leaving the staging area.",_supportControlName,"msg_CASDone",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["CAS Firemission done. Aircraft is leaving the staging area.",_supportControlName,"msg_CASDone",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		["CAS Firemission done. Aircraft is leaving the staging area.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["CAS Firemission done. Aircraft is leaving the staging area.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 };
 
@@ -225,10 +225,10 @@ if (alive _plane) then {
 		_msg = format ["Be advised: CAS Aircraft is returning to holding pattern and preparing for new strike. ETA: %1 mike",_cooldownMike];
 		
 		if (_customAudio) then {
-			[_msg,_supportControlName,"msg_CASPrepare",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			[_msg,_supportControlName,"msg_CASPrepare",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		}
 		else {
-			[_msg,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			[_msg,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		};
 	};
 };

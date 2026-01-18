@@ -35,10 +35,10 @@ _haloMarker setMarkerType "hd_pickup_noShadow";
 
 if (getMissionConfigValue "supportMessages" == "true") then {
 	if (getMissionConfigValue "supportCustomAudio" == "true") then {
-		["HALO Aircraft is ready and waiting for you. Get your parachutes and board the Aircraft.","Pilot","msg_HALOReady",_side] remoteExec ["UAMT_fnc_quickMsg"];
+		["HALO Aircraft is ready and waiting for you. Get your parachutes and board the Aircraft.","Pilot","msg_HALOReady",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		["HALO Aircraft is ready and waiting for you. Get your parachutes and board the Aircraft.","Pilot","Radio",_side] remoteExec ["UAMT_fnc_quickMsg"];
+		["HALO Aircraft is ready and waiting for you. Get your parachutes and board the Aircraft.","Pilot","Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 };
 

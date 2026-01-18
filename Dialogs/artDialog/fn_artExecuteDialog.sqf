@@ -56,10 +56,10 @@ if (_audioMessages == "true") then {
 	_artiMessage = format ["All Units be advised: Artillery Coordinates recieved. Starting Firemission. Splash ETA: %1 Seconds", round _artiETA];
 
 	if (_customAudio == "true") then {
-		[_artiMessage,_supportControlName,"msg_ArtilleryStarting",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		[_artiMessage,_supportControlName,"msg_ArtilleryStarting",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		[_artiMessage,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		[_artiMessage,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 	
 	sleep 3;
@@ -147,10 +147,10 @@ else {
 // Send All Rounds Out Messsage
 if (_audioMessages == "true") then {
 	if (_customAudio == "true") then {
-		["Be advised: All rounds out.",_supportControlName,"msg_ArtilleryRounds",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["Be advised: All rounds out.",_supportControlName,"msg_ArtilleryRounds",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		["Be advised: All rounds out.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["Be advised: All rounds out.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 
 	sleep 3;
@@ -161,10 +161,10 @@ if (_audioMessages == "true") then {
 		waitUntil {sleep 1; time > _timer + _artiETA};
 		
 		if (_customAudio == "true") then {
-			["Be advised: Splash.",_supportControlName,"msg_ArtillerySplash",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			["Be advised: Splash.",_supportControlName,"msg_ArtillerySplash",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		}
 		else {
-			["Be advised: Splash.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			["Be advised: Splash.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		};
 		
 		sleep 3;
@@ -184,10 +184,10 @@ if (_audioMessages == "true") then {
 	_msg = format ["All Units: Fire Mission done. Preparing new Strike. ETA: %1 mike.",_cooldownMike];
 
 	if (_customAudio == "true") then {
-		[_msg,_supportControlName,"msg_ArtilleryEnd",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		[_msg,_supportControlName,"msg_ArtilleryEnd",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		[_msg,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		[_msg,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};	
 };
 
@@ -195,10 +195,10 @@ sleep _cooldown;
 
 if (_audioMessages == "true") then {
 	if (_customAudio == "true") then {
-		["Be advised: New Artillery Strike is available.",_supportControlName,"msg_ArtilleryAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["Be advised: New Artillery Strike is available.",_supportControlName,"msg_ArtilleryAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		["Be advised: New Artillery Strike is available.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["Be advised: New Artillery Strike is available.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 };
 

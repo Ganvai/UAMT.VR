@@ -38,10 +38,10 @@ if (_audioMessages == "true") then {
 	_msg = format ["All Units be advised: CAS Aircraft is rerouted to your coordinates. ETA: %1 mike", _delayMike];
 
 	if (_customAudio == "true") then {
-		[_msg,_supportControlName,"msg_CASReroute",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		[_msg,_supportControlName,"msg_CASReroute",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		[_msg,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		[_msg,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 	
 	sleep 10;
@@ -138,10 +138,10 @@ _plane setvariable ["ehFired",_ehFired];
 
 if (_audioMessages == "true") then {
 	if (_customAudio == "true") then {
-		["All Units be advised: CAS Aircraft is inbound.",_supportControlName,"msg_CASInbound",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["All Units be advised: CAS Aircraft is inbound.",_supportControlName,"msg_CASInbound",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		["All Units be advised: CAS Aircraft is inbound.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["All Units be advised: CAS Aircraft is inbound.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 };
 
@@ -211,10 +211,10 @@ if (!canMove _plane) exitWith {
 	
 	if (_audioMessages == "true") then {
 		if (_customAudio == "true") then {
-			["All Units be advised: CAS Element was lost during Firemission.",_supportControlName,"msg_CASLostFire",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			["All Units be advised: CAS Element was lost during Firemission.",_supportControlName,"msg_CASLostFire",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		}
 		else {
-			["All Units be advised: CAS Element was lost during Firemission.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			["All Units be advised: CAS Element was lost during Firemission.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		};
 
 		sleep 5;
@@ -231,10 +231,10 @@ if (!canMove _plane) exitWith {
 		
 		if (_audioMessages == "true") then {
 			if (_customAudio == "true") then {
-				["Be advised: New CAS is available.",_supportControlName,"msg_CASAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+				["Be advised: New CAS is available.",_supportControlName,"msg_CASAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 			}
 			else {
-				["Be advised: New CAS is available.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+				["Be advised: New CAS is available.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 			};
 		};
 	}
@@ -243,10 +243,10 @@ if (!canMove _plane) exitWith {
 
 		if (_audioMessages == "true") then {
 			if (_customAudio == "true") then {
-				["No other CAS Aircrafts available. You are on your own now.",_supportControlName,"msg_CASNoCAS",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+				["No other CAS Aircrafts available. You are on your own now.",_supportControlName,"msg_CASNoCAS",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 			}
 			else {
-				["No other CAS Aircrafts available. You are on your own now.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+				["No other CAS Aircrafts available. You are on your own now.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 			};
 		};
 	};
@@ -266,10 +266,10 @@ if ({_x == "bomblauncher"} count _weaponTypes == 0) then {
 
 if (_audioMessages == "true") then {
 	if (_customAudio == "true") then {
-		["CAS Firemission done. Aircraft is leaving the staging area.",_supportControlName,"msg_CASDone",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["CAS Firemission done. Aircraft is leaving the staging area.",_supportControlName,"msg_CASDone",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		["CAS Firemission done. Aircraft is leaving the staging area.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["CAS Firemission done. Aircraft is leaving the staging area.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 };
 
@@ -293,10 +293,10 @@ if (canMove _plane) then {
 			_msg = format ["Be advised: CAS Aircraft is returning to holding pattern and preparing for new strike. ETA: %1 mike",_cooldownMike];
 			
 			if (_customAudio == "true") then {
-				[_msg,_supportControlName,"msg_CASPrepare",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+				[_msg,_supportControlName,"msg_CASPrepare",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 			}
 			else {
-				[_msg,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+				[_msg,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 			};
 			
 			sleep 10;
@@ -308,10 +308,10 @@ if (canMove _plane) then {
 
 		if (_audioMessages == "true") then {
 			if (_customAudio == "true") then {
-				["Be advised: New CAS is available.",_supportControlName,"msg_CASAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+				["Be advised: New CAS is available.",_supportControlName,"msg_CASAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 			}
 			else {
-				["Be advised: New CAS is available.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+				["Be advised: New CAS is available.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 			};
 		};
 	}
@@ -321,10 +321,10 @@ if (canMove _plane) then {
 
 		if (_audioMessages == "true") then {
 			if (_customAudio == "true") then {
-				["Be advised: Aircraft is bingo ammo and RTB. No more CAS Strikes available.",_supportControlName,"msg_CASLastCAS",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+				["Be advised: Aircraft is bingo ammo and RTB. No more CAS Strikes available.",_supportControlName,"msg_CASLastCAS",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 			}
 			else {
-				["Be advised: Aircraft is bingo ammo and RTB. No more CAS Strikes available.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+				["Be advised: Aircraft is bingo ammo and RTB. No more CAS Strikes available.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 			};
 		};
 	};
@@ -332,10 +332,10 @@ if (canMove _plane) then {
 else {
 	if (_audioMessages == "true") then {
 		if (_customAudio == "true") then {
-			["All Units be advised: CAS Element was lost on extraction.",_supportControlName,"msg_CASLostExtract",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			["All Units be advised: CAS Element was lost on extraction.",_supportControlName,"msg_CASLostExtract",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		}
 		else {
-			["All Units be advised: CAS Element was lost on extraction.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			["All Units be advised: CAS Element was lost on extraction.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		};
 	
 		sleep 5;
@@ -350,10 +350,10 @@ else {
 		
 		if (_audioMessages == "true") then {
 			if (_customAudio == "true") then {
-				["Be advised: New CAS is available.",_supportControlName,"msg_CASAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+				["Be advised: New CAS is available.",_supportControlName,"msg_CASAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 			}
 			else {
-				["Be advised: New CAS is available.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+				["Be advised: New CAS is available.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 			};
 		};
 	}
@@ -363,10 +363,10 @@ else {
 
 		if (_audioMessages == "true") then {
 			if (_customAudio == "true") then {
-				["No other CAS Aircrafts available. You are on your own now.",_supportControlName,"msg_CASNoCAS",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+				["No other CAS Aircrafts available. You are on your own now.",_supportControlName,"msg_CASNoCAS",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 			}
 			else {
-				["No other CAS Aircrafts available. You are on your own now.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+				["No other CAS Aircrafts available. You are on your own now.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 			};
 		};
 	};

@@ -30,10 +30,10 @@ if (_createMarker) then {
 
 if (_audioMessages) then {
 	if (_customAudio) then {
-		["Be advised: Helicopters are en route to your position.",_supportControlName,"msg_hfsEnRoute",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["Be advised: Helicopters are en route to your position.",_supportControlName,"msg_hfsEnRoute",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		["Be advised: Helicopters are en route to your position",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["Be advised: Helicopters are en route to your position",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 };
 
@@ -65,20 +65,20 @@ waitUntil {sleep 0.5; {_x distance2D _targetPos < 1000} count _heloVehArr > 0  |
 if ({alive _x} count _heloVehArr == 0) exitWith {
 	if (_audioMessages) then {
 		if (_customAudio) then {
-			["All Units: Helicopters were destroyed.",_supportControlName,"msg_hfsDestroyed",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			["All Units: Helicopters were destroyed.",_supportControlName,"msg_hfsDestroyed",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		}
 		else {
-			["All Units: Helicopters were destroyed.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			["All Units: Helicopters were destroyed.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		};
 	};
 };
 
 if (_audioMessages) then {
 	if (_customAudio) then {
-		["Be advised: Helicopters arriving at target area.",_supportControlName,"msg_hfsArrive",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["Be advised: Helicopters arriving at target area.",_supportControlName,"msg_hfsArrive",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		["Be advised: Helicopters arriving at target area.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["Be advised: Helicopters arriving at target area.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 };
 
@@ -97,20 +97,20 @@ waitUntil {sleep 1; time - _timer > _duration || {canMove _x} count _heloVehArr 
 if ({alive _x} count _heloVehArr == 0) exitWith {
 	if (_audioMessages) then {
 		if (_customAudio) then {
-			["All Units: Helicopters were destroyed.",_supportControlName,"msg_hfsDestroyed",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			["All Units: Helicopters were destroyed.",_supportControlName,"msg_hfsDestroyed",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		}
 		else {
-			["All Units: Helicopters were destroyed.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			["All Units: Helicopters were destroyed.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		};
 	};
 };
 
 if (_audioMessages) then {
 	if (_customAudio) then {
-		["Be advised: Helicopter-Element is Bingo fuel and RTB.",_supportControlName,"msg_hfsBingo",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["Be advised: Helicopter-Element is Bingo fuel and RTB.",_supportControlName,"msg_hfsBingo",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		["Be advised: Helicopter-Element is Bingo fuel and RTB.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["Be advised: Helicopter-Element is Bingo fuel and RTB.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 };
 
@@ -156,10 +156,10 @@ waituntil {sleep 1; {_x distance2D _spawnPos < 100} count _heloVehArr > 0 || {ca
 if ({alive _x} count _heloVehArr == 0) exitWith {
 	if (_audioMessages) then {
 		if (_customAudio) then {
-			["All Units: Helicopters were destroyed.",_supportControlName,"msg_hfsDestroyed",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			["All Units: Helicopters were destroyed.",_supportControlName,"msg_hfsDestroyed",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		}
 		else {
-			["All Units: Helicopters were destroyed.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			["All Units: Helicopters were destroyed.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		};
 	};
 };

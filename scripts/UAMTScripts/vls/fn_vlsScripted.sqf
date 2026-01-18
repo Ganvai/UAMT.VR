@@ -13,10 +13,10 @@ if (_audioMessages) then {
 	_msg = format ["Coordinates recieved. Preparing missile launch."];
 
 	if (_customAudio) then {
-		[_msg,_supportControlName,"msg_vlsPrepare",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		[_msg,_supportControlName,"msg_vlsPrepare",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		[_msg,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		[_msg,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 
 	sleep 2;
@@ -36,10 +36,10 @@ if ( _ammo != _vls currentMagazineTurret [0] ) then {
 		_msg = format ["Reloading Missile Array. Time to launch: 2.5 mike!"];
 
 		if (_customAudio) then {
-			[_msg,_supportControlName,"msg_vlsReload",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			[_msg,_supportControlName,"msg_vlsReload",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		}
 		else {
-			[_msg,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			[_msg,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		};
 	};
 
@@ -50,10 +50,10 @@ if (_audioMessages) then {
 	
 	_msg = format ["All units: Missile away!"];
 	if (_customAudio) then {
-		[_msg,_supportControlName,"msg_vlsAway",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		[_msg,_supportControlName,"msg_vlsAway",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		[_msg,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		[_msg,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 	
 	sleep 2;

@@ -25,10 +25,10 @@ private _waypoint = "";
 
 if (_supportMessages == "true") then {
 	if (_supportCustomAudio == "true") then {
-		["Vehicles are fueled up and ready to go.",_supportControlName,"msg_carsReady",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["Vehicles are fueled up and ready to go.",_supportControlName,"msg_carsReady",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		["Vehicles are fueled up and ready to go.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["Vehicles are fueled up and ready to go.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 };
 

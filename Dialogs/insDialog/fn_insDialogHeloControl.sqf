@@ -10,10 +10,10 @@ _insHeloVeh = [];
 
 if (getMissionConfigValue "supportMessages" == "true") then {
 	if (getMissionConfigValue "supportCustomAudio" == "true") then {
-		["Helicopters are standing by and waiting for you.","Pilot","msg_heloReady",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["Helicopters are standing by and waiting for you.","Pilot","msg_heloReady",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		["Helicopters are standing by and waiting for you.","Pilot","Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["Helicopters are standing by and waiting for you.","Pilot","Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 };
 

@@ -27,10 +27,10 @@ if (_audioMessages == "true") then {
 	_msg = format ["Coordinates recieved. Preparing missile launch."];
 
 	if (_customAudio == "true") then {
-		[_msg,_supportControlName,"msg_vlsPrepare",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		[_msg,_supportControlName,"msg_vlsPrepare",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		[_msg,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		[_msg,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 
 	sleep 3.5;
@@ -55,10 +55,10 @@ if ( _ammo != _vlsObj currentMagazineTurret [0] ) then {
 		_msg = format ["Reloading Missile Array. Time to launch: 2.5 mike!"];
 
 		if (_customAudio == "true") then {
-			[_msg,_supportControlName,"msg_vlsReload",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			[_msg,_supportControlName,"msg_vlsReload",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		}
 		else {
-			[_msg,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			[_msg,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		};
 	};
 };
@@ -71,10 +71,10 @@ if (_audioMessages == "true") then {
 	
 	_msg = format ["All units be advised: Missile away!"];
 	if (_customAudio == "true") then {
-		[_msg,_supportControlName,"msg_vlsAway",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		[_msg,_supportControlName,"msg_vlsAway",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		[_msg,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		[_msg,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 	
 	sleep 3.5;
@@ -106,10 +106,10 @@ if ((getPos (missionNameSpace getVariable ["vlsMissile",objNull])) select 2 > 10
 
 if (_audioMessages == "true") then {
 	if (_customAudio == "true") then {
-		["Missile distance to target: 1000 meters",_supportControlName,"msg_vls1000",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["Missile distance to target: 1000 meters",_supportControlName,"msg_vls1000",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		["Missile distance to target: 1000 meters",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["Missile distance to target: 1000 meters",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 };
 
@@ -118,20 +118,20 @@ waitUntil {sleep 0.5; !alive (missionNameSpace getVariable ["vlsMissile",objNull
 if (!alive (missionNameSpace getVariable ["vlsMissile",objNull]) && !_error) then {
 	if (_audioMessages == "true") then {
 		if (_customAudio == "true") then {
-			["Missile Impact",_supportControlName,"msg_vlsimpact",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			["Missile Impact",_supportControlName,"msg_vlsimpact",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		}
 		else {
-			["Missile Impact",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			["Missile Impact",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		};
 	};
 }
 else {
 	if (_audioMessages == "true") then {
 		if (_customAudio == "true") then {
-			["Missile Guidance Error. Executing Selfdestruct.",_supportControlName,"msg_vlsSelfDestruct",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			["Missile Guidance Error. Executing Selfdestruct.",_supportControlName,"msg_vlsSelfDestruct",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		}
 		else {
-			["Missile Guidance Error. Executing Selfdestruct.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			["Missile Guidance Error. Executing Selfdestruct.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		};
 	};
 
@@ -149,10 +149,10 @@ if ( (missionNameSpace getVariable "vlsHERounds") > 0 || (missionNameSpace getVa
 		_msg = format ["Be advised: VLS array is reloaded. Standing by for new coordinates."];
 
 		if (_customAudio == "true") then {
-			[_msg,_supportControlName,"msg_vlsAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			[_msg,_supportControlName,"msg_vlsAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		}
 		else {
-			[_msg,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			[_msg,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		};
 	};
 }
@@ -161,10 +161,10 @@ else {
 		_msg = format ["Be advised: VLS is bingo ammo. No more missile strikes available."];
 
 		if (_customAudio == "true") then {
-			[_msg,_supportControlName,"msg_vlsEnd",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			[_msg,_supportControlName,"msg_vlsEnd",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		}
 		else {
-			[_msg,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			[_msg,_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		};
 	};
 };

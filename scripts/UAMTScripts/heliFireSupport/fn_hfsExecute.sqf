@@ -38,10 +38,10 @@ if (_createMarker) then {
 
 if (_audioMessages == "true") then {
 	if (_customAudio == "true") then {
-		["Be advised: Helicopters are en route to your position.",_supportControlName,"msg_hfsEnRoute",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["Be advised: Helicopters are en route to your position.",_supportControlName,"msg_hfsEnRoute",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		["Be advised: Helicopters are en route to your position",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["Be advised: Helicopters are en route to your position",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 };
 
@@ -94,10 +94,10 @@ if ({alive _x} count _heloVehArr == 0) exitWith {
 
 if (_audioMessages == "true") then {
 	if (_customAudio == "true") then {
-		["All units: Helicopters arriving at target area.",_supportControlName,"msg_hfsArrive",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["All units: Helicopters arriving at target area.",_supportControlName,"msg_hfsArrive",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		["All units: Helicopters arriving at target area.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["All units: Helicopters arriving at target area.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 };
 
@@ -138,10 +138,10 @@ missionNameSpace setVariable ["hfsStatus",3,true];
 
 if (_audioMessages == "true") then {
 	if (_customAudio == "true") then {
-		["Be advised: Helicopter-Element is Bingo fuel and RTB.",_supportControlName,"msg_hfsBingo",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["Be advised: Helicopter-Element is Bingo fuel and RTB.",_supportControlName,"msg_hfsBingo",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		["Be advised: Helicopter-Element is Bingo fuel and RTB.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["Be advised: Helicopter-Element is Bingo fuel and RTB.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 };
 
@@ -222,9 +222,9 @@ missionNameSpace setVariable ["hfsStatus",0,true];
 
 if (_audioMessages == "true") then {
 	if (_customAudio == "true") then {
-		["All Units be advised: Helicopters are standing by for fire support.",_supportControlName,"msg_hfsAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["All Units be advised: Helicopters are standing by for fire support.",_supportControlName,"msg_hfsAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		["All Units be advised: Helicopters are standing by for fire support.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["All Units be advised: Helicopters are standing by for fire support.",_supportControlName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 };

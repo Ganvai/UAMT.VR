@@ -99,10 +99,10 @@ _supplyDropVehicle flyInHeight 150;
 //Send Audio Messages
 if (_audio) then {
 	if (_customAudio) then {
-		["Coordinates recieved. Supply Drop is on the way.",_radioName,"msg_supplyDropConfirm",_side] remoteExec ["UAMT_fnc_quickMsg",_side];	
+		["Coordinates recieved. Supply Drop is on the way.",_radioName,"msg_supplyDropConfirm",_side] remoteExec ["UAMT_fnc_quickMsg",2];	
 	}
 	else {
-		["Coordinates recieved. Supply Drop is on the way.",_radioName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];	
+		["Coordinates recieved. Supply Drop is on the way.",_radioName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];	
 	};
 };
 
@@ -119,10 +119,10 @@ if (not canMove _supplyDropVehicle) exitWith {
 	// Send Audio Message
 	if (_audio) then {
 		if (_customAudio) then {
-			["Supply Helicopter was destroyed before it could reach the dropzone.",_radioName,"msg_SupplyDropDestroyedBefore",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			["Supply Helicopter was destroyed before it could reach the dropzone.",_radioName,"msg_SupplyDropDestroyedBefore",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		}
 		else {
-			["Supply Helicopter was destroyed before it could reach the dropzone.",_radioName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			["Supply Helicopter was destroyed before it could reach the dropzone.",_radioName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		};		
 	};
 	
@@ -147,10 +147,10 @@ if (not canMove _supplyDropVehicle) exitWith {
 				sleep 3;
 
 				if (_customAudio) then {
-					[_msg,_radioName,"msg_supplyDropPrepare",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+					[_msg,_radioName,"msg_supplyDropPrepare",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 				}
 				else {
-					[_msg,_radioName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+					[_msg,_radioName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 				};
 			};
 
@@ -163,10 +163,10 @@ if (not canMove _supplyDropVehicle) exitWith {
 			// Send Audio Message
 			if (_audio) then {
 				if (_customAudio) then {
-					["All Elements, be advised: New Supply Drop is available.",_radioName,"msg_supplyDropAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+					["All Elements, be advised: New Supply Drop is available.",_radioName,"msg_supplyDropAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 				}
 				else {
-					["All Elements, be advised: New Supply Drop is available.",_radioName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+					["All Elements, be advised: New Supply Drop is available.",_radioName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 				};
 			};
 		}
@@ -178,10 +178,10 @@ if (not canMove _supplyDropVehicle) exitWith {
 
 			if (_audio) then {
 				if (_customAudio) then {
-					["This was the last Supply Drop available. We can't send anymore.",_radioName,"msg_supplyDropLast",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+					["This was the last Supply Drop available. We can't send anymore.",_radioName,"msg_supplyDropLast",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 				}
 				else {
-					["This was the last Supply Drop available. We can't send anymore.",_radioName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+					["This was the last Supply Drop available. We can't send anymore.",_radioName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 				};
 			};
 		};
@@ -197,10 +197,10 @@ _Box disableCollisionWith _supplyDropVehicle;
 
 if (_audio) then {
 	if (_customAudio) then {
-		["All Units: Supply Drop is out. Helicopter is RTB.",_radioName,"msg_supplyDropOut",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["All Units: Supply Drop is out. Helicopter is RTB.",_radioName,"msg_supplyDropOut",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		["All Units: Supply Drop is out. Helicopter is RTB.",_radioName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["All Units: Supply Drop is out. Helicopter is RTB.",_radioName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 };
 
@@ -282,10 +282,10 @@ if (not canMove _supplyDropVehicle) exitWith {
 
 	if (_audio) then {
 		if (_customAudio) then {
-			["All Elements, be advised: Supply Drop was destroyed on its way back to base.",_radioName,"msg_supplyDropDestroyedBase",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			["All Elements, be advised: Supply Drop was destroyed on its way back to base.",_radioName,"msg_supplyDropDestroyedBase",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		}
 		else {
-			["All Elements, be advised: Supply Drop was destroyed on its way back to base.",_radioName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+			["All Elements, be advised: Supply Drop was destroyed on its way back to base.",_radioName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 		};	
 	};
 	
@@ -308,10 +308,10 @@ if (not canMove _supplyDropVehicle) exitWith {
 				sleep 3;
 
 				if (_customAudio) then {
-					[_msg,_radioName,"msg_supplyDropPrepare",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+					[_msg,_radioName,"msg_supplyDropPrepare",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 				}
 				else {
-					[_msg,_radioName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+					[_msg,_radioName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 				};
 			};
 			
@@ -323,10 +323,10 @@ if (not canMove _supplyDropVehicle) exitWith {
 			
 			if (_audio) then {
 				if (_customAudio) then {
-					["All Elements, be advised: New Supply Drop is available.",_radioName,"msg_supplyDropAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+					["All Elements, be advised: New Supply Drop is available.",_radioName,"msg_supplyDropAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 				}
 				else {
-					["All Elements, be advised: New Supply Drop is available.",_radioName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+					["All Elements, be advised: New Supply Drop is available.",_radioName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 				};
 			};
 		}
@@ -337,10 +337,10 @@ if (not canMove _supplyDropVehicle) exitWith {
 
 			if (_audio) then {
 				if (_customAudio) then {
-					["This was the last Supply Drop available. We can't send anymore.",_radioName,"msg_supplyDropLast",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+					["This was the last Supply Drop available. We can't send anymore.",_radioName,"msg_supplyDropLast",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 				}
 				else {
-					["This was the last Supply Drop available. We can't send anymore.",_radioName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+					["This was the last Supply Drop available. We can't send anymore.",_radioName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 				};
 			};
 		};
@@ -353,10 +353,10 @@ DeleteVehicle _supplyDropVehicle;
 
 if (_audio) then {
 	if (_customAudio) then {
-		["All Units: Supply Helicopter is back at Base.",_radioName,"msg_supplyDropBack",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["All Units: Supply Helicopter is back at Base.",_radioName,"msg_supplyDropBack",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	}
 	else {
-		["All Units: Supply Helicopter is back at Base.",_radioName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+		["All Units: Supply Helicopter is back at Base.",_radioName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 	};
 };
 
@@ -380,10 +380,10 @@ if (_UAMT) then {
 			sleep 3;
 
 			if (_customAudio) then {
-				[_msg,_radioName,"msg_supplyDropPrepare",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+				[_msg,_radioName,"msg_supplyDropPrepare",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 			}
 			else {
-				[_msg,_radioName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+				[_msg,_radioName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 			};
 		};
 
@@ -395,10 +395,10 @@ if (_UAMT) then {
 		
 		if (_audio) then {
 			if (_customAudio) then {
-				["All Elements, be advised: New Supply Drop is available.",_radioName,"msg_supplyDropAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+				["All Elements, be advised: New Supply Drop is available.",_radioName,"msg_supplyDropAvailable",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 			}
 			else {
-				["All Elements, be advised: New Supply Drop is available.",_radioName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+				["All Elements, be advised: New Supply Drop is available.",_radioName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 			};
 		};
 	}
@@ -408,10 +408,10 @@ if (_UAMT) then {
 
 		if (_audio) then {
 			if (_customAudio) then {
-				["This was the last Supply Drop available. We can't send anymore.",_radioName,"msg_supplyDropLast",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+				["This was the last Supply Drop available. We can't send anymore.",_radioName,"msg_supplyDropLast",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 			}
 			else {
-				["This was the last Supply Drop available. We can't send anymore.",_radioName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",_side];
+				["This was the last Supply Drop available. We can't send anymore.",_radioName,"Radio",_side] remoteExec ["UAMT_fnc_quickMsg",2];
 			};
 		};
 	};
