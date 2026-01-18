@@ -111,17 +111,18 @@ if (_pack isEqualType "") then {
 };
 
 // handle NVGs
-if (_nvgs != "") then {
+/*if (_nvgs != "") then {
 	_itemsUniform pushBack [_nvgs,1];
 	_nvgs = "";
-};
+};*/
 
 // handle terminal
 if (_gps != "") then {
 	if (_gps in ["terminal_t1","terminal_t2","terminal_t3"]) then {	
-		if (isClass(configFile >> "cfgPatches" >> "cTab")) then {
+		if ( (isClass(configFile >> "cfgPatches" >> "cTab")) ) then {
 			_gps = format ["ctab_%1",_gps];		
 		};
+		
 		_gps = ([missionConfigFile >> "CfgFactionEquipment" >> _gps] call BIS_fnc_returnConfigEntry);
 	};
 };
@@ -139,8 +140,8 @@ if (_radio != "") then {
 // check inventory-container space at this point ??
 
 // https://community.bistudio.com/wiki/Unit_Loadout_Array
-private _newLoadout = [[	
-	_primary,				
+private _newLoadout = [[
+	_primary,
 	_secondary,
 	_handgun,
 	_uniformArr,
