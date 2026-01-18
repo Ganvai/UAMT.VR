@@ -21,6 +21,29 @@ _unit setUnitLoadout _loadoutArray;
 
 private _unitLoadOut = _unit getVariable ["loadout", "DefaultLoadout"];
 
+// Check for cTab NSWDG Edition because their Items get into inventory and not into the Slot.
+if ( isClass(configFile >> "cfgPatches" >> "cTab") ) then {
+
+	// Get the GPS Item from the config
+	private _gps = [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut, "terminal", ""] call BIS_fnc_returnConfigEntry;
+	
+	
+	if (_gps != "") then {
+	
+		// Check if the assigned GPS Item should infact be replaced by a cTab alternative
+		if (_gps in ["terminal_t1","terminal_t2","terminal_t3"]) then {	
+			
+			_gps = format ["ctab_%1",_gps];
+			_gps = ([missionConfigFile >> "CfgFactionEquipment" >> _gps] call BIS_fnc_returnConfigEntry);
+			
+			if !(_gps in (assignedItems _unit)) then {
+				_unit addItem _gps;
+			};			
+		};
+	};
+	
+};
+
 // apply insignia
 private _insignia = [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut, "insignia", [""]] call BIS_fnc_returnConfigEntry;
 if ((count _insignia) > 0) then {
