@@ -21,7 +21,7 @@ _roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "he
 _roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "facewear",""] call BIS_fnc_returnConfigEntry );
 _roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "uniforms",""] call BIS_fnc_returnConfigEntry );
 _roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "vests",""] call BIS_fnc_returnConfigEntry );
-_roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "backpack",""] call BIS_fnc_returnConfigEntry );
+//_roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "backpack",""] call BIS_fnc_returnConfigEntry );
 _roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "primary",""] call BIS_fnc_returnConfigEntry );
 _roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "handgun",""] call BIS_fnc_returnConfigEntry );
 _roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "secondary",""] call BIS_fnc_returnConfigEntry );
@@ -59,6 +59,19 @@ if (_radio != "") then {
 		_radio = ([missionConfigFile >> "CfgFactionEquipment" >> "acre_radio"] call BIS_fnc_returnConfigEntry);
 	};
 	_roleItems pushBack _radio;
+};
+
+// handle backpacks
+private _pack = ([missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "backpack","",[]] call BIS_fnc_returnConfigEntry);
+if ((count _pack) > 0) then {
+	{
+		if (_x in ["backpack_std","backpack_med","backpack_big"]) then {		
+			private _packArray = ([missionConfigFile >> "CfgFactionEquipment" >> _x] call BIS_fnc_returnConfigEntry);
+			_roleItems pushBack _packArray;	   
+		} else {
+			_roleItems pushBack _x;
+		};
+	} forEach _pack;
 };
 
 _roleItems = flatten _roleItems;
