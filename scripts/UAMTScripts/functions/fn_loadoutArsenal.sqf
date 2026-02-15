@@ -26,8 +26,8 @@ _roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "pr
 _roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "handgun",""] call BIS_fnc_returnConfigEntry );
 _roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "secondary",""] call BIS_fnc_returnConfigEntry );
 _roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "map",""] call BIS_fnc_returnConfigEntry );
-_roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "terminal",""] call BIS_fnc_returnConfigEntry );
-_roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "radio",""] call BIS_fnc_returnConfigEntry );
+//_roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "terminal",""] call BIS_fnc_returnConfigEntry );
+//_roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "radio",""] call BIS_fnc_returnConfigEntry );
 _roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "compass",""] call BIS_fnc_returnConfigEntry );
 _roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "watch",""] call BIS_fnc_returnConfigEntry );
 _roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "nvgs",""] call BIS_fnc_returnConfigEntry );
@@ -36,6 +36,30 @@ _roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "it
 _roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "itemsVest",""] call BIS_fnc_returnConfigEntry );
 _roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "itemsBackPack",""] call BIS_fnc_returnConfigEntry );
 _roleItems pushback ( [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "arsenal",""] call BIS_fnc_returnConfigEntry );
+
+// handle terminal
+private _gps = [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "terminal",""] call BIS_fnc_returnConfigEntry;
+if (_gps != "") then {
+	if (_gps in ["terminal_t1","terminal_t2","terminal_t3"]) then {	
+		if (isClass(configFile >> "cfgPatches" >> "cTab")) then {
+			_gps = format ["ctab_%1",_gps];			
+		};
+		_gps = ([missionConfigFile >> "CfgFactionEquipment" >> _gps] call BIS_fnc_returnConfigEntry);
+	};
+	_roleItems pushBack _gps;
+};
+
+// handle SR radios
+private _radio = [missionConfigFile >> "CfgLoadouts" >> _unitLoadOut >> "radio",""] call BIS_fnc_returnConfigEntry;
+if (_radio != "") then {
+	if (isClass(configFile >> "cfgPatches" >> "task_force_radio")) then {
+		_radio = ([missionConfigFile >> "CfgFactionEquipment" >> "tfar_radio"] call BIS_fnc_returnConfigEntry);
+	};
+	if (isClass(configFile >> "cfgPatches" >> "acre_main")) then {
+		_radio = ([missionConfigFile >> "CfgFactionEquipment" >> "acre_radio"] call BIS_fnc_returnConfigEntry);
+	};
+	_roleItems pushBack _radio;
+};
 
 _roleItems = flatten _roleItems;
 _roleItems = _roleItems - [""];
