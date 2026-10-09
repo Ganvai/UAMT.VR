@@ -6,7 +6,7 @@ _currBox = uiNamespace getVariable ["sppBox",objNull];
 
 if (_currBox isEqualTo objNull) exitWith {};
 
-if (load _currBox >= 1) exitWith {
+if ((load _currBox >= 1) && (_amount > 0)) exitWith {
 	playSound3D ["a3\missions_f_beta\data\sounds\firing_drills\drill_start.wss",player];
 };
 
