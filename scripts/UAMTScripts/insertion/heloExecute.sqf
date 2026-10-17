@@ -1,6 +1,6 @@
 if (!isServer) exitWith {};
 
-params ["_insHeloArray",["_insHeloDoors",[]],["_side",west],["_introSequence","none"],["_uamtMsg","true"],["_uamtAudio","false"]];
+params ["_insHeloArray",["_insHeloDoors",[]],["_side",west],["_introSequence","none"],["_uamtMsg","true"],["_uamtMsgName","TOC"],["_uamtAudio","false"]];
 
 _insHeloVeh = [];
 
