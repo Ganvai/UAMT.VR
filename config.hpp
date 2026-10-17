@@ -31,17 +31,7 @@ mccHeal = true;						// Players with Access can FUll HEAL another Player via ACE
 //
 //------------------------------------------------------------------
 //------------------------------------------------------------------
-									
-missionstartedfeat	= true; 		// Sets if the "Mission Started"-Feature is available. When the Feature is "true", all Players have the Base Menu everywhere available 
-									// until the Mission is started and missionStarted == true;
-									// After the Mission was started, every JIP Player will be spawned on the Object "base" (Therefor its best if its a flat object, like invisible Helipads).
-									// This is used for Missions that start "in field" where spawning would be normally dangerous or the Base Menu is not available. 
-									// Needs the Variable "missionStarted". It is automatically set when you use the Mission Start function in the MCC as Zeus or when
-									// you start an Intro sequence via: "scripts\UAMT-Scripts\MissionControlCenter\MCC_chapter_missionstart.sqf" remoteExec ["execVM",2];
-									// Look into the script to learn more about functions how you can call it.
-									// If you don't use it, you can set it manually in a Script via:
-									// missionStarted = true;
-									// publicVariable "missionStarted";
+
 
 loadCargoFeature = true;			// Activate Load Cargo Feature. Adds a function to Supply Boxes and Containers to be loaded as Cargo on ViV Vehicles.
 									// Although it is possible for nearly every object, right now it supports only objects you find in Een Editor under "Supplies"
@@ -67,9 +57,38 @@ paperInterface = false;				// Switches the User Interface from Tablet to Clipboa
 
 FortifyToolCamo		= "wood";			// Selects the Camo of the Items created with the Fortify Tool. Available are "wood" and "arid"
 
-// Loadout Customisation
-allowArmory			= true;			// Armory is available ingame.
-allowLoadouts		= true;			// Players can switch their roles ingame.
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+//
+//				Loadouts and Armory
+//
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+
+missionstartedfeat	= true; 		// Sets if the "Mission Started"-Feature is available. When the Feature is "true", all Players have the Base Menu everywhere available
+									// until the Mission is started and missionStarted == true;
+									// After the Mission was started, every JIP Player will be spawned on the Object "base" (Therefor its best if its a flat object, like invisible Helipads).
+									// This is used for Missions that start "in field" where spawning would be normally dangerous or the Base Menu is not available.
+									// Needs the Variable "missionStarted". It is automatically set when you use the Mission Start function in the MCC as Zeus or when
+									// you start an Intro sequence via: "scripts\UAMT-Scripts\MissionControlCenter\MCC_chapter_missionstart.sqf" remoteExec ["execVM",2];
+									// Look into the script to learn more about functions how you can call it.
+									// If you don't use it, you can set it manually in a Script via:
+									// missionStarted = true;
+									// publicVariable "missionStarted";
+
+// Armory
+// In the armory Players can customise their character with items depending on the role they are playing. Roles and the specific Items are defined in the CfgFactionEquipment.hpp
+allowArmory			= true;			// Armory is available ingame in ACE Selfinteract menu close to base.
+armoryObject 		= "";			// Armory available on object via Hold Action Menu. Leave empty if you don't want it.'
+
+// Loadouts / Roles
+// This enables that Players can choose after logging in what role they want to play. Gives Groupleaders and Players more flexibility to plan the execution.
+// Roles are an integral part in the UAMT. Players see only the items attached to their role in the ACE Arsenal.
+allowLoadouts		= true;			// Role Menu available ingame in ACE Selfinteract menu close to base.
+loadoutObject 		= "";			// Loadouts available on object via Hold Action Menu. Leave empty if you don't want it.'
+
+allowTeleport		= true;			// Show Teleport Menu in ACE Self Interaction when close to base.
+teleportObject		= "";			// Object the Teleport Option is attached to
 
 //------------------------------------------------------------------
 //------------------------------------------------------------------

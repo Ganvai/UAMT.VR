@@ -29,6 +29,93 @@ else {
 	missionNameSpace setVariable ["missionStarted",true,true];
 };
 
+
+//------------------------------------------------------------------
+//					Armory and Loadout Objects
+//------------------------------------------------------------------
+
+if (getMissionConfigValue "armoryObject" isNotEqualTo "") then {
+	_armoryObject = missionNameSpace getVariable [getMissionConfigValue "armoryObject",objNull];
+
+	if (_armoryObject isNotEqualTo objNull) then {
+
+		[
+			_armoryObject,
+			"Armory",
+			"\a3\missions_f_oldman\data\img\holdactions\holdAction_box_ca.paa",
+			"\a3\missions_f_oldman\data\img\holdactions\holdAction_box_ca.paa",
+			"_this distance _target < 6",
+			"_caller distance _target < 6",
+			{},
+			{},
+			{
+				call UAMT_fnc_loadoutArsenal;
+			},
+			{},
+			[],
+			1,
+			9999,
+			false,
+			false
+		] remoteExec ["BIS_fnc_holdActionAdd", 0, _armoryObject];
+	};
+};
+
+
+if (getMissionConfigValue "loadoutObject" isNotEqualTo "") then {
+	_loadoutObject = missionNameSpace getVariable [getMissionConfigValue "loadoutObject",objNull];
+
+	if (_loadoutObject isNotEqualTo objNull) then {
+
+		[
+			_loadoutObject,
+			"Loadouts",
+			"\a3\missions_f_oldman\data\img\holdactions\holdAction_box_ca.paa",
+			"\a3\missions_f_oldman\data\img\holdactions\holdAction_box_ca.paa",
+			"_this distance _target < 6",
+			"_caller distance _target < 6",
+			{},
+			{},
+			{
+				_loadoutDialog = createDialog "loadoutDialog";
+			},
+			{},
+			[],
+			1,
+			9999,
+			false,
+			false
+		] remoteExec ["BIS_fnc_holdActionAdd", 0, _loadoutObject];
+	};
+};
+
+
+if (getMissionConfigValue "teleportObject" isNotEqualTo "") then {
+	_teleportObject = missionNameSpace getVariable [getMissionConfigValue "teleportObject",objNull];
+
+	if (_teleportObject isNotEqualTo objNull) then {
+
+		[
+			_teleportObject,
+			"Teleport",
+			"\a3\missions_f_oldman\data\img\holdactions\holdAction_box_ca.paa",
+			"\a3\missions_f_oldman\data\img\holdactions\holdAction_box_ca.paa",
+			"_this distance _target < 6",
+			"_caller distance _target < 6",
+			{},
+			{},
+			{
+				_teleportDialog = createDialog "teleportDialog";
+			},
+			{},
+			[],
+			1,
+			9999,
+			false,
+			false
+		] remoteExec ["BIS_fnc_holdActionAdd", 0, _teleportObject];
+	};
+};
 //------------------------------------------------------------------
 //						Quick Message Feature
 //------------------------------------------------------------------

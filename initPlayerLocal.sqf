@@ -239,9 +239,11 @@ if (getMissionConfigValue "allowArmory" == "true") then {
 	[(typeOf player), 1, ["ACE_SelfActions","Base Menu"], _armory] call ace_interact_menu_fnc_addActionToClass;
 };
 
-//Add Teleport to ACE Base Menu 
-_teleport_action = ["Teleporter","Teleporter","a3\modules_f_tacops\data\civilianpresenceunit\icon32_ca.paa",{ _teleportDialog = createDialog "teleportDialog";},_conBaseMenu] call ace_interact_menu_fnc_createAction;
-[(typeOf player), 1, ["ACE_SelfActions","Base Menu"], _teleport_action] call ace_interact_menu_fnc_addActionToClass;
+//Add Teleport to ACE Base Menu
+if (getMissionConfigValue "allowTeleport" == "true") then {
+	_teleport_action = ["Teleporter","Teleporter","a3\modules_f_tacops\data\civilianpresenceunit\icon32_ca.paa",{ _teleportDialog = createDialog "teleportDialog";},_conBaseMenu] call ace_interact_menu_fnc_createAction;
+	[(typeOf player), 1, ["ACE_SelfActions","Base Menu"], _teleport_action] call ace_interact_menu_fnc_addActionToClass;
+};
 
 //Add Loadout Menu to ACE Base Menu
 if (getMissionConfigValue "allowLoadouts" == "true") then {
@@ -254,6 +256,9 @@ _reset_loadout = ["Reset Loadout","Reset Loadout","a3\modules_f\data\iconrespawn
 	[player,_loadoutArr] spawn UAMT_fnc_loadoutApply;
 },_conBaseMenu] call ace_interact_menu_fnc_createAction;
 [(typeOf player), 1, ["ACE_SelfActions","Base Menu"], _reset_loadout] call ace_interact_menu_fnc_addActionToClass;
+
+
+
 
 //------------------------------------------------------------------
 //------------------------------------------------------------------
