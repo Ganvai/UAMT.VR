@@ -263,7 +263,7 @@ class sppDialog
 				border = "\A3\ui_f\data\gui\cfg\scrollbar\border_ca.paa";
 				
 			};
-			onLBSelChanged = "[108,_this select 1] call sppDialog_fnc_manageFocus";
+			onLBSelChanged = "[104,_this select 1] call sppDialog_fnc_manageFocus";
 		};
 		
 		class BoxSelect: GroupFilt
@@ -315,7 +315,7 @@ class sppDialog
 			colorBar[] = {0.902,0.902,0.902,1};
 			colorFrame[] = {0,0,0,1};
 			texture = "#(argb,8,8,3)color(1,1,1,1)";
-			tooltip = "Shows load status of the chosen box type.\nSome boxey can carry more than others,\nbut look out for the weight.\nIf its to heavy, it can not be moved.";
+			tooltip = "Shows load status of the chosen box type.\nSome boxes can carry more than others,\nbut look out for the weight.\nIf its to heavy, it can not be moved.";
 		};
 		
 		class InventoryLB: ArsenalLB
@@ -323,7 +323,7 @@ class sppDialog
 			type = 5;
 			idc = 108;
 			x = safeZoneX + safeZoneW * 0.515;
-			onLBSelChanged = "[104,_this select 1] call sppDialog_fnc_manageFocus";
+			onLBSelChanged = "[108,_this select 1] call sppDialog_fnc_manageFocus";
 		};
 		
 		class PlusTen
