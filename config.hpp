@@ -243,7 +243,7 @@ insCarVeh[] = {"insCar_1","insCar_2","insCar_3","insCar_4"}; // Array of Cars fo
 //------------------------------------------------------------------
 cFcivil = true; // Enables/Disables the Killed Civilian Feature
 cFfriendlies = true; // Enables messages when killing friendlys
-cFFriendlySides[] = {"west","independent"};	// Side which are considered friendlies. 
+cFFriendlySides[] = {"west","independent"};	// Sides which are considered friendlies.
 											// Available sides: "west","east","indipendent"
 
 
