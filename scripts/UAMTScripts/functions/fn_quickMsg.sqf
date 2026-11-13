@@ -53,11 +53,17 @@ if (_QMqueue) then {
 	if (_sound != "Radio" && _sound != "") then {
 		_cfgSoundArray = ["CFGSounds",_sound,"sound"] call BIS_fnc_getCfgDataArray;
 		
-		_soundPath = _cfgSoundArray select 0;
-		
-		_soundID = playSound3D [getMissionPath _soundPath,objNull,false,[0,0,0],0,1,1,0,true];
-		
-		_length = (soundParams _soundID) select 2;
+		if (isNil "_cfgSoundArray" || _cfgSoundArray isEqualTo []) then {
+			_sound = "Radio";
+			_duration = 0.5;
+		}
+		else {
+			_soundPath = _cfgSoundArray select 0;
+
+			_soundID = playSound3D [getMissionPath _soundPath,objNull,false,[0,0,0],0,1,1,0,true];
+
+			_length = (soundParams _soundID) select 2;
+		};
 	};
 
 	_queueArr = [_msg,_id,_sound,_idColor,((_length + 1) / 10),_txtColor,_style,_length];
