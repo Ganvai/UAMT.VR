@@ -549,6 +549,8 @@ class CfgFunctions
 			
 			class createKeypad{};
 
+			class civPresLooks{};
+
 			class heliTaxiCall{};			
 			class heliTaxiFly{};
 		
